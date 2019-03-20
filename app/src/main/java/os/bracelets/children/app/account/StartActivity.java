@@ -1,4 +1,4 @@
-package os.bracelets.children.app.main;
+package os.bracelets.children.app.account;
 
 import android.content.Intent;
 import android.os.Handler;
@@ -7,7 +7,7 @@ import android.view.WindowManager;
 import aio.health2world.utils.SPUtils;
 import os.bracelets.children.AppConfig;
 import os.bracelets.children.R;
-import os.bracelets.children.app.account.LoginActivity;
+import os.bracelets.children.app.main.MainActivity;
 import os.bracelets.children.common.BaseActivity;
 
 /**

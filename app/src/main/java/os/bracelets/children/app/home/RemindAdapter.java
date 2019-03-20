@@ -1,4 +1,4 @@
-package os.bracelets.children.app.main;
+package os.bracelets.children.app.home;
 
 import android.support.annotation.Nullable;
 

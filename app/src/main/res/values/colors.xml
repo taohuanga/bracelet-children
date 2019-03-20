@@ -12,4 +12,7 @@
     <color name="black9">#999999</color>
     <color name="red">#ff3333</color>
     <color name="eee">#eee</color>
+
+    <color name="home_text_selected">#3899fa</color>
+    <color name="home_text_unselected">#666666</color>
 </resources>

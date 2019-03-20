@@ -15,26 +15,13 @@ public interface MainContract {
 
     interface View extends BaseView<Presenter> {
 
-        //数据保存
-        void loginWeatherSuccess(WeatherInfo info);
 
-        void loadMsgSuccess(int stepNum,List<RemindBean> list);
-
-//        void loadRemindSuccess();
     }
 
     abstract class Presenter extends BasePresenter<View> {
-
         public Presenter(View mView) {
             super(mView);
         }
-
-        abstract void homeMsg();
-
-//        abstract void remindList();
-
-        abstract void getWeather();
-
     }
 
 }
