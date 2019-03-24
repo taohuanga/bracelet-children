@@ -56,7 +56,7 @@ public class MyApplication extends Application implements AMapLocationListener {
         mContext = this;
         SApplication.init(mContext, AppConfig.isDebug);
         initApp();
-        initLocation();
+//        initLocation();
         startService(new Intent(this, BluetoothLeService.class));
         startService(new Intent(this, AppService.class));
         JPushInterface.init(this);

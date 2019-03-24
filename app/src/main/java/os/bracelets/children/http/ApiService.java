@@ -101,14 +101,6 @@ interface ApiService {
     @POST("parent/contact/list")
     Observable<HttpResult> contactList(@Body Map<String, Object> map);
 
-
-    /**
-     * 资讯列表
-     */
-    @POST("parent/information/list")
-    Observable<HttpResult> informationList(@Body Map<String, Object> map);
-
-
     /**
      * 附近的人列表
      */
@@ -132,4 +124,35 @@ interface ApiService {
      */
     @POST("sys/app/about")
     Observable<HttpResult> aboutApp(@Body Map<String, Object> map);
+
+
+
+
+
+
+    /**
+     * 消息列表
+     */
+    @POST("children/relative/msgList")
+    Observable<HttpResult> msgList(@Body Map<String, Object> map);
+
+    /**
+     * 亲人列表
+     */
+    @POST("children/relationship/list")
+    Observable<HttpResult> familyList(@Body Map<String, Object> map);
+
+
+    /**
+     * 资讯列表
+     */
+    @POST("children/information/list")
+    Observable<HttpResult> informationList(@Body Map<String, Object> map);
+
+
+    /**
+     * 资讯详情
+     */
+    @POST("children/information/info")
+    Observable<HttpResult> infoDetail(@Body Map<String, Object> map);
 }

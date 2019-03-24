@@ -22,7 +22,7 @@ public class HomeTabs extends FrameLayout implements OnClickListener {
     private RadioButton radioButton2;
     private RadioButton radioButton3;
 
-    private static final String[] TITLES = {"首页","家人","资讯","我的"};
+    private static final String[] TITLES = {"首页","亲人","资讯","我的"};
 
     public HomeTabs(Context context, AttributeSet attrs) {
         super(context, attrs);

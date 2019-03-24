@@ -83,6 +83,14 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
         return view;
     }
 
+    /**
+     * view设置OnClick事件
+     */
+    public <E extends View> void setOnClickListener(E view) {
+        view.setOnClickListener(this);
+    }
+
+
     @Override
     public void onClick(View v) {
 

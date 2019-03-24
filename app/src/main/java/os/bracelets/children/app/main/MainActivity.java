@@ -6,11 +6,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
+import os.bracelets.children.MyApplication;
 import os.bracelets.children.R;
 import os.bracelets.children.app.family.FamilyFragment;
 import os.bracelets.children.app.home.HomeFragment;
 import os.bracelets.children.app.mine.MineFragment;
-import os.bracelets.children.app.news.NewsFragment;
+import os.bracelets.children.app.news.HealthInfoFragment;
 import os.bracelets.children.common.MVPBaseActivity;
 import os.bracelets.children.view.HomeTabs;
 
@@ -22,7 +23,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.Presenter> implem
 
     private FamilyFragment familyFragment;
 
-    private NewsFragment newsFragment;
+    private HealthInfoFragment infoFragment;
 
     private MineFragment mineFragment;
 
@@ -98,11 +99,11 @@ public class MainActivity extends MVPBaseActivity<MainContract.Presenter> implem
                     transaction.show(familyFragment);
                 break;
             case 2:
-                if (newsFragment == null) {
-                    newsFragment = new NewsFragment();
-                    transaction.add(R.id.container, newsFragment);
+                if (infoFragment == null) {
+                    infoFragment = new HealthInfoFragment();
+                    transaction.add(R.id.container, infoFragment);
                 } else
-                    transaction.show(newsFragment);
+                    transaction.show(infoFragment);
                 break;
             case 3:
                 if (mineFragment == null) {
@@ -125,8 +126,8 @@ public class MainActivity extends MVPBaseActivity<MainContract.Presenter> implem
         if (familyFragment != null)
             transaction.hide(familyFragment);
 
-        if (newsFragment != null)
-            transaction.hide(newsFragment);
+        if (infoFragment != null)
+            transaction.hide(infoFragment);
 
         if (mineFragment != null)
             transaction.hide(mineFragment);
@@ -141,10 +142,14 @@ public class MainActivity extends MVPBaseActivity<MainContract.Presenter> implem
         if (familyFragment != null)
             familyFragment = null;
 
-        if (newsFragment != null)
-            newsFragment = null;
+        if (infoFragment != null)
+            infoFragment = null;
 
         if (mineFragment != null)
             mineFragment = null;
+    }
+
+    public void logout(){
+        MyApplication.getInstance().logout();
     }
 }

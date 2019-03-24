@@ -58,6 +58,7 @@
         </activity>
 
         <activity android:name=".app.account.LoginActivity">
+            <category android:name="android.intent.category.DEFAULT"/>
             <action android:name="os.bracelets.children.login" />
         </activity>
 
@@ -75,8 +76,6 @@
 
         <activity android:name=".app.ble.DeviceListActivity" />
 
-        <activity android:name=".app.news.HealthInfoActivity" />
-
         <activity android:name=".app.news.InfoDetailActivity" />
 
         <activity android:name=".app.personal.PersonalMsgActivity" />
@@ -92,8 +91,6 @@
         <activity android:name=".app.contact.ContactActivity" />
 
         <activity android:name=".app.about.FeedBackActivity" />
-
-        <activity android:name=".app.setting.SensorMsgActivity" />
 
         <service android:name=".service.AppService" />
 
