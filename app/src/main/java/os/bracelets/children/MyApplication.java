@@ -37,8 +37,6 @@ public class MyApplication extends Application implements AMapLocationListener {
 
     public static MyApplication INSTANCE;
 
-    private Context mContext;
-
     private boolean isBleConnect = false;
     //扫描到的蓝牙设备的集合
     private List<LocalDeviceEntity> deviceList = new ArrayList<>();
@@ -53,14 +51,12 @@ public class MyApplication extends Application implements AMapLocationListener {
     public void onCreate() {
         super.onCreate();
         INSTANCE = this;
-        mContext = this;
-        SApplication.init(mContext, AppConfig.isDebug);
+        SApplication.init(INSTANCE,AppConfig.isDebug);
         initApp();
-//        initLocation();
+
         startService(new Intent(this, BluetoothLeService.class));
         startService(new Intent(this, AppService.class));
-        JPushInterface.init(this);
-        JPushInterface.setDebugMode(AppConfig.isDebug);
+
     }
 
     public static MyApplication getInstance() {
@@ -117,6 +113,12 @@ public class MyApplication extends Application implements AMapLocationListener {
         filter.addAction(BluetoothAdapter.ACTION_CONNECTION_STATE_CHANGED);
         filter.addAction(BluetoothDevice.ACTION_ACL_DISCONNECTED);
         registerReceiver(new BleReceiver(), filter);
+
+        initLocation();
+
+        JPushInterface.init(this);
+        JPushInterface.setDebugMode(AppConfig.isDebug);
+
     }
 
     @Override

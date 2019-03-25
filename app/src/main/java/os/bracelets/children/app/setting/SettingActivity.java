@@ -42,7 +42,7 @@ public class SettingActivity extends MVPBaseActivity<SettingContract.Presenter> 
 
     private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd  HH:mm");
 
-    private View layoutUpdatePwd, layoutSensorMsg, layoutUpdateMsg, layoutFeedBack,layoutAbout;
+    private View layoutUpdatePwd, layoutSensorMsg, layoutUpdateMsg, layoutFeedBack, layoutAbout;
 
     @Override
     protected SettingContract.Presenter getPresenter() {
@@ -122,9 +122,6 @@ public class SettingActivity extends MVPBaseActivity<SettingContract.Presenter> 
                 break;
             case R.id.layoutUpdateMsg:
                 startActivity(new Intent(this, PersonalMsgActivity.class));
-                break;
-            case R.id.layoutSensorMsg:
-                startActivity(new Intent(this, SensorMsgActivity.class));
                 break;
             case R.id.layoutFeedBack:
                 startActivity(new Intent(this, FeedBackActivity.class));

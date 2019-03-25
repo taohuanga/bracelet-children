@@ -7,9 +7,19 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@mipmap/bg_home_top" >
+        android:layout_height="160dp"
+        android:background="@mipmap/bg_home_top">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            android:paddingBottom="12dp"
+            android:paddingLeft="110dp"
+            android:paddingRight="110dp" />
     </FrameLayout>
 
     <LinearLayout
@@ -142,13 +152,13 @@
     </RelativeLayout>
 
     <TextView
-        android:gravity="center_vertical"
         android:layout_width="match_parent"
         android:layout_height="32dp"
         android:layout_marginTop="@dimen/dp_8"
         android:background="@color/white"
-        android:paddingLeft="@dimen/dp_18"
-        android:paddingRight="@dimen/dp_18"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/dp_16"
+        android:paddingRight="@dimen/dp_16"
         android:text="消息提醒"
         android:textSize="@dimen/sp16" />
 

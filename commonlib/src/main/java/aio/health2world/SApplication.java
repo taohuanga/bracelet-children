@@ -3,6 +3,7 @@ package aio.health2world;
 import android.app.Application;
 import android.content.Context;
 import android.os.Environment;
+import android.support.compat.BuildConfig;
 
 import java.io.File;
 
@@ -20,11 +21,10 @@ public class SApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        mInstance = this;
     }
-    public static void init(Context context, boolean debug) {
+    public static void init(Context context,boolean isDebug1) {
         mInstance = context;
-        isDebug = debug;
+        isDebug = isDebug1;
     }
 
     @Override

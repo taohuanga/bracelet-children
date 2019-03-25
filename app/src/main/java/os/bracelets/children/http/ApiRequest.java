@@ -308,6 +308,17 @@ public class ApiRequest {
     }
 
 
+    //首页头部亲人列表
+    public static Subscription relative(Subscriber<HttpResult> subscriber) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("tokenId", MyApplication.getInstance().getTokenId());
+        return ServiceFactory.getInstance()
+                .createService(ApiService.class)
+                .relative(map)
+                .compose(RxTransformer.<HttpResult>defaultSchedulers())
+                .subscribe(subscriber);
+    }
+
     //消息列表
     public static Subscription msgList(String accountId, Subscriber<HttpResult> subscriber) {
         Map<String, Object> map = new HashMap<>();

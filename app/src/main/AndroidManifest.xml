@@ -100,7 +100,7 @@
 
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="1bb000d4c685f3eea8fc76a114e055c3" />
+            android:value="d7ae96e697426dfbaca4484677854917" />
 
         <!-- Required SDK 核心功能-->
         <!-- 可配置android:process参数将PushService放在其他进程中 -->

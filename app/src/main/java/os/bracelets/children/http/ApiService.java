@@ -126,9 +126,11 @@ interface ApiService {
     Observable<HttpResult> aboutApp(@Body Map<String, Object> map);
 
 
-
-
-
+    /**
+     * 首页头部亲人列表
+     */
+    @POST("children/relative/list")
+    Observable<HttpResult> relative(@Body Map<String, Object> map);
 
     /**
      * 消息列表
