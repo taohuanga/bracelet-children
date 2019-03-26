@@ -1,7 +1,10 @@
 package os.bracelets.children.app.family;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +27,8 @@ public class FamilyFragment extends MVPBaseFragment<FamilyContract.Presenter> im
 
     private FamilyAdapter familyAdapter;
 
+    private ImageView ivAdd;
+
     @Override
     protected FamilyPresenter getPresenter() {
         return new FamilyPresenter(this);
@@ -37,6 +42,7 @@ public class FamilyFragment extends MVPBaseFragment<FamilyContract.Presenter> im
 
     @Override
     protected void initView() {
+        ivAdd = findView(R.id.ivAdd);
         recyclerView = findView(R.id.recyclerView);
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         manager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -55,7 +61,7 @@ public class FamilyFragment extends MVPBaseFragment<FamilyContract.Presenter> im
 
     @Override
     protected void initListener() {
-
+        ivAdd.setOnClickListener(this);
     }
 
     @Override
@@ -63,5 +69,15 @@ public class FamilyFragment extends MVPBaseFragment<FamilyContract.Presenter> im
         familyMemberList.clear();
         familyMemberList.addAll(list);
         familyAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        switch (v.getId()) {
+            case R.id.ivAdd:
+                startActivity(new Intent(getActivity(),FamilyAddActivity.class));
+                break;
+        }
     }
 }

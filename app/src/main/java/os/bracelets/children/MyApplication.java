@@ -15,6 +15,7 @@ import com.amap.api.location.AMapLocationListener;
 import com.huichenghe.bleControl.Ble.BluetoothLeService;
 import com.huichenghe.bleControl.Ble.DeviceConfig;
 import com.huichenghe.bleControl.Ble.LocalDeviceEntity;
+import com.tencent.bugly.crashreport.CrashReport;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -118,6 +119,9 @@ public class MyApplication extends Application implements AMapLocationListener {
 
         JPushInterface.init(this);
         JPushInterface.setDebugMode(AppConfig.isDebug);
+
+        // Bugly SDK初始化
+        CrashReport.initCrashReport(getApplicationContext(), "6c047c897e", AppConfig.isDebug);
 
     }
 

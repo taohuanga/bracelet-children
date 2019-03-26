@@ -57,8 +57,8 @@ public class UrlRedirectInterceptor implements Interceptor {
         StringBuffer sb = new StringBuffer();
         for (Map.Entry<String, Object> mapping : mapList) {
             sb.append(mapping.getKey() + "=" + mapping.getValue());
-            if (SApplication.isDebug)
-                Log.i(TAG, mapping.getKey() + "=" + mapping.getValue());
+//            if (SApplication.isDebug)
+//                Log.i(TAG, mapping.getKey() + "=" + mapping.getValue());
         }
         if (SApplication.isDebug)
             Logger.i(TAG, "request==" + paramsJson);

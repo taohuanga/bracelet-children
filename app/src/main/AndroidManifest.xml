@@ -64,6 +64,8 @@
 
         <activity android:name=".app.main.MainActivity" />
 
+        <activity android:name=".app.family.FamilyAddActivity"/>
+
         <activity android:name=".app.account.RegisterActivity" />
 
         <activity android:name=".app.setting.SettingActivity" />

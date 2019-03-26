@@ -42,10 +42,11 @@
                 android:src="@drawable/icon_home_time" />
 
             <TextView
+                android:id="@+id/tvTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_8"
-                android:text="2019-03-24"
+                android:text="--"
                 android:textColor="@color/black6"
                 android:textSize="@dimen/sp14" />
         </LinearLayout>
@@ -63,6 +64,7 @@
                 android:src="@drawable/icon_home_bluetooth" />
 
             <TextView
+                android:id="@+id/tvConnect"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_8"
@@ -84,10 +86,11 @@
                 android:src="@drawable/icon_home_battery" />
 
             <TextView
+                android:id="@+id/tvBattery"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_8"
-                android:text="90%"
+                android:text="--"
                 android:textColor="@color/black6"
                 android:textSize="@dimen/sp14" />
         </LinearLayout>
@@ -105,10 +108,11 @@
                 android:src="@drawable/icon_home_weather" />
 
             <TextView
+                android:id="@+id/tvWeather"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_6"
-                android:text="多云"
+                android:text="--"
                 android:textColor="@color/black6"
                 android:textSize="@dimen/sp14" />
         </LinearLayout>
@@ -132,12 +136,13 @@
             android:textSize="@dimen/sp16" />
 
         <TextView
+            android:id="@+id/tvStepNum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/dp_16"
             android:layout_toEndOf="@id/tvTitle"
-            android:text="9999"
+            android:text="--"
             android:textColor="@color/appThemeColor"
             android:textSize="@dimen/sp16" />
 

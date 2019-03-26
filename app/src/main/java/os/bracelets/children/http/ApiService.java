@@ -157,4 +157,10 @@ interface ApiService {
      */
     @POST("children/information/info")
     Observable<HttpResult> infoDetail(@Body Map<String, Object> map);
+
+    /**
+     * 新增亲人
+     */
+    @POST("children/relationship/edit")
+    Observable<HttpResult> addMember(@Body Map<String, Object> map);
 }

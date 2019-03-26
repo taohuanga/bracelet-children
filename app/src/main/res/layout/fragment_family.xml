@@ -4,21 +4,32 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:background="@color/appThemeColor"
-        android:gravity="center">
+        android:background="@color/appThemeColor">
 
         <TextView
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:text="亲人列表"
             android:textColor="@color/white"
             android:textSize="@dimen/sp15" />
 
-    </LinearLayout>
+        <ImageView
+            android:layout_marginRight="@dimen/dp_8"
+            android:id="@+id/ivAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/dp_8"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/icon_add_family" />
+
+    </RelativeLayout>
 
     <include layout="@layout/layout_recyclerview" />
 

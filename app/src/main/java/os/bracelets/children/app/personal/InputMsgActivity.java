@@ -60,6 +60,10 @@ public class InputMsgActivity extends BaseActivity {
             editText.setFilters(new InputFilter[]{numberFilter, new InputFilter.LengthFilter(5)});
             editText.setInputType(InputType.TYPE_CLASS_NUMBER);
         }
+        if(type==PersonalMsgActivity.ITEM_PHONE){
+            editText.setFilters(new InputFilter[]{numberFilter, new InputFilter.LengthFilter(11)});
+            editText.setInputType(InputType.TYPE_CLASS_PHONE);
+        }
     }
 
     @Override

@@ -1,4 +1,4 @@
-package os.bracelets.children.app.personal;
+package os.bracelets.children.app.family;
 
 import android.Manifest;
 import android.content.Intent;
@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,22 +25,22 @@ import aio.health2world.utils.FilePathUtil;
 import aio.health2world.utils.TimePickerUtil;
 import aio.health2world.utils.ToastUtil;
 import os.bracelets.children.R;
+import os.bracelets.children.app.personal.InputMsgActivity;
 import os.bracelets.children.app.setting.UpdatePhoneActivity;
-import os.bracelets.children.bean.UserInfo;
 import os.bracelets.children.common.MVPBaseActivity;
 import os.bracelets.children.utils.TitleBarUtil;
 import os.bracelets.children.view.TitleBar;
 import rx.functions.Action1;
 
 /**
- * Created by lishiyou on 2019/2/23.
+ * Created by lishiyou on 2019/3/26.
  */
 
-public class PersonalMsgActivity extends MVPBaseActivity<PersonalMsgContract.Presenter>
-        implements PersonalMsgContract.View, TimePickerView.OnTimeSelectListener,
-        OptionsPickerView.OnOptionsSelectListener {
+public class FamilyAddActivity extends MVPBaseActivity<FamilyAddContract.Presenter>
+        implements FamilyAddContract.View , TimePickerView.OnTimeSelectListener,
+        OptionsPickerView.OnOptionsSelectListener{
 
-    private String headImageUrl;
+
 
     public static final int ITEM_HEAD = 0x01;
     public static final int ITEM_NICK = 0x02;
@@ -49,16 +50,17 @@ public class PersonalMsgActivity extends MVPBaseActivity<PersonalMsgContract.Pre
     public static final int ITEM_WEIGHT = 0x06;
     public static final int ITEM_HEIGHT = 0x07;
     public static final int ITEM_PHONE = 0x08;
-    public static final int ITEM_ADDRESS = 0x09;
 
     private TitleBar titleBar;
 
     private View layoutHeadImg, layoutNickName, layoutName, layoutSex, layoutBirthday, layoutWeight,
-            layoutHeight, layoutPhone, layoutHomeAddress;
+            layoutHeight, layoutPhone, layoutRelation;
 
     private TextView tvNickName, tvName, tvSex, tvBirthday, tvWeight, tvHeight, tvPhone, tvHomeAddress;
 
     private ImageView ivHeadImg;
+
+    private Button btnSave;
 
     private RxPermissions rxPermissions;
 
@@ -68,19 +70,22 @@ public class PersonalMsgActivity extends MVPBaseActivity<PersonalMsgContract.Pre
 
     private List<String> listSex = new ArrayList<>();
 
+    private String localImagePath = "";
+
     @Override
-    protected PersonalMsgContract.Presenter getPresenter() {
-        return new PersonalMsgPresenter(this);
+    protected FamilyAddContract.Presenter getPresenter() {
+        return new FamilyAddPresenter(this);
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_personal_msg;
+        return R.layout.activity_family_add;
     }
 
     @Override
     protected void initView() {
         titleBar = findView(R.id.titleBar);
+        btnSave = findView(R.id.btnSave);
 
         ivHeadImg = findView(R.id.ivHeadImg);
         tvNickName = findView(R.id.tvNickName);
@@ -100,13 +105,12 @@ public class PersonalMsgActivity extends MVPBaseActivity<PersonalMsgContract.Pre
         layoutWeight = findView(R.id.layoutWeight);
         layoutHeight = findView(R.id.layoutHeight);
         layoutPhone = findView(R.id.layoutPhone);
-        layoutHomeAddress = findView(R.id.layoutHomeAddress);
+        layoutRelation = findView(R.id.layoutRelation);
     }
 
     @Override
     protected void initData() {
-        TitleBarUtil.setAttr(this, "", "修改资料", titleBar);
-        mPresenter.userInfo();
+        TitleBarUtil.setAttr(this, "", "添加亲人", titleBar);
         rxPermissions = new RxPermissions(this);
         pickerView = TimePickerUtil.init(this, this);
         optionsPicker = TimePickerUtil.initOptions(this, this);
@@ -115,6 +119,17 @@ public class PersonalMsgActivity extends MVPBaseActivity<PersonalMsgContract.Pre
         optionsPicker.setPicker(listSex);
     }
 
+
+    @Override
+    public void onOptionsSelect(int options1, int options2, int options3, View v) {
+        tvSex.setText(listSex.get(options1));
+    }
+
+    @Override
+    public void onTimeSelect(Date date, View v) {
+        String time = DateUtil.getTime(date);
+        tvBirthday.setText(time);
+    }
 
     @Override
     protected void initListener() {
@@ -126,45 +141,19 @@ public class PersonalMsgActivity extends MVPBaseActivity<PersonalMsgContract.Pre
         setOnClickListener(layoutWeight);
         setOnClickListener(layoutHeight);
         setOnClickListener(layoutPhone);
-        setOnClickListener(layoutHomeAddress);
-        titleBar.setLeftClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-        titleBar.addAction(new TitleBar.TextAction("保存") {
-            @Override
-            public void performAction(View view) {
-                saveMsg();
-            }
-        });
+        setOnClickListener(layoutRelation);
+        setOnClickListener(btnSave);
     }
 
 
     @Override
-    public void onTimeSelect(Date date, View v) {
-        String time = DateUtil.getTime(date);
-        tvBirthday.setText(time);
+    public void uploadImageSuccess(String imageUrl) {
+
     }
 
     @Override
-    public void onOptionsSelect(int options1, int options2, int options3, View v) {
-        tvSex.setText(listSex.get(options1));
-    }
+    public void addMemberSuccess() {
 
-    @Override
-    public void loadInfoSuccess(UserInfo info) {
-        headImageUrl = info.getPortrait();
-        Glide.with(this)
-                .load(info.getPortrait())
-                .placeholder(R.mipmap.ic_default_portrait)
-                .error(R.mipmap.ic_default_portrait)
-                .bitmapTransform(new CropCircleTransformation(mContext))
-                .into(ivHeadImg);
-
-        tvNickName.setText(info.getNickName());
-        tvName.setText(info.getName());
     }
 
     @Override
@@ -189,49 +178,51 @@ public class PersonalMsgActivity extends MVPBaseActivity<PersonalMsgContract.Pre
                         });
                 break;
             case R.id.layoutNickName:
-                //修改昵称
+                //填写昵称
                 Intent intentNick = new Intent(this, InputMsgActivity.class);
-                intentNick.putExtra(InputMsgActivity.KEY, "修改昵称");
+                intentNick.putExtra(InputMsgActivity.KEY, "填写昵称");
                 startActivityForResult(intentNick, ITEM_NICK);
                 break;
             case R.id.layoutName:
-                //修改真实姓名
+                //填写真实姓名
                 Intent intentName = new Intent(this, InputMsgActivity.class);
-                intentName.putExtra(InputMsgActivity.KEY, "修改姓名");
+                intentName.putExtra(InputMsgActivity.KEY, "填写姓名");
                 startActivityForResult(intentName, ITEM_NAME);
                 break;
             case R.id.layoutSex:
-                //修改性别
+                //填写性别
                 optionsPicker.show();
                 break;
             case R.id.layoutBirthday:
-                //修改生日
+                //填写生日
                 pickerView.show();
                 break;
             case R.id.layoutHeight:
-                //修改身高
+                //填写身高
                 Intent intentHeight = new Intent(this, InputMsgActivity.class);
-                intentHeight.putExtra(InputMsgActivity.KEY, "修改身高");
+                intentHeight.putExtra(InputMsgActivity.KEY, "填写身高");
                 intentHeight.putExtra(InputMsgActivity.TYPE, ITEM_HEIGHT);
                 startActivityForResult(intentHeight, ITEM_HEIGHT);
                 break;
             case R.id.layoutWeight:
-                //修改体重
+                //填写体重
                 Intent intentWeight = new Intent(this, InputMsgActivity.class);
-                intentWeight.putExtra(InputMsgActivity.KEY, "修改体重");
+                intentWeight.putExtra(InputMsgActivity.KEY, "填写体重");
                 intentWeight.putExtra(InputMsgActivity.TYPE, ITEM_WEIGHT);
                 startActivityForResult(intentWeight, ITEM_WEIGHT);
                 break;
             case R.id.layoutPhone:
-                Intent intentPhone = new Intent(this, UpdatePhoneActivity.class);
+                //填写手机号
+                Intent intentPhone = new Intent(this, InputMsgActivity.class);
+                intentPhone.putExtra(InputMsgActivity.KEY, "填写手机号");
+                intentPhone.putExtra(InputMsgActivity.TYPE, ITEM_PHONE);
                 startActivityForResult(intentPhone, ITEM_PHONE);
-                //修改手机号
                 break;
-            case R.id.layoutHomeAddress:
-                Intent intentAddress = new Intent(this, InputMsgActivity.class);
-                intentAddress.putExtra(InputMsgActivity.KEY, "修改住址");
-                startActivityForResult(intentAddress, ITEM_ADDRESS);
-                //修改家庭住址
+            case R.id.layoutRelation:
+                //填写关系
+//                Intent intentAddress = new Intent(this, InputMsgActivity.class);
+//                intentAddress.putExtra(InputMsgActivity.KEY, "修改住址");
+//                startActivityForResult(intentAddress, ITEM_ADDRESS);
                 break;
 
         }
@@ -246,7 +237,7 @@ public class PersonalMsgActivity extends MVPBaseActivity<PersonalMsgContract.Pre
             case ITEM_HEAD:
                 Uri uri = data.getData();
                 if (uri != null) {
-                    String imagePath = FilePathUtil.getRealPathFromURI(PersonalMsgActivity.this, uri);
+                    String imagePath = FilePathUtil.getRealPathFromURI(FamilyAddActivity.this, uri);
                     if (!TextUtils.isEmpty(imagePath))
                         Glide.with(this)
                                 .load(imagePath)
@@ -254,7 +245,7 @@ public class PersonalMsgActivity extends MVPBaseActivity<PersonalMsgContract.Pre
                                 .error(R.mipmap.ic_default_portrait)
                                 .bitmapTransform(new CropCircleTransformation(mContext))
                                 .into(ivHeadImg);
-                    mPresenter.uploadImage(imagePath);
+                    localImagePath = imagePath;
                 }
 
                 break;
@@ -273,57 +264,6 @@ public class PersonalMsgActivity extends MVPBaseActivity<PersonalMsgContract.Pre
             case ITEM_PHONE:
                 tvPhone.setText(data.getStringExtra("data"));
                 break;
-            case ITEM_ADDRESS:
-                tvHomeAddress.setText(data.getStringExtra("data"));
-                break;
         }
-    }
-
-    //保存资料
-    private void saveMsg() {
-        if (TextUtils.isEmpty(headImageUrl)) {
-            ToastUtil.showShort("请先上传头像");
-            return;
-        }
-        String nickName = tvNickName.getText().toString().trim();
-        if (TextUtils.isEmpty(nickName)) {
-            ToastUtil.showShort("昵称不能为空");
-            return;
-        }
-        //0未知 1男 2女
-        String sex = tvSex.getText().toString().trim();
-        if (TextUtils.isEmpty(sex)) {
-            ToastUtil.showShort("性别不能为空");
-            return;
-        }
-        int sexType = 0;
-        if (sex.equals("男")) {
-            sexType = 1;
-        } else if (sex.equals("女")) {
-            sexType = 2;
-        }
-        String realName = tvName.getText().toString().trim();
-        String birthday = tvBirthday.getText().toString().trim();
-        String height = tvHeight.getText().toString().trim();
-        String weight = tvWeight.getText().toString().trim();
-        String address = tvHomeAddress.getText().toString().trim();
-        mPresenter.updateMsg(headImageUrl, nickName, realName, sexType, birthday, height, weight, address);
-    }
-
-    @Override
-    public void updateMsgSuccess() {
-
-    }
-
-    @Override
-    public void uploadImageSuccess(String imageUrl) {
-        headImageUrl = imageUrl;
-    }
-
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        pickerView = null;
     }
 }

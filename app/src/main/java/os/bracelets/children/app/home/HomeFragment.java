@@ -1,17 +1,19 @@
 package os.bracelets.children.app.home;
 
-import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import aio.health2world.utils.DateUtil;
 import os.bracelets.children.R;
 import os.bracelets.children.bean.FamilyMember;
 import os.bracelets.children.bean.RemindBean;
-import os.bracelets.children.common.BasePresenter;
+import os.bracelets.children.bean.WeatherInfo;
 import os.bracelets.children.common.MVPBaseFragment;
 
 /**
@@ -24,7 +26,7 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
 
     private CardPagerAdapter mCardAdapter;
     private ShadowTransformer mCardShadowTransformer;
-    private List<FamilyMember> familyMemberList;
+//    private List<FamilyMember> familyMemberList;
 //    private CardFragmentPagerAdapter mFragmentCardAdapter;
 //    private ShadowTransformer mFragmentCardShadowTransformer;
 
@@ -33,6 +35,8 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
     private List<RemindBean> remindList;
 
     private RemindAdapter remindAdapter;
+
+    private TextView tvTime, tvConnect, tvBattery, tvWeather, tvStepNum;
 
     @Override
     protected HomePresenter getPresenter() {
@@ -51,6 +55,12 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(manager);
+
+        tvTime = findView(R.id.tvTime);
+        tvConnect = findView(R.id.tvConnect);
+        tvBattery = findView(R.id.tvBattery);
+        tvWeather = findView(R.id.tvWeather);
+        tvStepNum = findView(R.id.tvStepNum);
     }
 
     @Override
@@ -62,17 +72,11 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
         remindAdapter.setEmptyView(R.layout.layout_empty_view);
 
         mCardAdapter = new CardPagerAdapter();
-//        mCardAdapter.addCardItem(new CardItem(R.string.title_1, R.string.text_1));
-//        mCardAdapter.addCardItem(new CardItem(R.string.title_2, R.string.text_1));
-//        mCardAdapter.addCardItem(new CardItem(R.string.title_3, R.string.text_1));
-//        mCardAdapter.addCardItem(new CardItem(R.string.title_4, R.string.text_1));
-//        mFragmentCardAdapter = new CardFragmentPagerAdapter(getActivity().getSupportFragmentManager(),
-//                dpToPixels(2, getActivity()));
 
-//        mFragmentCardShadowTransformer = new ShadowTransformer(mViewPager, mFragmentCardAdapter);
+        tvTime.setText(DateUtil.getDate(new Date(System.currentTimeMillis())));
 
 
-
+        mPresenter.getWeather();
         mPresenter.relative();
         mPresenter.msgList(String.valueOf(2));
     }
@@ -83,7 +87,14 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
     }
 
     @Override
+    public void loginWeatherSuccess(WeatherInfo info) {
+        tvWeather.setText(info.getWeather());
+    }
+
+    @Override
     public void relativeSuccess(List<FamilyMember> list) {
+        if (list.size() == 0)
+            return;
         for (FamilyMember member : list) {
             mCardAdapter.addCardItem(member);
         }

@@ -3,6 +3,7 @@ package os.bracelets.children.app.home;
 import java.util.List;
 
 import os.bracelets.children.bean.FamilyMember;
+import os.bracelets.children.bean.WeatherInfo;
 import os.bracelets.children.common.BasePresenter;
 import os.bracelets.children.common.BaseView;
 
@@ -14,10 +15,11 @@ public interface HomeContract {
 
     interface View extends BaseView<Presenter> {
 
+        void loginWeatherSuccess(WeatherInfo info);
+
         void  loadMsgSuccess();
 
         void relativeSuccess(List<FamilyMember> list);
-
     }
 
     abstract class Presenter extends BasePresenter<View> {
@@ -25,6 +27,8 @@ public interface HomeContract {
         public Presenter(View mView) {
             super(mView);
         }
+
+        abstract void getWeather();
 
         abstract void relative();
 
