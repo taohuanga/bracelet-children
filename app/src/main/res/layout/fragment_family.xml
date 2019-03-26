@@ -31,7 +31,7 @@
 
     </RelativeLayout>
 
-    <include layout="@layout/layout_recyclerview" />
+    <include layout="@layout/layout_recycler_view" />
 
 
 </LinearLayout>

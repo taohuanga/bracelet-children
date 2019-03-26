@@ -28,6 +28,7 @@ import os.bracelets.children.R;
 import os.bracelets.children.app.personal.InputMsgActivity;
 import os.bracelets.children.app.setting.UpdatePhoneActivity;
 import os.bracelets.children.common.MVPBaseActivity;
+import os.bracelets.children.http.ApiRequest;
 import os.bracelets.children.utils.TitleBarUtil;
 import os.bracelets.children.view.TitleBar;
 import rx.functions.Action1;
@@ -37,10 +38,7 @@ import rx.functions.Action1;
  */
 
 public class FamilyAddActivity extends MVPBaseActivity<FamilyAddContract.Presenter>
-        implements FamilyAddContract.View , TimePickerView.OnTimeSelectListener,
-        OptionsPickerView.OnOptionsSelectListener{
-
-
+        implements FamilyAddContract.View, TimePickerView.OnTimeSelectListener {
 
     public static final int ITEM_HEAD = 0x01;
     public static final int ITEM_NICK = 0x02;
@@ -56,7 +54,7 @@ public class FamilyAddActivity extends MVPBaseActivity<FamilyAddContract.Present
     private View layoutHeadImg, layoutNickName, layoutName, layoutSex, layoutBirthday, layoutWeight,
             layoutHeight, layoutPhone, layoutRelation;
 
-    private TextView tvNickName, tvName, tvSex, tvBirthday, tvWeight, tvHeight, tvPhone, tvHomeAddress;
+    private TextView tvNickName, tvName, tvSex, tvBirthday, tvWeight, tvHeight, tvPhone, tvRelation;
 
     private ImageView ivHeadImg;
 
@@ -66,9 +64,10 @@ public class FamilyAddActivity extends MVPBaseActivity<FamilyAddContract.Present
 
     private TimePickerView pickerView;
 
-    private OptionsPickerView optionsPicker;
+    private OptionsPickerView optionsSex, optionsRelation;
 
     private List<String> listSex = new ArrayList<>();
+    private List<String> listRelation = new ArrayList<>();
 
     private String localImagePath = "";
 
@@ -95,7 +94,7 @@ public class FamilyAddActivity extends MVPBaseActivity<FamilyAddContract.Present
         tvWeight = findView(R.id.tvWeight);
         tvHeight = findView(R.id.tvHeight);
         tvPhone = findView(R.id.tvPhone);
-        tvHomeAddress = findView(R.id.tvHomeAddress);
+        tvRelation = findView(R.id.tvRelation);
 
         layoutHeadImg = findView(R.id.layoutHeadImg);
         layoutNickName = findView(R.id.layoutNickName);
@@ -112,17 +111,33 @@ public class FamilyAddActivity extends MVPBaseActivity<FamilyAddContract.Present
     protected void initData() {
         TitleBarUtil.setAttr(this, "", "添加亲人", titleBar);
         rxPermissions = new RxPermissions(this);
+
         pickerView = TimePickerUtil.init(this, this);
-        optionsPicker = TimePickerUtil.initOptions(this, this);
+        optionsSex = TimePickerUtil.initOptions(this, new OptionsSex());
         listSex.add("男");
         listSex.add("女");
-        optionsPicker.setPicker(listSex);
+        optionsSex.setPicker(listSex);
+
+        optionsRelation = TimePickerUtil.initOptions(this, new OptionsRelation());
+        listRelation.add("父亲");
+        listRelation.add("母亲");
+        optionsRelation.setPicker(listRelation);
     }
 
 
-    @Override
-    public void onOptionsSelect(int options1, int options2, int options3, View v) {
-        tvSex.setText(listSex.get(options1));
+    class OptionsSex implements OptionsPickerView.OnOptionsSelectListener {
+        @Override
+        public void onOptionsSelect(int options1, int options2, int options3, View v) {
+            tvSex.setText(listSex.get(options1));
+        }
+    }
+
+
+    class OptionsRelation implements OptionsPickerView.OnOptionsSelectListener {
+        @Override
+        public void onOptionsSelect(int options1, int options2, int options3, View v) {
+            tvRelation.setText(listRelation.get(options1));
+        }
     }
 
     @Override
@@ -143,12 +158,19 @@ public class FamilyAddActivity extends MVPBaseActivity<FamilyAddContract.Present
         setOnClickListener(layoutPhone);
         setOnClickListener(layoutRelation);
         setOnClickListener(btnSave);
+        titleBar.setLeftClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
     }
 
 
     @Override
     public void uploadImageSuccess(String imageUrl) {
-
+        uploadMsg(imageUrl);
     }
 
     @Override
@@ -191,7 +213,7 @@ public class FamilyAddActivity extends MVPBaseActivity<FamilyAddContract.Present
                 break;
             case R.id.layoutSex:
                 //填写性别
-                optionsPicker.show();
+                optionsSex.show();
                 break;
             case R.id.layoutBirthday:
                 //填写生日
@@ -219,10 +241,15 @@ public class FamilyAddActivity extends MVPBaseActivity<FamilyAddContract.Present
                 startActivityForResult(intentPhone, ITEM_PHONE);
                 break;
             case R.id.layoutRelation:
+                optionsRelation.show();
                 //填写关系
 //                Intent intentAddress = new Intent(this, InputMsgActivity.class);
 //                intentAddress.putExtra(InputMsgActivity.KEY, "修改住址");
 //                startActivityForResult(intentAddress, ITEM_ADDRESS);
+                break;
+            case R.id.btnSave:
+                if (checkData())
+                    mPresenter.uploadImage(localImagePath);
                 break;
 
         }
@@ -265,5 +292,60 @@ public class FamilyAddActivity extends MVPBaseActivity<FamilyAddContract.Present
                 tvPhone.setText(data.getStringExtra("data"));
                 break;
         }
+    }
+
+    private boolean checkData() {
+        if (TextUtils.isEmpty(localImagePath)) {
+            ToastUtil.showShort("请选择图片");
+            return false;
+        }
+
+        if (TextUtils.isEmpty(tvNickName.getText())) {
+            ToastUtil.showShort("请填写昵称");
+            return false;
+        }
+        if (TextUtils.isEmpty(tvName.getText())) {
+            ToastUtil.showShort("请填写姓名");
+            return false;
+        }
+        if (TextUtils.isEmpty(tvSex.getText())) {
+            ToastUtil.showShort("请选择性别");
+            return false;
+        }
+        if (TextUtils.isEmpty(tvRelation.getText())) {
+            ToastUtil.showShort("请选择关系");
+            return false;
+        }
+
+        if (TextUtils.isEmpty(tvBirthday.getText())) {
+            ToastUtil.showShort("请选择出生日期");
+            return false;
+        }
+        if (TextUtils.isEmpty(tvHeight.getText())) {
+            ToastUtil.showShort("请填写身高");
+            return false;
+        }
+        if (TextUtils.isEmpty(tvWeight.getText())) {
+            ToastUtil.showShort("请填写体重");
+            return false;
+        }
+        if (TextUtils.isEmpty(tvPhone.getText())) {
+            ToastUtil.showShort("请填写手机号");
+            return false;
+        }
+        return true;
+    }
+
+    private void uploadMsg(String serverPath) {
+        String nickName = tvNickName.getText().toString();
+        String name = tvName.getText().toString();
+        int sex = tvSex.getText().equals("男") ? 0 : 1;
+        String relation = tvRelation.getText().toString();
+        String birthday = tvBirthday.getText().toString();
+        String height = tvHeight.getText().toString();
+        String weight = tvWeight.getText().toString();
+        String phone = tvPhone.getText().toString();
+        mPresenter.addFamilyMember("", serverPath, nickName, name, sex, birthday, height, weight, relation, phone);
+
     }
 }
