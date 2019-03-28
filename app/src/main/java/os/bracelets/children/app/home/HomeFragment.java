@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 import aio.health2world.utils.DateUtil;
+import aio.health2world.utils.SPUtils;
 import os.bracelets.children.R;
 import os.bracelets.children.bean.FamilyMember;
 import os.bracelets.children.bean.RemindBean;
@@ -36,7 +37,7 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
 
     private RemindAdapter remindAdapter;
 
-    private TextView tvTime, tvConnect, tvBattery, tvWeather, tvStepNum;
+    private TextView tvTime, tvWeather, tvStepNum;
 
     @Override
     protected HomePresenter getPresenter() {
@@ -57,8 +58,6 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
         recyclerView.setLayoutManager(manager);
 
         tvTime = findView(R.id.tvTime);
-        tvConnect = findView(R.id.tvConnect);
-        tvBattery = findView(R.id.tvBattery);
         tvWeather = findView(R.id.tvWeather);
         tvStepNum = findView(R.id.tvStepNum);
     }
@@ -88,7 +87,7 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
 
     @Override
     public void loginWeatherSuccess(WeatherInfo info) {
-        tvWeather.setText(info.getWeather());
+        tvWeather.setText(info.getCity() + " " + info.getWeather());
     }
 
     @Override

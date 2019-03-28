@@ -18,6 +18,7 @@ public class BaseInfo {
     private String nickName;
     private String realName;
     private String icon;
+    private String phone;
     private int userId;
     private String openId;
 
@@ -70,13 +71,21 @@ public class BaseInfo {
         this.openId = openId;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     public static BaseInfo parseBean(JSONObject object) {
         BaseInfo info = new BaseInfo();
         info.setTokenId(object.optString("tokenId"));
         info.setIcon(object.optString("icon"));
         info.setUserId(object.optInt("userId"));
         info.setNickName(object.optString("nickName"));
-        info.setRealName(object.optString("realName"));
+        info.setPhone(object.optString("phone"));
         return info;
     }
 }

@@ -34,11 +34,9 @@ public class MineFragment extends BaseFragment {
 
     private ImageView ivImage;
 
-    private TextView tvName, tvTime;
+    private TextView tvName;
 
     private Button btnLogout;
-
-    private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd  HH:mm");
 
     private View layoutUpdatePwd, layoutUpdateMsg, layoutFeedBack,layoutAbout;
     @Override
@@ -50,7 +48,6 @@ public class MineFragment extends BaseFragment {
     protected void initView() {
         ivImage = findView(R.id.ivImage);
         tvName = findView(R.id.tvName);
-        tvTime = findView(R.id.tvTime);
         btnLogout = findView(R.id.btnLogout);
         layoutUpdatePwd = findView(R.id.layoutUpdatePwd);
         layoutUpdateMsg = findView(R.id.layoutUpdateMsg);
@@ -64,7 +61,6 @@ public class MineFragment extends BaseFragment {
         String nickName = (String) SPUtils.get(getActivity(), AppConfig.USER_NICK, "");
         String userImage = (String) SPUtils.get(getActivity(), AppConfig.USER_IMG, "");
         tvName.setText(nickName);
-        tvTime.setText(format.format(new Date(System.currentTimeMillis())));
         Glide.with(this)
                 .load(userImage)
                 .placeholder(R.mipmap.ic_default_portrait)

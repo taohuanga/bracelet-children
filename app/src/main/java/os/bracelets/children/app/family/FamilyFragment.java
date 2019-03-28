@@ -2,6 +2,7 @@ package os.bracelets.children.app.family;
 
 import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -52,6 +53,7 @@ public class FamilyFragment extends MVPBaseFragment<FamilyContract.Presenter> im
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(manager);
+        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL));
         refreshLayout.setColorSchemeColors(mContext.getResources().getColor(R.color.appThemeColor));
     }
 

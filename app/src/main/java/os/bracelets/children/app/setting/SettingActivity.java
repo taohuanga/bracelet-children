@@ -36,7 +36,7 @@ public class SettingActivity extends MVPBaseActivity<SettingContract.Presenter> 
 
     private ImageView ivImage;
 
-    private TextView tvName, tvTime;
+    private TextView tvName;
 
     private Button btnLogout;
 
@@ -59,7 +59,6 @@ public class SettingActivity extends MVPBaseActivity<SettingContract.Presenter> 
         titleBar = findView(R.id.titleBar);
         ivImage = findView(R.id.ivImage);
         tvName = findView(R.id.tvName);
-        tvTime = findView(R.id.tvTime);
         btnLogout = findView(R.id.btnLogout);
         layoutUpdatePwd = findView(R.id.layoutUpdatePwd);
         layoutSensorMsg = findView(R.id.layoutSensorMsg);
@@ -81,7 +80,6 @@ public class SettingActivity extends MVPBaseActivity<SettingContract.Presenter> 
         String nickName = (String) SPUtils.get(this, AppConfig.USER_NICK, "");
         String userImage = (String) SPUtils.get(this, AppConfig.USER_IMG, "");
         tvName.setText(nickName);
-        tvTime.setText(format.format(new Date(System.currentTimeMillis())));
         Glide.with(this)
                 .load(userImage)
                 .placeholder(R.mipmap.ic_default_portrait)
