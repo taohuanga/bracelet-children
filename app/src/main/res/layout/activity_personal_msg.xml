@@ -232,6 +232,7 @@
                 android:background="#f6f6f6" />
 
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/layoutWeight"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -271,11 +272,13 @@
             </LinearLayout>
 
             <View
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="#f6f6f6" />
 
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/layoutHeight"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -315,11 +318,13 @@
             </LinearLayout>
 
             <View
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="#f6f6f6" />
 
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/layoutPhone"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -359,11 +364,13 @@
             </LinearLayout>
 
             <View
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="#f6f6f6" />
 
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/layoutHomeAddress"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"

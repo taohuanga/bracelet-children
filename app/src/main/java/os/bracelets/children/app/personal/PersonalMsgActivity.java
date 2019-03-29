@@ -27,6 +27,7 @@ import os.bracelets.children.R;
 import os.bracelets.children.app.setting.UpdatePhoneActivity;
 import os.bracelets.children.bean.UserInfo;
 import os.bracelets.children.common.MVPBaseActivity;
+import os.bracelets.children.utils.AppUtils;
 import os.bracelets.children.utils.TitleBarUtil;
 import os.bracelets.children.view.TitleBar;
 import rx.functions.Action1;
@@ -165,6 +166,8 @@ public class PersonalMsgActivity extends MVPBaseActivity<PersonalMsgContract.Pre
 
         tvNickName.setText(info.getNickName());
         tvName.setText(info.getName());
+        tvSex.setText(AppUtils.getSex(info.getSex()));
+        tvBirthday.setText(info.getBirthday());
     }
 
     @Override
@@ -281,33 +284,33 @@ public class PersonalMsgActivity extends MVPBaseActivity<PersonalMsgContract.Pre
 
     //保存资料
     private void saveMsg() {
-        if (TextUtils.isEmpty(headImageUrl)) {
-            ToastUtil.showShort("请先上传头像");
-            return;
-        }
+//        if (TextUtils.isEmpty(headImageUrl)) {
+//            ToastUtil.showShort("请先上传头像");
+//            return;
+//        }
         String nickName = tvNickName.getText().toString().trim();
-        if (TextUtils.isEmpty(nickName)) {
-            ToastUtil.showShort("昵称不能为空");
-            return;
-        }
+//        if (TextUtils.isEmpty(nickName)) {
+//            ToastUtil.showShort("昵称不能为空");
+//            return;
+//        }
         //0未知 1男 2女
         String sex = tvSex.getText().toString().trim();
-        if (TextUtils.isEmpty(sex)) {
-            ToastUtil.showShort("性别不能为空");
-            return;
-        }
+//        if (TextUtils.isEmpty(sex)) {
+//            ToastUtil.showShort("性别不能为空");
+//            return;
+//        }
         int sexType = 0;
         if (sex.equals("男")) {
             sexType = 1;
         } else if (sex.equals("女")) {
             sexType = 2;
         }
-        String realName = tvName.getText().toString().trim();
-        String birthday = tvBirthday.getText().toString().trim();
-        String height = tvHeight.getText().toString().trim();
-        String weight = tvWeight.getText().toString().trim();
-        String address = tvHomeAddress.getText().toString().trim();
-        mPresenter.updateMsg(headImageUrl, nickName, realName, sexType, birthday, height, weight, address);
+//        String realName = tvName.getText().toString().trim();
+//        String birthday = tvBirthday.getText().toString().trim();
+//        String height = tvHeight.getText().toString().trim();
+//        String weight = tvWeight.getText().toString().trim();
+//        String address = tvHomeAddress.getText().toString().trim();
+        mPresenter.saveBaseInfo(headImageUrl, nickName, "", sexType);
     }
 
     @Override

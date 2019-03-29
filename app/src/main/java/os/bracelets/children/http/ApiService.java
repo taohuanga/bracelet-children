@@ -114,10 +114,10 @@ interface ApiService {
     Observable<HttpResult> nearbyInfo(@Body Map<String, Object> map);
 
     /**
-     * 修改资料
+     * 保存修改基本信息
      */
-    @POST("parent/setting/modifiedData")
-    Observable<HttpResult> updateMsg(@Body Map<String, Object> map);
+    @POST("member/memberAccount/saveBaseInfo")
+    Observable<HttpResult> saveBaseInfo(@Body Map<String, Object> map);
 
     /**
      * 关于我们

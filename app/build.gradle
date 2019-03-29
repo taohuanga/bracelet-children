@@ -42,7 +42,9 @@ android {
         javaMaxHeapSize "1g"
         jumboMode = true
     }
-
+    lintOptions {
+        disable 'GoogleAppIndexingWarning'
+    }
     aaptOptions {
         cruncherEnabled = false
         useNewCruncher = false

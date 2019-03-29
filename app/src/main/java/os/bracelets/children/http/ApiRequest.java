@@ -272,8 +272,8 @@ public class ApiRequest {
     }
 
     //修改资料
-    public static Subscription updateMsg(String profile, String nickName, String realName, int sex, String birthday,
-                                         String height, String weight, String location, Subscriber<HttpResult> subscriber) {
+    public static Subscription saveBaseInfo(String profile, String nickName, String account, int sex,
+                                         Subscriber<HttpResult> subscriber) {
         Map<String, Object> map = new HashMap<>();
         map.put("tokenId", MyApplication.getInstance().getTokenId());
         if (!TextUtils.isEmpty(profile))
@@ -282,27 +282,15 @@ public class ApiRequest {
         if (!TextUtils.isEmpty(nickName))
             map.put("nickName", nickName);
 
-        if (!TextUtils.isEmpty(realName))
-            map.put("realName", realName);
-
         if (sex != 0)
             map.put("sex", String.valueOf(sex));
 
-        if (!TextUtils.isEmpty(birthday))
-            map.put("birthday", birthday);
-
-        if (!TextUtils.isEmpty(height))
-            map.put("height", height);
-
-        if (!TextUtils.isEmpty(weight))
-            map.put("weight", weight);
-
-        if (!TextUtils.isEmpty(location))
-            map.put("location", location);
+        if (!TextUtils.isEmpty(account))
+            map.put("account", account);
 
         return ServiceFactory.getInstance()
                 .createService(ApiService.class)
-                .updateMsg(map)
+                .saveBaseInfo(map)
                 .compose(RxTransformer.<HttpResult>defaultSchedulers())
                 .subscribe(subscriber);
     }

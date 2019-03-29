@@ -115,43 +115,44 @@ public class PersonalMsgPresenter extends PersonalMsgContract.Presenter {
     }
 
     @Override
-    void updateMsg(String profile, String nickName, final String realName, int sex, String birthday,
-                   String height, String weight, String address) {
-        ApiRequest.updateMsg(profile, nickName, realName, sex, birthday, height, weight, address,
-                new HttpSubscriber() {
+    void saveBaseInfo(final String profile, final String nickName, String account, int sex) {
+        ApiRequest.saveBaseInfo(profile, nickName, account, sex, new HttpSubscriber() {
+            @Override
+            public void onStart() {
+                super.onStart();
+                if (mView != null)
+                    mView.showLoading();
+            }
 
-                    @Override
-                    public void onStart() {
-                        super.onStart();
-                        if (mView != null)
-                            mView.showLoading();
-                    }
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+                if (mView != null)
+                    mView.hideLoading();
+            }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        super.onError(e);
-                        if (mView != null)
-                            mView.hideLoading();
-                    }
-
-                    @Override
-                    public void onNext(HttpResult result) {
-                        super.onNext(result);
-                        if (mView != null)
-                            mView.hideLoading();
-                        if (result.code.equals(AppConfig.SUCCESS)) {
-                            ToastUtil.showShort("资料保存成功");
-                            try {
-                                JSONObject object = new JSONObject(new Gson().toJson(result.data));
-                                String nickName = object.optString("nickName");
-                                String portrait = object.optString("portrait");
-                                SPUtils.put(MyApplication.getInstance(), AppConfig.USER_IMG, portrait);
-                                SPUtils.put(MyApplication.getInstance(), AppConfig.USER_NICK, nickName);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-                });
+            @Override
+            public void onNext(HttpResult result) {
+                super.onNext(result);
+                if (mView != null)
+                    mView.hideLoading();
+                if (result.code.equals(AppConfig.SUCCESS)) {
+                    ToastUtil.showShort("资料保存成功");
+                    if (!TextUtils.isEmpty(profile))
+                        SPUtils.put(MyApplication.getInstance(), AppConfig.USER_IMG, profile);
+                    if (!TextUtils.isEmpty(nickName))
+                        SPUtils.put(MyApplication.getInstance(), AppConfig.USER_NICK, nickName);
+//                    try {
+//                        JSONObject object = new JSONObject(new Gson().toJson(result.data));
+//                        String nickName = object.optString("nickName");
+//                        String portrait = object.optString("portrait");
+//                        SPUtils.put(MyApplication.getInstance(), AppConfig.USER_IMG, portrait);
+//                        SPUtils.put(MyApplication.getInstance(), AppConfig.USER_NICK, nickName);
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+                }
+            }
+        });
     }
 }
