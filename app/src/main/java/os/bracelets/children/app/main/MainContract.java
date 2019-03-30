@@ -22,6 +22,8 @@ public interface MainContract {
         public Presenter(View mView) {
             super(mView);
         }
+
+        abstract void uploadLocation();
     }
 
 }

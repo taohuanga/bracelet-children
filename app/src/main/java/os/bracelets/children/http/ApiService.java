@@ -55,6 +55,13 @@ interface ApiService {
     @POST("member/memberAccount/phoneExist")
     Observable<HttpResult> phoneExist(@Body Map<String, Object> map);
 
+
+    /**
+     * 上传位置信息（经纬度坐标）
+     */
+
+    @POST("children/home/location")
+    Observable<HttpResult> uploadLocation(@Body Map<String, Object> map);
 //    /**
 //     * 首页信息
 //     */

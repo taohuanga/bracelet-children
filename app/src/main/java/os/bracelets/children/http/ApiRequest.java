@@ -389,4 +389,17 @@ public class ApiRequest {
                 .compose(RxTransformer.<HttpResult>defaultSchedulers())
                 .subscribe(subscriber);
     }
+
+    //上传地理位置经纬度
+    public static Subscription uploadLocation(String longitude,String latitude,Subscriber<HttpResult> subscriber) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("tokenId", MyApplication.getInstance().getTokenId());
+        map.put("longitude", longitude);
+        map.put("latitude", latitude);
+        return ServiceFactory.getInstance()
+                .createService(ApiService.class)
+                .uploadLocation(map)
+                .compose(RxTransformer.<HttpResult>defaultSchedulers())
+                .subscribe(subscriber);
+    }
 }

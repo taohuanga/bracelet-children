@@ -53,9 +53,9 @@ public class LoginPresenter extends LoginContract.Presenter {
                         BaseInfo info = BaseInfo.parseBean(object);
                         SPUtils.put(MyApplication.getInstance(), AppConfig.TOKEN_ID, info.getTokenId());
                         SPUtils.put(MyApplication.getInstance(), AppConfig.USER_ID, info.getUserId() + "");
-                        SPUtils.put(MyApplication.getInstance(), AppConfig.USER_IMG, info.getIcon() + "");
+                        SPUtils.put(MyApplication.getInstance(), AppConfig.USER_IMG, info.getPortrait() + "");
                         SPUtils.put(MyApplication.getInstance(), AppConfig.USER_NICK, info.getNickName() + "");
-                        mView.loginSuccess();
+                        mView.loginSuccess(info);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -124,10 +124,10 @@ public class LoginPresenter extends LoginContract.Presenter {
                         BaseInfo info = BaseInfo.parseBean(object);
                         SPUtils.put(MyApplication.getInstance(), AppConfig.TOKEN_ID, info.getTokenId());
                         SPUtils.put(MyApplication.getInstance(), AppConfig.USER_ID, String.valueOf(info.getUserId()));
-                        SPUtils.put(MyApplication.getInstance(), AppConfig.USER_IMG, info.getIcon());
+                        SPUtils.put(MyApplication.getInstance(), AppConfig.USER_IMG, info.getPortrait());
                         SPUtils.put(MyApplication.getInstance(), AppConfig.USER_NICK, info.getNickName());
                         SPUtils.put(MyApplication.getInstance(), AppConfig.USER_PHONE, info.getPhone());
-                        mView.loginSuccess();
+                        mView.loginSuccess(info);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

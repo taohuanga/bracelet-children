@@ -20,6 +20,7 @@ import aio.health2world.utils.ToastUtil;
 import os.bracelets.children.AppConfig;
 import os.bracelets.children.R;
 import os.bracelets.children.app.main.MainActivity;
+import os.bracelets.children.bean.BaseInfo;
 import os.bracelets.children.common.MVPBaseActivity;
 import rx.functions.Action1;
 
@@ -121,9 +122,11 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.Presenter> impl
     }
 
     @Override
-    public void loginSuccess() {
+    public void loginSuccess(BaseInfo info) {
         SPUtils.put(this, AppConfig.IS_LOGIN, true);
-        startActivity(new Intent(this, MainActivity.class));
+        Intent intent = new Intent(this,MainActivity.class);
+        intent.putExtra("info",info);
+        startActivity(intent);
         finish();
     }
 

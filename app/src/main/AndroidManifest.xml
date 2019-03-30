@@ -96,13 +96,13 @@
 
         <activity android:name=".app.about.FeedBackActivity" />
 
-        <activity android:name=".app.family.DetailActivity"/>
+        <activity android:name=".app.family.DetailActivity" />
 
-        <activity android:name=".app.mine.MoreActivity"/>
+        <activity android:name=".app.mine.MoreActivity" />
 
-        <activity android:name=".app.family.TagListActivity"/>
+        <activity android:name=".app.family.TagListActivity" />
 
-        <activity android:name=".app.family.EleFenceActivity"/>
+        <activity android:name=".app.family.EleFenceActivity" />
 
         <service android:name=".service.AppService" />
 
@@ -113,6 +113,12 @@
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="d7ae96e697426dfbaca4484677854917" />
+        <activity
+            android:name="com.amap.api.navi.AmapRouteActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize" />
+
+
+        <!--**************************************************************************************************8-->
 
         <!-- Required SDK 核心功能-->
         <!-- 可配置android:process参数将PushService放在其他进程中 -->
@@ -200,6 +206,34 @@
         <meta-data
             android:name="JPUSH_APPKEY"
             android:value="06bf5ebdab8e3481e3966269" /> <!--  </>值来自开发者平台取得的AppKey-->
+
+        <!--**************************************************************************************************8-->
+        <!--环信相关-->
+        <activity android:name=".app.nearby.ChatActivity" />
+
+        <activity
+            android:name="com.hyphenate.easeui.ui.EaseShowBigImageActivity"
+            android:screenOrientation="portrait" />
+
+        <meta-data
+            android:name="EASEMOB_APPKEY"
+            android:value="1121190318085857#intelligent" />
+        <!-- 声明SDK所需的service SDK核心功能-->
+        <service
+            android:name="com.hyphenate.chat.EMChatService"
+            android:exported="true" />
+        <!-- 声明SDK所需的receiver -->
+        <receiver android:name="com.hyphenate.chat.EMMonitorReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+                <data android:scheme="package" />
+            </intent-filter>
+            <!-- 可选filter -->
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.USER_PRESENT" />
+            </intent-filter>
+        </receiver>
 
     </application>
 

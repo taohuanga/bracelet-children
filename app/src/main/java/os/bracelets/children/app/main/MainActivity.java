@@ -6,12 +6,17 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
+import com.hyphenate.EMCallBack;
+import com.hyphenate.chat.EMClient;
+
+import aio.health2world.utils.Logger;
 import os.bracelets.children.MyApplication;
 import os.bracelets.children.R;
 import os.bracelets.children.app.family.FamilyFragment;
 import os.bracelets.children.app.home.HomeFragment;
 import os.bracelets.children.app.mine.MineFragment;
 import os.bracelets.children.app.news.HealthInfoFragment;
+import os.bracelets.children.bean.BaseInfo;
 import os.bracelets.children.common.MVPBaseActivity;
 import os.bracelets.children.view.HomeTabs;
 
@@ -30,6 +35,8 @@ public class MainActivity extends MVPBaseActivity<MainContract.Presenter> implem
     private FragmentManager fragmentManager;
 
     private HomeTabs homeTabs;
+
+    private BaseInfo info;
 
     @Override
     protected MainContract.Presenter getPresenter() {
@@ -51,7 +58,26 @@ public class MainActivity extends MVPBaseActivity<MainContract.Presenter> implem
 
     @Override
     protected void initData() {
+        if (getIntent().hasExtra("info"))
+            info = (BaseInfo) getIntent().getSerializableExtra("info");
+        if (info != null)
+            EMClient.getInstance()
+                    .login(info.getPhone(), info.getPhone(), new EMCallBack() {
+                        @Override
+                        public void onSuccess() {
+                            Logger.i("hx", "login success");
+                        }
 
+                        @Override
+                        public void onError(int i, String s) {
+                            Logger.i("hx", "login failed " + s);
+                        }
+
+                        @Override
+                        public void onProgress(int i, String s) {
+
+                        }
+                    });
     }
 
     @Override
@@ -149,7 +175,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.Presenter> implem
             mineFragment = null;
     }
 
-    public void logout(){
+    public void logout() {
         MyApplication.getInstance().logout();
     }
 }

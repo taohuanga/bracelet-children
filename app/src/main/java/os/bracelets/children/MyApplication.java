@@ -15,6 +15,7 @@ import com.amap.api.location.AMapLocationListener;
 import com.huichenghe.bleControl.Ble.BluetoothLeService;
 import com.huichenghe.bleControl.Ble.DeviceConfig;
 import com.huichenghe.bleControl.Ble.LocalDeviceEntity;
+import com.hyphenate.easeui.EaseUI;
 import com.tencent.bugly.crashreport.CrashReport;
 
 import java.text.SimpleDateFormat;
@@ -53,6 +54,7 @@ public class MyApplication extends Application implements AMapLocationListener {
         super.onCreate();
         INSTANCE = this;
         SApplication.init(INSTANCE,AppConfig.isDebug);
+
         initApp();
 
         startService(new Intent(this, BluetoothLeService.class));
@@ -114,6 +116,9 @@ public class MyApplication extends Application implements AMapLocationListener {
         filter.addAction(BluetoothAdapter.ACTION_CONNECTION_STATE_CHANGED);
         filter.addAction(BluetoothDevice.ACTION_ACL_DISCONNECTED);
         registerReceiver(new BleReceiver(), filter);
+
+        //环信 目前使用的是简单版的
+        EaseUI.getInstance().init(this, null);
 
         initLocation();
 
