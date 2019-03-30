@@ -15,6 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import aio.health2world.glide_transformations.CropCircleTransformation;
+import aio.health2world.http.HttpResult;
 import aio.health2world.utils.SPUtils;
 import os.bracelets.children.AppConfig;
 import os.bracelets.children.MyApplication;
@@ -25,6 +26,8 @@ import os.bracelets.children.app.account.LoginActivity;
 import os.bracelets.children.app.personal.PersonalMsgActivity;
 import os.bracelets.children.app.setting.UpdatePwdActivity;
 import os.bracelets.children.common.BaseFragment;
+import os.bracelets.children.http.ApiRequest;
+import os.bracelets.children.http.HttpSubscriber;
 
 /**
  * Created by lishiyou on 2019/3/20.
@@ -53,20 +56,22 @@ public class MineFragment extends BaseFragment {
         layoutUpdateMsg = findView(R.id.layoutUpdateMsg);
         layoutFeedBack = findView(R.id.layoutFeedBack);
         layoutAbout = findView(R.id.layoutAbout);
+        getUserInfo();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        String nickName = (String) SPUtils.get(getActivity(), AppConfig.USER_NICK, "");
-        String userImage = (String) SPUtils.get(getActivity(), AppConfig.USER_IMG, "");
-        tvName.setText(nickName);
-        Glide.with(this)
-                .load(userImage)
-                .placeholder(R.mipmap.ic_default_portrait)
-                .error(R.mipmap.ic_default_portrait)
-                .bitmapTransform(new CropCircleTransformation(mContext))
-                .into(ivImage);
+
+//        String nickName = (String) SPUtils.get(getActivity(), AppConfig.USER_NICK, "");
+//        String userImage = (String) SPUtils.get(getActivity(), AppConfig.USER_IMG, "");
+//        tvName.setText(nickName);
+//        Glide.with(this)
+//                .load(userImage)
+//                .placeholder(R.mipmap.ic_default_portrait)
+//                .error(R.mipmap.ic_default_portrait)
+//                .bitmapTransform(new CropCircleTransformation(mContext))
+//                .into(ivImage);
     }
 
     @Override
@@ -124,5 +129,14 @@ public class MineFragment extends BaseFragment {
                 })
                 .create()
                 .show();
+    }
+
+    private void getUserInfo(){
+        ApiRequest.userInfo(new HttpSubscriber() {
+            @Override
+            public void onNext(HttpResult result) {
+                super.onNext(result);
+            }
+        });
     }
 }
