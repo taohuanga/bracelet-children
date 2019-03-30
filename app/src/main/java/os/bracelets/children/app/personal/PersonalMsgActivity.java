@@ -328,5 +328,6 @@ public class PersonalMsgActivity extends MVPBaseActivity<PersonalMsgContract.Pre
     protected void onDestroy() {
         super.onDestroy();
         pickerView = null;
+        optionsPicker=null;
     }
 }

@@ -10,6 +10,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -136,6 +140,24 @@ public class MineFragment extends BaseFragment {
             @Override
             public void onNext(HttpResult result) {
                 super.onNext(result);
+                if(result.code.equals(AppConfig.SUCCESS)){
+                    try {
+                        JSONObject object = new JSONObject(new Gson().toJson(result.data));
+//                        "nickName":"李小琳",
+//                                "portrait":"http://47.101.221.44/pic/0/group/logo/201903/1903300107188316.jpg",
+                        String nickName = object.optString("nickName");
+                        String portrait = object.optString("portrait");
+                        tvName.setText(nickName);
+                        Glide.with(MyApplication.getInstance())
+                                .load(portrait)
+                                .placeholder(R.mipmap.ic_default_portrait)
+                                .error(R.mipmap.ic_default_portrait)
+                                .bitmapTransform(new CropCircleTransformation(mContext))
+                                .into(ivImage);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         });
     }

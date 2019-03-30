@@ -272,12 +272,12 @@ public class ApiRequest {
     }
 
     //修改资料
-    public static Subscription saveBaseInfo(String profile, String nickName, String account, int sex,
+    public static Subscription saveBaseInfo(String portrait, String nickName, String account, int sex,
                                          Subscriber<HttpResult> subscriber) {
         Map<String, Object> map = new HashMap<>();
         map.put("tokenId", MyApplication.getInstance().getTokenId());
-        if (!TextUtils.isEmpty(profile))
-            map.put("profile", profile);
+        if (!TextUtils.isEmpty(portrait))
+            map.put("portrait", portrait);
 
         if (!TextUtils.isEmpty(nickName))
             map.put("nickName", nickName);

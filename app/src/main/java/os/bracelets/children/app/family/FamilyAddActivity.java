@@ -339,7 +339,7 @@ public class FamilyAddActivity extends MVPBaseActivity<FamilyAddContract.Present
     private void uploadMsg(String serverPath) {
         String nickName = tvNickName.getText().toString();
         String name = tvName.getText().toString();
-        int sex = tvSex.getText().equals("男") ? 0 : 1;
+        int sex = tvSex.getText().equals("男") ? 1 : 2;
         String relation = tvRelation.getText().toString();
         String birthday = tvBirthday.getText().toString();
         String height = tvHeight.getText().toString();
