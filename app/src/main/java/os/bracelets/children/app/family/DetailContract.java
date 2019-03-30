@@ -4,7 +4,7 @@ import os.bracelets.children.bean.FamilyMember;
 import os.bracelets.children.common.BasePresenter;
 import os.bracelets.children.common.BaseView;
 
-public interface MemberDetailContract {
+public interface DetailContract {
 
     interface View extends BaseView<Presenter>{
 

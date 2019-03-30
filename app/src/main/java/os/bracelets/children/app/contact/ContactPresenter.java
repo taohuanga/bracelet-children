@@ -27,7 +27,7 @@ public class ContactPresenter extends ContactContract.Presenter {
 
     @Override
     void contactList(int pageNo) {
-        ApiRequest.contactList(pageNo, new HttpSubscriber() {
+        ApiRequest.contactList("1",pageNo, new HttpSubscriber() {
 
             @Override
             public void onError(Throwable e) {

@@ -3,6 +3,7 @@ package os.bracelets.children.app.contact;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -54,6 +55,7 @@ public class ContactActivity extends MVPBaseActivity<ContactContract.Presenter> 
         refreshLayout = findView(R.id.refreshLayout);
         recyclerView = findView(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
     }
 
     @Override

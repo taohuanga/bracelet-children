@@ -11,9 +11,9 @@ import os.bracelets.children.bean.FamilyMember;
 import os.bracelets.children.http.ApiRequest;
 import os.bracelets.children.http.HttpSubscriber;
 
-public class MemberDetailPresenter extends MemberDetailContract.Presenter {
+public class DetailPresenter extends DetailContract.Presenter {
 
-    public MemberDetailPresenter(MemberDetailContract.View mView) {
+    public DetailPresenter(DetailContract.View mView) {
         super(mView);
     }
 

@@ -55,17 +55,17 @@ interface ApiService {
     @POST("member/memberAccount/phoneExist")
     Observable<HttpResult> phoneExist(@Body Map<String, Object> map);
 
-    /**
-     * 首页信息
-     */
-    @POST("parent/home/index")
-    Observable<HttpResult> homeMsg(@Body Map<String, Object> map);
+//    /**
+//     * 首页信息
+//     */
+//    @POST("parent/home/index")
+//    Observable<HttpResult> homeMsg(@Body Map<String, Object> map);
 
-    /**
-     * 首页待办
-     */
-    @POST("parent/home/remindList")
-    Observable<HttpResult> remindList(@Body Map<String, Object> map);
+//    /**
+//     * 首页待办
+//     */
+//    @POST("parent/home/remindList")
+//    Observable<HttpResult> remindList(@Body Map<String, Object> map);
 
     /**
      * 用户信息
@@ -98,19 +98,19 @@ interface ApiService {
     /**
      * 联系人列表
      */
-    @POST("parent/contact/list")
+    @POST("children/setting/contactsList")
     Observable<HttpResult> contactList(@Body Map<String, Object> map);
 
     /**
      * 附近的人列表
      */
-    @POST("parent/nearby/list")
+    @POST("children/nearby/list")
     Observable<HttpResult> nearbyList(@Body Map<String, Object> map);
 
     /**
      * 附近的人资料
      */
-    @POST(" parent/nearby/info")
+    @POST("children/nearby/info")
     Observable<HttpResult> nearbyInfo(@Body Map<String, Object> map);
 
     /**
@@ -170,5 +170,16 @@ interface ApiService {
     @POST("children/information/info")
     Observable<HttpResult> infoDetail(@Body Map<String, Object> map);
 
+    /**
+     * 标签列表
+     */
+    @POST("children/label/list")
+    Observable<HttpResult> tagList(@Body Map<String, Object> map);
 
+
+    /**
+     *电子围栏列表
+     */
+    @POST("children/setting/fenceList")
+    Observable<HttpResult> fenceList(@Body Map<String, Object> map);
 }

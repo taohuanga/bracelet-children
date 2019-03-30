@@ -96,7 +96,13 @@
 
         <activity android:name=".app.about.FeedBackActivity" />
 
-        <activity android:name=".app.family.MemberDetailActivity"/>
+        <activity android:name=".app.family.DetailActivity"/>
+
+        <activity android:name=".app.mine.MoreActivity"/>
+
+        <activity android:name=".app.family.TagListActivity"/>
+
+        <activity android:name=".app.family.EleFenceActivity"/>
 
         <service android:name=".service.AppService" />
 

@@ -14,9 +14,7 @@ import java.util.List;
 import aio.health2world.brvah.BaseQuickAdapter;
 import os.bracelets.children.R;
 import os.bracelets.children.bean.FamilyMember;
-import os.bracelets.children.common.BasePresenter;
 import os.bracelets.children.common.MVPBaseFragment;
-import os.bracelets.children.view.TitleBar;
 
 /**
  * Created by lishiyou on 2019/3/20.
@@ -94,7 +92,7 @@ public class FamilyFragment extends MVPBaseFragment<FamilyContract.Presenter> im
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         FamilyMember member = (FamilyMember) adapter.getItem(position);
-        Intent intent = new Intent(getActivity(), MemberDetailActivity.class);
+        Intent intent = new Intent(getActivity(), DetailActivity.class);
         intent.putExtra("accountId", String.valueOf(member.getAccountId()));
         getActivity().startActivity(intent);
     }

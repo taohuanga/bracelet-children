@@ -40,8 +40,6 @@ public class SettingActivity extends MVPBaseActivity<SettingContract.Presenter> 
 
     private Button btnLogout;
 
-    private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd  HH:mm");
-
     private View layoutUpdatePwd, layoutSensorMsg, layoutUpdateMsg, layoutFeedBack, layoutAbout;
 
     @Override

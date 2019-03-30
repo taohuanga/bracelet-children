@@ -15,8 +15,8 @@ import os.bracelets.children.utils.AppUtils;
 import os.bracelets.children.utils.TitleBarUtil;
 import os.bracelets.children.view.TitleBar;
 
-public class MemberDetailActivity extends MVPBaseActivity<MemberDetailContract.Presenter>
-        implements MemberDetailContract.View {
+public class DetailActivity extends MVPBaseActivity<DetailContract.Presenter>
+        implements DetailContract.View {
 
     private String accountId;
 
@@ -32,8 +32,8 @@ public class MemberDetailActivity extends MVPBaseActivity<MemberDetailContract.P
     private Button btnSave;
 
     @Override
-    protected MemberDetailPresenter getPresenter() {
-        return new MemberDetailPresenter(this);
+    protected DetailPresenter getPresenter() {
+        return new DetailPresenter(this);
     }
 
     @Override

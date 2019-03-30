@@ -45,7 +45,7 @@ public class MineFragment extends BaseFragment {
 
     private Button btnLogout;
 
-    private View layoutUpdatePwd, layoutUpdateMsg, layoutFeedBack,layoutAbout;
+    private View layoutUpdatePwd, layoutUpdateMsg, layoutFeedBack,layoutAbout,layoutMore;
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_mine;
@@ -60,22 +60,8 @@ public class MineFragment extends BaseFragment {
         layoutUpdateMsg = findView(R.id.layoutUpdateMsg);
         layoutFeedBack = findView(R.id.layoutFeedBack);
         layoutAbout = findView(R.id.layoutAbout);
+        layoutMore = findView(R.id.layoutMore);
         getUserInfo();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-//        String nickName = (String) SPUtils.get(getActivity(), AppConfig.USER_NICK, "");
-//        String userImage = (String) SPUtils.get(getActivity(), AppConfig.USER_IMG, "");
-//        tvName.setText(nickName);
-//        Glide.with(this)
-//                .load(userImage)
-//                .placeholder(R.mipmap.ic_default_portrait)
-//                .error(R.mipmap.ic_default_portrait)
-//                .bitmapTransform(new CropCircleTransformation(mContext))
-//                .into(ivImage);
     }
 
     @Override
@@ -90,6 +76,7 @@ public class MineFragment extends BaseFragment {
         setOnClickListener(layoutUpdateMsg);
         setOnClickListener(layoutFeedBack);
         setOnClickListener(layoutAbout);
+        setOnClickListener(layoutMore);
     }
 
     @Override
@@ -110,6 +97,9 @@ public class MineFragment extends BaseFragment {
                 break;
             case R.id.layoutAbout:
                 startActivity(new Intent(getActivity(), AboutActivity.class));
+                break;
+            case R.id.layoutMore:
+                startActivity(new Intent(getActivity(), MoreActivity.class));
                 break;
         }
     }

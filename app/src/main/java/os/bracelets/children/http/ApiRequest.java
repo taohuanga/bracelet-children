@@ -126,27 +126,27 @@ public class ApiRequest {
     }
 
 
-    //首页获取步数
-    public static Subscription homeMsg(Subscriber<HttpResult> subscriber) {
-        Map<String, Object> map = new HashMap<>();
-        map.put("tokenId", MyApplication.getInstance().getTokenId());
-        return ServiceFactory.getInstance()
-                .createService(ApiService.class)
-                .homeMsg(map)
-                .compose(RxTransformer.<HttpResult>defaultSchedulers())
-                .subscribe(subscriber);
-    }
+//    //首页获取步数
+//    public static Subscription homeMsg(Subscriber<HttpResult> subscriber) {
+//        Map<String, Object> map = new HashMap<>();
+//        map.put("tokenId", MyApplication.getInstance().getTokenId());
+//        return ServiceFactory.getInstance()
+//                .createService(ApiService.class)
+//                .homeMsg(map)
+//                .compose(RxTransformer.<HttpResult>defaultSchedulers())
+//                .subscribe(subscriber);
+//    }
 
-    //首页待办
-    public static Subscription remindList(Subscriber<HttpResult> subscriber) {
-        Map<String, Object> map = new HashMap<>();
-        map.put("tokenId", MyApplication.getInstance().getTokenId());
-        return ServiceFactory.getInstance()
-                .createService(ApiService.class)
-                .remindList(map)
-                .compose(RxTransformer.<HttpResult>defaultSchedulers())
-                .subscribe(subscriber);
-    }
+//    //首页待办
+//    public static Subscription remindList(Subscriber<HttpResult> subscriber) {
+//        Map<String, Object> map = new HashMap<>();
+//        map.put("tokenId", MyApplication.getInstance().getTokenId());
+//        return ServiceFactory.getInstance()
+//                .createService(ApiService.class)
+//                .remindList(map)
+//                .compose(RxTransformer.<HttpResult>defaultSchedulers())
+//                .subscribe(subscriber);
+//    }
 
     //获取用户信息
     public static Subscription userInfo(Subscriber<HttpResult> subscriber) {
@@ -202,10 +202,11 @@ public class ApiRequest {
 
 
     //联系人列表
-    public static Subscription contactList(int pageNo, Subscriber<HttpResult> subscriber) {
+    public static Subscription contactList(String accountId, int pageNo, Subscriber<HttpResult> subscriber) {
         Map<String, Object> map = new HashMap<>();
         map.put("tokenId", MyApplication.getInstance().getTokenId());
         map.put("pageNo", String.valueOf(pageNo));
+        map.put("accountId", accountId);
         map.put("pageSize", String.valueOf(AppConfig.PAGE_SIZE));
         return ServiceFactory.getInstance()
                 .createService(ApiService.class)
@@ -273,7 +274,7 @@ public class ApiRequest {
 
     //修改资料
     public static Subscription saveBaseInfo(String portrait, String nickName, String account, int sex,
-                                         Subscriber<HttpResult> subscriber) {
+                                            Subscriber<HttpResult> subscriber) {
         Map<String, Object> map = new HashMap<>();
         map.put("tokenId", MyApplication.getInstance().getTokenId());
         if (!TextUtils.isEmpty(portrait))
@@ -334,7 +335,7 @@ public class ApiRequest {
     //添加亲人
     public static Subscription familyAdd(String accountId, String profile, String nickName, String realName,
                                          int sex, String birthday, String height, String weight, String relationship,
-                                         String phone,Subscriber<HttpResult> subscriber) {
+                                         String phone, Subscriber<HttpResult> subscriber) {
         Map<String, Object> map = new HashMap<>();
         map.put("tokenId", MyApplication.getInstance().getTokenId());
         map.put("accountId", accountId);
@@ -353,14 +354,38 @@ public class ApiRequest {
                 .compose(RxTransformer.<HttpResult>defaultSchedulers())
                 .subscribe(subscriber);
     }
+
     //亲人详情
-    public static Subscription memberInfo(String accountId,Subscriber<HttpResult> subscriber) {
+    public static Subscription memberInfo(String accountId, Subscriber<HttpResult> subscriber) {
         Map<String, Object> map = new HashMap<>();
         map.put("tokenId", MyApplication.getInstance().getTokenId());
         map.put("accountId", accountId);
         return ServiceFactory.getInstance()
                 .createService(ApiService.class)
                 .memberInfo(map)
+                .compose(RxTransformer.<HttpResult>defaultSchedulers())
+                .subscribe(subscriber);
+    }
+
+    //标签列表
+    public static Subscription tagList(Subscriber<HttpResult> subscriber) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("tokenId", MyApplication.getInstance().getTokenId());
+        return ServiceFactory.getInstance()
+                .createService(ApiService.class)
+                .tagList(map)
+                .compose(RxTransformer.<HttpResult>defaultSchedulers())
+                .subscribe(subscriber);
+    }
+
+    //电子围栏列表
+    public static Subscription fenceList(String accountId, Subscriber<HttpResult> subscriber) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("tokenId", MyApplication.getInstance().getTokenId());
+        map.put("accountId", accountId);
+        return ServiceFactory.getInstance()
+                .createService(ApiService.class)
+                .fenceList(map)
                 .compose(RxTransformer.<HttpResult>defaultSchedulers())
                 .subscribe(subscriber);
     }
