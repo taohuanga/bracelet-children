@@ -1,6 +1,7 @@
 package os.bracelets.children.app.family;
 
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -17,17 +18,21 @@ import os.bracelets.children.bean.FamilyMember;
  * Created by lishiyou on 2019/3/24.
  */
 
-public class FamilyAdapter extends BaseQuickAdapter<FamilyMember,BaseViewHolder> {
+public class FamilyAdapter extends BaseQuickAdapter<FamilyMember, BaseViewHolder> {
 
     public FamilyAdapter(@Nullable List<FamilyMember> data) {
-        super(R.layout.item_family_member,data);
+        super(R.layout.item_family_member, data);
     }
 
     @Override
     protected void convert(BaseViewHolder helper, FamilyMember item) {
-        helper.setText(R.id.personRelation,item.getRelationship());
-        helper.setText(R.id.personName,item.getNickName());
-        helper.setText(R.id.personLabel,item.getLabels());
+        helper.setText(R.id.personRelation, item.getRelationship());
+        helper.setText(R.id.personName, item.getNickName());
+        if (TextUtils.isEmpty(item.getLabels())) {
+            helper.setText(R.id.personLabel, "暂无标签");
+        } else {
+            helper.setText(R.id.personLabel, item.getLabels());
+        }
         Glide.with(mContext)
                 .load(item.getProfile())
                 .placeholder(R.mipmap.ic_default_portrait)

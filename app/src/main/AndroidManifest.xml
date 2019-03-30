@@ -96,6 +96,8 @@
 
         <activity android:name=".app.about.FeedBackActivity" />
 
+        <activity android:name=".app.family.MemberDetailActivity"/>
+
         <service android:name=".service.AppService" />
 
         <service android:name="com.huichenghe.bleControl.Ble.BluetoothLeService" />

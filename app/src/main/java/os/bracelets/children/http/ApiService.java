@@ -144,6 +144,18 @@ interface ApiService {
     @POST("children/relationship/list")
     Observable<HttpResult> familyList(@Body Map<String, Object> map);
 
+    /**
+     * 新增亲人
+     */
+    @POST("children/relationship/edit")
+    Observable<HttpResult> addMember(@Body Map<String, Object> map);
+
+    /**
+     * 亲人详情
+     *
+     */
+    @POST("children/relationship/info")
+    Observable<HttpResult> memberInfo(@Body Map<String, Object> map);
 
     /**
      * 资讯列表
@@ -158,9 +170,5 @@ interface ApiService {
     @POST("children/information/info")
     Observable<HttpResult> infoDetail(@Body Map<String, Object> map);
 
-    /**
-     * 新增亲人
-     */
-    @POST("children/relationship/edit")
-    Observable<HttpResult> addMember(@Body Map<String, Object> map);
+
 }

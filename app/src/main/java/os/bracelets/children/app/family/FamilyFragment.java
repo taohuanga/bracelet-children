@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import java.util.ArrayList;
 import java.util.List;
 
+import aio.health2world.brvah.BaseQuickAdapter;
 import os.bracelets.children.R;
 import os.bracelets.children.bean.FamilyMember;
 import os.bracelets.children.common.BasePresenter;
@@ -22,7 +23,7 @@ import os.bracelets.children.view.TitleBar;
  */
 
 public class FamilyFragment extends MVPBaseFragment<FamilyContract.Presenter> implements FamilyContract.View,
-        SwipeRefreshLayout.OnRefreshListener {
+        SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.OnItemClickListener {
 
     private RecyclerView recyclerView;
 
@@ -53,7 +54,7 @@ public class FamilyFragment extends MVPBaseFragment<FamilyContract.Presenter> im
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(manager);
-        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL));
+        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         refreshLayout.setColorSchemeColors(mContext.getResources().getColor(R.color.appThemeColor));
     }
 
@@ -71,6 +72,7 @@ public class FamilyFragment extends MVPBaseFragment<FamilyContract.Presenter> im
     protected void initListener() {
         ivAdd.setOnClickListener(this);
         refreshLayout.setOnRefreshListener(this);
+        familyAdapter.setOnItemClickListener(this);
     }
 
     @Override
@@ -85,6 +87,16 @@ public class FamilyFragment extends MVPBaseFragment<FamilyContract.Presenter> im
         familyMemberList.clear();
         familyMemberList.addAll(list);
         familyAdapter.notifyDataSetChanged();
+
+    }
+
+
+    @Override
+    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        FamilyMember member = (FamilyMember) adapter.getItem(position);
+        Intent intent = new Intent(getActivity(), MemberDetailActivity.class);
+        intent.putExtra("accountId", String.valueOf(member.getAccountId()));
+        getActivity().startActivity(intent);
     }
 
     @Override

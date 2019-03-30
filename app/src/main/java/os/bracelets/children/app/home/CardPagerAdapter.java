@@ -58,12 +58,11 @@ public class CardPagerAdapter extends PagerAdapter implements CardAdapter {
                 .inflate(R.layout.adapter, container, false);
         container.addView(view);
         bind(mData.get(position), view);
-        CardView cardView = (CardView) view.findViewById(R.id.cardView);
+        CardView cardView = view.findViewById(R.id.cardView);
 
         if (mBaseElevation == 0) {
             mBaseElevation = cardView.getCardElevation();
         }
-
         cardView.setMaxCardElevation(mBaseElevation * MAX_ELEVATION_FACTOR);
         mViews.set(position, cardView);
         return view;
@@ -84,9 +83,9 @@ public class CardPagerAdapter extends PagerAdapter implements CardAdapter {
         Glide.with(MyApplication.getInstance())
                 .load(item.getProfile())
                 .centerCrop()
-                .placeholder(R.mipmap.bg_head)
-                .error(R.mipmap.bg_head)
-//                .bitmapTransform(new CropCircleTransformation(MyApplication.getInstance()))
+                .placeholder(R.mipmap.ic_default_portrait)
+                .error(R.mipmap.ic_default_portrait)
+                .bitmapTransform(new CropCircleTransformation(MyApplication.getInstance()))
                 .into(imageView);
     }
 

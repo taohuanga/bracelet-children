@@ -331,14 +331,14 @@ public class ApiRequest {
     }
 
 
-    //亲人列表
+    //添加亲人
     public static Subscription familyAdd(String accountId, String profile, String nickName, String realName,
                                          int sex, String birthday, String height, String weight, String relationship,
                                          String phone,Subscriber<HttpResult> subscriber) {
         Map<String, Object> map = new HashMap<>();
         map.put("tokenId", MyApplication.getInstance().getTokenId());
         map.put("accountId", accountId);
-        map.put("profile", profile);
+        map.put("portrait", profile);
         map.put("nickName", nickName);
         map.put("realName", realName);
         map.put("sex", String.valueOf(sex));
@@ -350,6 +350,17 @@ public class ApiRequest {
         return ServiceFactory.getInstance()
                 .createService(ApiService.class)
                 .addMember(map)
+                .compose(RxTransformer.<HttpResult>defaultSchedulers())
+                .subscribe(subscriber);
+    }
+    //亲人详情
+    public static Subscription memberInfo(String accountId,Subscriber<HttpResult> subscriber) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("tokenId", MyApplication.getInstance().getTokenId());
+        map.put("accountId", accountId);
+        return ServiceFactory.getInstance()
+                .createService(ApiService.class)
+                .memberInfo(map)
                 .compose(RxTransformer.<HttpResult>defaultSchedulers())
                 .subscribe(subscriber);
     }

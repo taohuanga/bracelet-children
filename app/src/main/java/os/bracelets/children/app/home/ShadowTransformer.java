@@ -21,14 +21,14 @@ public class ShadowTransformer implements ViewPager.OnPageChangeListener, ViewPa
     public void enableScaling(boolean enable) {
         if (mScalingEnabled && !enable) {
             // shrink main card
-            CardView currentCard = mAdapter.getCardViewAt(mViewPager.getCurrentItem());
+            View currentCard = mAdapter.getCardViewAt(mViewPager.getCurrentItem());
             if (currentCard != null) {
                 currentCard.animate().scaleY(1);
                 currentCard.animate().scaleX(1);
             }
         }else if(!mScalingEnabled && enable){
             // grow main card
-            CardView currentCard = mAdapter.getCardViewAt(mViewPager.getCurrentItem());
+            View currentCard = mAdapter.getCardViewAt(mViewPager.getCurrentItem());
             if (currentCard != null) {
                 currentCard.animate().scaleY(1.2f);
                 currentCard.animate().scaleX(1.2f);
