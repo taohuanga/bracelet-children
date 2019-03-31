@@ -5,12 +5,13 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import os.bracelets.children.R;
+import os.bracelets.children.app.contact.ContactActivity;
 import os.bracelets.children.bean.FamilyMember;
 import os.bracelets.children.common.BaseActivity;
 
 public class EditNavActivity extends BaseActivity {
 
-    private RelativeLayout rlSetTag, rlAddTag, rlAddRemind, rlBindDevice, rlEleList, rlAddEle;
+    private RelativeLayout rlContact, rlAddContact, rlSetTag, rlAddTag, rlAddRemind, rlBindDevice, rlEleList, rlAddEle;
 
     private FamilyMember member;
 
@@ -21,12 +22,14 @@ public class EditNavActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        rlContact = findView(R.id.rlContact);
         rlSetTag = findView(R.id.rlSetTag);
         rlAddTag = findView(R.id.rlAddTag);
         rlAddRemind = findView(R.id.rlAddRemind);
         rlBindDevice = findView(R.id.rlBindDevice);
         rlEleList = findView(R.id.rlEleList);
         rlAddEle = findView(R.id.rlAddEle);
+        rlAddContact = findView(R.id.rlAddContact);
     }
 
     @Override
@@ -36,18 +39,30 @@ public class EditNavActivity extends BaseActivity {
 
     @Override
     protected void initListener() {
+        rlContact.setOnClickListener(this);
         rlSetTag.setOnClickListener(this);
         rlAddTag.setOnClickListener(this);
         rlAddRemind.setOnClickListener(this);
         rlBindDevice.setOnClickListener(this);
         rlEleList.setOnClickListener(this);
         rlAddEle.setOnClickListener(this);
+        rlAddContact.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
 
         switch (v.getId()) {
+            case R.id.rlContact:
+                //亲人的联系人列表
+                Intent contactIntent = new Intent(this, ContactActivity.class);
+                contactIntent.putExtra("member", member);
+                startActivity(contactIntent);
+                finish();
+                break;
+            case R.id.rlAddContact:
+                //添加联系人
+                break;
             case R.id.rlSetTag:
                 Intent tagIntent = new Intent(this, LabelEditActivity.class);
                 tagIntent.putExtra("member", member);

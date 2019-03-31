@@ -17,6 +17,7 @@ import aio.health2world.rx.rxpermissions.RxPermissions;
 import os.bracelets.children.AppConfig;
 import os.bracelets.children.R;
 import os.bracelets.children.bean.ContactBean;
+import os.bracelets.children.bean.FamilyMember;
 import os.bracelets.children.common.MVPBaseActivity;
 import os.bracelets.children.utils.TitleBarUtil;
 import os.bracelets.children.view.TitleBar;
@@ -44,6 +45,8 @@ public class ContactActivity extends MVPBaseActivity<ContactContract.Presenter> 
 
     private RxPermissions rxPermissions;
 
+    private FamilyMember member;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_info_list;
@@ -70,6 +73,8 @@ public class ContactActivity extends MVPBaseActivity<ContactContract.Presenter> 
         contactAdapter.bindToRecyclerView(recyclerView);
         contactAdapter.setEmptyView(R.layout.layout_empty_view);
 
+        member = (FamilyMember) getIntent().getSerializableExtra("member");
+
         onRefresh();
     }
 
@@ -95,13 +100,13 @@ public class ContactActivity extends MVPBaseActivity<ContactContract.Presenter> 
     public void onRefresh() {
         pageNo = 1;
         refreshLayout.setRefreshing(true);
-        mPresenter.contactList(pageNo);
+        mPresenter.contactList(pageNo,String.valueOf(member.getAccountId()));
     }
 
     @Override
     public void onLoadMoreRequested() {
         pageNo++;
-        mPresenter.contactList(pageNo);
+        mPresenter.contactList(pageNo,String.valueOf(member.getAccountId()));
     }
 
     @Override

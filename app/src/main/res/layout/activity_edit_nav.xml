@@ -6,6 +6,46 @@
     android:orientation="vertical">
 
     <RelativeLayout
+        android:id="@+id/rlContact"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/selector_item_click_bg"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="联系人列表"
+            android:textColor="@color/black6"
+            android:textSize="@dimen/sp15" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#f6f6f6" />
+
+    <RelativeLayout
+        android:id="@+id/rlAddContact"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/selector_item_click_bg"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="添加联系人"
+            android:textColor="@color/black6"
+            android:textSize="@dimen/sp15" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#f6f6f6" />
+
+    <RelativeLayout
         android:id="@+id/rlSetTag"
         android:layout_width="match_parent"
         android:layout_height="48dp"

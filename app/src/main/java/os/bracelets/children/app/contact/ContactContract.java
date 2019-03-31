@@ -26,7 +26,7 @@ public interface ContactContract {
         }
 
 
-        abstract void contactList(int pageNo);
+        abstract void contactList(int pageNo,String accountId);
 
     }
 

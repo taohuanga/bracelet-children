@@ -209,4 +209,11 @@ interface ApiService {
     @POST("children/setting/binding")
     Observable<HttpResult> bindDevice(@Body Map<String, Object> map);
 
+    /**
+     * 亲人的联系人列表
+     */
+
+//    @POST("children/setting/contactsList")
+//    Observable<HttpResult> contactList(@Body Map<String, Object> map);
+
 }
