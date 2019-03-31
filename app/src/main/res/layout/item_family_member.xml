@@ -26,6 +26,7 @@
             android:id="@+id/personRelation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_2"
             android:text=""
             android:textColor="@color/black6"
             android:textSize="@dimen/sp15" />
@@ -34,7 +35,7 @@
             android:id="@+id/personName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_12"
+            android:layout_marginLeft="@dimen/dp_8"
             android:layout_toEndOf="@id/personRelation"
             android:text=""
             android:textColor="@color/black6"
@@ -44,7 +45,8 @@
             android:id="@+id/flowLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/personRelation" />
+            android:layout_below="@id/personRelation"
+            android:layout_marginTop="@dimen/dp_4" />
 
 
     </RelativeLayout>
