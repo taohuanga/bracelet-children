@@ -143,12 +143,12 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/icon_about_us" />
+                    android:src="@mipmap/icon_nearby_person" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_12"
+                    android:layout_marginStart="@dimen/dp_8"
                     android:layout_weight="1"
                     android:text="附近的人"
                     android:textColor="@color/black6"
@@ -160,6 +160,7 @@
                     android:layout_height="16dp"
                     android:src="@mipmap/icon_right" />
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -181,12 +182,12 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/icon_about_us" />
+                    android:src="@mipmap/icon_nav" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_12"
+                    android:layout_marginStart="@dimen/dp_8"
                     android:layout_weight="1"
                     android:text="位置导航"
                     android:textColor="@color/black6"
@@ -198,12 +199,14 @@
                     android:layout_height="16dp"
                     android:src="@mipmap/icon_right" />
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginLeft="@dimen/dp_8"
                 android:layout_marginRight="@dimen/dp_8"
                 android:background="#f6f6f6" />
+
             <LinearLayout
                 android:id="@+id/layoutFeedBack"
                 android:layout_width="match_parent"
@@ -280,7 +283,6 @@
                 android:background="#f6f6f6" />
 
             <LinearLayout
-                android:visibility="gone"
                 android:id="@+id/layoutMore"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -288,7 +290,8 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingLeft="@dimen/dp_8"
-                android:paddingRight="@dimen/dp_8">
+                android:paddingRight="@dimen/dp_8"
+                android:visibility="gone">
 
                 <ImageView
                     android:layout_width="wrap_content"

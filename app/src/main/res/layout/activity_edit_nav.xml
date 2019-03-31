@@ -63,14 +63,16 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#f6f6f6" />
+        android:background="#f6f6f6"
+        android:visibility="gone" />
 
     <RelativeLayout
         android:id="@+id/rlAddTag"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="@drawable/selector_item_click_bg"
-        android:gravity="center">
+        android:gravity="center"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="wrap_content"
