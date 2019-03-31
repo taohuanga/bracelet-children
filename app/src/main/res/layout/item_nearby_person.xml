@@ -63,8 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_4"
-            android:layout_marginRight="@dimen/dp_4"
+            android:layout_marginLeft="@dimen/dp_8"
             android:text="----"
             android:textColor="@color/black9"
             android:textSize="@dimen/sp15" />

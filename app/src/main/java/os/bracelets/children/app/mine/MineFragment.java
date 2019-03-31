@@ -27,6 +27,7 @@ import os.bracelets.children.R;
 import os.bracelets.children.app.about.AboutActivity;
 import os.bracelets.children.app.about.FeedBackActivity;
 import os.bracelets.children.app.account.LoginActivity;
+import os.bracelets.children.app.nearby.NearbyActivity;
 import os.bracelets.children.app.personal.PersonalMsgActivity;
 import os.bracelets.children.app.setting.UpdatePwdActivity;
 import os.bracelets.children.common.BaseFragment;
@@ -45,7 +46,7 @@ public class MineFragment extends BaseFragment {
 
     private Button btnLogout;
 
-    private View layoutUpdatePwd, layoutUpdateMsg, layoutFeedBack,layoutAbout,layoutMore;
+    private View layoutUpdatePwd, layoutUpdateMsg, layoutNearby,layoutFeedBack,layoutAbout,layoutMore;
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_mine;
@@ -58,6 +59,7 @@ public class MineFragment extends BaseFragment {
         btnLogout = findView(R.id.btnLogout);
         layoutUpdatePwd = findView(R.id.layoutUpdatePwd);
         layoutUpdateMsg = findView(R.id.layoutUpdateMsg);
+        layoutNearby = findView(R.id.layoutNearby);
         layoutFeedBack = findView(R.id.layoutFeedBack);
         layoutAbout = findView(R.id.layoutAbout);
         layoutMore = findView(R.id.layoutMore);
@@ -77,6 +79,7 @@ public class MineFragment extends BaseFragment {
         setOnClickListener(layoutFeedBack);
         setOnClickListener(layoutAbout);
         setOnClickListener(layoutMore);
+        setOnClickListener(layoutNearby);
     }
 
     @Override
@@ -91,6 +94,9 @@ public class MineFragment extends BaseFragment {
                 break;
             case R.id.layoutUpdateMsg:
                 startActivity(new Intent(getActivity(), PersonalMsgActivity.class));
+                break;
+            case R.id.layoutNearby:
+                startActivity(new Intent(getActivity(), NearbyActivity.class));
                 break;
             case R.id.layoutFeedBack:
                 startActivity(new Intent(getActivity(), FeedBackActivity.class));
