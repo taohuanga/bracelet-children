@@ -15,9 +15,9 @@ import os.bracelets.children.bean.EleFence;
 import os.bracelets.children.http.ApiRequest;
 import os.bracelets.children.http.HttpSubscriber;
 
-public class EleFencePresenter extends EleFenceContract.Presenter {
+public class EleFencePresenter extends EleFenceListContract.Presenter {
 
-    public EleFencePresenter(EleFenceContract.View mView) {
+    public EleFencePresenter(EleFenceListContract.View mView) {
         super(mView);
     }
 

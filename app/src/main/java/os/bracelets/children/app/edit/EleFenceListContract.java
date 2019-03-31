@@ -6,7 +6,7 @@ import os.bracelets.children.bean.EleFence;
 import os.bracelets.children.common.BasePresenter;
 import os.bracelets.children.common.BaseView;
 
-public interface EleFenceContract {
+public interface EleFenceListContract {
 
     interface View extends BaseView<Presenter> {
 

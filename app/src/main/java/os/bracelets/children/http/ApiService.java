@@ -210,10 +210,15 @@ interface ApiService {
     Observable<HttpResult> bindDevice(@Body Map<String, Object> map);
 
     /**
-     * 亲人的联系人列表
+     * 亲人的联系人添加
      */
+    @POST("children/setting/contacts")
+    Observable<HttpResult> contactAdd(@Body Map<String, Object> map);
 
-//    @POST("children/setting/contactsList")
-//    Observable<HttpResult> contactList(@Body Map<String, Object> map);
+    /**
+     *添加电子围栏
+     */
+    @POST("children/setting/fence")
+    Observable<HttpResult> fenceAdd(@Body Map<String, Object> map);
 
 }

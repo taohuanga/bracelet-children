@@ -11,7 +11,7 @@ import java.io.Serializable;
 
 public class ContactBean implements Serializable {
     //    头像
-    private String profile;
+    private String portrait;
     //            昵称
     private String nickName;
     //    手机号码
@@ -21,12 +21,12 @@ public class ContactBean implements Serializable {
     //    性别描述0 未知 1 男 2 女
     private String sexDesc;
 
-    public String getProfile() {
-        return profile;
+    public String getPortrait() {
+        return portrait;
     }
 
-    public void setProfile(String profile) {
-        this.profile = profile;
+    public void setPortrait(String portrait) {
+        this.portrait = portrait;
     }
 
     public String getNickName() {
@@ -63,7 +63,7 @@ public class ContactBean implements Serializable {
 
     public static ContactBean parseBean(JSONObject object) {
         ContactBean contact = new ContactBean();
-        contact.setProfile(object.optString("profile", ""));
+        contact.setPortrait(object.optString("portrait", ""));
         contact.setNickName(object.optString("nickName", ""));
         contact.setPhone(object.optString("phone", ""));
         contact.setSex(object.optInt("sex", 0));

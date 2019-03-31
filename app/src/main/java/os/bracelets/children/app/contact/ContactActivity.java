@@ -63,7 +63,7 @@ public class ContactActivity extends MVPBaseActivity<ContactContract.Presenter> 
 
     @Override
     protected void initData() {
-        TitleBarUtil.setAttr(this, "", "一键拨号", titleBar);
+        TitleBarUtil.setAttr(this, "", "联系人列表", titleBar);
         rxPermissions = new RxPermissions(this);
         refreshLayout.setColorSchemeColors(mContext.getResources().getColor(R.color.appThemeColor));
         personList = new ArrayList<>();

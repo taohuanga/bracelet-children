@@ -391,7 +391,7 @@ public class ApiRequest {
     }
 
     //上传地理位置经纬度
-    public static Subscription uploadLocation(String longitude,String latitude,Subscriber<HttpResult> subscriber) {
+    public static Subscription uploadLocation(String longitude, String latitude, Subscriber<HttpResult> subscriber) {
         Map<String, Object> map = new HashMap<>();
         map.put("tokenId", MyApplication.getInstance().getTokenId());
         map.put("longitude", longitude);
@@ -404,8 +404,8 @@ public class ApiRequest {
     }
 
     //设置提醒
-    public static Subscription remind(String accountId,String remindTitle,String remind,String remindPeriod,
-                                      String remindTime,Subscriber<HttpResult> subscriber) {
+    public static Subscription remind(String accountId, String remindTitle, String remind, String remindPeriod,
+                                      String remindTime, Subscriber<HttpResult> subscriber) {
         Map<String, Object> map = new HashMap<>();
         map.put("tokenId", MyApplication.getInstance().getTokenId());
         map.put("accountId", accountId);
@@ -421,7 +421,7 @@ public class ApiRequest {
     }
 
     //给亲人设置标签
-    public static Subscription setTag(String accountId,String labelIds,Subscriber<HttpResult> subscriber) {
+    public static Subscription setTag(String accountId, String labelIds, Subscriber<HttpResult> subscriber) {
         Map<String, Object> map = new HashMap<>();
         map.put("tokenId", MyApplication.getInstance().getTokenId());
         map.put("accountId", accountId);
@@ -434,7 +434,7 @@ public class ApiRequest {
     }
 
     //绑定硬件
-    public static Subscription bindDevice(String accountId,String deviceNo,Subscriber<HttpResult> subscriber) {
+    public static Subscription bindDevice(String accountId, String deviceNo, Subscriber<HttpResult> subscriber) {
         Map<String, Object> map = new HashMap<>();
         map.put("tokenId", MyApplication.getInstance().getTokenId());
         map.put("accountId", accountId);
@@ -446,4 +446,39 @@ public class ApiRequest {
                 .subscribe(subscriber);
     }
 
+
+    //亲人的联系人增加
+    public static Subscription contactAdd(String accountId, String portrait, String nickName, String phone,
+                                          int sex, Subscriber<HttpResult> subscriber) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("tokenId", MyApplication.getInstance().getTokenId());
+        map.put("accountId", accountId);
+        map.put("portrait", portrait);
+        map.put("nickName", nickName);
+        map.put("phone", phone);
+        map.put("sex", String.valueOf(sex));
+        return ServiceFactory.getInstance()
+                .createService(ApiService.class)
+                .contactAdd(map)
+                .compose(RxTransformer.<HttpResult>defaultSchedulers())
+                .subscribe(subscriber);
+    }
+
+
+    //添加电子围栏
+    public static Subscription fenceAdd(String accountId, String location, String longitude, String latitude,
+                                        String fenceScope, Subscriber<HttpResult> subscriber) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("tokenId", MyApplication.getInstance().getTokenId());
+        map.put("accountId", accountId);
+        map.put("location", location);
+        map.put("longitude", longitude);
+        map.put("latitude", latitude);
+        map.put("fenceScope", fenceScope);
+        return ServiceFactory.getInstance()
+                .createService(ApiService.class)
+                .fenceAdd(map)
+                .compose(RxTransformer.<HttpResult>defaultSchedulers())
+                .subscribe(subscriber);
+    }
 }

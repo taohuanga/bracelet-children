@@ -98,7 +98,8 @@ public class LabelEditActivity extends MVPBaseActivity<LabelContract.Presenter> 
 
     @Override
     public void setTagSuccess() {
-
+        setResult(RESULT_OK);
+        finish();
     }
 
     @Override
@@ -130,6 +131,6 @@ public class LabelEditActivity extends MVPBaseActivity<LabelContract.Presenter> 
         }
         labelIds = labelIds.substring(0, labelIds.length() - 1);
 
-        mPresenter.setTag(String.valueOf(member.getAccountId()),labelIds);
+        mPresenter.setTag(String.valueOf(member.getAccountId()), labelIds);
     }
 }

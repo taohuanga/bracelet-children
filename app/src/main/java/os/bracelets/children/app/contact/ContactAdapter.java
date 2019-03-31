@@ -31,7 +31,7 @@ public class ContactAdapter extends BaseQuickAdapter<ContactBean, BaseViewHolder
         helper.setText(R.id.personName, item.getNickName());
         helper.setText(R.id.personPhone, item.getPhone());
         Glide.with(mContext)
-                .load(item.getProfile())
+                .load(item.getPortrait())
                 .placeholder(R.mipmap.ic_default_portrait)
                 .error(R.mipmap.ic_default_portrait)
                 .bitmapTransform(new CropCircleTransformation(mContext))

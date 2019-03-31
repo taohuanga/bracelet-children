@@ -98,10 +98,10 @@ public class NearbyActivity extends MVPBaseActivity<NearbyContract.Presenter> im
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-//        NearbyPerson person = (NearbyPerson) adapter.getItem(position);
-//        Intent intent = new Intent(this, NearbyDetailActivity.class);
-//        intent.putExtra("person", person);
-//        startActivity(intent);
+        NearbyPerson person = (NearbyPerson) adapter.getItem(position);
+        Intent intent = new Intent(this, NearbyDetailActivity.class);
+        intent.putExtra("person", person);
+        startActivity(intent);
     }
 
     @Override

@@ -28,6 +28,14 @@ public class FamilyPresenter extends FamilyContract.Presenter {
     @Override
     void familyList() {
         ApiRequest.familyList(new HttpSubscriber() {
+
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+                if(mView!=null)
+                    mView.loadFamilyError();
+            }
+
             @Override
             public void onNext(HttpResult result) {
                 super.onNext(result);

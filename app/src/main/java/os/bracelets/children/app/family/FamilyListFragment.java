@@ -89,9 +89,12 @@ public class FamilyListFragment extends MVPBaseFragment<FamilyContract.Presenter
         familyMemberList.clear();
         familyMemberList.addAll(list);
         familyAdapter.notifyDataSetChanged();
-
     }
 
+    @Override
+    public void loadFamilyError() {
+        refreshLayout.setRefreshing(false);
+    }
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {

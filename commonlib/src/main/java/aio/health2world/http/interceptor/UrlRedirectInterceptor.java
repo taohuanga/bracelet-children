@@ -57,11 +57,11 @@ public class UrlRedirectInterceptor implements Interceptor {
         StringBuffer sb = new StringBuffer();
         for (Map.Entry<String, Object> mapping : mapList) {
             sb.append(mapping.getKey() + "=" + mapping.getValue());
-//            if (SApplication.isDebug)
-//                Log.i(TAG, mapping.getKey() + "=" + mapping.getValue());
+            if (SApplication.isDebug)
+                Log.i(TAG, mapping.getKey() + "=" + mapping.getValue());
         }
-        if (SApplication.isDebug)
-            Logger.i(TAG, "request==" + paramsJson);
+//        if (SApplication.isDebug)
+//            Logger.i(TAG, "request==" + paramsJson);
         String sign = sb.append(Constant.APPSECRET_VALUES).toString();
         HttpUrl newHttpUrl = request.url().newBuilder()
                 .addQueryParameter("sign", MD5Util.getMD5String(sign))

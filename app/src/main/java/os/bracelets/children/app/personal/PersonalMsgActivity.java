@@ -40,7 +40,9 @@ public class PersonalMsgActivity extends MVPBaseActivity<PersonalMsgContract.Pre
         implements PersonalMsgContract.View, TimePickerView.OnTimeSelectListener,
         OptionsPickerView.OnOptionsSelectListener {
 
-    private String headImageUrl;
+    private String localImagePath;
+
+    private String serverImageUrl;
 
     public static final int ITEM_HEAD = 0x01;
     public static final int ITEM_NICK = 0x02;
@@ -156,7 +158,7 @@ public class PersonalMsgActivity extends MVPBaseActivity<PersonalMsgContract.Pre
 
     @Override
     public void loadInfoSuccess(UserInfo info) {
-        headImageUrl = info.getPortrait();
+        serverImageUrl = info.getPortrait();
         Glide.with(this)
                 .load(info.getPortrait())
                 .placeholder(R.mipmap.ic_default_portrait)
@@ -226,9 +228,9 @@ public class PersonalMsgActivity extends MVPBaseActivity<PersonalMsgContract.Pre
                 startActivityForResult(intentWeight, ITEM_WEIGHT);
                 break;
             case R.id.layoutPhone:
+                //修改手机号
                 Intent intentPhone = new Intent(this, UpdatePhoneActivity.class);
                 startActivityForResult(intentPhone, ITEM_PHONE);
-                //修改手机号
                 break;
             case R.id.layoutHomeAddress:
                 Intent intentAddress = new Intent(this, InputMsgActivity.class);
@@ -249,15 +251,14 @@ public class PersonalMsgActivity extends MVPBaseActivity<PersonalMsgContract.Pre
             case ITEM_HEAD:
                 Uri uri = data.getData();
                 if (uri != null) {
-                    String imagePath = FilePathUtil.getRealPathFromURI(PersonalMsgActivity.this, uri);
-                    if (!TextUtils.isEmpty(imagePath))
+                    localImagePath = FilePathUtil.getRealPathFromURI(PersonalMsgActivity.this, uri);
+                    if (!TextUtils.isEmpty(localImagePath))
                         Glide.with(this)
-                                .load(imagePath)
+                                .load(localImagePath)
                                 .placeholder(R.mipmap.ic_default_portrait)
                                 .error(R.mipmap.ic_default_portrait)
                                 .bitmapTransform(new CropCircleTransformation(mContext))
                                 .into(ivHeadImg);
-                    mPresenter.uploadImage(imagePath);
                 }
 
                 break;
@@ -284,21 +285,26 @@ public class PersonalMsgActivity extends MVPBaseActivity<PersonalMsgContract.Pre
 
     //保存资料
     private void saveMsg() {
-//        if (TextUtils.isEmpty(headImageUrl)) {
-//            ToastUtil.showShort("请先上传头像");
-//            return;
-//        }
+        if (TextUtils.isEmpty(serverImageUrl) && TextUtils.isEmpty(localImagePath)) {
+            ToastUtil.showShort("请先上传头像");
+            return;
+        }
         String nickName = tvNickName.getText().toString().trim();
-//        if (TextUtils.isEmpty(nickName)) {
-//            ToastUtil.showShort("昵称不能为空");
-//            return;
-//        }
+        if (TextUtils.isEmpty(nickName)) {
+            ToastUtil.showShort("昵称不能为空");
+            return;
+        }
+        String name = tvName.getText().toString();
+        if (TextUtils.isEmpty(name)) {
+            ToastUtil.showShort("姓名不能为空");
+            return;
+        }
         //0未知 1男 2女
         String sex = tvSex.getText().toString().trim();
-//        if (TextUtils.isEmpty(sex)) {
-//            ToastUtil.showShort("性别不能为空");
-//            return;
-//        }
+        if (TextUtils.isEmpty(sex)) {
+            ToastUtil.showShort("性别不能为空");
+            return;
+        }
         int sexType = 0;
         if (sex.equals("男")) {
             sexType = 1;
@@ -310,7 +316,11 @@ public class PersonalMsgActivity extends MVPBaseActivity<PersonalMsgContract.Pre
 //        String height = tvHeight.getText().toString().trim();
 //        String weight = tvWeight.getText().toString().trim();
 //        String address = tvHomeAddress.getText().toString().trim();
-        mPresenter.saveBaseInfo(headImageUrl, nickName, "", sexType);
+        if (!TextUtils.isEmpty(localImagePath))
+            mPresenter.uploadImage(localImagePath);
+        else
+            mPresenter.saveBaseInfo(serverImageUrl, nickName, "", sexType);
+
     }
 
     @Override
@@ -320,7 +330,8 @@ public class PersonalMsgActivity extends MVPBaseActivity<PersonalMsgContract.Pre
 
     @Override
     public void uploadImageSuccess(String imageUrl) {
-        headImageUrl = imageUrl;
+        mPresenter.saveBaseInfo(imageUrl, tvNickName.getText().toString(), "",
+                tvSex.getText().equals("男") ? 1 : 2);
     }
 
 
@@ -328,6 +339,6 @@ public class PersonalMsgActivity extends MVPBaseActivity<PersonalMsgContract.Pre
     protected void onDestroy() {
         super.onDestroy();
         pickerView = null;
-        optionsPicker=null;
+        optionsPicker = null;
     }
 }

@@ -72,14 +72,13 @@
                     android:textSize="@dimen/sp15" />
 
 
-
                 <TextView
-                    android:layout_marginLeft="@dimen/dp_8"
-                    android:layout_weight="1"
-                    android:gravity="right"
                     android:id="@+id/tvNickName"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_8"
+                    android:layout_weight="1"
+                    android:gravity="right"
                     android:hint="未填写"
                     android:maxLines="1"
                     android:textColor="@color/black6"
@@ -114,16 +113,14 @@
                     android:textColor="@color/black6"
                     android:textSize="@dimen/sp15" />
 
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
 
                 <TextView
-                    android:gravity="right"
                     android:id="@+id/tvName"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_weight="1"
+                    android:gravity="right"
                     android:hint="未填写"
                     android:maxLines="1"
                     android:textColor="@color/black6"
@@ -158,15 +155,13 @@
                     android:textColor="@color/black6"
                     android:textSize="@dimen/sp15" />
 
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
 
                 <TextView
                     android:id="@+id/tvSex"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_weight="1"
                     android:gravity="right"
                     android:hint="未填写"
                     android:maxLines="1"
@@ -202,16 +197,14 @@
                     android:textColor="@color/black6"
                     android:textSize="@dimen/sp15" />
 
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
 
                 <TextView
-                    android:gravity="right"
                     android:id="@+id/tvBirthday"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_weight="1"
+                    android:gravity="right"
                     android:hint="未填写"
                     android:maxLines="1"
                     android:textColor="@color/black6"
@@ -231,14 +224,14 @@
                 android:background="#f6f6f6" />
 
             <LinearLayout
-                android:visibility="gone"
                 android:id="@+id/layoutWeight"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@drawable/selector_item_click_bg"
                 android:gravity="center_vertical"
                 android:paddingLeft="@dimen/dp_16"
-                android:paddingRight="@dimen/dp_16">
+                android:paddingRight="@dimen/dp_16"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -253,10 +246,10 @@
                     android:layout_weight="1" />
 
                 <TextView
-                    android:gravity="right"
                     android:id="@+id/tvWeight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:gravity="right"
                     android:hint="未填写"
                     android:maxLines="1"
                     android:textColor="@color/black6"
@@ -271,20 +264,20 @@
             </LinearLayout>
 
             <View
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#f6f6f6" />
+                android:background="#f6f6f6"
+                android:visibility="gone" />
 
             <LinearLayout
-                android:visibility="gone"
                 android:id="@+id/layoutHeight"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@drawable/selector_item_click_bg"
                 android:gravity="center_vertical"
                 android:paddingLeft="@dimen/dp_16"
-                android:paddingRight="@dimen/dp_16">
+                android:paddingRight="@dimen/dp_16"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -299,10 +292,10 @@
                     android:layout_weight="1" />
 
                 <TextView
-                    android:gravity="right"
                     android:id="@+id/tvHeight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:gravity="right"
                     android:hint="未填写"
                     android:maxLines="1"
                     android:textColor="@color/black6"
@@ -317,20 +310,20 @@
             </LinearLayout>
 
             <View
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#f6f6f6" />
+                android:background="#f6f6f6"
+                android:visibility="gone" />
 
             <LinearLayout
-                android:visibility="gone"
                 android:id="@+id/layoutPhone"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@drawable/selector_item_click_bg"
                 android:gravity="center_vertical"
                 android:paddingLeft="@dimen/dp_16"
-                android:paddingRight="@dimen/dp_16">
+                android:paddingRight="@dimen/dp_16"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -345,10 +338,10 @@
                     android:layout_weight="1" />
 
                 <TextView
-                    android:gravity="right"
                     android:id="@+id/tvPhone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:gravity="right"
                     android:hint="未填写"
                     android:maxLines="1"
                     android:textColor="@color/black6"
@@ -363,20 +356,20 @@
             </LinearLayout>
 
             <View
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#f6f6f6" />
+                android:background="#f6f6f6"
+                android:visibility="gone" />
 
             <LinearLayout
-                android:visibility="gone"
                 android:id="@+id/layoutHomeAddress"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@drawable/selector_item_click_bg"
                 android:gravity="center_vertical"
                 android:paddingLeft="@dimen/dp_16"
-                android:paddingRight="@dimen/dp_16">
+                android:paddingRight="@dimen/dp_16"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -391,11 +384,11 @@
                     android:layout_weight="1" />
 
                 <TextView
-                    android:gravity="right"
                     android:id="@+id/tvHomeAddress"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_18"
+                    android:gravity="right"
                     android:hint="未填写"
                     android:maxLines="1"
                     android:textColor="@color/black6"

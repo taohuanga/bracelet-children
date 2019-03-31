@@ -6,6 +6,7 @@ import android.widget.RelativeLayout;
 
 import os.bracelets.children.R;
 import os.bracelets.children.app.contact.ContactActivity;
+import os.bracelets.children.app.contact.ContactAddActivity;
 import os.bracelets.children.bean.FamilyMember;
 import os.bracelets.children.common.BaseActivity;
 
@@ -62,6 +63,10 @@ public class EditNavActivity extends BaseActivity {
                 break;
             case R.id.rlAddContact:
                 //添加联系人
+                Intent addIntent = new Intent(this, ContactAddActivity.class);
+                addIntent.putExtra("member", member);
+                startActivity(addIntent);
+                finish();
                 break;
             case R.id.rlSetTag:
                 Intent tagIntent = new Intent(this, LabelEditActivity.class);
@@ -90,6 +95,10 @@ public class EditNavActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.rlAddEle:
+                Intent eleAddIntent = new Intent(this, EleFenceAddActivity.class);
+                eleAddIntent.putExtra("member", member);
+                startActivity(eleAddIntent);
+                finish();
                 break;
         }
     }

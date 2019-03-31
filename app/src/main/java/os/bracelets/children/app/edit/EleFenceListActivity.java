@@ -16,7 +16,8 @@ import os.bracelets.children.common.MVPBaseActivity;
 import os.bracelets.children.utils.TitleBarUtil;
 import os.bracelets.children.view.TitleBar;
 
-public class EleFenceListActivity extends MVPBaseActivity<EleFenceContract.Presenter> implements EleFenceContract.View {
+public class EleFenceListActivity extends MVPBaseActivity<EleFenceListContract.Presenter> implements
+        EleFenceListContract.View {
 
     private TitleBar titleBar;
 
@@ -31,7 +32,7 @@ public class EleFenceListActivity extends MVPBaseActivity<EleFenceContract.Prese
     private EleFenceListAdapter eleFenceAdapter;
 
     @Override
-    protected EleFenceContract.Presenter getPresenter() {
+    protected EleFenceListContract.Presenter getPresenter() {
         return new EleFencePresenter(this);
     }
 
@@ -48,7 +49,7 @@ public class EleFenceListActivity extends MVPBaseActivity<EleFenceContract.Prese
         TitleBarUtil.setAttr(this, "", "电子围栏", titleBar);
         recyclerView = findView(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
     }
 
     @Override

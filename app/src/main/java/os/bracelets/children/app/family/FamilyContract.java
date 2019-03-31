@@ -16,6 +16,7 @@ public interface FamilyContract {
 
         void loadFamilySuccess(List<FamilyMember> list);
 
+        void loadFamilyError();
     }
 
 

@@ -9,6 +9,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.amap.api.maps.model.Poi;
+import com.amap.api.navi.AmapNaviPage;
+import com.amap.api.navi.AmapNaviParams;
+import com.amap.api.navi.AmapNaviType;
+import com.amap.api.navi.AmapRouteActivity;
+import com.amap.api.navi.INaviInfoCallback;
+import com.amap.api.navi.model.AMapNaviLocation;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 
@@ -38,7 +45,7 @@ import os.bracelets.children.http.HttpSubscriber;
  * Created by lishiyou on 2019/3/20.
  */
 @RequiresApi(api = Build.VERSION_CODES.N)
-public class MineFragment extends BaseFragment {
+public class MineFragment extends BaseFragment implements INaviInfoCallback {
 
     private ImageView ivImage;
 
@@ -46,7 +53,8 @@ public class MineFragment extends BaseFragment {
 
     private Button btnLogout;
 
-    private View layoutUpdatePwd, layoutUpdateMsg, layoutNearby,layoutFeedBack,layoutAbout,layoutMore;
+    private View layoutUpdatePwd, layoutUpdateMsg, layoutNearby, layoutNav, layoutFeedBack, layoutAbout, layoutMore;
+
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_mine;
@@ -63,6 +71,7 @@ public class MineFragment extends BaseFragment {
         layoutFeedBack = findView(R.id.layoutFeedBack);
         layoutAbout = findView(R.id.layoutAbout);
         layoutMore = findView(R.id.layoutMore);
+        layoutNav = findView(R.id.layoutNav);
         getUserInfo();
     }
 
@@ -80,6 +89,7 @@ public class MineFragment extends BaseFragment {
         setOnClickListener(layoutAbout);
         setOnClickListener(layoutMore);
         setOnClickListener(layoutNearby);
+        setOnClickListener(layoutNav);
     }
 
     @Override
@@ -97,6 +107,13 @@ public class MineFragment extends BaseFragment {
                 break;
             case R.id.layoutNearby:
                 startActivity(new Intent(getActivity(), NearbyActivity.class));
+                break;
+            case R.id.layoutNav:
+                AmapNaviParams params = new AmapNaviParams(new Poi("", null, ""),
+                        null, new Poi("", null, ""), AmapNaviType.DRIVER);
+                params.setUseInnerVoice(true);
+                AmapNaviPage.getInstance().showRouteActivity(getActivity(), params,
+                        this, AmapRouteActivity.class);
                 break;
             case R.id.layoutFeedBack:
                 startActivity(new Intent(getActivity(), FeedBackActivity.class));
@@ -131,12 +148,12 @@ public class MineFragment extends BaseFragment {
                 .show();
     }
 
-    private void getUserInfo(){
+    private void getUserInfo() {
         ApiRequest.userInfo(new HttpSubscriber() {
             @Override
             public void onNext(HttpResult result) {
                 super.onNext(result);
-                if(result.code.equals(AppConfig.SUCCESS)){
+                if (result.code.equals(AppConfig.SUCCESS)) {
                     try {
                         JSONObject object = new JSONObject(new Gson().toJson(result.data));
 //                        "nickName":"李小琳",
@@ -156,5 +173,76 @@ public class MineFragment extends BaseFragment {
                 }
             }
         });
+    }
+
+
+    @Override
+    public void onInitNaviFailure() {
+
+    }
+
+    @Override
+    public void onGetNavigationText(String s) {
+
+    }
+
+    @Override
+    public void onLocationChange(AMapNaviLocation aMapNaviLocation) {
+
+    }
+
+    @Override
+    public void onArriveDestination(boolean b) {
+
+    }
+
+    @Override
+    public void onStartNavi(int i) {
+
+    }
+
+    @Override
+    public void onCalculateRouteSuccess(int[] ints) {
+
+    }
+
+    @Override
+    public void onCalculateRouteFailure(int i) {
+
+    }
+
+    @Override
+    public void onStopSpeaking() {
+
+    }
+
+    @Override
+    public void onReCalculateRoute(int i) {
+
+    }
+
+    @Override
+    public void onExitPage(int i) {
+
+    }
+
+    @Override
+    public void onStrategyChanged(int i) {
+
+    }
+
+    @Override
+    public View getCustomNaviBottomView() {
+        return null;
+    }
+
+    @Override
+    public View getCustomNaviView() {
+        return null;
+    }
+
+    @Override
+    public void onArrivedWayPoint(int i) {
+
     }
 }

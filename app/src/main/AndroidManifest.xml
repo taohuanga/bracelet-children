@@ -97,7 +97,11 @@
 
         <activity android:name=".app.nearby.NearbyActivity" />
 
+        <activity android:name=".app.nearby.NearbyDetailActivity" />
+
         <activity android:name=".app.contact.ContactActivity" />
+
+        <activity android:name=".app.contact.ContactAddActivity" />
 
         <activity android:name=".app.about.FeedBackActivity" />
 
@@ -107,17 +111,19 @@
 
         <activity android:name=".app.family.TagListActivity" />
 
-        <activity android:name=".app.edit.LabelEditActivity"/>
+        <activity android:name=".app.edit.LabelEditActivity" />
 
-        <activity android:name=".app.edit.DeviceBindActivity"/>
+        <activity android:name=".app.edit.DeviceBindActivity" />
 
-        <activity android:name=".app.edit.EleFenceListActivity"/>
+        <activity android:name=".app.edit.EleFenceListActivity" />
+
+        <activity android:name=".app.edit.EleFenceAddActivity" />
 
         <activity
             android:name=".app.edit.EditNavActivity"
             android:theme="@style/dialogStyle" />
 
-        <activity android:name=".app.edit.EditRemindActivity"/>
+        <activity android:name=".app.edit.EditRemindActivity" />
 
         <service android:name=".service.AppService" />
 

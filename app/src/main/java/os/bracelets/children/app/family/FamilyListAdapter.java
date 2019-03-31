@@ -5,7 +5,9 @@ import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.zhy.view.flowlayout.TagFlowLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import aio.health2world.brvah.BaseQuickAdapter;
@@ -28,11 +30,19 @@ public class FamilyListAdapter extends BaseQuickAdapter<FamilyMember, BaseViewHo
     protected void convert(BaseViewHolder helper, FamilyMember item) {
         helper.setText(R.id.personRelation, item.getRelationship());
         helper.setText(R.id.personName, item.getNickName());
-        if (TextUtils.isEmpty(item.getLabels())) {
-            helper.setText(R.id.personLabel, "暂无标签");
-        } else {
-            helper.setText(R.id.personLabel, item.getLabels());
+
+        TagFlowLayout flowLayout = helper.getView(R.id.flowLayout);
+
+        flowLayout.removeAllViews();
+
+        if (!TextUtils.isEmpty(item.getLabels())) {
+            List<String> list = new ArrayList<>();
+            for (String s : item.getLabels().split(";")) {
+                list.add(s);
+            }
+            flowLayout.setAdapter(new TagListAdapter(mContext, list));
         }
+
         Glide.with(mContext)
                 .load(item.getProfile())
                 .placeholder(R.mipmap.ic_default_portrait)
