@@ -189,4 +189,17 @@ interface ApiService {
      */
     @POST("children/setting/fenceList")
     Observable<HttpResult> fenceList(@Body Map<String, Object> map);
+
+
+    /**
+     * 设置提醒
+     */
+    @POST("children/setting/remind")
+    Observable<HttpResult> remind(@Body Map<String, Object> map);
+
+    /**
+     * 亲人设置标签
+     */
+    @POST("children/label/tagged")
+    Observable<HttpResult> setTag(@Body Map<String, Object> map);
 }

@@ -1,5 +1,7 @@
 package os.bracelets.children.app.home;
 
+import android.support.v7.app.AppCompatActivity;
+
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -70,6 +72,9 @@ public class HomePresenter extends HomeContract.Presenter{
             @Override
             public void onNext(HttpResult result) {
                 super.onNext(result);
+                if(result.code.equals(AppConfig.SUCCESS)){
+
+                }
             }
         });
     }

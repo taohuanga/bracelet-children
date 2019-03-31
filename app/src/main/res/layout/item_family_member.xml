@@ -45,17 +45,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/personRelation"
-            android:layout_marginTop="@dimen/dp_8"
+            android:layout_marginTop="@dimen/dp_6"
             android:text="---"
             android:textColor="@color/black9"
-            android:textSize="@dimen/sp15" />
+            android:textSize="@dimen/sp14" />
 
 
     </RelativeLayout>
 
     <ImageView
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:padding="@dimen/dp_8"
+        android:id="@+id/imgEdit"
+        android:layout_gravity="center_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:src="@mipmap/icon_edit" />
 </LinearLayout>

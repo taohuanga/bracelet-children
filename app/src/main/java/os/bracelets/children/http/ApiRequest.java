@@ -402,4 +402,34 @@ public class ApiRequest {
                 .compose(RxTransformer.<HttpResult>defaultSchedulers())
                 .subscribe(subscriber);
     }
+
+    //设置提醒
+    public static Subscription remind(String accountId,String remindTitle,String remind,String remindPeriod,
+                                      String remindTime,Subscriber<HttpResult> subscriber) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("tokenId", MyApplication.getInstance().getTokenId());
+        map.put("accountId", accountId);
+        map.put("remindTitle", remindTitle);
+        map.put("remind", remind);
+        map.put("remindPeriod", remindPeriod);
+        map.put("remindTime", remindTime);
+        return ServiceFactory.getInstance()
+                .createService(ApiService.class)
+                .remind(map)
+                .compose(RxTransformer.<HttpResult>defaultSchedulers())
+                .subscribe(subscriber);
+    }
+
+    //给亲人设置标签
+    public static Subscription setTag(String accountId,String labelIds,Subscriber<HttpResult> subscriber) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("tokenId", MyApplication.getInstance().getTokenId());
+        map.put("accountId", accountId);
+        map.put("labelIds", labelIds);
+        return ServiceFactory.getInstance()
+                .createService(ApiService.class)
+                .setTag(map)
+                .compose(RxTransformer.<HttpResult>defaultSchedulers())
+                .subscribe(subscriber);
+    }
 }

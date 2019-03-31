@@ -40,6 +40,11 @@
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
+    <!--计步器权限-->
+    <uses-feature android:name="android.hardware.sensor.stepcounter" />
+    <uses-feature android:name="feature:android.hardware.sensor.stepdetector" />
+    <uses-feature android:name="android.hardware.sensor.accelerometer" />
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -102,7 +107,17 @@
 
         <activity android:name=".app.family.TagListActivity" />
 
+        <activity android:name=".app.edit.EditTagActivity"/>
+
+        <activity android:name=".app.edit.DeviceBindActivity"/>
+
         <activity android:name=".app.family.EleFenceActivity" />
+
+        <activity
+            android:name=".app.edit.EditNavActivity"
+            android:theme="@style/dialogStyle" />
+
+        <activity android:name=".app.edit.EditRemindActivity"/>
 
         <service android:name=".service.AppService" />
 

@@ -18,9 +18,9 @@ import os.bracelets.children.bean.FamilyMember;
  * Created by lishiyou on 2019/3/24.
  */
 
-public class FamilyAdapter extends BaseQuickAdapter<FamilyMember, BaseViewHolder> {
+public class FamilyListAdapter extends BaseQuickAdapter<FamilyMember, BaseViewHolder> {
 
-    public FamilyAdapter(@Nullable List<FamilyMember> data) {
+    public FamilyListAdapter(@Nullable List<FamilyMember> data) {
         super(R.layout.item_family_member, data);
     }
 
@@ -39,5 +39,9 @@ public class FamilyAdapter extends BaseQuickAdapter<FamilyMember, BaseViewHolder
                 .error(R.mipmap.ic_default_portrait)
                 .bitmapTransform(new CropCircleTransformation(mContext))
                 .into((ImageView) helper.getView(R.id.personImage));
+
+
+        helper.addOnClickListener(R.id.imgEdit);
     }
+
 }

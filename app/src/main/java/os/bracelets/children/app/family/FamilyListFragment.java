@@ -7,12 +7,15 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import aio.health2world.brvah.BaseQuickAdapter;
+import aio.health2world.utils.ToastUtil;
 import os.bracelets.children.R;
+import os.bracelets.children.app.edit.EditNavActivity;
 import os.bracelets.children.bean.FamilyMember;
 import os.bracelets.children.common.MVPBaseFragment;
 
@@ -20,8 +23,8 @@ import os.bracelets.children.common.MVPBaseFragment;
  * Created by lishiyou on 2019/3/20.
  */
 
-public class FamilyFragment extends MVPBaseFragment<FamilyContract.Presenter> implements FamilyContract.View,
-        SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.OnItemClickListener {
+public class FamilyListFragment extends MVPBaseFragment<FamilyContract.Presenter> implements FamilyContract.View,
+        SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.OnItemChildClickListener {
 
     private RecyclerView recyclerView;
 
@@ -29,7 +32,7 @@ public class FamilyFragment extends MVPBaseFragment<FamilyContract.Presenter> im
 
     private List<FamilyMember> familyMemberList;
 
-    private FamilyAdapter familyAdapter;
+    private FamilyListAdapter familyAdapter;
 
     private ImageView ivAdd;
 
@@ -59,7 +62,7 @@ public class FamilyFragment extends MVPBaseFragment<FamilyContract.Presenter> im
     @Override
     protected void initData() {
         familyMemberList = new ArrayList<>();
-        familyAdapter = new FamilyAdapter(familyMemberList);
+        familyAdapter = new FamilyListAdapter(familyMemberList);
         recyclerView.setAdapter(familyAdapter);
         familyAdapter.bindToRecyclerView(recyclerView);
         familyAdapter.setEmptyView(R.layout.layout_empty_view);
@@ -71,6 +74,7 @@ public class FamilyFragment extends MVPBaseFragment<FamilyContract.Presenter> im
         ivAdd.setOnClickListener(this);
         refreshLayout.setOnRefreshListener(this);
         familyAdapter.setOnItemClickListener(this);
+        familyAdapter.setOnItemChildClickListener(this);
     }
 
     @Override
@@ -98,6 +102,16 @@ public class FamilyFragment extends MVPBaseFragment<FamilyContract.Presenter> im
     }
 
     @Override
+    public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+        if (view.getId() == R.id.imgEdit) {
+            FamilyMember member = (FamilyMember) adapter.getItem(position);
+            Intent intent = new Intent(getActivity(), EditNavActivity.class);
+            intent.putExtra("member", member);
+            startActivity(intent);
+        }
+    }
+
+    @Override
     public void onClick(View v) {
         super.onClick(v);
         switch (v.getId()) {
@@ -106,4 +120,6 @@ public class FamilyFragment extends MVPBaseFragment<FamilyContract.Presenter> im
                 break;
         }
     }
+
+
 }

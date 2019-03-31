@@ -5,13 +5,13 @@ static def packageTime() {
 }
 
 android {
-    compileSdkVersion 28
-    buildToolsVersion "27.0.3"
+    compileSdkVersion 26
+    buildToolsVersion "28.0.3"
 
     defaultConfig {
         applicationId "os.bracelets.children"
         minSdkVersion 21
-        targetSdkVersion 28
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
@@ -86,8 +86,8 @@ android.applicationVariants.all {
 //                            "parents_debug_" + packageTime() + ".apk");
                 }
                 if (buildType.name.equals("release")) {
-                    output.outputFile = new File(output.outputFile.parent,
-                            "children_release_" + packageTime() + ".apk");
+//                    output.outputFile = new File(output.outputFile.parent,
+//                            "children_release_" + packageTime() + ".apk");
                 }
         }
 }
@@ -95,11 +95,13 @@ android.applicationVariants.all {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:multidex:1.0.1'
+    compile 'com.android.support:multidex:1.0.3'
     //配合蓝牙库使用 勿删
-    compile project(path: ':commonlib')
     compile project(path: ':easeui')
-    compile 'no.nordicsemi.android.support.v18:scanner:0.1.1'
+    compile project(path: ':commonlib')
+    compile 'no.nordicsemi.android.support.v18:scanner:1.4.0'
+
+    compile 'com.android.support:appcompat-v7:26.1.0'
     //高德定位
 //    compile 'com.amap.api:location:3.3.0'
 //    compile 'com.amap.api:search:5.0.0'

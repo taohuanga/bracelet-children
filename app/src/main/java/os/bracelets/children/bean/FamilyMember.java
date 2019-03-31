@@ -147,4 +147,22 @@ public class FamilyMember implements Serializable {
         member.setPhone(object.optString("phone",""));
         return member;
     }
+
+    @Override
+    public String toString() {
+        return "FamilyMember{" +
+                "nickName='" + nickName + '\'' +
+                ", sex=" + sex +
+                ", relationship='" + relationship + '\'' +
+                ", profile='" + profile + '\'' +
+                ", sexDesc='" + sexDesc + '\'' +
+                ", labels='" + labels + '\'' +
+                ", realName='" + realName + '\'' +
+                ", birthday='" + birthday + '\'' +
+                ", height='" + height + '\'' +
+                ", weight='" + weight + '\'' +
+                ", phone='" + phone + '\'' +
+                ", accountId=" + accountId +
+                '}';
+    }
 }

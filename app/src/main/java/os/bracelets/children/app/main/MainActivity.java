@@ -12,7 +12,7 @@ import com.hyphenate.chat.EMClient;
 import aio.health2world.utils.Logger;
 import os.bracelets.children.MyApplication;
 import os.bracelets.children.R;
-import os.bracelets.children.app.family.FamilyFragment;
+import os.bracelets.children.app.family.FamilyListFragment;
 import os.bracelets.children.app.home.HomeFragment;
 import os.bracelets.children.app.mine.MineFragment;
 import os.bracelets.children.app.news.HealthInfoFragment;
@@ -26,7 +26,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.Presenter> implem
 
     private HomeFragment homeFragment;
 
-    private FamilyFragment familyFragment;
+    private FamilyListFragment familyFragment;
 
     private HealthInfoFragment infoFragment;
 
@@ -119,7 +119,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.Presenter> implem
                 break;
             case 1:
                 if (familyFragment == null) {
-                    familyFragment = new FamilyFragment();
+                    familyFragment = new FamilyListFragment();
                     transaction.add(R.id.container, familyFragment);
                 } else
                     transaction.show(familyFragment);
