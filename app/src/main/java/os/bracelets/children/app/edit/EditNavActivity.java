@@ -10,7 +10,7 @@ import os.bracelets.children.common.BaseActivity;
 
 public class EditNavActivity extends BaseActivity {
 
-    private RelativeLayout rlSetTag, rlAddTag, rlAddRemind, rlBindDevice, rlAddEle;
+    private RelativeLayout rlSetTag, rlAddTag, rlAddRemind, rlBindDevice, rlEleList, rlAddEle;
 
     private FamilyMember member;
 
@@ -25,6 +25,7 @@ public class EditNavActivity extends BaseActivity {
         rlAddTag = findView(R.id.rlAddTag);
         rlAddRemind = findView(R.id.rlAddRemind);
         rlBindDevice = findView(R.id.rlBindDevice);
+        rlEleList = findView(R.id.rlEleList);
         rlAddEle = findView(R.id.rlAddEle);
     }
 
@@ -39,6 +40,7 @@ public class EditNavActivity extends BaseActivity {
         rlAddTag.setOnClickListener(this);
         rlAddRemind.setOnClickListener(this);
         rlBindDevice.setOnClickListener(this);
+        rlEleList.setOnClickListener(this);
         rlAddEle.setOnClickListener(this);
     }
 
@@ -47,7 +49,7 @@ public class EditNavActivity extends BaseActivity {
 
         switch (v.getId()) {
             case R.id.rlSetTag:
-                Intent tagIntent = new Intent(this, EditTagActivity.class);
+                Intent tagIntent = new Intent(this, LabelEditActivity.class);
                 tagIntent.putExtra("member", member);
                 startActivity(tagIntent);
                 finish();
@@ -64,6 +66,12 @@ public class EditNavActivity extends BaseActivity {
                 Intent bindIntent = new Intent(this, DeviceBindActivity.class);
                 bindIntent.putExtra("member", member);
                 startActivity(bindIntent);
+                finish();
+                break;
+            case R.id.rlEleList:
+                Intent eleListIntent = new Intent(this, EleFenceActivity.class);
+                eleListIntent.putExtra("member", member);
+                startActivity(eleListIntent);
                 finish();
                 break;
             case R.id.rlAddEle:

@@ -49,6 +49,7 @@
             android:src="@mipmap/icon_phone" />
 
         <TextView
+            android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -57,7 +58,7 @@
             android:textSize="@dimen/sp15" />
 
         <EditText
-            android:textColor="@color/black6"
+            android:id="@+id/edDeviceNo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="8dp"
@@ -67,9 +68,21 @@
             android:maxLines="1"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
-            android:textColorHint="@color/black9" />
+            android:textColor="@color/black6"
+            android:textColorHint="@color/black9"
+            android:textSize="@dimen/sp15" />
 
     </LinearLayout>
 
     <include layout="@layout/layout_divider_line" />
+
+    <Button
+        android:id="@+id/btnBind"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_margin="@dimen/dp_16"
+        android:background="@drawable/shape_button_bg"
+        android:text="绑定"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp15" />
 </LinearLayout>

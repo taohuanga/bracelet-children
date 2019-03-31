@@ -6,7 +6,7 @@ import os.bracelets.children.bean.LabelBean;
 import os.bracelets.children.common.BasePresenter;
 import os.bracelets.children.common.BaseView;
 
-public interface TagContract {
+public interface LabelContract {
 
 
     interface View extends BaseView<Presenter>{

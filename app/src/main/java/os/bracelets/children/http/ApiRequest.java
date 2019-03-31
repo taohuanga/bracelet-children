@@ -432,4 +432,18 @@ public class ApiRequest {
                 .compose(RxTransformer.<HttpResult>defaultSchedulers())
                 .subscribe(subscriber);
     }
+
+    //绑定硬件
+    public static Subscription bindDevice(String accountId,String deviceNo,Subscriber<HttpResult> subscriber) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("tokenId", MyApplication.getInstance().getTokenId());
+        map.put("accountId", accountId);
+        map.put("equipmentSn", deviceNo);
+        return ServiceFactory.getInstance()
+                .createService(ApiService.class)
+                .bindDevice(map)
+                .compose(RxTransformer.<HttpResult>defaultSchedulers())
+                .subscribe(subscriber);
+    }
+
 }

@@ -1,12 +1,9 @@
 package os.bracelets.children.app.mine;
 
 import android.content.Intent;
-import android.hardware.Sensor;
-import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -18,11 +15,9 @@ import com.amap.api.navi.AmapRouteActivity;
 import com.amap.api.navi.INaviInfoCallback;
 import com.amap.api.navi.model.AMapNaviLocation;
 
-import java.util.List;
-
 import os.bracelets.children.R;
 import os.bracelets.children.app.contact.ContactActivity;
-import os.bracelets.children.app.family.EleFenceActivity;
+import os.bracelets.children.app.edit.EleFenceActivity;
 import os.bracelets.children.app.family.TagListActivity;
 import os.bracelets.children.app.nearby.NearbyActivity;
 

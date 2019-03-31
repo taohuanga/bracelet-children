@@ -202,4 +202,11 @@ interface ApiService {
      */
     @POST("children/label/tagged")
     Observable<HttpResult> setTag(@Body Map<String, Object> map);
+
+    /**
+     * 绑定硬件
+     */
+    @POST("children/setting/binding")
+    Observable<HttpResult> bindDevice(@Body Map<String, Object> map);
+
 }

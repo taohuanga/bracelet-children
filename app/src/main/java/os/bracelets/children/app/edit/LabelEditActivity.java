@@ -1,15 +1,10 @@
 package os.bracelets.children.app.edit;
 
-import android.print.PageRange;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +18,7 @@ import os.bracelets.children.common.MVPBaseActivity;
 import os.bracelets.children.utils.TitleBarUtil;
 import os.bracelets.children.view.TitleBar;
 
-public class EditTagActivity extends MVPBaseActivity<TagContract.Presenter> implements TagContract.View,
+public class LabelEditActivity extends MVPBaseActivity<LabelContract.Presenter> implements LabelContract.View,
         BaseQuickAdapter.OnItemClickListener {
 
     private TitleBar titleBar;
@@ -39,8 +34,8 @@ public class EditTagActivity extends MVPBaseActivity<TagContract.Presenter> impl
     private Button btnSave;
 
     @Override
-    protected TagContract.Presenter getPresenter() {
-        return new TagPresenter(this);
+    protected LabelContract.Presenter getPresenter() {
+        return new LabelPresenter(this);
     }
 
     @Override

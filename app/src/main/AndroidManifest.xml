@@ -107,11 +107,11 @@
 
         <activity android:name=".app.family.TagListActivity" />
 
-        <activity android:name=".app.edit.EditTagActivity"/>
+        <activity android:name=".app.edit.LabelEditActivity"/>
 
         <activity android:name=".app.edit.DeviceBindActivity"/>
 
-        <activity android:name=".app.family.EleFenceActivity" />
+        <activity android:name=".app.edit.EleFenceActivity"/>
 
         <activity
             android:name=".app.edit.EditNavActivity"

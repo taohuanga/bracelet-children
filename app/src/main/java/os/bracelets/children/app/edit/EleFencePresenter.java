@@ -11,19 +11,19 @@ import java.util.List;
 
 import aio.health2world.http.HttpResult;
 import os.bracelets.children.AppConfig;
-import os.bracelets.children.bean.LabelBean;
+import os.bracelets.children.bean.EleFence;
 import os.bracelets.children.http.ApiRequest;
 import os.bracelets.children.http.HttpSubscriber;
 
-public class TagPresenter extends TagContract.Presenter {
+public class EleFencePresenter extends EleFenceContract.Presenter {
 
-    public TagPresenter(TagContract.View mView) {
+    public EleFencePresenter(EleFenceContract.View mView) {
         super(mView);
     }
 
     @Override
-    void getTagList() {
-        ApiRequest.tagList(new HttpSubscriber() {
+    void eleFenceList(final String accountId) {
+        ApiRequest.fenceList(accountId, new HttpSubscriber() {
 
             @Override
             public void onStart() {
@@ -47,49 +47,17 @@ public class TagPresenter extends TagContract.Presenter {
                 if (result.code.equals(AppConfig.SUCCESS)) {
                     try {
                         JSONArray array = new JSONArray(new Gson().toJson(result.data));
-                        List<LabelBean> list = new ArrayList<>();
+                        List<EleFence> list = new ArrayList<>();
                         for (int i = 0; i < array.length(); i++) {
-                            JSONObject obj = array.optJSONObject(i);
-                            LabelBean labelBean = LabelBean.parseBean(obj);
-                            list.add(labelBean);
+                            JSONObject object = array.optJSONObject(i);
+                            EleFence fence = EleFence.parseBean(object);
+                            list.add(fence);
                         }
                         if (mView != null)
-                            mView.loadTagSuccess(list);
+                            mView.loadEleFenceSuccess(list);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                }
-            }
-        });
-    }
-
-    @Override
-    void setTag(String accountId, String labelIds) {
-        ApiRequest.setTag(accountId, labelIds, new HttpSubscriber() {
-
-            @Override
-            public void onStart() {
-                super.onStart();
-                if (mView != null)
-                    mView.showLoading();
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                super.onError(e);
-                if (mView != null)
-                    mView.hideLoading();
-            }
-
-
-            @Override
-            public void onNext(HttpResult result) {
-                super.onNext(result);
-                if (mView != null)
-                    mView.hideLoading();
-                if (result.code.equals(AppConfig.SUCCESS)) {
-                    if (mView != null)
-                        mView.setTagSuccess();
                 }
             }
         });
