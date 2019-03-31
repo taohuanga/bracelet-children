@@ -17,7 +17,7 @@ import com.amap.api.navi.model.AMapNaviLocation;
 
 import os.bracelets.children.R;
 import os.bracelets.children.app.contact.ContactActivity;
-import os.bracelets.children.app.edit.EleFenceActivity;
+import os.bracelets.children.app.edit.EleFenceListActivity;
 import os.bracelets.children.app.family.TagListActivity;
 import os.bracelets.children.app.nearby.NearbyActivity;
 
@@ -71,7 +71,7 @@ public class MoreActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(new Intent(MoreActivity.this, TagListActivity.class));
                 break;
             case R.id.btnRail:
-                startActivity(new Intent(MoreActivity.this, EleFenceActivity.class));
+                startActivity(new Intent(MoreActivity.this, EleFenceListActivity.class));
                 break;
             case R.id.btnContact:
                 startActivity(new Intent(MoreActivity.this, ContactActivity.class));

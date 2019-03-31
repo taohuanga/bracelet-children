@@ -69,7 +69,7 @@ public class EditNavActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.rlEleList:
-                Intent eleListIntent = new Intent(this, EleFenceActivity.class);
+                Intent eleListIntent = new Intent(this, EleFenceListActivity.class);
                 eleListIntent.putExtra("member", member);
                 startActivity(eleListIntent);
                 finish();

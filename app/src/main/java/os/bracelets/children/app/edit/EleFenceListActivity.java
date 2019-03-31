@@ -1,7 +1,6 @@
 package os.bracelets.children.app.edit;
 
 import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -17,7 +16,7 @@ import os.bracelets.children.common.MVPBaseActivity;
 import os.bracelets.children.utils.TitleBarUtil;
 import os.bracelets.children.view.TitleBar;
 
-public class EleFenceActivity extends MVPBaseActivity<EleFenceContract.Presenter> implements EleFenceContract.View {
+public class EleFenceListActivity extends MVPBaseActivity<EleFenceContract.Presenter> implements EleFenceContract.View {
 
     private TitleBar titleBar;
 
@@ -29,7 +28,7 @@ public class EleFenceActivity extends MVPBaseActivity<EleFenceContract.Presenter
 
     private List<EleFence> eleFenceList;
 
-    private EleFenceAdapter eleFenceAdapter;
+    private EleFenceListAdapter eleFenceAdapter;
 
     @Override
     protected EleFenceContract.Presenter getPresenter() {
@@ -56,7 +55,7 @@ public class EleFenceActivity extends MVPBaseActivity<EleFenceContract.Presenter
     protected void initData() {
 
         eleFenceList = new ArrayList<>();
-        eleFenceAdapter = new EleFenceAdapter(eleFenceList);
+        eleFenceAdapter = new EleFenceListAdapter(eleFenceList);
         recyclerView.setAdapter(eleFenceAdapter);
         eleFenceAdapter.bindToRecyclerView(recyclerView);
         eleFenceAdapter.setEmptyView(R.layout.layout_empty_view);

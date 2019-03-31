@@ -111,7 +111,7 @@
 
         <activity android:name=".app.edit.DeviceBindActivity"/>
 
-        <activity android:name=".app.edit.EleFenceActivity"/>
+        <activity android:name=".app.edit.EleFenceListActivity"/>
 
         <activity
             android:name=".app.edit.EditNavActivity"

@@ -9,9 +9,9 @@ import aio.health2world.brvah.BaseViewHolder;
 import os.bracelets.children.R;
 import os.bracelets.children.bean.EleFence;
 
-public class EleFenceAdapter extends BaseQuickAdapter<EleFence, BaseViewHolder> {
+public class EleFenceListAdapter extends BaseQuickAdapter<EleFence, BaseViewHolder> {
 
-    public EleFenceAdapter(@Nullable List<EleFence> data) {
+    public EleFenceListAdapter(@Nullable List<EleFence> data) {
         super(R.layout.item_elefence_layout, data);
     }
 
