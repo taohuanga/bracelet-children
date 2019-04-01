@@ -1,5 +1,7 @@
 package os.bracelets.children.bean;
 
+import android.text.TextUtils;
+
 import org.json.JSONObject;
 
 import java.io.Serializable;
@@ -19,6 +21,10 @@ public class RemindBean implements Serializable {
     private String createDate;
     //提醒内容
     private String content;
+
+    private String latitude;
+
+    private String longitude;
 
 
     public int getMsgId() {
@@ -61,13 +67,39 @@ public class RemindBean implements Serializable {
         this.content = content;
     }
 
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
     public static RemindBean parseBean(JSONObject object) {
         RemindBean remind = new RemindBean();
         remind.setMsgId(object.optInt("msgId"));
         remind.setMsgType(object.optInt("msgType"));
         remind.setIsRead(object.optInt("isRead"));
         remind.setCreateDate(object.optString("createDate"));
-        remind.setContent(object.optString("content"));
+        String content = object.optString("content");
+        if(!TextUtils.isEmpty(content)){
+            String[] array = content.split("###");
+            if(array.length>=2){
+                remind.setContent(array[0]);
+                String[] location = array[1].split(",");
+                remind.setLongitude(location[0]);
+                remind.setLatitude(location[1]);
+            }
+        }
+//        remind.setContent(object.optString("content"));
         return remind;
     }
 }

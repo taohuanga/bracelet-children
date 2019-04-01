@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -26,10 +25,15 @@ import com.amap.api.navi.AmapNaviParams;
 import com.amap.api.navi.AmapNaviType;
 import com.amap.api.navi.INaviInfoCallback;
 import com.amap.api.navi.model.AMapNaviLocation;
+import com.amap.api.services.core.AMapException;
+import com.amap.api.services.core.LatLonPoint;
+import com.amap.api.services.geocoder.GeocodeResult;
+import com.amap.api.services.geocoder.GeocodeSearch;
+import com.amap.api.services.geocoder.RegeocodeQuery;
+import com.amap.api.services.geocoder.RegeocodeResult;
 import com.bumptech.glide.Glide;
 
 import aio.health2world.glide_transformations.CropCircleTransformation;
-import aio.health2world.utils.DensityUtil;
 import aio.health2world.utils.ToastUtil;
 import os.bracelets.children.R;
 import os.bracelets.children.bean.FamilyMember;
@@ -37,8 +41,8 @@ import os.bracelets.children.bean.RemindBean;
 import os.bracelets.children.utils.TitleBarUtil;
 import os.bracelets.children.view.TitleBar;
 
-public class FallPositionActivity extends AppCompatActivity implements AMap.InfoWindowAdapter, View.OnClickListener,
-        INaviInfoCallback {
+public class FallPositionActivity extends AppCompatActivity implements AMap.InfoWindowAdapter,
+        View.OnClickListener, INaviInfoCallback, GeocodeSearch.OnGeocodeSearchListener {
 
     private TitleBar titleBar;
 
@@ -46,7 +50,9 @@ public class FallPositionActivity extends AppCompatActivity implements AMap.Info
 
     private MapView mapView;
 
-    private LatLng latLng = new LatLng(22.657569, 114.064304);
+    private LatLng latLng;
+
+    private GeocodeSearch geocodeSearch;
 
     private FamilyMember member;
 
@@ -74,6 +80,10 @@ public class FallPositionActivity extends AppCompatActivity implements AMap.Info
 
         if (aMap == null)
             aMap = mapView.getMap();
+        geocodeSearch = new GeocodeSearch(this);
+        geocodeSearch.setOnGeocodeSearchListener(this);
+        latLng = new LatLng(Double.parseDouble(remind.getLatitude()),
+                Double.parseDouble(remind.getLongitude()));
         changeCamera(CameraUpdateFactory.newCameraPosition(
                 new CameraPosition(latLng, 18, 30, 30)));
         aMap.clear();
@@ -83,6 +93,11 @@ public class FallPositionActivity extends AppCompatActivity implements AMap.Info
                 .infoWindowEnable(true)
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
         marker.showInfoWindow();
+
+        LatLonPoint point = new LatLonPoint(latLng.latitude, latLng.longitude);
+        RegeocodeQuery query = new RegeocodeQuery(point, 100,
+                GeocodeSearch.AMAP);// 第一个参数表示一个Latlng，第二参数表示范围多少米，第三个参数表示是火系坐标系还是GPS原生坐标系
+        geocodeSearch.getFromLocationAsyn(query);
     }
 
     private void addListener() {
@@ -106,13 +121,29 @@ public class FallPositionActivity extends AppCompatActivity implements AMap.Info
         return infoWindow;
     }
 
+    @Override
+    public void onRegeocodeSearched(RegeocodeResult result, int rCode) {
+        if (rCode == AMapException.CODE_AMAP_SUCCESS) {
+            if (result != null && result.getRegeocodeAddress() != null
+                    && result.getRegeocodeAddress().getFormatAddress() != null) {
+                String addressName = result.getRegeocodeAddress().getFormatAddress();
+                View infoWindow = getLayoutInflater().inflate(R.layout.layout_custom_info_window, null);
+                ((TextView) infoWindow.findViewById(R.id.tvAddress)).setText(addressName);
+            }
+        }
+    }
+
+    @Override
+    public void onGeocodeSearched(GeocodeResult geocodeResult, int i) {
+
+    }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tvNav:
-                AmapNaviParams params = new AmapNaviParams(new Poi("北京站", null, ""),
-                        null, new Poi("故宫博物院", null, ""), AmapNaviType.DRIVER);
+                AmapNaviParams params = new AmapNaviParams(new Poi("", null, ""),
+                        null, new Poi("跌倒地点", latLng, ""), AmapNaviType.DRIVER);
                 params.setUseInnerVoice(true);
                 AmapNaviPage.getInstance().showRouteActivity(getApplicationContext(), params,
                         FallPositionActivity.this);

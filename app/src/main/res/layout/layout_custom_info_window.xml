@@ -115,6 +115,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_8"
                 android:layout_weight="1"
+                android:maxLines="1"
                 android:textColor="@color/white"
                 android:textSize="@dimen/sp15" />
 
