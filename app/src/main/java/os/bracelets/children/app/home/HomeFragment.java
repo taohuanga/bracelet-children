@@ -84,7 +84,6 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
 
         mPresenter.getWeather();
         mPresenter.relative();
-//        mPresenter.msgList(String.valueOf(2));
     }
 
     @Override
@@ -111,6 +110,7 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
         familyMemberList.clear();
         familyMemberList.addAll(list);
         topAdapter.notifyDataSetChanged();
+        mPresenter.msgList(String.valueOf(list.get(0).getAccountId()));
     }
 
     @Override
