@@ -127,8 +127,8 @@ public class FallPositionActivity extends AppCompatActivity implements AMap.Info
             if (result != null && result.getRegeocodeAddress() != null
                     && result.getRegeocodeAddress().getFormatAddress() != null) {
                 String addressName = result.getRegeocodeAddress().getFormatAddress();
-                View infoWindow = getLayoutInflater().inflate(R.layout.layout_custom_info_window, null);
-                ((TextView) infoWindow.findViewById(R.id.tvAddress)).setText(addressName);
+                if (tvAddress != null)
+                    tvAddress.setText(addressName);
             }
         }
     }
@@ -161,12 +161,14 @@ public class FallPositionActivity extends AppCompatActivity implements AMap.Info
         }
     }
 
+    private TextView tvAddress;
+
     private void render(Marker marker, View view) {
         TextView tvTitle = view.findViewById(R.id.tvTitle);
         TextView tvName = view.findViewById(R.id.tvName);
         TextView tvPhone = view.findViewById(R.id.tvPhone);
         TextView tvTime = view.findViewById(R.id.tvTime);
-        TextView tvAddress = view.findViewById(R.id.tvAddress);
+        tvAddress = view.findViewById(R.id.tvAddress);
         TextView tvNav = view.findViewById(R.id.tvNav);
         ImageView ivImage = view.findViewById(R.id.ivImage);
         ImageView ivCall = view.findViewById(R.id.ivCall);
