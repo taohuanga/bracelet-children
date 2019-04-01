@@ -122,9 +122,9 @@ public class FallPositionActivity extends AppCompatActivity implements AMap.Info
         if (rCode == AMapException.CODE_AMAP_SUCCESS) {
             if (result != null && result.getRegeocodeAddress() != null
                     && result.getRegeocodeAddress().getFormatAddress() != null) {
-                String addressName = result.getRegeocodeAddress().getFormatAddress();
+                address = result.getRegeocodeAddress().getFormatAddress();
                 if (tvAddress != null)
-                    tvAddress.setText(addressName);
+                    tvAddress.setText(address);
             }
         }
     }
@@ -139,7 +139,7 @@ public class FallPositionActivity extends AppCompatActivity implements AMap.Info
         switch (v.getId()) {
             case R.id.tvNav:
                 AmapNaviParams params = new AmapNaviParams(new Poi("", null, ""),
-                        null, new Poi("跌倒地点", latLng, ""), AmapNaviType.DRIVER);
+                        null, new Poi(address, latLng, ""), AmapNaviType.DRIVER);
                 params.setUseInnerVoice(true);
                 AmapNaviPage.getInstance().showRouteActivity(getApplicationContext(), params,
                         FallPositionActivity.this);
@@ -157,6 +157,7 @@ public class FallPositionActivity extends AppCompatActivity implements AMap.Info
         }
     }
 
+    private String address;
     private TextView tvAddress;
 
     private void render(Marker marker, View view) {
