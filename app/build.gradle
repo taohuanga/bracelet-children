@@ -22,7 +22,7 @@ android {
         config {
             keyAlias 'yftx'
             keyPassword 'yftx2017'
-            storeFile file('H:/workspace_studio1/bracelet-children/health2world.jks')
+            storeFile file('E:/workspace_done/bracelet-children/health2world.jks')
             storePassword 'yftx2017'
             v1SigningEnabled true
             v2SigningEnabled true
@@ -81,8 +81,8 @@ android.applicationVariants.all {
 //                            "parents_debug_" + packageTime() + ".apk");
                 }
                 if (buildType.name.equals("release")) {
-//                    output.outputFile = new File(output.outputFile.parent,
-//                            "children_release_" + packageTime() + ".apk");
+                    output.outputFile = new File(output.outputFile.parent,
+                            "children_release_" + packageTime() + ".apk");
                 }
         }
 }

@@ -119,6 +119,8 @@
 
         <activity android:name=".app.edit.EleFenceAddActivity" />
 
+        <activity android:name=".app.home.FallPositionActivity"/>
+
         <activity android:name="aio.health2world.qrcode.CaptureActivity"/>
 
         <activity
