@@ -22,7 +22,7 @@ public class RemindAdapter extends BaseQuickAdapter<RemindBean, BaseViewHolder> 
 
     @Override
     protected void convert(BaseViewHolder helper, RemindBean item) {
-        helper.setText(R.id.tvTime, item.getRemindTime());
-        helper.setText(R.id.tvContent, item.getRemind());
+        helper.setText(R.id.tvTime, item.getCreateDate());
+        helper.setText(R.id.tvContent, item.getContent());
     }
 }

@@ -93,8 +93,10 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
     }
 
     @Override
-    public void loadMsgSuccess() {
-
+    public void loadMsgSuccess(List<RemindBean> list) {
+        remindList.clear();
+        remindList.addAll(list);
+        remindAdapter.notifyDataSetChanged();
     }
 
     @Override

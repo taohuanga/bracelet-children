@@ -12,53 +12,62 @@ public class RemindBean implements Serializable {
 
 
     //提醒ID
-    private int remindId;
+    private int msgId;
+    private int msgType;
+    private int isRead;
     //提醒时间
-    private String remindTime;
-    //提醒标题
-    private String remindTitle;
+    private String createDate;
     //提醒内容
-    private String remind;
+    private String content;
 
 
-    public int getRemindId() {
-        return remindId;
+    public int getMsgId() {
+        return msgId;
     }
 
-    public void setRemindId(int remindId) {
-        this.remindId = remindId;
+    public void setMsgId(int msgId) {
+        this.msgId = msgId;
     }
 
-    public String getRemindTime() {
-        return remindTime;
+    public int getMsgType() {
+        return msgType;
     }
 
-    public void setRemindTime(String remindTime) {
-        this.remindTime = remindTime;
+    public void setMsgType(int msgType) {
+        this.msgType = msgType;
     }
 
-    public String getRemindTitle() {
-        return remindTitle;
+    public int getIsRead() {
+        return isRead;
     }
 
-    public void setRemindTitle(String remindTitle) {
-        this.remindTitle = remindTitle;
+    public void setIsRead(int isRead) {
+        this.isRead = isRead;
     }
 
-    public String getRemind() {
-        return remind;
+    public String getCreateDate() {
+        return createDate;
     }
 
-    public void setRemind(String remind) {
-        this.remind = remind;
+    public void setCreateDate(String createDate) {
+        this.createDate = createDate;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public static RemindBean parseBean(JSONObject object) {
         RemindBean remind = new RemindBean();
-        remind.setRemindId(object.optInt("remindId"));
-        remind.setRemind(object.optString("remind"));
-        remind.setRemindTime(object.optString("remindTime"));
-        remind.setRemindTitle(object.optString("remindTitle"));
+        remind.setMsgId(object.optInt("msgId"));
+        remind.setMsgType(object.optInt("msgType"));
+        remind.setIsRead(object.optInt("isRead"));
+        remind.setCreateDate(object.optString("createDate"));
+        remind.setContent(object.optString("content"));
         return remind;
     }
 }

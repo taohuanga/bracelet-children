@@ -22,6 +22,7 @@ import okhttp3.ResponseBody;
 import os.bracelets.children.AppConfig;
 import os.bracelets.children.MyApplication;
 import os.bracelets.children.bean.FamilyMember;
+import os.bracelets.children.bean.RemindBean;
 import os.bracelets.children.bean.WeatherInfo;
 import os.bracelets.children.http.ApiRequest;
 import os.bracelets.children.http.HttpSubscriber;
@@ -73,7 +74,20 @@ public class HomePresenter extends HomeContract.Presenter{
             public void onNext(HttpResult result) {
                 super.onNext(result);
                 if(result.code.equals(AppConfig.SUCCESS)){
-
+                    try {
+                        JSONObject object = new JSONObject(new Gson().toJson(result.data));
+                        JSONArray array = object.optJSONArray("list");
+                        List<RemindBean> list = new ArrayList<>();
+                        for (int i = 0; i <array.length() ; i++) {
+                            JSONObject obj = array.optJSONObject(i);
+                            RemindBean remindBean = RemindBean.parseBean(obj);
+                            list.add(remindBean);
+                        }
+                        if(mView!=null)
+                            mView.loadMsgSuccess(list);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
