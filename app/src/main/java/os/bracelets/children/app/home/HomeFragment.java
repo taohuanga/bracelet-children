@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import aio.health2world.recyclerview.CoverFlowLayoutManger;
 import aio.health2world.recyclerview.RecyclerCoverFlow;
 import aio.health2world.utils.DateUtil;
 import aio.health2world.utils.SPUtils;
@@ -83,7 +84,7 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
 
         mPresenter.getWeather();
         mPresenter.relative();
-        mPresenter.msgList(String.valueOf(2));
+//        mPresenter.msgList(String.valueOf(2));
     }
 
     @Override
@@ -112,7 +113,13 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
 
     @Override
     protected void initListener() {
-
+        recyclerCoverFlow.setOnItemSelectedListener(new CoverFlowLayoutManger.OnSelected() {
+            @Override
+            public void onItemSelected(int position) {
+                FamilyMember member = familyMemberList.get(position);
+                mPresenter.msgList(String.valueOf(member.getAccountId()));
+            }
+        });
     }
 
 

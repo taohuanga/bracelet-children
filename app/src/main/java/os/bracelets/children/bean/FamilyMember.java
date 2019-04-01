@@ -138,13 +138,13 @@ public class FamilyMember implements Serializable {
         member.setSexDesc(object.optString("sexDesc", ""));
         member.setLabels(object.optString("labels", ""));
         member.setSex(object.optInt("sex", 0));
-        member.setAccountId(object.optInt("accountId",0));
+        member.setAccountId(object.optInt("accountId", 0));
 
-        member.setRealName(object.optString("realName",""));
-        member.setBirthday(object.optString("birthday",""));
-        member.setHeight(object.optString("height",""));
-        member.setWeight(object.optString("weight",""));
-        member.setPhone(object.optString("phone",""));
+        member.setRealName(object.optString("realName", ""));
+        member.setBirthday(object.optString("birthday", ""));
+        member.setHeight(object.optString("height", ""));
+        member.setWeight(object.optString("weight", ""));
+        member.setPhone(object.optString("phone", ""));
         return member;
     }
 
