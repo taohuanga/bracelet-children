@@ -5,22 +5,12 @@
     android:background="#eee"
     android:orientation="vertical">
 
-    <FrameLayout
+    <aio.health2world.recyclerview.RecyclerCoverFlow
+        android:id="@+id/recyclerCoverFlow"
+        android:background="@mipmap/bg_home_top"
         android:layout_width="match_parent"
         android:layout_height="160dp"
-        android:background="@mipmap/bg_home_top">
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/viewPager"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:clipToPadding="false"
-            android:overScrollMode="never"
-            android:paddingBottom="12dp"
-            android:paddingLeft="110dp"
-            android:paddingRight="110dp" />
-    </FrameLayout>
+        android:layout_gravity="center" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -42,11 +32,11 @@
                 android:src="@drawable/icon_home_time" />
 
             <TextView
-                android:gravity="center"
                 android:id="@+id/tvTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_8"
+                android:gravity="center"
                 android:text="--"
                 android:textColor="@color/black6"
                 android:textSize="@dimen/sp14" />

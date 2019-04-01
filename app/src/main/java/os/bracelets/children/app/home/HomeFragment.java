@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import aio.health2world.recyclerview.RecyclerCoverFlow;
 import aio.health2world.utils.DateUtil;
 import aio.health2world.utils.SPUtils;
 import os.bracelets.children.AppConfig;
@@ -27,15 +28,13 @@ import os.bracelets.children.utils.DataString;
  * Created by lishiyou on 2019/3/20.
  */
 
-public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implements HomeContract.View {
+public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implements HomeContract.View, HomeTopAdapter.onItemClick {
 
-    private ViewPager mViewPager;
+    private RecyclerCoverFlow recyclerCoverFlow;
 
-    private CardPagerAdapter mCardAdapter;
-    private ShadowTransformer mCardShadowTransformer;
-//    private List<FamilyMember> familyMemberList;
-//    private CardFragmentPagerAdapter mFragmentCardAdapter;
-//    private ShadowTransformer mFragmentCardShadowTransformer;
+    private HomeTopAdapter topAdapter;
+
+    private List<FamilyMember> familyMemberList;
 
     private RecyclerView recyclerView;
 
@@ -58,7 +57,7 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
     @Override
     protected void initView() {
         recyclerView = findView(R.id.recyclerView);
-        mViewPager = findView(R.id.viewPager);
+        recyclerCoverFlow = findView(R.id.recyclerCoverFlow);
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(manager);
@@ -76,14 +75,20 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
         remindAdapter.bindToRecyclerView(recyclerView);
         remindAdapter.setEmptyView(R.layout.layout_empty_view);
 
-        mCardAdapter = new CardPagerAdapter();
-
         tvTime.setText(DateUtil.getDate(new Date(System.currentTimeMillis())) + " " + DataString.getWeek());
 
+        familyMemberList = new ArrayList<>();
+        topAdapter = new HomeTopAdapter(getActivity(), this, familyMemberList);
+        recyclerCoverFlow.setAdapter(topAdapter);
 
         mPresenter.getWeather();
         mPresenter.relative();
         mPresenter.msgList(String.valueOf(2));
+    }
+
+    @Override
+    public void clickItem(int pos) {
+        recyclerCoverFlow.smoothScrollToPosition(pos);
     }
 
     @Override
@@ -100,14 +105,9 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
     public void relativeSuccess(List<FamilyMember> list) {
         if (list.size() == 0)
             return;
-        for (FamilyMember member : list) {
-            mCardAdapter.addCardItem(member);
-        }
-        mCardShadowTransformer = new ShadowTransformer(mViewPager, mCardAdapter);
-        mViewPager.setAdapter(mCardAdapter);
-        mViewPager.setPageTransformer(false, mCardShadowTransformer);
-        mViewPager.setOffscreenPageLimit(3);
-        mCardShadowTransformer.enableScaling(true);
+        familyMemberList.clear();
+        familyMemberList.addAll(list);
+        topAdapter.notifyDataSetChanged();
     }
 
     @Override

@@ -18,10 +18,28 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        config {
+            keyAlias 'yftx'
+            keyPassword 'yftx2017'
+            storeFile file('H:/workspace_studio1/bracelet-children/health2world.jks')
+            storePassword 'yftx2017'
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+    }
     buildTypes {
+        debug {
+            minifyEnabled false
+            multiDexEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+        }
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.aio.pro'
+            multiDexEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
     }
     sourceSets {
@@ -50,30 +68,7 @@ android {
         useNewCruncher = false
     }
 
-    signingConfigs {
-        config {
-            keyAlias 'yftx'
-            keyPassword 'yftx2017'
-            storeFile file('E:/workspace_done/bracelet-parent/health2world.jks')
-            storePassword 'yftx2017'
-            v1SigningEnabled true
-            v2SigningEnabled true
-        }
-    }
-    buildTypes {
-        debug {
-            minifyEnabled false
-            multiDexEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.config
-        }
-        release {
-            minifyEnabled false
-            multiDexEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.config
-        }
-    }
+
 }
 
 // 自定义APK安装包名
@@ -103,7 +98,6 @@ dependencies {
     compile 'com.hyman:flowlayout-lib:1.1.2'
     compile 'com.android.support:appcompat-v7:26.1.0'
     //高德定位
-//    compile 'com.amap.api:location:3.3.0'
-//    compile 'com.amap.api:search:5.0.0'
-
+    //    compile 'com.amap.api:location:3.3.0'
+    //    compile 'com.amap.api:search:5.0.0'
 }
