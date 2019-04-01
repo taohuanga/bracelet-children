@@ -1,8 +1,12 @@
 package os.bracelets.children.app.home;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,16 +20,25 @@ import com.amap.api.maps.model.CameraPosition;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
+import com.amap.api.maps.model.Poi;
+import com.amap.api.navi.AmapNaviPage;
+import com.amap.api.navi.AmapNaviParams;
+import com.amap.api.navi.AmapNaviType;
+import com.amap.api.navi.INaviInfoCallback;
+import com.amap.api.navi.model.AMapNaviLocation;
 import com.bumptech.glide.Glide;
 
 import aio.health2world.glide_transformations.CropCircleTransformation;
+import aio.health2world.utils.DensityUtil;
+import aio.health2world.utils.ToastUtil;
 import os.bracelets.children.R;
 import os.bracelets.children.bean.FamilyMember;
 import os.bracelets.children.bean.RemindBean;
 import os.bracelets.children.utils.TitleBarUtil;
 import os.bracelets.children.view.TitleBar;
 
-public class FallPositionActivity extends AppCompatActivity implements AMap.InfoWindowAdapter {
+public class FallPositionActivity extends AppCompatActivity implements AMap.InfoWindowAdapter, View.OnClickListener,
+        INaviInfoCallback {
 
     private TitleBar titleBar;
 
@@ -65,11 +78,11 @@ public class FallPositionActivity extends AppCompatActivity implements AMap.Info
                 new CameraPosition(latLng, 18, 30, 30)));
         aMap.clear();
         aMap.setInfoWindowAdapter(this);
-        aMap.addMarker(new MarkerOptions()
+        Marker marker = aMap.addMarker(new MarkerOptions()
                 .position(latLng)
                 .infoWindowEnable(true)
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)))
-                .showInfoWindow();
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+        marker.showInfoWindow();
     }
 
     private void addListener() {
@@ -94,6 +107,29 @@ public class FallPositionActivity extends AppCompatActivity implements AMap.Info
     }
 
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tvNav:
+                AmapNaviParams params = new AmapNaviParams(new Poi("北京站", null, ""),
+                        null, new Poi("故宫博物院", null, ""), AmapNaviType.DRIVER);
+                params.setUseInnerVoice(true);
+                AmapNaviPage.getInstance().showRouteActivity(getApplicationContext(), params,
+                        FallPositionActivity.this);
+                break;
+            case R.id.ivCall:
+                if (!TextUtils.isEmpty(member.getPhone())) {
+                    Intent intent = new Intent(Intent.ACTION_DIAL);
+                    Uri data = Uri.parse("tel:" + member.getPhone());
+                    intent.setData(data);
+                    startActivity(intent);
+                } else {
+                    ToastUtil.showShort("不支持的操作");
+                }
+                break;
+        }
+    }
+
     private void render(Marker marker, View view) {
         TextView tvTitle = view.findViewById(R.id.tvTitle);
         TextView tvName = view.findViewById(R.id.tvName);
@@ -114,6 +150,9 @@ public class FallPositionActivity extends AppCompatActivity implements AMap.Info
                 .error(R.mipmap.ic_default_portrait)
                 .bitmapTransform(new CropCircleTransformation(this))
                 .into(ivImage);
+
+        ivCall.setOnClickListener(this);
+        tvNav.setOnClickListener(this);
     }
 
     /**
@@ -157,5 +196,75 @@ public class FallPositionActivity extends AppCompatActivity implements AMap.Info
     protected void onDestroy() {
         super.onDestroy();
         mapView.onDestroy();
+    }
+
+    @Override
+    public void onInitNaviFailure() {
+
+    }
+
+    @Override
+    public void onGetNavigationText(String s) {
+
+    }
+
+    @Override
+    public void onLocationChange(AMapNaviLocation aMapNaviLocation) {
+
+    }
+
+    @Override
+    public void onArriveDestination(boolean b) {
+
+    }
+
+    @Override
+    public void onStartNavi(int i) {
+
+    }
+
+    @Override
+    public void onCalculateRouteSuccess(int[] ints) {
+
+    }
+
+    @Override
+    public void onCalculateRouteFailure(int i) {
+
+    }
+
+    @Override
+    public void onStopSpeaking() {
+
+    }
+
+    @Override
+    public void onReCalculateRoute(int i) {
+
+    }
+
+    @Override
+    public void onExitPage(int i) {
+
+    }
+
+    @Override
+    public void onStrategyChanged(int i) {
+
+    }
+
+    @Override
+    public View getCustomNaviBottomView() {
+        return null;
+    }
+
+    @Override
+    public View getCustomNaviView() {
+        return null;
+    }
+
+    @Override
+    public void onArrivedWayPoint(int i) {
+
     }
 }

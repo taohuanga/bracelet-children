@@ -20,10 +20,10 @@ import java.util.Enumeration;
 
 public class DeviceUtil {
 
-    public static String getIMEI(Context context) {
-        TelephonyManager manager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-        return manager.getDeviceId();
-    }
+//    public static String getIMEI(Context context) {
+//        TelephonyManager manager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+//        return manager.getDeviceId();
+//    }
 
     public static String getLocalMacAddress(Context context) {
         WifiManager manager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
@@ -31,10 +31,10 @@ public class DeviceUtil {
         return info.getMacAddress();
     }
 
-    public static String getSSN(Context context) {
-        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-        return tm.getSimSerialNumber();
-    }
+//    public static String getSSN(Context context) {
+//        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+//        return tm.getSimSerialNumber();
+//    }
 
     public static String getAndroidId(Context context) {
         return Settings.System.getString(context.getContentResolver(), Settings.System.ANDROID_ID);
