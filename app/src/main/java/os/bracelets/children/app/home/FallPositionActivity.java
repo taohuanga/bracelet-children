@@ -3,6 +3,7 @@ package os.bracelets.children.app.home;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -93,11 +94,6 @@ public class FallPositionActivity extends AppCompatActivity implements AMap.Info
                 .infoWindowEnable(true)
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
         marker.showInfoWindow();
-
-        LatLonPoint point = new LatLonPoint(latLng.latitude, latLng.longitude);
-        RegeocodeQuery query = new RegeocodeQuery(point, 100,
-                GeocodeSearch.AMAP);// 第一个参数表示一个Latlng，第二参数表示范围多少米，第三个参数表示是火系坐标系还是GPS原生坐标系
-        geocodeSearch.getFromLocationAsyn(query);
     }
 
     private void addListener() {
@@ -186,6 +182,12 @@ public class FallPositionActivity extends AppCompatActivity implements AMap.Info
 
         ivCall.setOnClickListener(this);
         tvNav.setOnClickListener(this);
+
+        //地理位置逆编码
+        LatLonPoint point = new LatLonPoint(latLng.latitude, latLng.longitude);
+        // 第一个参数表示一个Latlng，第二参数表示范围多少米，第三个参数表示是火系坐标系还是GPS原生坐标系
+        RegeocodeQuery query = new RegeocodeQuery(point, 100, GeocodeSearch.AMAP);
+        geocodeSearch.getFromLocationAsyn(query);
     }
 
     /**
