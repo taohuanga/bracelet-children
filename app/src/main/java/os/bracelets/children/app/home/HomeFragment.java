@@ -1,8 +1,10 @@
 package os.bracelets.children.app.home;
 
+import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.TextView;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -12,10 +14,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import aio.health2world.brvah.BaseQuickAdapter;
 import aio.health2world.recyclerview.CoverFlowLayoutManger;
+import aio.health2world.recyclerview.DividerItemDecoration;
 import aio.health2world.recyclerview.RecyclerCoverFlow;
 import aio.health2world.utils.DateUtil;
 import aio.health2world.utils.SPUtils;
+import aio.health2world.utils.ToastUtil;
 import os.bracelets.children.AppConfig;
 import os.bracelets.children.R;
 import os.bracelets.children.bean.FamilyMember;
@@ -29,7 +34,8 @@ import os.bracelets.children.utils.DataString;
  * Created by lishiyou on 2019/3/20.
  */
 
-public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implements HomeContract.View, HomeTopAdapter.onItemClick {
+public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implements HomeContract.View,
+        HomeTopAdapter.onItemClick, BaseQuickAdapter.OnItemClickListener {
 
     private RecyclerCoverFlow recyclerCoverFlow;
 
@@ -45,6 +51,8 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
 
     private TextView tvTime, tvWeather, tvStepNum;
 
+    private int currentPos;
+
     @Override
     protected HomePresenter getPresenter() {
         return new HomePresenter(this);
@@ -57,11 +65,14 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
 
     @Override
     protected void initView() {
-        recyclerView = findView(R.id.recyclerView);
         recyclerCoverFlow = findView(R.id.recyclerCoverFlow);
+
+        recyclerView = findView(R.id.recyclerView);
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(manager);
+        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(),
+                DividerItemDecoration.VERTICAL_LIST));
 
         tvTime = findView(R.id.tvTime);
         tvWeather = findView(R.id.tvWeather);
@@ -87,7 +98,17 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
     }
 
     @Override
+    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        RemindBean remindBean = (RemindBean) adapter.getItem(position);
+        Intent intent = new Intent(getActivity(), FallPositionActivity.class);
+        intent.putExtra("member",familyMemberList.get(currentPos));
+        intent.putExtra("remind",remindBean);
+        startActivity(intent);
+    }
+
+    @Override
     public void clickItem(int pos) {
+        currentPos = pos;
         recyclerCoverFlow.smoothScrollToPosition(pos);
     }
 
@@ -111,13 +132,16 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
         familyMemberList.addAll(list);
         topAdapter.notifyDataSetChanged();
         mPresenter.msgList(String.valueOf(list.get(0).getAccountId()));
+        currentPos = 0;
     }
 
     @Override
     protected void initListener() {
+        remindAdapter.setOnItemClickListener(this);
         recyclerCoverFlow.setOnItemSelectedListener(new CoverFlowLayoutManger.OnSelected() {
             @Override
             public void onItemSelected(int position) {
+                currentPos = position;
                 FamilyMember member = familyMemberList.get(position);
                 mPresenter.msgList(String.valueOf(member.getAccountId()));
             }

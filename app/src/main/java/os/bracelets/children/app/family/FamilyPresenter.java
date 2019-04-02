@@ -32,7 +32,7 @@ public class FamilyPresenter extends FamilyContract.Presenter {
             @Override
             public void onError(Throwable e) {
                 super.onError(e);
-                if(mView!=null)
+                if (mView != null)
                     mView.loadFamilyError();
             }
 
@@ -49,11 +49,14 @@ public class FamilyPresenter extends FamilyContract.Presenter {
                             FamilyMember member = FamilyMember.parseBean(obj);
                             list.add(member);
                         }
-                        if(mView!=null)
+                        if (mView != null)
                             mView.loadFamilySuccess(list);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                } else {
+                    if (mView != null)
+                        mView.loadFamilyError();
                 }
             }
         });
