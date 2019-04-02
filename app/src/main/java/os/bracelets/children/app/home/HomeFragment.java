@@ -101,8 +101,8 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         RemindBean remindBean = (RemindBean) adapter.getItem(position);
         Intent intent = new Intent(getActivity(), FallPositionActivity.class);
-        intent.putExtra("member",familyMemberList.get(currentPos));
-        intent.putExtra("remind",remindBean);
+        intent.putExtra("member", familyMemberList.get(currentPos));
+        intent.putExtra("remind", remindBean);
         startActivity(intent);
     }
 
@@ -110,6 +110,7 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
     public void clickItem(int pos) {
         currentPos = pos;
         recyclerCoverFlow.smoothScrollToPosition(pos);
+        mPresenter.msgList(String.valueOf(familyMemberList.get(pos).getAccountId()));
     }
 
     @Override
@@ -117,6 +118,7 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
         remindList.clear();
         remindList.addAll(list);
         remindAdapter.notifyDataSetChanged();
+        recyclerView.scrollToPosition(0);
     }
 
     @Override
@@ -142,8 +144,7 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
             @Override
             public void onItemSelected(int position) {
                 currentPos = position;
-                FamilyMember member = familyMemberList.get(position);
-                mPresenter.msgList(String.valueOf(member.getAccountId()));
+                mPresenter.msgList(String.valueOf(familyMemberList.get(position).getAccountId()));
             }
         });
     }
