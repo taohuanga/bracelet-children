@@ -2,6 +2,7 @@ package os.bracelets.children.app.home;
 
 import java.util.List;
 
+import os.bracelets.children.bean.DailySports;
 import os.bracelets.children.bean.FamilyMember;
 import os.bracelets.children.bean.RemindBean;
 import os.bracelets.children.bean.WeatherInfo;
@@ -22,7 +23,7 @@ public interface HomeContract {
 
         void relativeSuccess(List<FamilyMember> list);
 
-        void dailySportsSuccess();
+        void dailySportsSuccess(DailySports sports);
     }
 
     abstract class Presenter extends BasePresenter<View> {

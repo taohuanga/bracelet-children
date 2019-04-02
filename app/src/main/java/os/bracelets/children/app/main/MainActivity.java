@@ -1,5 +1,6 @@
 package os.bracelets.children.app.main;
 
+import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.FragmentManager;
@@ -184,6 +185,12 @@ public class MainActivity extends MVPBaseActivity<MainContract.Presenter> implem
 
                     }
                 });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Logger.i("MainActivity","requestCode="+requestCode);
     }
 
     public void logout() {

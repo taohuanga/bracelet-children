@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import aio.health2world.brvah.BaseQuickAdapter;
+import aio.health2world.utils.Logger;
 import aio.health2world.utils.ToastUtil;
 import os.bracelets.children.R;
 import os.bracelets.children.app.edit.EditNavActivity;
@@ -125,4 +126,9 @@ public class FamilyListFragment extends MVPBaseFragment<FamilyContract.Presenter
     }
 
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Logger.i("FamilyListFragment","requestCode="+requestCode);
+    }
 }

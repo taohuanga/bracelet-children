@@ -21,6 +21,7 @@ import aio.health2world.utils.SPUtils;
 import okhttp3.ResponseBody;
 import os.bracelets.children.AppConfig;
 import os.bracelets.children.MyApplication;
+import os.bracelets.children.bean.DailySports;
 import os.bracelets.children.bean.FamilyMember;
 import os.bracelets.children.bean.RemindBean;
 import os.bracelets.children.bean.WeatherInfo;
@@ -74,6 +75,14 @@ public class HomePresenter extends HomeContract.Presenter {
             public void onNext(HttpResult result) {
                 super.onNext(result);
                 if (result.code.equals(AppConfig.SUCCESS)) {
+                    try {
+                        JSONObject object = new JSONObject(new Gson().toJson(result.data));
+                        DailySports sports = DailySports.parseBean(object);
+                        if(mView!=null)
+                            mView.dailySportsSuccess(sports);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
 
                 }
             }

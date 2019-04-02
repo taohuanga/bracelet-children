@@ -23,6 +23,7 @@ import aio.health2world.utils.SPUtils;
 import aio.health2world.utils.ToastUtil;
 import os.bracelets.children.AppConfig;
 import os.bracelets.children.R;
+import os.bracelets.children.bean.DailySports;
 import os.bracelets.children.bean.FamilyMember;
 import os.bracelets.children.bean.RemindBean;
 import os.bracelets.children.bean.WeatherInfo;
@@ -49,7 +50,7 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
 
     private RemindAdapter remindAdapter;
 
-    private TextView tvTime, tvWeather, tvStepNum,tvMore;
+    private TextView tvTime, tvWeather, tvStepNum, tvMore;
 
     private int currentPos;
 
@@ -139,8 +140,8 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
     }
 
     @Override
-    public void dailySportsSuccess() {
-
+    public void dailySportsSuccess(DailySports sports) {
+        tvStepNum.setText(String.valueOf(sports.getStepNum()));
     }
 
     @Override
@@ -158,8 +159,8 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
             @Override
             public void onClick(View v) {
                 FamilyMember member = familyMemberList.get(currentPos);
-                Intent intent = new Intent(getActivity(),SportsListActivity.class);
-                intent.putExtra("member",member);
+                Intent intent = new Intent(getActivity(), SportsListActivity.class);
+                intent.putExtra("member", member);
                 startActivity(intent);
             }
         });
