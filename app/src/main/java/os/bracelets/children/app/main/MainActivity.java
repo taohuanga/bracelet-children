@@ -76,7 +76,6 @@ public class MainActivity extends MVPBaseActivity<MainContract.Presenter> implem
     @Override
     protected void initListener() {
         homeTabs.setOnCheckedChangeListener(this);
-        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -167,7 +166,6 @@ public class MainActivity extends MVPBaseActivity<MainContract.Presenter> implem
 
         if (mineFragment != null)
             mineFragment = null;
-        EventBus.getDefault().unregister(this);
     }
 
     private void loginHx() {
