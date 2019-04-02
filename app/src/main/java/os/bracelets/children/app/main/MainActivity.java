@@ -9,8 +9,6 @@ import android.view.View;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 
-import org.greenrobot.eventbus.EventBus;
-
 import aio.health2world.utils.DeviceUtil;
 import aio.health2world.utils.Logger;
 import cn.jpush.android.api.JPushInterface;
@@ -18,7 +16,7 @@ import os.bracelets.children.MyApplication;
 import os.bracelets.children.R;
 import os.bracelets.children.app.family.FamilyListFragment;
 import os.bracelets.children.app.home.HomeFragment;
-import os.bracelets.children.app.mine.MineFragment;
+import os.bracelets.children.app.personal.PersonalFragment;
 import os.bracelets.children.app.news.HealthInfoFragment;
 import os.bracelets.children.bean.BaseInfo;
 import os.bracelets.children.common.MVPBaseActivity;
@@ -36,7 +34,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.Presenter> implem
 
     private HealthInfoFragment infoFragment;
 
-    private MineFragment mineFragment;
+    private PersonalFragment mineFragment;
 
     private FragmentManager fragmentManager;
 
@@ -126,7 +124,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.Presenter> implem
                 break;
             case 3:
                 if (mineFragment == null) {
-                    mineFragment = new MineFragment();
+                    mineFragment = new PersonalFragment();
                     transaction.add(R.id.container, mineFragment);
                 } else
                     transaction.show(mineFragment);

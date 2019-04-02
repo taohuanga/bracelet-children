@@ -11,9 +11,6 @@ import com.bumptech.glide.Glide;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import aio.health2world.glide_transformations.CropCircleTransformation;
 import aio.health2world.utils.AppManager;
 import aio.health2world.utils.SPUtils;
@@ -23,6 +20,7 @@ import os.bracelets.children.app.about.AboutActivity;
 import os.bracelets.children.app.about.FeedBackActivity;
 import os.bracelets.children.app.account.LoginActivity;
 import os.bracelets.children.app.personal.PersonalMsgActivity;
+import os.bracelets.children.app.personal.UpdatePwdActivity;
 import os.bracelets.children.bean.BaseInfo;
 import os.bracelets.children.common.MVPBaseActivity;
 import os.bracelets.children.utils.TitleBarUtil;

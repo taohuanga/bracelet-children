@@ -24,7 +24,6 @@ import aio.health2world.utils.FilePathUtil;
 import aio.health2world.utils.TimePickerUtil;
 import aio.health2world.utils.ToastUtil;
 import os.bracelets.children.R;
-import os.bracelets.children.app.setting.UpdatePhoneActivity;
 import os.bracelets.children.bean.UserInfo;
 import os.bracelets.children.common.MVPBaseActivity;
 import os.bracelets.children.utils.AppUtils;

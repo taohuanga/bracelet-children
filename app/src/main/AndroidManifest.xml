@@ -77,9 +77,9 @@
 
         <activity android:name=".app.setting.SettingActivity" />
 
-        <activity android:name=".app.setting.UpdatePwdActivity" />
+        <activity android:name=".app.personal.UpdatePwdActivity" />
 
-        <activity android:name=".app.setting.UpdatePhoneActivity" />
+        <activity android:name=".app.personal.UpdatePhoneActivity" />
 
         <activity android:name=".app.account.ResetPwdActivity" />
 
@@ -106,10 +106,6 @@
         <activity android:name=".app.about.FeedBackActivity" />
 
         <activity android:name=".app.family.DetailActivity" />
-
-        <activity android:name=".app.mine.MoreActivity" />
-
-        <activity android:name=".app.family.TagListActivity" />
 
         <activity android:name=".app.edit.LabelEditActivity" />
 

@@ -1,4 +1,4 @@
-package os.bracelets.children.app.setting;
+package os.bracelets.children.app.personal;
 
 import aio.health2world.http.HttpResult;
 import os.bracelets.children.AppConfig;

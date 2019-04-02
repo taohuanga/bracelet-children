@@ -1,4 +1,4 @@
-package os.bracelets.children.app.setting;
+package os.bracelets.children.app.personal;
 
 import android.view.View;
 

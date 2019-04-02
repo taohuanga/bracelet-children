@@ -1,4 +1,4 @@
-package os.bracelets.children.app.setting;
+package os.bracelets.children.app.personal;
 
 /**
  * Created by lishiyou on 2019/2/20.
