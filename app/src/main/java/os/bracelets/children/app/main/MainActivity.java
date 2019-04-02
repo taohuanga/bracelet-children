@@ -9,7 +9,11 @@ import android.view.View;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 
+import org.greenrobot.eventbus.EventBus;
+
+import aio.health2world.utils.DeviceUtil;
 import aio.health2world.utils.Logger;
+import cn.jpush.android.api.JPushInterface;
 import os.bracelets.children.MyApplication;
 import os.bracelets.children.R;
 import os.bracelets.children.app.family.FamilyListFragment;
@@ -18,6 +22,8 @@ import os.bracelets.children.app.mine.MineFragment;
 import os.bracelets.children.app.news.HealthInfoFragment;
 import os.bracelets.children.bean.BaseInfo;
 import os.bracelets.children.common.MVPBaseActivity;
+import os.bracelets.children.jpush.JPushUtil;
+import os.bracelets.children.jpush.TagAliasOperatorHelper;
 import os.bracelets.children.view.HomeTabs;
 
 @RequiresApi(api = Build.VERSION_CODES.N)
@@ -58,31 +64,19 @@ public class MainActivity extends MVPBaseActivity<MainContract.Presenter> implem
 
     @Override
     protected void initData() {
+        JPushInterface.init(this);
+        JPushUtil.setJPushAlias(TagAliasOperatorHelper.ACTION_SET, DeviceUtil.getAndroidId(this));
+
         if (getIntent().hasExtra("info"))
             info = (BaseInfo) getIntent().getSerializableExtra("info");
         if (info != null)
-            EMClient.getInstance()
-                    .login(info.getPhone(), info.getPhone(), new EMCallBack() {
-                        @Override
-                        public void onSuccess() {
-                            Logger.i("hx", "login success");
-                        }
-
-                        @Override
-                        public void onError(int i, String s) {
-                            Logger.i("hx", "login failed " + s);
-                        }
-
-                        @Override
-                        public void onProgress(int i, String s) {
-
-                        }
-                    });
+            loginHx();
     }
 
     @Override
     protected void initListener() {
         homeTabs.setOnCheckedChangeListener(this);
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -173,6 +167,27 @@ public class MainActivity extends MVPBaseActivity<MainContract.Presenter> implem
 
         if (mineFragment != null)
             mineFragment = null;
+        EventBus.getDefault().unregister(this);
+    }
+
+    private void loginHx() {
+        EMClient.getInstance()
+                .login(info.getPhone(), info.getPhone(), new EMCallBack() {
+                    @Override
+                    public void onSuccess() {
+                        Logger.i("hx", "login success");
+                    }
+
+                    @Override
+                    public void onError(int i, String s) {
+                        Logger.i("hx", "login failed " + s);
+                    }
+
+                    @Override
+                    public void onProgress(int i, String s) {
+
+                    }
+                });
     }
 
     public void logout() {

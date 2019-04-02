@@ -13,15 +13,19 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import aio.health2world.rx.rxpermissions.RxPermissions;
+import aio.health2world.utils.DeviceUtil;
 import aio.health2world.utils.MD5Util;
 import aio.health2world.utils.MatchUtil;
 import aio.health2world.utils.SPUtils;
 import aio.health2world.utils.ToastUtil;
+import cn.jpush.android.api.JPushInterface;
 import os.bracelets.children.AppConfig;
 import os.bracelets.children.R;
 import os.bracelets.children.app.main.MainActivity;
 import os.bracelets.children.bean.BaseInfo;
 import os.bracelets.children.common.MVPBaseActivity;
+import os.bracelets.children.jpush.JPushUtil;
+import os.bracelets.children.jpush.TagAliasOperatorHelper;
 import rx.functions.Action1;
 
 /**
@@ -82,13 +86,6 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.Presenter> impl
 
     @Override
     protected void initData() {
-
-//        JPushInterface.init(this);
-//        JPushUtil.setJPushAlias(TagAliasOperatorHelper.ACTION_SET, DeviceUtil.getAndroidId(this));
-//        Set<String> set = new HashSet<>();
-//        set.add("android");
-//        JPushUtil.setJPushTags(TagAliasOperatorHelper.ACTION_SET, set);
-//        Logger.i("lsy", DeviceUtil.getAndroidId(this));
 
         edAccount.setSelection(edAccount.getText().length());
 
