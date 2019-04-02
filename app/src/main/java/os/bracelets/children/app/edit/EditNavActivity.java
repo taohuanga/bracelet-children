@@ -16,6 +16,8 @@ public class EditNavActivity extends BaseActivity {
 
     private FamilyMember member;
 
+    public static final int ITEM_LABEL = 0x01;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_edit_nav;
@@ -58,7 +60,7 @@ public class EditNavActivity extends BaseActivity {
                 //亲人的联系人列表
                 Intent contactIntent = new Intent(this, ContactActivity.class);
                 contactIntent.putExtra("member", member);
-                startActivity(contactIntent);
+                startActivityForResult(contactIntent,ITEM_LABEL);
                 finish();
                 break;
             case R.id.rlAddContact:

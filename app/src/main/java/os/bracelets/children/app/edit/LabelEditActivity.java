@@ -132,7 +132,7 @@ public class LabelEditActivity extends MVPBaseActivity<LabelContract.Presenter> 
         String labelIds = "";
         for (LabelSection label : labelList) {
             if (label.isHeader)
-                break;
+                continue;
             if (label.t.isChecked())
                 labelIds += label.t.getLabelId() + ";";
         }
