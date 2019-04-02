@@ -49,7 +49,7 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
 
     private RemindAdapter remindAdapter;
 
-    private TextView tvTime, tvWeather, tvStepNum;
+    private TextView tvTime, tvWeather, tvStepNum,tvMore;
 
     private int currentPos;
 
@@ -75,6 +75,7 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
                 DividerItemDecoration.VERTICAL_LIST));
 
         tvTime = findView(R.id.tvTime);
+        tvMore = findView(R.id.tvMore);
         tvWeather = findView(R.id.tvWeather);
         tvStepNum = findView(R.id.tvStepNum);
     }
@@ -110,7 +111,7 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
     public void clickItem(int pos) {
         currentPos = pos;
         recyclerCoverFlow.smoothScrollToPosition(pos);
-        mPresenter.msgList(String.valueOf(familyMemberList.get(pos).getAccountId()));
+        loadData(familyMemberList.get(pos));
     }
 
     @Override
@@ -130,11 +131,16 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
     public void relativeSuccess(List<FamilyMember> list) {
         if (list.size() == 0)
             return;
+        currentPos = 0;
         familyMemberList.clear();
         familyMemberList.addAll(list);
         topAdapter.notifyDataSetChanged();
-        mPresenter.msgList(String.valueOf(list.get(0).getAccountId()));
-        currentPos = 0;
+        loadData(list.get(0));
+    }
+
+    @Override
+    public void dailySportsSuccess() {
+
     }
 
     @Override
@@ -144,9 +150,25 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
             @Override
             public void onItemSelected(int position) {
                 currentPos = position;
-                mPresenter.msgList(String.valueOf(familyMemberList.get(position).getAccountId()));
+                loadData(familyMemberList.get(position));
             }
         });
+
+        tvMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FamilyMember member = familyMemberList.get(currentPos);
+                Intent intent = new Intent(getActivity(),SportsListActivity.class);
+                intent.putExtra("member",member);
+                startActivity(intent);
+            }
+        });
+    }
+
+
+    private void loadData(FamilyMember member) {
+        mPresenter.msgList(String.valueOf(member.getAccountId()));
+        mPresenter.dailySports(String.valueOf(member.getAccountId()));
     }
 
 

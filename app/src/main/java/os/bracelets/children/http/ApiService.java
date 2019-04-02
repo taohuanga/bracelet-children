@@ -62,17 +62,6 @@ interface ApiService {
 
     @POST("children/home/location")
     Observable<HttpResult> uploadLocation(@Body Map<String, Object> map);
-//    /**
-//     * 首页信息
-//     */
-//    @POST("parent/home/index")
-//    Observable<HttpResult> homeMsg(@Body Map<String, Object> map);
-
-//    /**
-//     * 首页待办
-//     */
-//    @POST("parent/home/remindList")
-//    Observable<HttpResult> remindList(@Body Map<String, Object> map);
 
     /**
      * 用户信息
@@ -132,7 +121,6 @@ interface ApiService {
     @POST("sys/app/about")
     Observable<HttpResult> aboutApp(@Body Map<String, Object> map);
 
-
     /**
      * 首页头部亲人列表
      */
@@ -159,7 +147,6 @@ interface ApiService {
 
     /**
      * 亲人详情
-     *
      */
     @POST("children/relationship/info")
     Observable<HttpResult> memberInfo(@Body Map<String, Object> map);
@@ -169,7 +156,6 @@ interface ApiService {
      */
     @POST("children/information/list")
     Observable<HttpResult> informationList(@Body Map<String, Object> map);
-
 
     /**
      * 资讯详情
@@ -185,11 +171,16 @@ interface ApiService {
 
 
     /**
-     *电子围栏列表
+     * 电子围栏列表
      */
     @POST("children/setting/fenceList")
     Observable<HttpResult> fenceList(@Body Map<String, Object> map);
 
+    /**
+     * 添加电子围栏
+     */
+    @POST("children/setting/fence")
+    Observable<HttpResult> fenceAdd(@Body Map<String, Object> map);
 
     /**
      * 设置提醒
@@ -210,15 +201,20 @@ interface ApiService {
     Observable<HttpResult> bindDevice(@Body Map<String, Object> map);
 
     /**
-     * 亲人的联系人添加
+     * 给亲人添加联系人
      */
     @POST("children/setting/contacts")
     Observable<HttpResult> contactAdd(@Body Map<String, Object> map);
 
     /**
-     *添加电子围栏
+     * 父母运动数据
      */
-    @POST("children/setting/fence")
-    Observable<HttpResult> fenceAdd(@Body Map<String, Object> map);
+    @POST("children/relative/dailySports")
+    Observable<HttpResult> dailySports(@Body Map<String, Object> map);
 
+    /**
+     * 父母运动数据列表
+     */
+    @POST("children/relative/dailySportsList")
+    Observable<HttpResult> dailySportsList(@Body Map<String, Object> map);
 }

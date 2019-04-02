@@ -22,6 +22,8 @@ public class RemindBean implements Serializable {
     //提醒内容
     private String content;
 
+    private String location;
+
     private String latitude;
 
     private String longitude;
@@ -83,23 +85,30 @@ public class RemindBean implements Serializable {
         this.longitude = longitude;
     }
 
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
     public static RemindBean parseBean(JSONObject object) {
         RemindBean remind = new RemindBean();
         remind.setMsgId(object.optInt("msgId"));
         remind.setMsgType(object.optInt("msgType"));
         remind.setIsRead(object.optInt("isRead"));
         remind.setCreateDate(object.optString("createDate"));
+        remind.setLatitude(object.optString("latitude"));
+        remind.setLongitude(object.optString("longitude"));
+        remind.setLocation(object.optString("location"));
         String content = object.optString("content");
         if(!TextUtils.isEmpty(content)){
             String[] array = content.split("###");
             if(array.length>=2){
                 remind.setContent(array[0]);
-                String[] location = array[1].split(",");
-                remind.setLongitude(location[0]);
-                remind.setLatitude(location[1]);
             }
         }
-//        remind.setContent(object.optString("content"));
         return remind;
     }
 }

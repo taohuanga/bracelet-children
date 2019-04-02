@@ -125,29 +125,6 @@ public class ApiRequest {
                 .subscribe(subscriber);
     }
 
-
-//    //首页获取步数
-//    public static Subscription homeMsg(Subscriber<HttpResult> subscriber) {
-//        Map<String, Object> map = new HashMap<>();
-//        map.put("tokenId", MyApplication.getInstance().getTokenId());
-//        return ServiceFactory.getInstance()
-//                .createService(ApiService.class)
-//                .homeMsg(map)
-//                .compose(RxTransformer.<HttpResult>defaultSchedulers())
-//                .subscribe(subscriber);
-//    }
-
-//    //首页待办
-//    public static Subscription remindList(Subscriber<HttpResult> subscriber) {
-//        Map<String, Object> map = new HashMap<>();
-//        map.put("tokenId", MyApplication.getInstance().getTokenId());
-//        return ServiceFactory.getInstance()
-//                .createService(ApiService.class)
-//                .remindList(map)
-//                .compose(RxTransformer.<HttpResult>defaultSchedulers())
-//                .subscribe(subscriber);
-//    }
-
     //获取用户信息
     public static Subscription userInfo(Subscriber<HttpResult> subscriber) {
         Map<String, Object> map = new HashMap<>();
@@ -478,6 +455,32 @@ public class ApiRequest {
         return ServiceFactory.getInstance()
                 .createService(ApiService.class)
                 .fenceAdd(map)
+                .compose(RxTransformer.<HttpResult>defaultSchedulers())
+                .subscribe(subscriber);
+    }
+
+    //父母运动数据
+    public static Subscription dailySports(String accountId, Subscriber<HttpResult> subscriber) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("tokenId", MyApplication.getInstance().getTokenId());
+        map.put("accountId", accountId);
+        return ServiceFactory.getInstance()
+                .createService(ApiService.class)
+                .dailySports(map)
+                .compose(RxTransformer.<HttpResult>defaultSchedulers())
+                .subscribe(subscriber);
+    }
+
+    //父母运动数据列表
+    public static Subscription dailySportsList(String accountId, String startDate, String ednData, Subscriber<HttpResult> subscriber) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("tokenId", MyApplication.getInstance().getTokenId());
+        map.put("accountId", accountId);
+        map.put("startDate", startDate);
+        map.put("ednData", ednData);
+        return ServiceFactory.getInstance()
+                .createService(ApiService.class)
+                .dailySportsList(map)
                 .compose(RxTransformer.<HttpResult>defaultSchedulers())
                 .subscribe(subscriber);
     }

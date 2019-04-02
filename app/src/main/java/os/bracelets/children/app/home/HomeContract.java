@@ -21,6 +21,8 @@ public interface HomeContract {
         void  loadMsgSuccess(List<RemindBean> list);
 
         void relativeSuccess(List<FamilyMember> list);
+
+        void dailySportsSuccess();
     }
 
     abstract class Presenter extends BasePresenter<View> {
@@ -34,5 +36,7 @@ public interface HomeContract {
         abstract void relative();
 
         abstract void msgList(String accountId);
+
+        abstract void dailySports(String accountId);
     }
 }

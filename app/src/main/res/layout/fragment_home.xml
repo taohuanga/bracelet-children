@@ -88,15 +88,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_16"
+            android:layout_marginStart="@dimen/dp_16"
             android:layout_toEndOf="@id/tvTitle"
             android:text="--"
             android:textColor="@color/appThemeColor"
             android:textSize="@dimen/sp16" />
 
         <TextView
+            android:id="@+id/tvMore"
+            android:gravity="center_vertical"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:text="更多>"
