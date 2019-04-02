@@ -54,7 +54,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:name">
-        <activity android:name=".app.account.StartActivity">
+        <activity
+            android:name=".app.account.StartActivity"
+            android:theme="@style/StartAppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.MAIN" />
@@ -115,11 +117,11 @@
 
         <activity android:name=".app.edit.EleFenceAddActivity" />
 
-        <activity android:name=".app.home.FallPositionActivity"/>
+        <activity android:name=".app.home.FallPositionActivity" />
 
-        <activity android:name=".app.home.SportsListActivity"/>
+        <activity android:name=".app.home.SportsListActivity" />
 
-        <activity android:name="aio.health2world.qrcode.CaptureActivity"/>
+        <activity android:name="aio.health2world.qrcode.CaptureActivity" />
 
         <activity
             android:name=".app.edit.EditNavActivity"
