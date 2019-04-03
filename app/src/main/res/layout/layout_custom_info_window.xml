@@ -111,6 +111,7 @@
                 android:src="@mipmap/icon_location_white" />
 
             <TextView
+                android:maxLength="17"
                 android:id="@+id/tvAddress"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
