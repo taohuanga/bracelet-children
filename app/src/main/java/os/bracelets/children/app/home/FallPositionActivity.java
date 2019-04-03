@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.amap.api.maps.AMap;
@@ -29,6 +31,9 @@ import com.amap.api.services.geocoder.GeocodeSearch;
 import com.bumptech.glide.Glide;
 
 import aio.health2world.glide_transformations.CropCircleTransformation;
+import aio.health2world.utils.AppUtils;
+import aio.health2world.utils.DensityUtil;
+import aio.health2world.utils.DeviceUtil;
 import aio.health2world.utils.ToastUtil;
 import os.bracelets.children.R;
 import os.bracelets.children.bean.FamilyMember;
@@ -106,6 +111,13 @@ public class FallPositionActivity extends AppCompatActivity implements AMap.Info
     @Override
     public View getInfoContents(Marker marker) {
         View infoWindow = getLayoutInflater().inflate(R.layout.layout_custom_info_window, null);
+        DisplayMetrics metric = new DisplayMetrics();
+        this.getWindowManager().getDefaultDisplay().getRealMetrics(metric);
+        int width = metric.widthPixels;  // 屏幕宽度（像素）
+        int height = metric.heightPixels;  // 屏幕高度（像素）
+        LinearLayout layoutWindow = infoWindow.findViewById(R.id.layoutWindow);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width, LinearLayout.LayoutParams.WRAP_CONTENT);
+        layoutWindow.setLayoutParams(params);
         render(marker, infoWindow);
         return infoWindow;
     }
