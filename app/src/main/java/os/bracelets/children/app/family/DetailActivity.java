@@ -209,6 +209,16 @@ public class DetailActivity extends MVPBaseActivity<DetailContract.Presenter>
     }
 
     @Override
+    public void uploadImageSuccess(String serverImagePath) {
+
+    }
+
+    @Override
+    public void updateMsgSuccess() {
+
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.layoutHeadImg:

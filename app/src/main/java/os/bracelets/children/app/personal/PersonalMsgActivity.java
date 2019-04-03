@@ -310,11 +310,6 @@ public class PersonalMsgActivity extends MVPBaseActivity<PersonalMsgContract.Pre
         } else if (sex.equals("女")) {
             sexType = 2;
         }
-//        String realName = tvName.getText().toString().trim();
-//        String birthday = tvBirthday.getText().toString().trim();
-//        String height = tvHeight.getText().toString().trim();
-//        String weight = tvWeight.getText().toString().trim();
-//        String address = tvHomeAddress.getText().toString().trim();
         if (!TextUtils.isEmpty(localImagePath))
             mPresenter.uploadImage(localImagePath);
         else
