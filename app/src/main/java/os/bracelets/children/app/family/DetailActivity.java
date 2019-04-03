@@ -76,6 +76,16 @@ public class DetailActivity extends MVPBaseActivity<DetailContract.Presenter>
 
     @Override
     protected void initListener() {
+        layoutHeadImg.setOnClickListener(this);
+        layoutNickName.setOnClickListener(this);
+        layoutName.setOnClickListener(this);
+        layoutSex.setOnClickListener(this);
+        layoutBirthday.setOnClickListener(this);
+        layoutWeight.setOnClickListener(this);
+        layoutHeight.setOnClickListener(this);
+        layoutPhone.setOnClickListener(this);
+        layoutRelation.setOnClickListener(this);
+        btnSave.setOnClickListener(this);
         titleBar.setLeftClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,6 +110,32 @@ public class DetailActivity extends MVPBaseActivity<DetailContract.Presenter>
                 .placeholder(R.mipmap.ic_default_portrait)
                 .bitmapTransform(new CropCircleTransformation(this))
                 .into(ivHeadImg);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.layoutHeadImg:
+                break;
+            case R.id.layoutNickName:
+                break;
+            case R.id.layoutName:
+                break;
+            case R.id.layoutSex:
+                break;
+            case R.id.layoutBirthday:
+                break;
+            case R.id.layoutWeight:
+                break;
+            case R.id.layoutHeight:
+                break;
+            case R.id.layoutPhone:
+                break;
+            case R.id.layoutRelation:
+                break;
+            case R.id.btnSave:
+                break;
+        }
     }
 }
 
