@@ -35,9 +35,7 @@ import os.bracelets.children.utils.TitleBarUtil;
 import os.bracelets.children.view.TitleBar;
 import rx.functions.Action1;
 
-public class DetailActivity extends MVPBaseActivity<DetailContract.Presenter>
-        implements DetailContract.View, TimePickerView.OnTimeSelectListener,
-        OptionsPickerView.OnOptionsSelectListener {
+public class DetailActivity extends MVPBaseActivity<DetailContract.Presenter> implements DetailContract.View {
     public static final int ITEM_HEAD = 0x01;
     public static final int ITEM_NICK = 0x02;
     public static final int ITEM_NAME = 0x03;
@@ -62,11 +60,13 @@ public class DetailActivity extends MVPBaseActivity<DetailContract.Presenter>
     private Button btnSave;
 
     private RxPermissions rxPermissions;
-    private TimePickerView pickerView;
 
-    private OptionsPickerView optionsPicker;
+    private TimePickerView pickerView;
+    private OptionsPickerView relationPicker;
+    private OptionsPickerView sexPicker;
 
     private List<String> listSex = new ArrayList<>();
+    private List<String> listRelation = new ArrayList<>();
 
     private String localImagePath;
 
@@ -112,11 +112,21 @@ public class DetailActivity extends MVPBaseActivity<DetailContract.Presenter>
     protected void initData() {
         TitleBarUtil.setAttr(this, "", "亲人详情", titleBar);
         rxPermissions = new RxPermissions(this);
-        pickerView = TimePickerUtil.init(this, this);
-        optionsPicker = TimePickerUtil.initOptions(this, this);
+
+
+        pickerView = TimePickerUtil.init(this, new TimeSelectListener());
+        sexPicker = TimePickerUtil.initOptions(this, new SexSelectListener());
+        relationPicker = TimePickerUtil.initOptions(this, new RelationSelectListener());
         listSex.add("男");
         listSex.add("女");
-        optionsPicker.setPicker(listSex);
+        sexPicker.setPicker(listSex);
+
+        listRelation.add("父子");
+        listRelation.add("母子");
+        listRelation.add("父女");
+        listRelation.add("母女");
+        relationPicker.setPicker(listRelation);
+
         accountId = getIntent().getStringExtra("accountId");
         mPresenter.memberInfo(accountId);
     }
@@ -151,7 +161,7 @@ public class DetailActivity extends MVPBaseActivity<DetailContract.Presenter>
         tvWeight.setText(member.getWeight());
         tvHeight.setText(member.getHeight());
         tvPhone.setText(member.getPhone());
-
+        serverImageUrl = member.getProfile();
         Glide.with(this)
                 .load(member.getProfile())
                 .placeholder(R.mipmap.ic_default_portrait)
@@ -177,7 +187,6 @@ public class DetailActivity extends MVPBaseActivity<DetailContract.Presenter>
                                 .bitmapTransform(new CropCircleTransformation(mContext))
                                 .into(ivHeadImg);
                 }
-
                 break;
             case ITEM_NICK:
                 tvNickName.setText(data.getStringExtra("data"));
@@ -198,24 +207,34 @@ public class DetailActivity extends MVPBaseActivity<DetailContract.Presenter>
     }
 
     @Override
-    public void onTimeSelect(Date date, View v) {
-        String time = DateUtil.getTime(date);
-        tvBirthday.setText(time);
-    }
-
-    @Override
-    public void onOptionsSelect(int options1, int options2, int options3, View v) {
-        tvSex.setText(listSex.get(options1));
-    }
-
-    @Override
     public void uploadImageSuccess(String serverImagePath) {
-
+        serverImageUrl = serverImagePath;
+        updateMsg();
     }
 
     @Override
     public void updateMsgSuccess() {
+        setResult(RESULT_OK);
+        finish();
+    }
 
+    private void updateMsg() {
+        String nickName = tvNickName.getText().toString().trim();
+        String name = tvName.getText().toString();
+        //0未知 1男 2女
+        String sex = tvSex.getText().toString().trim();
+        int sexType = 0;
+        if (sex.equals("男")) {
+            sexType = 1;
+        } else if (sex.equals("女")) {
+            sexType = 2;
+        }
+        String birthday = tvBirthday.getText().toString();
+        String height = tvHeight.getText().toString();
+        String weight = tvWeight.getText().toString();
+        String relation = tvRelation.getText().toString();
+        String phone = tvPhone.getText().toString();
+        mPresenter.updateMsg(accountId, serverImageUrl, nickName, name, sexType, birthday, height, weight, relation, phone);
     }
 
     @Override
@@ -252,11 +271,14 @@ public class DetailActivity extends MVPBaseActivity<DetailContract.Presenter>
                 break;
             case R.id.layoutSex:
                 //修改性别
-                optionsPicker.show();
+                sexPicker.show();
                 break;
             case R.id.layoutBirthday:
                 //修改生日
                 pickerView.show();
+                break;
+            case R.id.layoutRelation:
+                relationPicker.show();
                 break;
             case R.id.layoutHeight:
                 //修改身高
@@ -274,14 +296,68 @@ public class DetailActivity extends MVPBaseActivity<DetailContract.Presenter>
                 break;
             case R.id.layoutPhone:
                 //修改手机号
-                Intent intentPhone = new Intent(this, UpdatePhoneActivity.class);
+                //修改体重
+                Intent intentPhone = new Intent(this, InputMsgActivity.class);
+                intentPhone.putExtra(InputMsgActivity.KEY, "修改手机号");
+                intentPhone.putExtra(InputMsgActivity.TYPE, ITEM_PHONE);
                 startActivityForResult(intentPhone, ITEM_PHONE);
                 break;
-            case R.id.layoutRelation:
-                break;
             case R.id.btnSave:
+                if (checkData()) {
+                    if (!TextUtils.isEmpty(localImagePath)) {
+                        mPresenter.uploadImage(localImagePath);
+                    } else {
+                        updateMsg();
+                    }
+                }
                 break;
         }
+    }
+
+    private class SexSelectListener implements OptionsPickerView.OnOptionsSelectListener {
+        @Override
+        public void onOptionsSelect(int options1, int options2, int options3, View v) {
+            tvSex.setText(listSex.get(options1));
+        }
+    }
+
+    private class RelationSelectListener implements OptionsPickerView.OnOptionsSelectListener {
+        @Override
+        public void onOptionsSelect(int options1, int options2, int options3, View v) {
+            tvRelation.setText(listRelation.get(options1));
+        }
+    }
+
+    private class TimeSelectListener implements TimePickerView.OnTimeSelectListener {
+        @Override
+        public void onTimeSelect(Date date, View v) {
+            String time = DateUtil.getTime(date);
+            tvBirthday.setText(time);
+        }
+    }
+
+    private boolean checkData() {
+        if (TextUtils.isEmpty(serverImageUrl) && TextUtils.isEmpty(localImagePath)) {
+            ToastUtil.showShort("请先上传头像");
+            return false;
+        }
+        String nickName = tvNickName.getText().toString().trim();
+        if (TextUtils.isEmpty(nickName)) {
+            ToastUtil.showShort("昵称不能为空");
+            return false;
+        }
+        String name = tvName.getText().toString();
+        if (TextUtils.isEmpty(name)) {
+            ToastUtil.showShort("姓名不能为空");
+            return false;
+        }
+        //0未知 1男 2女
+        String sex = tvSex.getText().toString().trim();
+        if (TextUtils.isEmpty(sex)) {
+            ToastUtil.showShort("性别不能为空");
+            return false;
+        }
+        return true;
     }
 }
 

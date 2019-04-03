@@ -315,16 +315,19 @@ public class ApiRequest {
                                          String phone, Subscriber<HttpResult> subscriber) {
         Map<String, Object> map = new HashMap<>();
         map.put("tokenId", MyApplication.getInstance().getTokenId());
-        map.put("accountId", accountId);
+        if (!TextUtils.isEmpty(accountId))
+            map.put("accountId", accountId);
         map.put("portrait", profile);
         map.put("nickName", nickName);
-        map.put("realName", realName);
+        if (!TextUtils.isEmpty(realName))
+            map.put("realName", realName);
         map.put("sex", String.valueOf(sex));
         map.put("birthday", birthday);
         map.put("height", height);
         map.put("weight", weight);
         map.put("relationship", relationship);
-        map.put("phone", phone);
+        if (!TextUtils.isEmpty(phone))
+            map.put("phone", phone);
         return ServiceFactory.getInstance()
                 .createService(ApiService.class)
                 .addMember(map)
