@@ -2,6 +2,7 @@ package os.bracelets.children.http;
 
 
 import android.text.TextUtils;
+import android.widget.TextView;
 
 import java.io.File;
 import java.util.HashMap;
@@ -332,10 +333,11 @@ public class ApiRequest {
                 .compose(RxTransformer.<HttpResult>defaultSchedulers())
                 .subscribe(subscriber);
     }
+
     //添加亲人
-    public static Subscription familyEdit(String accountId,String profile, String nickName, String realName,
-                                         int sex, String birthday, String height, String weight, String relationship,
-                                         String phone, Subscriber<HttpResult> subscriber) {
+    public static Subscription familyEdit(String accountId, String profile, String nickName, String realName,
+                                          int sex, String birthday, String height, String weight, String relationship,
+                                          String phone, Subscriber<HttpResult> subscriber) {
         Map<String, Object> map = new HashMap<>();
         map.put("tokenId", MyApplication.getInstance().getTokenId());
         map.put("accountId", accountId);
@@ -344,12 +346,12 @@ public class ApiRequest {
         if (!TextUtils.isEmpty(realName))
             map.put("realName", realName);
         map.put("sex", String.valueOf(sex));
-        map.put("birthday", birthday);
+        if (!TextUtils.isEmpty(birthday))
+            map.put("birthday", birthday);
         map.put("height", height);
         map.put("weight", weight);
         map.put("relationship", relationship);
-        if (!TextUtils.isEmpty(phone))
-            map.put("phone", phone);
+        map.put("phone", phone);
         return ServiceFactory.getInstance()
                 .createService(ApiService.class)
                 .editMember(map)
