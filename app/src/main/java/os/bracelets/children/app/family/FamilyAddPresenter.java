@@ -74,31 +74,31 @@ public class FamilyAddPresenter extends FamilyAddContract.Presenter {
 
 
     @Override
-    void addFamilyMember(String accountId, String profile, String nickName, String realName,
+    void addFamilyMember(String profile, String nickName, String realName,
                          int sex, String birthday, String height, String weight,
                          String relationship, String phone) {
 
-        ApiRequest.familyAdd(accountId, profile, nickName, realName, sex, birthday, height, weight,
+        ApiRequest.familyAdd(profile, nickName, realName, sex, birthday, height, weight,
                 relationship, phone, new HttpSubscriber() {
 
                     @Override
                     public void onStart() {
                         super.onStart();
-                        if(mView!=null)
+                        if (mView != null)
                             mView.showLoading();
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         super.onError(e);
-                        if(mView!=null)
+                        if (mView != null)
                             mView.hideLoading();
                     }
 
                     @Override
                     public void onNext(HttpResult result) {
                         super.onNext(result);
-                        if(mView!=null)
+                        if (mView != null)
                             mView.hideLoading();
                     }
                 });

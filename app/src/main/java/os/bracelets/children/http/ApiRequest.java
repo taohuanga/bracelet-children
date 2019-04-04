@@ -310,13 +310,11 @@ public class ApiRequest {
 
 
     //添加亲人
-    public static Subscription familyAdd(String accountId, String profile, String nickName, String realName,
+    public static Subscription familyAdd(String profile, String nickName, String realName,
                                          int sex, String birthday, String height, String weight, String relationship,
                                          String phone, Subscriber<HttpResult> subscriber) {
         Map<String, Object> map = new HashMap<>();
         map.put("tokenId", MyApplication.getInstance().getTokenId());
-        if (!TextUtils.isEmpty(accountId))
-            map.put("accountId", accountId);
         map.put("portrait", profile);
         map.put("nickName", nickName);
         if (!TextUtils.isEmpty(realName))
@@ -331,6 +329,30 @@ public class ApiRequest {
         return ServiceFactory.getInstance()
                 .createService(ApiService.class)
                 .addMember(map)
+                .compose(RxTransformer.<HttpResult>defaultSchedulers())
+                .subscribe(subscriber);
+    }
+    //添加亲人
+    public static Subscription familyEdit(String accountId,String profile, String nickName, String realName,
+                                         int sex, String birthday, String height, String weight, String relationship,
+                                         String phone, Subscriber<HttpResult> subscriber) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("tokenId", MyApplication.getInstance().getTokenId());
+        map.put("accountId", accountId);
+        map.put("portrait", profile);
+        map.put("nickName", nickName);
+        if (!TextUtils.isEmpty(realName))
+            map.put("realName", realName);
+        map.put("sex", String.valueOf(sex));
+        map.put("birthday", birthday);
+        map.put("height", height);
+        map.put("weight", weight);
+        map.put("relationship", relationship);
+        if (!TextUtils.isEmpty(phone))
+            map.put("phone", phone);
+        return ServiceFactory.getInstance()
+                .createService(ApiService.class)
+                .editMember(map)
                 .compose(RxTransformer.<HttpResult>defaultSchedulers())
                 .subscribe(subscriber);
     }

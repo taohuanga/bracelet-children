@@ -343,7 +343,7 @@ public class FamilyAddActivity extends MVPBaseActivity<FamilyAddContract.Present
         String height = tvHeight.getText().toString();
         String weight = tvWeight.getText().toString();
         String phone = tvPhone.getText().toString();
-        mPresenter.addFamilyMember("", serverPath, nickName, name, sex, birthday, height, weight, relation, phone);
+        mPresenter.addFamilyMember(serverPath, nickName, name, sex, birthday, height, weight, relation, phone);
 
     }
 }

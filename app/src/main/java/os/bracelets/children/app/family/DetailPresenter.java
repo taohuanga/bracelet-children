@@ -109,7 +109,7 @@ public class DetailPresenter extends DetailContract.Presenter {
     @Override
     void updateMsg(String accountId, String profile, String nickName, final String realName, int sex,
                    String birthday, String height, String weight, String relationship, String phone) {
-        ApiRequest.familyAdd(accountId, profile, nickName, realName, sex, birthday, height, weight, relationship,
+        ApiRequest.familyEdit(accountId, profile, nickName, realName, sex, birthday, height, weight, relationship,
                 phone, new HttpSubscriber() {
                     @Override
                     public void onError(Throwable e) {

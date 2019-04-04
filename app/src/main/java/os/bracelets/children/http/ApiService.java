@@ -142,8 +142,14 @@ interface ApiService {
     /**
      * 新增亲人
      */
-    @POST("children/relationship/edit")
+    @POST("children/relationship/add")
     Observable<HttpResult> addMember(@Body Map<String, Object> map);
+
+    /**
+     * 编辑亲人
+     */
+    @POST("children/relationship/edit")
+    Observable<HttpResult> editMember(@Body Map<String, Object> map);
 
     /**
      * 亲人详情
