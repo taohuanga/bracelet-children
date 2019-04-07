@@ -20,12 +20,16 @@ import os.bracelets.children.app.edit.EditNavActivity;
 import os.bracelets.children.bean.FamilyMember;
 import os.bracelets.children.common.MVPBaseFragment;
 
+import static android.app.Activity.RESULT_OK;
+
 /**
  * Created by lishiyou on 2019/3/20.
  */
 
 public class FamilyListFragment extends MVPBaseFragment<FamilyContract.Presenter> implements FamilyContract.View,
         SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.OnItemChildClickListener {
+
+    public static final int REQUEST_FAMILY_ADD = 0x01;
 
     private RecyclerView recyclerView;
 
@@ -120,7 +124,8 @@ public class FamilyListFragment extends MVPBaseFragment<FamilyContract.Presenter
         super.onClick(v);
         switch (v.getId()) {
             case R.id.ivAdd:
-                startActivity(new Intent(getActivity(), FamilyAddActivity.class));
+                Intent intent = new Intent(getActivity(), FamilyAddActivity.class);
+                startActivityForResult(intent, REQUEST_FAMILY_ADD);
                 break;
         }
     }
@@ -129,6 +134,10 @@ public class FamilyListFragment extends MVPBaseFragment<FamilyContract.Presenter
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Logger.i("FamilyListFragment","requestCode="+requestCode);
+        if (resultCode != RESULT_OK)
+            return;
+        if (requestCode == REQUEST_FAMILY_ADD) {
+            onRefresh();
+        }
     }
 }

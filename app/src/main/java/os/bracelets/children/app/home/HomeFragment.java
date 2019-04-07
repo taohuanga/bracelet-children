@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -146,6 +147,7 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
 
     @Override
     protected void initListener() {
+        EventBus.getDefault().register(this);
         remindAdapter.setOnItemClickListener(this);
         recyclerCoverFlow.setOnItemSelectedListener(new CoverFlowLayoutManger.OnSelected() {
             @Override
@@ -178,5 +180,15 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
         if (event.getAction() == AppConfig.MSG_STEP_COUNT) {
             tvStepNum.setText(String.valueOf(event.getT()));
         }
+
+        if(event.getAction()==AppConfig.MSG_FAMILY_MEMBER){
+            mPresenter.relative();
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        EventBus.getDefault().unregister(this);
     }
 }

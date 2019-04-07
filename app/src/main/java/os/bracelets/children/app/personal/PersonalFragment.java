@@ -36,6 +36,8 @@ import os.bracelets.children.common.BaseFragment;
 import os.bracelets.children.http.ApiRequest;
 import os.bracelets.children.http.HttpSubscriber;
 
+import static android.app.Activity.RESULT_OK;
+
 /**
  * Created by lishiyou on 2019/3/20.
  */
@@ -96,7 +98,7 @@ public class PersonalFragment extends BaseFragment implements INaviInfoCallback 
                 startActivity(new Intent(getActivity(), UpdatePwdActivity.class));
                 break;
             case R.id.layoutUpdateMsg:
-                startActivity(new Intent(getActivity(), PersonalMsgActivity.class));
+                startActivityForResult(new Intent(getActivity(), PersonalMsgActivity.class),0x02);
                 break;
             case R.id.layoutNearby:
                 startActivity(new Intent(getActivity(), NearbyActivity.class));
@@ -165,6 +167,16 @@ public class PersonalFragment extends BaseFragment implements INaviInfoCallback 
         });
     }
 
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode!=RESULT_OK)
+            return;
+        if(requestCode==0x02){
+            getUserInfo();
+        }
+    }
 
     @Override
     public void onInitNaviFailure() {

@@ -28,7 +28,7 @@ public interface PersonalMsgContract {
 
         abstract void uploadImage(String imagePath);
 
-        abstract void saveBaseInfo(String profile, String nickName, String account, int sex);
+        abstract void saveBaseInfo(String profile, String nickName, String realName,String account, int sex);
     }
 
 }

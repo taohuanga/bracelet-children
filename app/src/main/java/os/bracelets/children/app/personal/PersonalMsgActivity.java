@@ -313,18 +313,19 @@ public class PersonalMsgActivity extends MVPBaseActivity<PersonalMsgContract.Pre
         if (!TextUtils.isEmpty(localImagePath))
             mPresenter.uploadImage(localImagePath);
         else
-            mPresenter.saveBaseInfo(serverImageUrl, nickName, "", sexType);
+            mPresenter.saveBaseInfo(serverImageUrl, nickName, name, "", sexType);
 
     }
 
     @Override
     public void updateMsgSuccess() {
-
+        setResult(RESULT_OK);
+        finish();
     }
 
     @Override
     public void uploadImageSuccess(String imageUrl) {
-        mPresenter.saveBaseInfo(imageUrl, tvNickName.getText().toString(), "",
+        mPresenter.saveBaseInfo(imageUrl, tvNickName.getText().toString(), tvName.getText().toString(), "",
                 tvSex.getText().equals("男") ? 1 : 2);
     }
 

@@ -100,6 +100,9 @@ public class FamilyAddPresenter extends FamilyAddContract.Presenter {
                         super.onNext(result);
                         if (mView != null)
                             mView.hideLoading();
+                        if (result.code.equals(AppConfig.SUCCESS)) {
+                            mView.addMemberSuccess();
+                        }
                     }
                 });
 
