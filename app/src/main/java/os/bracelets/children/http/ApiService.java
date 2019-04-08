@@ -227,6 +227,6 @@ interface ApiService {
     /**
      * 编辑个人资料
      */
-    @POST("children/setting/modifyData")
+    @POST("children/setting/modifiedData")
     Observable<HttpResult> modifyData(@Body Map<String, Object> map);
 }
