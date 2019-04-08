@@ -251,7 +251,7 @@ public class ApiRequest {
     }
 
     //修改资料
-    public static Subscription saveBaseInfo(String portrait, String nickName,String realName, String account, int sex,
+    public static Subscription saveBaseInfo(String portrait, String nickName, String realName, String account, int sex,
                                             Subscriber<HttpResult> subscriber) {
         Map<String, Object> map = new HashMap<>();
         map.put("tokenId", MyApplication.getInstance().getTokenId());
@@ -261,7 +261,7 @@ public class ApiRequest {
         if (!TextUtils.isEmpty(nickName))
             map.put("nickName", nickName);
 
-        if(!TextUtils.isEmpty(realName))
+        if (!TextUtils.isEmpty(realName))
             map.put("realName", realName);
 
         if (sex != 0)
@@ -511,6 +511,23 @@ public class ApiRequest {
         return ServiceFactory.getInstance()
                 .createService(ApiService.class)
                 .dailySportsList(map)
+                .compose(RxTransformer.<HttpResult>defaultSchedulers())
+                .subscribe(subscriber);
+    }
+
+    //编辑个人资料
+    public static Subscription modifyData(String portrait, String nickName, String realName,
+                                            String birthday,  int sex,Subscriber<HttpResult> subscriber) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("tokenId", MyApplication.getInstance().getTokenId());
+        map.put("portrait", portrait);
+        map.put("nickName", nickName);
+        map.put("realName", realName);
+        map.put("birthday", birthday);
+        map.put("sex", String.valueOf(sex));
+        return ServiceFactory.getInstance()
+                .createService(ApiService.class)
+                .modifyData(map)
                 .compose(RxTransformer.<HttpResult>defaultSchedulers())
                 .subscribe(subscriber);
     }

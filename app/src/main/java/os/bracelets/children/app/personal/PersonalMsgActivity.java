@@ -294,10 +294,10 @@ public class PersonalMsgActivity extends MVPBaseActivity<PersonalMsgContract.Pre
             return;
         }
         String name = tvName.getText().toString();
-        if (TextUtils.isEmpty(name)) {
-            ToastUtil.showShort("姓名不能为空");
-            return;
-        }
+//        if (TextUtils.isEmpty(name)) {
+//            ToastUtil.showShort("姓名不能为空");
+//            return;
+//        }
         //0未知 1男 2女
         String sex = tvSex.getText().toString().trim();
         if (TextUtils.isEmpty(sex)) {
@@ -310,10 +310,16 @@ public class PersonalMsgActivity extends MVPBaseActivity<PersonalMsgContract.Pre
         } else if (sex.equals("女")) {
             sexType = 2;
         }
+
+        String birthday = tvBirthday.getText().toString();
+        if (TextUtils.isEmpty(birthday)) {
+            ToastUtil.showShort("出生日期不能为空");
+            return;
+        }
         if (!TextUtils.isEmpty(localImagePath))
             mPresenter.uploadImage(localImagePath);
         else
-            mPresenter.saveBaseInfo(serverImageUrl, nickName, name, "", sexType);
+            mPresenter.modifyData(serverImageUrl, nickName, name, birthday, sexType);
 
     }
 
@@ -325,8 +331,8 @@ public class PersonalMsgActivity extends MVPBaseActivity<PersonalMsgContract.Pre
 
     @Override
     public void uploadImageSuccess(String imageUrl) {
-        mPresenter.saveBaseInfo(imageUrl, tvNickName.getText().toString(), tvName.getText().toString(), "",
-                tvSex.getText().equals("男") ? 1 : 2);
+        mPresenter.modifyData(imageUrl, tvNickName.getText().toString(), tvName.getText().toString(),
+                tvBirthday.getText().toString(), tvSex.getText().equals("男") ? 1 : 2);
     }
 
 
