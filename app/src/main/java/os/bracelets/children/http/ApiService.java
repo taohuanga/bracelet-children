@@ -60,7 +60,7 @@ interface ApiService {
      * 上传位置信息（经纬度坐标）
      */
 
-    @POST("children/home/location")
+    @POST("children/setting/location")
     Observable<HttpResult> uploadLocation(@Body Map<String, Object> map);
 
     /**
@@ -193,6 +193,12 @@ interface ApiService {
      */
     @POST("children/setting/remind")
     Observable<HttpResult> remind(@Body Map<String, Object> map);
+
+    /**
+     * 提醒列表
+     */
+    @POST("children/setting/remindList")
+    Observable<HttpResult> remindList(@Body Map<String, Object> map);
 
     /**
      * 亲人设置标签

@@ -1,9 +1,5 @@
 package os.bracelets.children.app.main;
 
-import java.util.List;
-
-import os.bracelets.children.bean.RemindBean;
-import os.bracelets.children.bean.WeatherInfo;
 import os.bracelets.children.common.BasePresenter;
 import os.bracelets.children.common.BaseView;
 

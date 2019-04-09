@@ -98,9 +98,9 @@ public class AppService extends Service implements DataSendCallback, SensorEvent
     public void onCreate() {
         super.onCreate();
         //蓝牙数据回调监听
-        BleDataForSensor.getInstance().setSensorListener(this);
+//        BleDataForSensor.getInstance().setSensorListener(this);
         //通知
-        initNotify();
+//        initNotify();
         //计步器
         initSensor();
 

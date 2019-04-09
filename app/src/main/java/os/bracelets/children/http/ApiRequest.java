@@ -427,6 +427,19 @@ public class ApiRequest {
                 .subscribe(subscriber);
     }
 
+    //提醒列表
+    public static Subscription remindList(String accountId,Subscriber<HttpResult> subscriber) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("tokenId", MyApplication.getInstance().getTokenId());
+        map.put("accountId", accountId);
+        return ServiceFactory.getInstance()
+                .createService(ApiService.class)
+                .remindList(map)
+                .compose(RxTransformer.<HttpResult>defaultSchedulers())
+                .subscribe(subscriber);
+    }
+
+
     //给亲人设置标签
     public static Subscription setTag(String accountId, String labelIds, Subscriber<HttpResult> subscriber) {
         Map<String, Object> map = new HashMap<>();

@@ -70,6 +70,8 @@ public class MainActivity extends MVPBaseActivity<MainContract.Presenter> implem
             info = (BaseInfo) getIntent().getSerializableExtra("info");
         if (info != null)
             loginHx();
+
+        mPresenter.uploadLocation();
     }
 
     @Override
