@@ -12,6 +12,8 @@ public interface SportsContract {
 
         void dailySportsSuccess(List<DailySports> sportsList);
 
+
+        void dailySportsError();
     }
 
     abstract class Presenter extends BasePresenter<View> {

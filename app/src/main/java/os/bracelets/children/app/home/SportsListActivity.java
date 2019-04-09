@@ -71,6 +71,11 @@ public class SportsListActivity extends MVPBaseActivity<SportsContract.Presenter
     }
 
     @Override
+    public void dailySportsError() {
+
+    }
+
+    @Override
     protected void initListener() {
         titleBar.setLeftClickListener(new View.OnClickListener() {
             @Override

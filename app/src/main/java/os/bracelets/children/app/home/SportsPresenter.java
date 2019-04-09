@@ -28,7 +28,6 @@ public class SportsPresenter extends SportsContract.Presenter {
     @Override
     void dailySports(String accountId) {
         ApiRequest.dailySportsList(accountId, "", "", new HttpSubscriber() {
-
             @Override
             public void onStart() {
                 super.onStart();
@@ -51,21 +50,28 @@ public class SportsPresenter extends SportsContract.Presenter {
                 if (result.code.equals(AppConfig.SUCCESS)) {
                     if (!TextUtils.isEmpty(result.data.toString())) {
                         try {
-                            JSONArray array = new JSONArray(new Gson().toJson(result.data));
+                            JSONObject object = new JSONObject(new Gson().toJson(result.data));
+                            JSONArray array = object.optJSONArray("list");
                             if (array != null) {
                                 List<DailySports> list = new ArrayList<>();
                                 for (int i = 0; i < array.length(); i++) {
-                                    JSONObject object = array.optJSONObject(i);
-                                    DailySports sports = DailySports.parseBean(object);
+                                    JSONObject obj = array.optJSONObject(i);
+                                    DailySports sports = DailySports.parseBean(obj);
                                     list.add(sports);
                                 }
                                 if (mView != null)
                                     mView.dailySportsSuccess(list);
+                            } else {
+                                if (mView != null)
+                                    mView.dailySportsError();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
+                }else {
+                    if (mView != null)
+                        mView.dailySportsError();
                 }
             }
         });
