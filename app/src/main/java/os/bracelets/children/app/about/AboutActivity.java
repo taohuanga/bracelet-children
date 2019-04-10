@@ -1,6 +1,7 @@
 package os.bracelets.children.app.about;
 
 import android.view.View;
+import android.widget.TextView;
 
 import os.bracelets.children.R;
 import os.bracelets.children.common.BaseActivity;
@@ -15,6 +16,8 @@ public class AboutActivity extends BaseActivity {
 
     private TitleBar titleBar;
 
+    private TextView tvConnect;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_about;
@@ -23,11 +26,13 @@ public class AboutActivity extends BaseActivity {
     @Override
     protected void initView() {
         titleBar = findView(R.id.titleBar);
+        tvConnect = findView(R.id.tvConnect);
     }
 
     @Override
     protected void initData() {
         TitleBarUtil.setAttr(this, "", "关于我们", titleBar);
+        tvConnect.setText("\r\r\r\r\r\r\r\r" + getResources().getString(R.string.about_content));
     }
 
     @Override

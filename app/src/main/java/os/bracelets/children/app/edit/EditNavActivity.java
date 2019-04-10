@@ -7,14 +7,17 @@ import android.widget.RelativeLayout;
 import os.bracelets.children.R;
 import os.bracelets.children.app.contact.ContactActivity;
 import os.bracelets.children.app.contact.ContactAddActivity;
+import os.bracelets.children.app.family.RemindListActivity;
 import os.bracelets.children.bean.FamilyMember;
 import os.bracelets.children.common.BaseActivity;
 
 public class EditNavActivity extends BaseActivity {
 
-    private RelativeLayout rlContact, rlAddContact, rlSetTag, rlAddTag, rlAddRemind, rlBindDevice, rlEleList, rlAddEle;
+    private RelativeLayout rlContact, rlAddContact, rlSetTag, rlAddTag, rlAddRemind,rlRemindList, rlBindDevice, rlEleList, rlAddEle;
 
     private FamilyMember member;
+
+    public static final int ITEM_LABEL = 0x01;
 
     @Override
     protected int getLayoutId() {
@@ -27,6 +30,7 @@ public class EditNavActivity extends BaseActivity {
         rlSetTag = findView(R.id.rlSetTag);
         rlAddTag = findView(R.id.rlAddTag);
         rlAddRemind = findView(R.id.rlAddRemind);
+        rlRemindList = findView(R.id.rlRemindList);
         rlBindDevice = findView(R.id.rlBindDevice);
         rlEleList = findView(R.id.rlEleList);
         rlAddEle = findView(R.id.rlAddEle);
@@ -44,6 +48,7 @@ public class EditNavActivity extends BaseActivity {
         rlSetTag.setOnClickListener(this);
         rlAddTag.setOnClickListener(this);
         rlAddRemind.setOnClickListener(this);
+        rlRemindList.setOnClickListener(this);
         rlBindDevice.setOnClickListener(this);
         rlEleList.setOnClickListener(this);
         rlAddEle.setOnClickListener(this);
@@ -58,7 +63,7 @@ public class EditNavActivity extends BaseActivity {
                 //亲人的联系人列表
                 Intent contactIntent = new Intent(this, ContactActivity.class);
                 contactIntent.putExtra("member", member);
-                startActivity(contactIntent);
+                startActivityForResult(contactIntent,ITEM_LABEL);
                 finish();
                 break;
             case R.id.rlAddContact:
@@ -80,6 +85,12 @@ public class EditNavActivity extends BaseActivity {
                 Intent intent = new Intent(this, EditRemindActivity.class);
                 intent.putExtra("member", member);
                 startActivity(intent);
+                finish();
+                break;
+            case R.id.rlRemindList:
+                Intent remindIntent = new Intent(this, RemindListActivity.class);
+                remindIntent.putExtra("member", member);
+                startActivity(remindIntent);
                 finish();
                 break;
             case R.id.rlBindDevice:

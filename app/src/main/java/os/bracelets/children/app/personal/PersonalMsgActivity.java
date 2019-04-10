@@ -24,7 +24,6 @@ import aio.health2world.utils.FilePathUtil;
 import aio.health2world.utils.TimePickerUtil;
 import aio.health2world.utils.ToastUtil;
 import os.bracelets.children.R;
-import os.bracelets.children.app.setting.UpdatePhoneActivity;
 import os.bracelets.children.bean.UserInfo;
 import os.bracelets.children.common.MVPBaseActivity;
 import os.bracelets.children.utils.AppUtils;
@@ -295,10 +294,10 @@ public class PersonalMsgActivity extends MVPBaseActivity<PersonalMsgContract.Pre
             return;
         }
         String name = tvName.getText().toString();
-        if (TextUtils.isEmpty(name)) {
-            ToastUtil.showShort("姓名不能为空");
-            return;
-        }
+//        if (TextUtils.isEmpty(name)) {
+//            ToastUtil.showShort("姓名不能为空");
+//            return;
+//        }
         //0未知 1男 2女
         String sex = tvSex.getText().toString().trim();
         if (TextUtils.isEmpty(sex)) {
@@ -311,27 +310,29 @@ public class PersonalMsgActivity extends MVPBaseActivity<PersonalMsgContract.Pre
         } else if (sex.equals("女")) {
             sexType = 2;
         }
-//        String realName = tvName.getText().toString().trim();
-//        String birthday = tvBirthday.getText().toString().trim();
-//        String height = tvHeight.getText().toString().trim();
-//        String weight = tvWeight.getText().toString().trim();
-//        String address = tvHomeAddress.getText().toString().trim();
+
+        String birthday = tvBirthday.getText().toString();
+        if (TextUtils.isEmpty(birthday)) {
+            ToastUtil.showShort("出生日期不能为空");
+            return;
+        }
         if (!TextUtils.isEmpty(localImagePath))
             mPresenter.uploadImage(localImagePath);
         else
-            mPresenter.saveBaseInfo(serverImageUrl, nickName, "", sexType);
+            mPresenter.modifyData(serverImageUrl, nickName, name, birthday, sexType);
 
     }
 
     @Override
     public void updateMsgSuccess() {
-
+        setResult(RESULT_OK);
+        finish();
     }
 
     @Override
     public void uploadImageSuccess(String imageUrl) {
-        mPresenter.saveBaseInfo(imageUrl, tvNickName.getText().toString(), "",
-                tvSex.getText().equals("男") ? 1 : 2);
+        mPresenter.modifyData(imageUrl, tvNickName.getText().toString(), tvName.getText().toString(),
+                tvBirthday.getText().toString(), tvSex.getText().equals("男") ? 1 : 2);
     }
 
 

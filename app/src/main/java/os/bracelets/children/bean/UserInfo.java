@@ -92,6 +92,7 @@ public class UserInfo implements Serializable {
         info.setSex(object.optInt("sex",0));
         info.setHeight(object.optString("height"));
         info.setWeight(object.optString("weight"));
+        info.setBirthday(object.optString("birthday"));
         return info;
     }
 }

@@ -7,10 +7,12 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
     <style name="RedButton" parent="AppTheme">
         <item name="buttonStyle">@style/Widget.AppCompat.Button</item>
         <item name="colorButtonNormal">@color/red</item>
     </style>
+
     <style name="BlueButton" parent="AppTheme">
         <item name="buttonStyle">@style/Widget.AppCompat.Button</item>
         <item name="colorButtonNormal">@color/appThemeColor</item>
@@ -18,5 +20,12 @@
 
     <style name="ButtonStyle" parent="Base.Widget.AppCompat.Button.Colored">
         <item name="colorButtonNormal">@color/colorAccent</item>
+    </style>
+
+    <style name="StartAppTheme" parent="AppTheme">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">@mipmap/bg_start</item>
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 </resources>

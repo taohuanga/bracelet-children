@@ -14,6 +14,7 @@ import aio.health2world.utils.ToastUtil;
 import os.bracelets.children.R;
 import os.bracelets.children.bean.FamilyMember;
 import os.bracelets.children.bean.LabelBean;
+import os.bracelets.children.bean.LabelSection;
 import os.bracelets.children.common.MVPBaseActivity;
 import os.bracelets.children.utils.TitleBarUtil;
 import os.bracelets.children.view.TitleBar;
@@ -25,7 +26,7 @@ public class LabelEditActivity extends MVPBaseActivity<LabelContract.Presenter> 
 
     private FamilyMember member;
 
-    private List<LabelBean> labelList;
+    private List<LabelSection> labelList;
 
     private LabelListAdapter listAdapter;
 
@@ -78,20 +79,28 @@ public class LabelEditActivity extends MVPBaseActivity<LabelContract.Presenter> 
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-        LabelBean labelBean = (LabelBean) adapter.getItem(position);
-        if (labelBean.isChecked())
-            labelBean.setChecked(false);
+        LabelSection labelSection = (LabelSection) adapter.getItem(position);
+        if (labelSection.isHeader)
+            return;
+        if (labelSection.t.isChecked())
+            labelSection.t.setChecked(false);
         else
-            labelBean.setChecked(true);
-
+            labelSection.t.setChecked(true);
         listAdapter.notifyItemChanged(position);
-
     }
 
     @Override
     public void loadTagSuccess(List<LabelBean> list) {
         labelList.clear();
-        labelList.addAll(list);
+        int labelType = 0;
+        for (LabelBean label : list) {
+            if (labelType != label.getLabelType()) {
+                LabelSection section = new LabelSection(true, label.getLabelTypeDesc());
+                labelList.add(section);
+                labelType = label.getLabelType();
+            }
+            labelList.add(new LabelSection(label));
+        }
         listAdapter.notifyDataSetChanged();
     }
 
@@ -121,9 +130,11 @@ public class LabelEditActivity extends MVPBaseActivity<LabelContract.Presenter> 
         }
         //是否有选择中标签
         String labelIds = "";
-        for (LabelBean label : labelList) {
-            if (label.isChecked())
-                labelIds += label.getLabelId() + ";";
+        for (LabelSection label : labelList) {
+            if (label.isHeader)
+                continue;
+            if (label.t.isChecked())
+                labelIds += label.t.getLabelId() + ";";
         }
         if (TextUtils.isEmpty(labelIds)) {
             ToastUtil.showShort("请选择标签");

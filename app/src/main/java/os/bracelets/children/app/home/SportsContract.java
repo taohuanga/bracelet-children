@@ -1,26 +1,28 @@
-package os.bracelets.children.app.setting;
+package os.bracelets.children.app.home;
 
+import java.util.List;
+
+import os.bracelets.children.bean.DailySports;
 import os.bracelets.children.common.BasePresenter;
 import os.bracelets.children.common.BaseView;
 
-/**
- * Created by lishiyou on 2019/2/20.
- */
-
-public interface UpdatePwdContract {
+public interface SportsContract {
 
     interface View extends BaseView<Presenter> {
 
-        void updateSuccess();
+        void dailySportsSuccess(List<DailySports> sportsList);
 
+
+        void dailySportsError();
     }
 
     abstract class Presenter extends BasePresenter<View> {
+
         public Presenter(View mView) {
             super(mView);
         }
 
-        abstract void updatePwd(String oldPwd, String newPwd);
+        abstract void dailySports(String accountId);
     }
 
 }

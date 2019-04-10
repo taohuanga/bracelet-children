@@ -2,6 +2,7 @@ package os.bracelets.children.http;
 
 
 import android.text.TextUtils;
+import android.widget.TextView;
 
 import java.io.File;
 import java.util.HashMap;
@@ -124,29 +125,6 @@ public class ApiRequest {
                 .compose(RxTransformer.<HttpResult>defaultSchedulers())
                 .subscribe(subscriber);
     }
-
-
-//    //首页获取步数
-//    public static Subscription homeMsg(Subscriber<HttpResult> subscriber) {
-//        Map<String, Object> map = new HashMap<>();
-//        map.put("tokenId", MyApplication.getInstance().getTokenId());
-//        return ServiceFactory.getInstance()
-//                .createService(ApiService.class)
-//                .homeMsg(map)
-//                .compose(RxTransformer.<HttpResult>defaultSchedulers())
-//                .subscribe(subscriber);
-//    }
-
-//    //首页待办
-//    public static Subscription remindList(Subscriber<HttpResult> subscriber) {
-//        Map<String, Object> map = new HashMap<>();
-//        map.put("tokenId", MyApplication.getInstance().getTokenId());
-//        return ServiceFactory.getInstance()
-//                .createService(ApiService.class)
-//                .remindList(map)
-//                .compose(RxTransformer.<HttpResult>defaultSchedulers())
-//                .subscribe(subscriber);
-//    }
 
     //获取用户信息
     public static Subscription userInfo(Subscriber<HttpResult> subscriber) {
@@ -273,7 +251,7 @@ public class ApiRequest {
     }
 
     //修改资料
-    public static Subscription saveBaseInfo(String portrait, String nickName, String account, int sex,
+    public static Subscription saveBaseInfo(String portrait, String nickName, String realName, String account, int sex,
                                             Subscriber<HttpResult> subscriber) {
         Map<String, Object> map = new HashMap<>();
         map.put("tokenId", MyApplication.getInstance().getTokenId());
@@ -282,6 +260,9 @@ public class ApiRequest {
 
         if (!TextUtils.isEmpty(nickName))
             map.put("nickName", nickName);
+
+        if (!TextUtils.isEmpty(realName))
+            map.put("realName", realName);
 
         if (sex != 0)
             map.put("sex", String.valueOf(sex));
@@ -333,24 +314,50 @@ public class ApiRequest {
 
 
     //添加亲人
-    public static Subscription familyAdd(String accountId, String profile, String nickName, String realName,
+    public static Subscription familyAdd(String profile, String nickName, String realName,
                                          int sex, String birthday, String height, String weight, String relationship,
                                          String phone, Subscriber<HttpResult> subscriber) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("tokenId", MyApplication.getInstance().getTokenId());
+        map.put("portrait", profile);
+        map.put("nickName", nickName);
+        if (!TextUtils.isEmpty(realName))
+            map.put("realName", realName);
+        map.put("sex", String.valueOf(sex));
+        map.put("birthday", birthday);
+        map.put("height", height);
+        map.put("weight", weight);
+        map.put("relationship", relationship);
+        if (!TextUtils.isEmpty(phone))
+            map.put("phone", phone);
+        return ServiceFactory.getInstance()
+                .createService(ApiService.class)
+                .addMember(map)
+                .compose(RxTransformer.<HttpResult>defaultSchedulers())
+                .subscribe(subscriber);
+    }
+
+    //添加亲人
+    public static Subscription familyEdit(String accountId, String profile, String nickName, String realName,
+                                          int sex, String birthday, String height, String weight, String relationship,
+                                          String phone, Subscriber<HttpResult> subscriber) {
         Map<String, Object> map = new HashMap<>();
         map.put("tokenId", MyApplication.getInstance().getTokenId());
         map.put("accountId", accountId);
         map.put("portrait", profile);
         map.put("nickName", nickName);
-        map.put("realName", realName);
+        if (!TextUtils.isEmpty(realName))
+            map.put("realName", realName);
         map.put("sex", String.valueOf(sex));
-        map.put("birthday", birthday);
+        if (!TextUtils.isEmpty(birthday))
+            map.put("birthday", birthday);
         map.put("height", height);
         map.put("weight", weight);
         map.put("relationship", relationship);
         map.put("phone", phone);
         return ServiceFactory.getInstance()
                 .createService(ApiService.class)
-                .addMember(map)
+                .editMember(map)
                 .compose(RxTransformer.<HttpResult>defaultSchedulers())
                 .subscribe(subscriber);
     }
@@ -420,6 +427,19 @@ public class ApiRequest {
                 .subscribe(subscriber);
     }
 
+    //提醒列表
+    public static Subscription remindList(String accountId,Subscriber<HttpResult> subscriber) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("tokenId", MyApplication.getInstance().getTokenId());
+        map.put("accountId", accountId);
+        return ServiceFactory.getInstance()
+                .createService(ApiService.class)
+                .remindList(map)
+                .compose(RxTransformer.<HttpResult>defaultSchedulers())
+                .subscribe(subscriber);
+    }
+
+
     //给亲人设置标签
     public static Subscription setTag(String accountId, String labelIds, Subscriber<HttpResult> subscriber) {
         Map<String, Object> map = new HashMap<>();
@@ -478,6 +498,49 @@ public class ApiRequest {
         return ServiceFactory.getInstance()
                 .createService(ApiService.class)
                 .fenceAdd(map)
+                .compose(RxTransformer.<HttpResult>defaultSchedulers())
+                .subscribe(subscriber);
+    }
+
+    //父母运动数据
+    public static Subscription dailySports(String accountId, Subscriber<HttpResult> subscriber) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("tokenId", MyApplication.getInstance().getTokenId());
+        map.put("accountId", accountId);
+        return ServiceFactory.getInstance()
+                .createService(ApiService.class)
+                .dailySports(map)
+                .compose(RxTransformer.<HttpResult>defaultSchedulers())
+                .subscribe(subscriber);
+    }
+
+    //父母运动数据列表
+    public static Subscription dailySportsList(String accountId, String startDate, String ednData, Subscriber<HttpResult> subscriber) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("tokenId", MyApplication.getInstance().getTokenId());
+        map.put("accountId", accountId);
+        map.put("startDate", startDate);
+        map.put("ednData", ednData);
+        return ServiceFactory.getInstance()
+                .createService(ApiService.class)
+                .dailySportsList(map)
+                .compose(RxTransformer.<HttpResult>defaultSchedulers())
+                .subscribe(subscriber);
+    }
+
+    //编辑个人资料
+    public static Subscription modifyData(String portrait, String nickName, String realName,
+                                            String birthday,  int sex,Subscriber<HttpResult> subscriber) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("tokenId", MyApplication.getInstance().getTokenId());
+        map.put("portrait", portrait);
+        map.put("nickName", nickName);
+        map.put("realName", realName);
+        map.put("birthday", birthday);
+        map.put("sex", String.valueOf(sex));
+        return ServiceFactory.getInstance()
+                .createService(ApiService.class)
+                .modifyData(map)
                 .compose(RxTransformer.<HttpResult>defaultSchedulers())
                 .subscribe(subscriber);
     }

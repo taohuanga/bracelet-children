@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,11 +26,11 @@ import aio.health2world.utils.DateUtil;
 import aio.health2world.utils.FilePathUtil;
 import aio.health2world.utils.TimePickerUtil;
 import aio.health2world.utils.ToastUtil;
+import os.bracelets.children.AppConfig;
 import os.bracelets.children.R;
 import os.bracelets.children.app.personal.InputMsgActivity;
-import os.bracelets.children.app.setting.UpdatePhoneActivity;
 import os.bracelets.children.common.MVPBaseActivity;
-import os.bracelets.children.http.ApiRequest;
+import os.bracelets.children.common.MsgEvent;
 import os.bracelets.children.utils.TitleBarUtil;
 import os.bracelets.children.view.TitleBar;
 import rx.functions.Action1;
@@ -175,7 +177,9 @@ public class FamilyAddActivity extends MVPBaseActivity<FamilyAddContract.Present
 
     @Override
     public void addMemberSuccess() {
-
+        setResult(RESULT_OK);
+        finish();
+        EventBus.getDefault().post(new MsgEvent<>(AppConfig.MSG_FAMILY_MEMBER));
     }
 
     @Override
@@ -345,7 +349,6 @@ public class FamilyAddActivity extends MVPBaseActivity<FamilyAddContract.Present
         String height = tvHeight.getText().toString();
         String weight = tvWeight.getText().toString();
         String phone = tvPhone.getText().toString();
-        mPresenter.addFamilyMember("", serverPath, nickName, name, sex, birthday, height, weight, relation, phone);
-
+        mPresenter.addFamilyMember(serverPath, nickName, name, sex, birthday, height, weight, relation, phone);
     }
 }

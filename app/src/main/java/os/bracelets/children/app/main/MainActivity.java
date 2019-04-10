@@ -1,5 +1,6 @@
 package os.bracelets.children.app.main;
 
+import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.FragmentManager;
@@ -9,15 +10,19 @@ import android.view.View;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 
+import aio.health2world.utils.DeviceUtil;
 import aio.health2world.utils.Logger;
+import cn.jpush.android.api.JPushInterface;
 import os.bracelets.children.MyApplication;
 import os.bracelets.children.R;
 import os.bracelets.children.app.family.FamilyListFragment;
 import os.bracelets.children.app.home.HomeFragment;
-import os.bracelets.children.app.mine.MineFragment;
+import os.bracelets.children.app.personal.PersonalFragment;
 import os.bracelets.children.app.news.HealthInfoFragment;
 import os.bracelets.children.bean.BaseInfo;
 import os.bracelets.children.common.MVPBaseActivity;
+import os.bracelets.children.jpush.JPushUtil;
+import os.bracelets.children.jpush.TagAliasOperatorHelper;
 import os.bracelets.children.view.HomeTabs;
 
 @RequiresApi(api = Build.VERSION_CODES.N)
@@ -30,7 +35,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.Presenter> implem
 
     private HealthInfoFragment infoFragment;
 
-    private MineFragment mineFragment;
+    private PersonalFragment mineFragment;
 
     private FragmentManager fragmentManager;
 
@@ -58,26 +63,15 @@ public class MainActivity extends MVPBaseActivity<MainContract.Presenter> implem
 
     @Override
     protected void initData() {
+        JPushInterface.init(this);
+        JPushUtil.setJPushAlias(TagAliasOperatorHelper.ACTION_SET, DeviceUtil.getAndroidId(this));
+
         if (getIntent().hasExtra("info"))
             info = (BaseInfo) getIntent().getSerializableExtra("info");
         if (info != null)
-            EMClient.getInstance()
-                    .login(info.getPhone(), info.getPhone(), new EMCallBack() {
-                        @Override
-                        public void onSuccess() {
-                            Logger.i("hx", "login success");
-                        }
+            loginHx();
 
-                        @Override
-                        public void onError(int i, String s) {
-                            Logger.i("hx", "login failed " + s);
-                        }
-
-                        @Override
-                        public void onProgress(int i, String s) {
-
-                        }
-                    });
+        mPresenter.uploadLocation();
     }
 
     @Override
@@ -133,7 +127,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.Presenter> implem
                 break;
             case 3:
                 if (mineFragment == null) {
-                    mineFragment = new MineFragment();
+                    mineFragment = new PersonalFragment();
                     transaction.add(R.id.container, mineFragment);
                 } else
                     transaction.show(mineFragment);
@@ -173,6 +167,32 @@ public class MainActivity extends MVPBaseActivity<MainContract.Presenter> implem
 
         if (mineFragment != null)
             mineFragment = null;
+    }
+
+    private void loginHx() {
+        EMClient.getInstance()
+                .login(info.getPhone(), info.getPhone(), new EMCallBack() {
+                    @Override
+                    public void onSuccess() {
+                        Logger.i("hx", "login success");
+                    }
+
+                    @Override
+                    public void onError(int i, String s) {
+                        Logger.i("hx", "login failed " + s);
+                    }
+
+                    @Override
+                    public void onProgress(int i, String s) {
+
+                    }
+                });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Logger.i("MainActivity","requestCode="+requestCode);
     }
 
     public void logout() {

@@ -60,19 +60,8 @@ interface ApiService {
      * 上传位置信息（经纬度坐标）
      */
 
-    @POST("children/home/location")
+    @POST("children/setting/location")
     Observable<HttpResult> uploadLocation(@Body Map<String, Object> map);
-//    /**
-//     * 首页信息
-//     */
-//    @POST("parent/home/index")
-//    Observable<HttpResult> homeMsg(@Body Map<String, Object> map);
-
-//    /**
-//     * 首页待办
-//     */
-//    @POST("parent/home/remindList")
-//    Observable<HttpResult> remindList(@Body Map<String, Object> map);
 
     /**
      * 用户信息
@@ -132,7 +121,6 @@ interface ApiService {
     @POST("sys/app/about")
     Observable<HttpResult> aboutApp(@Body Map<String, Object> map);
 
-
     /**
      * 首页头部亲人列表
      */
@@ -154,12 +142,17 @@ interface ApiService {
     /**
      * 新增亲人
      */
-    @POST("children/relationship/edit")
+    @POST("children/relationship/add")
     Observable<HttpResult> addMember(@Body Map<String, Object> map);
 
     /**
+     * 编辑亲人
+     */
+    @POST("children/relationship/edit")
+    Observable<HttpResult> editMember(@Body Map<String, Object> map);
+
+    /**
      * 亲人详情
-     *
      */
     @POST("children/relationship/info")
     Observable<HttpResult> memberInfo(@Body Map<String, Object> map);
@@ -169,7 +162,6 @@ interface ApiService {
      */
     @POST("children/information/list")
     Observable<HttpResult> informationList(@Body Map<String, Object> map);
-
 
     /**
      * 资讯详情
@@ -185,17 +177,28 @@ interface ApiService {
 
 
     /**
-     *电子围栏列表
+     * 电子围栏列表
      */
     @POST("children/setting/fenceList")
     Observable<HttpResult> fenceList(@Body Map<String, Object> map);
 
+    /**
+     * 添加电子围栏
+     */
+    @POST("children/setting/fence")
+    Observable<HttpResult> fenceAdd(@Body Map<String, Object> map);
 
     /**
      * 设置提醒
      */
     @POST("children/setting/remind")
     Observable<HttpResult> remind(@Body Map<String, Object> map);
+
+    /**
+     * 提醒列表
+     */
+    @POST("children/setting/remindList")
+    Observable<HttpResult> remindList(@Body Map<String, Object> map);
 
     /**
      * 亲人设置标签
@@ -210,15 +213,26 @@ interface ApiService {
     Observable<HttpResult> bindDevice(@Body Map<String, Object> map);
 
     /**
-     * 亲人的联系人添加
+     * 给亲人添加联系人
      */
     @POST("children/setting/contacts")
     Observable<HttpResult> contactAdd(@Body Map<String, Object> map);
 
     /**
-     *添加电子围栏
+     * 父母运动数据
      */
-    @POST("children/setting/fence")
-    Observable<HttpResult> fenceAdd(@Body Map<String, Object> map);
+    @POST("children/relative/dailySports")
+    Observable<HttpResult> dailySports(@Body Map<String, Object> map);
 
+    /**
+     * 父母运动数据列表
+     */
+    @POST("children/relative/dailySportsList")
+    Observable<HttpResult> dailySportsList(@Body Map<String, Object> map);
+
+    /**
+     * 编辑个人资料
+     */
+    @POST("children/setting/modifiedData")
+    Observable<HttpResult> modifyData(@Body Map<String, Object> map);
 }

@@ -32,7 +32,6 @@ import aio.health2world.view.LoadingDialog;
 import os.bracelets.children.AppConfig;
 import os.bracelets.children.R;
 import os.bracelets.children.app.personal.InputMsgActivity;
-import os.bracelets.children.app.setting.UpdatePhoneActivity;
 import os.bracelets.children.bean.FamilyMember;
 import os.bracelets.children.common.BaseActivity;
 import os.bracelets.children.http.ApiRequest;

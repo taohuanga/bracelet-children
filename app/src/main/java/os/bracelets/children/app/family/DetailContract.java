@@ -10,6 +10,10 @@ public interface DetailContract {
 
         void  loadMemberInfoSuccess(FamilyMember member);
 
+        void uploadImageSuccess(String serverImagePath);
+
+        void updateMsgSuccess();
+
     }
 
 
@@ -19,8 +23,13 @@ public interface DetailContract {
             super(mView);
         }
 
-
         abstract void memberInfo(String accountId);
+
+        abstract void uploadImage(String imagePath);
+
+        abstract void updateMsg(String accountId, String profile, String nickName, String realName,
+                                      int sex, String birthday, String height, String weight, String relationship,
+                                      String phone);
     }
 
 }

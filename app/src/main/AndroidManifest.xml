@@ -54,7 +54,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:name">
-        <activity android:name=".app.account.StartActivity">
+        <activity
+            android:name=".app.account.StartActivity"
+            android:theme="@style/StartAppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.MAIN" />
@@ -77,9 +79,9 @@
 
         <activity android:name=".app.setting.SettingActivity" />
 
-        <activity android:name=".app.setting.UpdatePwdActivity" />
+        <activity android:name=".app.personal.UpdatePwdActivity" />
 
-        <activity android:name=".app.setting.UpdatePhoneActivity" />
+        <activity android:name=".app.personal.UpdatePhoneActivity" />
 
         <activity android:name=".app.account.ResetPwdActivity" />
 
@@ -107,10 +109,6 @@
 
         <activity android:name=".app.family.DetailActivity" />
 
-        <activity android:name=".app.mine.MoreActivity" />
-
-        <activity android:name=".app.family.TagListActivity" />
-
         <activity android:name=".app.edit.LabelEditActivity" />
 
         <activity android:name=".app.edit.DeviceBindActivity" />
@@ -119,9 +117,13 @@
 
         <activity android:name=".app.edit.EleFenceAddActivity" />
 
-        <activity android:name=".app.home.FallPositionActivity"/>
+        <activity android:name=".app.home.FallPositionActivity" />
 
-        <activity android:name="aio.health2world.qrcode.CaptureActivity"/>
+        <activity android:name=".app.home.SportsListActivity" />
+
+        <activity android:name=".app.family.RemindListActivity"/>
+
+        <activity android:name="aio.health2world.qrcode.CaptureActivity" />
 
         <activity
             android:name=".app.edit.EditNavActivity"

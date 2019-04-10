@@ -27,7 +27,7 @@ public interface FamilyAddContract {
         abstract void uploadImage(String imagePath);
 
 
-        abstract void addFamilyMember(String accountId, String profile, String nickName, String realName,
+        abstract void addFamilyMember(String profile, String nickName, String realName,
                                       int sex, String birthday, String height, String weight, String relationship,
                                       String phone);
     }

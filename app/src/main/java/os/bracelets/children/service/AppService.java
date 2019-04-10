@@ -98,9 +98,9 @@ public class AppService extends Service implements DataSendCallback, SensorEvent
     public void onCreate() {
         super.onCreate();
         //蓝牙数据回调监听
-        BleDataForSensor.getInstance().setSensorListener(this);
+//        BleDataForSensor.getInstance().setSensorListener(this);
         //通知
-        initNotify();
+//        initNotify();
         //计步器
         initSensor();
 
@@ -119,7 +119,7 @@ public class AppService extends Service implements DataSendCallback, SensorEvent
             timer.start();
             //计时结束 分发数据
             EventBus.getDefault().post(new MsgEvent<>(AppConfig.MSG_STEP_COUNT, CURRENT_STEP));
-
+//            uploadStepNum();
         }
     };
 
@@ -302,6 +302,17 @@ public class AppService extends Service implements DataSendCallback, SensorEvent
         }
 
     }
+//
+//    private void uploadStepNum() {
+//        if (CURRENT_STEP == 0)
+//            return;
+//        ApiRequest.dailySports(CURRENT_STEP, new HttpSubscriber() {
+//            @Override
+//            public void onNext(HttpResult result) {
+//                super.onNext(result);
+//            }
+//        });
+//    }
 
     @Override
     public void onDestroy() {

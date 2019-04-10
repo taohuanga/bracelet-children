@@ -1,16 +1,17 @@
-package os.bracelets.children.app.main;
+package os.bracelets.children.app.personal;
 
 import os.bracelets.children.common.BasePresenter;
 import os.bracelets.children.common.BaseView;
 
 /**
- * Created by lishiyou on 2019/1/27.
+ * Created by lishiyou on 2019/2/20.
  */
 
-public interface MainContract {
+public interface UpdatePwdContract {
 
     interface View extends BaseView<Presenter> {
 
+        void updateSuccess();
 
     }
 
@@ -19,7 +20,7 @@ public interface MainContract {
             super(mView);
         }
 
-        abstract void uploadLocation();
+        abstract void updatePwd(String oldPwd, String newPwd);
     }
 
 }

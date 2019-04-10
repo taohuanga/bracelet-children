@@ -21,6 +21,7 @@ import aio.health2world.utils.SPUtils;
 import okhttp3.ResponseBody;
 import os.bracelets.children.AppConfig;
 import os.bracelets.children.MyApplication;
+import os.bracelets.children.bean.DailySports;
 import os.bracelets.children.bean.FamilyMember;
 import os.bracelets.children.bean.RemindBean;
 import os.bracelets.children.bean.WeatherInfo;
@@ -35,7 +36,7 @@ import retrofit2.Retrofit;
  * Created by lishiyou on 2019/3/24.
  */
 
-public class HomePresenter extends HomeContract.Presenter{
+public class HomePresenter extends HomeContract.Presenter {
 
     public HomePresenter(HomeContract.View mView) {
         super(mView);
@@ -47,21 +48,42 @@ public class HomePresenter extends HomeContract.Presenter{
             @Override
             public void onNext(HttpResult result) {
                 super.onNext(result);
-                if(result.code.equals(AppConfig.SUCCESS)){
+                if (result.code.equals(AppConfig.SUCCESS)) {
                     try {
                         JSONObject object = new JSONObject(new Gson().toJson(result.data));
                         JSONArray array = object.optJSONArray("list");
                         List<FamilyMember> list = new ArrayList<>();
-                        for (int i = 0; i <array.length() ; i++) {
+                        for (int i = 0; i < array.length(); i++) {
                             JSONObject obj = array.optJSONObject(i);
                             FamilyMember member = FamilyMember.parseBean(obj);
                             list.add(member);
                         }
-                        if(mView!=null)
+                        if (mView != null)
                             mView.relativeSuccess(list);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                }
+            }
+        });
+    }
+
+    @Override
+    void dailySports(String accountId) {
+        ApiRequest.dailySports(accountId, new HttpSubscriber() {
+            @Override
+            public void onNext(HttpResult result) {
+                super.onNext(result);
+                if (result.code.equals(AppConfig.SUCCESS)) {
+                    try {
+                        JSONObject object = new JSONObject(new Gson().toJson(result.data));
+                        DailySports sports = DailySports.parseBean(object);
+                        if(mView!=null)
+                            mView.dailySportsSuccess(sports);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
                 }
             }
         });
@@ -73,17 +95,17 @@ public class HomePresenter extends HomeContract.Presenter{
             @Override
             public void onNext(HttpResult result) {
                 super.onNext(result);
-                if(result.code.equals(AppConfig.SUCCESS)){
+                if (result.code.equals(AppConfig.SUCCESS)) {
                     try {
                         JSONObject object = new JSONObject(new Gson().toJson(result.data));
                         JSONArray array = object.optJSONArray("list");
                         List<RemindBean> list = new ArrayList<>();
-                        for (int i = 0; i <array.length() ; i++) {
+                        for (int i = 0; i < array.length(); i++) {
                             JSONObject obj = array.optJSONObject(i);
                             RemindBean remindBean = RemindBean.parseBean(obj);
                             list.add(remindBean);
                         }
-                        if(mView!=null)
+                        if (mView != null)
                             mView.loadMsgSuccess(list);
                     } catch (JSONException e) {
                         e.printStackTrace();

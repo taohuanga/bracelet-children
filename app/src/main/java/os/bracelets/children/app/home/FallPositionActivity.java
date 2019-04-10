@@ -3,12 +3,13 @@ package os.bracelets.children.app.home;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.amap.api.maps.AMap;
@@ -26,15 +27,13 @@ import com.amap.api.navi.AmapNaviParams;
 import com.amap.api.navi.AmapNaviType;
 import com.amap.api.navi.INaviInfoCallback;
 import com.amap.api.navi.model.AMapNaviLocation;
-import com.amap.api.services.core.AMapException;
-import com.amap.api.services.core.LatLonPoint;
-import com.amap.api.services.geocoder.GeocodeResult;
 import com.amap.api.services.geocoder.GeocodeSearch;
-import com.amap.api.services.geocoder.RegeocodeQuery;
-import com.amap.api.services.geocoder.RegeocodeResult;
 import com.bumptech.glide.Glide;
 
 import aio.health2world.glide_transformations.CropCircleTransformation;
+import aio.health2world.utils.AppUtils;
+import aio.health2world.utils.DensityUtil;
+import aio.health2world.utils.DeviceUtil;
 import aio.health2world.utils.ToastUtil;
 import os.bracelets.children.R;
 import os.bracelets.children.bean.FamilyMember;
@@ -43,7 +42,7 @@ import os.bracelets.children.utils.TitleBarUtil;
 import os.bracelets.children.view.TitleBar;
 
 public class FallPositionActivity extends AppCompatActivity implements AMap.InfoWindowAdapter,
-        View.OnClickListener, INaviInfoCallback, GeocodeSearch.OnGeocodeSearchListener {
+        View.OnClickListener, INaviInfoCallback {
 
     private TitleBar titleBar;
 
@@ -53,7 +52,7 @@ public class FallPositionActivity extends AppCompatActivity implements AMap.Info
 
     private LatLng latLng;
 
-    private GeocodeSearch geocodeSearch;
+//    private GeocodeSearch geocodeSearch;
 
     private FamilyMember member;
 
@@ -75,14 +74,13 @@ public class FallPositionActivity extends AppCompatActivity implements AMap.Info
     }
 
     private void initData() {
-
         member = (FamilyMember) getIntent().getSerializableExtra("member");
         remind = (RemindBean) getIntent().getSerializableExtra("remind");
 
         if (aMap == null)
             aMap = mapView.getMap();
-        geocodeSearch = new GeocodeSearch(this);
-        geocodeSearch.setOnGeocodeSearchListener(this);
+//        geocodeSearch = new GeocodeSearch(this);
+//        geocodeSearch.setOnGeocodeSearchListener(this);
         latLng = new LatLng(Double.parseDouble(remind.getLatitude()),
                 Double.parseDouble(remind.getLongitude()));
         changeCamera(CameraUpdateFactory.newCameraPosition(
@@ -113,33 +111,40 @@ public class FallPositionActivity extends AppCompatActivity implements AMap.Info
     @Override
     public View getInfoContents(Marker marker) {
         View infoWindow = getLayoutInflater().inflate(R.layout.layout_custom_info_window, null);
+        DisplayMetrics metric = new DisplayMetrics();
+        this.getWindowManager().getDefaultDisplay().getRealMetrics(metric);
+        int width = metric.widthPixels;  // 屏幕宽度（像素）
+        int height = metric.heightPixels;  // 屏幕高度（像素）
+        LinearLayout layoutWindow = infoWindow.findViewById(R.id.layoutWindow);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width, LinearLayout.LayoutParams.WRAP_CONTENT);
+        layoutWindow.setLayoutParams(params);
         render(marker, infoWindow);
         return infoWindow;
     }
 
-    @Override
-    public void onRegeocodeSearched(RegeocodeResult result, int rCode) {
-        if (rCode == AMapException.CODE_AMAP_SUCCESS) {
-            if (result != null && result.getRegeocodeAddress() != null
-                    && result.getRegeocodeAddress().getFormatAddress() != null) {
-                address = result.getRegeocodeAddress().getFormatAddress();
-                if (tvAddress != null)
-                    tvAddress.setText(address);
-            }
-        }
-    }
-
-    @Override
-    public void onGeocodeSearched(GeocodeResult geocodeResult, int i) {
-
-    }
+//    @Override
+//    public void onRegeocodeSearched(RegeocodeResult result, int rCode) {
+//        if (rCode == AMapException.CODE_AMAP_SUCCESS) {
+//            if (result != null && result.getRegeocodeAddress() != null
+//                    && result.getRegeocodeAddress().getFormatAddress() != null) {
+//                address = result.getRegeocodeAddress().getFormatAddress();
+//                if (tvAddress != null)
+//                    tvAddress.setText(address);
+//            }
+//        }
+//    }
+//
+//    @Override
+//    public void onGeocodeSearched(GeocodeResult geocodeResult, int i) {
+//
+//    }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tvNav:
                 AmapNaviParams params = new AmapNaviParams(new Poi("", null, ""),
-                        null, new Poi(address, latLng, ""), AmapNaviType.DRIVER);
+                        null, new Poi(remind.getLocation(), latLng, ""), AmapNaviType.DRIVER);
                 params.setUseInnerVoice(true);
                 AmapNaviPage.getInstance().showRouteActivity(getApplicationContext(), params,
                         FallPositionActivity.this);
@@ -157,15 +162,12 @@ public class FallPositionActivity extends AppCompatActivity implements AMap.Info
         }
     }
 
-    private String address;
-    private TextView tvAddress;
-
     private void render(Marker marker, View view) {
         TextView tvTitle = view.findViewById(R.id.tvTitle);
         TextView tvName = view.findViewById(R.id.tvName);
         TextView tvPhone = view.findViewById(R.id.tvPhone);
         TextView tvTime = view.findViewById(R.id.tvTime);
-        tvAddress = view.findViewById(R.id.tvAddress);
+        TextView tvAddress = view.findViewById(R.id.tvAddress);
         TextView tvNav = view.findViewById(R.id.tvNav);
         ImageView ivImage = view.findViewById(R.id.ivImage);
         ImageView ivCall = view.findViewById(R.id.ivCall);
@@ -173,6 +175,7 @@ public class FallPositionActivity extends AppCompatActivity implements AMap.Info
         tvTitle.setText("您的" + member.getRelationship() + "在此处跌倒，请尽快前往处理！");
         tvName.setText(member.getNickName());
         tvPhone.setText(member.getPhone());
+        tvAddress.setText(remind.getLocation());
         tvTime.setText(remind.getCreateDate());
         Glide.with(this)
                 .load(member.getProfile())
@@ -184,11 +187,11 @@ public class FallPositionActivity extends AppCompatActivity implements AMap.Info
         ivCall.setOnClickListener(this);
         tvNav.setOnClickListener(this);
 
-        //地理位置逆编码
-        LatLonPoint point = new LatLonPoint(latLng.latitude, latLng.longitude);
-        // 第一个参数表示一个Latlng，第二参数表示范围多少米，第三个参数表示是火系坐标系还是GPS原生坐标系
-        RegeocodeQuery query = new RegeocodeQuery(point, 100, GeocodeSearch.AMAP);
-        geocodeSearch.getFromLocationAsyn(query);
+//        //地理位置逆编码
+//        LatLonPoint point = new LatLonPoint(latLng.latitude, latLng.longitude);
+//        // 第一个参数表示一个Latlng，第二参数表示范围多少米，第三个参数表示是火系坐标系还是GPS原生坐标系
+//        RegeocodeQuery query = new RegeocodeQuery(point, 100, GeocodeSearch.AMAP);
+//        geocodeSearch.getFromLocationAsyn(query);
     }
 
     /**

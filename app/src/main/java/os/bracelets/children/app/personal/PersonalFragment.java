@@ -1,4 +1,4 @@
-package os.bracelets.children.app.mine;
+package os.bracelets.children.app.personal;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,9 +22,6 @@ import com.google.gson.Gson;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import aio.health2world.glide_transformations.CropCircleTransformation;
 import aio.health2world.http.HttpResult;
 import aio.health2world.utils.SPUtils;
@@ -35,17 +32,17 @@ import os.bracelets.children.app.about.AboutActivity;
 import os.bracelets.children.app.about.FeedBackActivity;
 import os.bracelets.children.app.account.LoginActivity;
 import os.bracelets.children.app.nearby.NearbyActivity;
-import os.bracelets.children.app.personal.PersonalMsgActivity;
-import os.bracelets.children.app.setting.UpdatePwdActivity;
 import os.bracelets.children.common.BaseFragment;
 import os.bracelets.children.http.ApiRequest;
 import os.bracelets.children.http.HttpSubscriber;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by lishiyou on 2019/3/20.
  */
 @RequiresApi(api = Build.VERSION_CODES.N)
-public class MineFragment extends BaseFragment implements INaviInfoCallback {
+public class PersonalFragment extends BaseFragment implements INaviInfoCallback {
 
     private ImageView ivImage;
 
@@ -53,7 +50,7 @@ public class MineFragment extends BaseFragment implements INaviInfoCallback {
 
     private Button btnLogout;
 
-    private View layoutUpdatePwd, layoutUpdateMsg, layoutNearby, layoutNav, layoutFeedBack, layoutAbout, layoutMore;
+    private View layoutUpdatePwd, layoutUpdateMsg, layoutNearby, layoutNav, layoutFeedBack, layoutAbout;
 
     @Override
     protected int getLayoutId() {
@@ -70,7 +67,6 @@ public class MineFragment extends BaseFragment implements INaviInfoCallback {
         layoutNearby = findView(R.id.layoutNearby);
         layoutFeedBack = findView(R.id.layoutFeedBack);
         layoutAbout = findView(R.id.layoutAbout);
-        layoutMore = findView(R.id.layoutMore);
         layoutNav = findView(R.id.layoutNav);
         getUserInfo();
     }
@@ -87,7 +83,6 @@ public class MineFragment extends BaseFragment implements INaviInfoCallback {
         setOnClickListener(layoutUpdateMsg);
         setOnClickListener(layoutFeedBack);
         setOnClickListener(layoutAbout);
-        setOnClickListener(layoutMore);
         setOnClickListener(layoutNearby);
         setOnClickListener(layoutNav);
     }
@@ -103,7 +98,7 @@ public class MineFragment extends BaseFragment implements INaviInfoCallback {
                 startActivity(new Intent(getActivity(), UpdatePwdActivity.class));
                 break;
             case R.id.layoutUpdateMsg:
-                startActivity(new Intent(getActivity(), PersonalMsgActivity.class));
+                startActivityForResult(new Intent(getActivity(), PersonalMsgActivity.class),0x02);
                 break;
             case R.id.layoutNearby:
                 startActivity(new Intent(getActivity(), NearbyActivity.class));
@@ -120,9 +115,6 @@ public class MineFragment extends BaseFragment implements INaviInfoCallback {
                 break;
             case R.id.layoutAbout:
                 startActivity(new Intent(getActivity(), AboutActivity.class));
-                break;
-            case R.id.layoutMore:
-                startActivity(new Intent(getActivity(), MoreActivity.class));
                 break;
         }
     }
@@ -175,6 +167,16 @@ public class MineFragment extends BaseFragment implements INaviInfoCallback {
         });
     }
 
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode!=RESULT_OK)
+            return;
+        if(requestCode==0x02){
+            getUserInfo();
+        }
+    }
 
     @Override
     public void onInitNaviFailure() {

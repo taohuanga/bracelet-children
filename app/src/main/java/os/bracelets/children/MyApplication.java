@@ -57,8 +57,8 @@ public class MyApplication extends Application implements AMapLocationListener {
 
         initApp();
 
-        startService(new Intent(this, BluetoothLeService.class));
-        startService(new Intent(this, AppService.class));
+//        startService(new Intent(this, BluetoothLeService.class));
+//        startService(new Intent(this, AppService.class));
 
     }
 

@@ -40,7 +40,7 @@ public class StartActivity extends BaseActivity {
                     finish();
                 }
             }
-        }, 2000);
+        }, 1500);
 
     }
 
