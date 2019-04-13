@@ -68,14 +68,16 @@
     </LinearLayout>
 
     <com.github.mikephil.charting.charts.LineChart
+        android:paddingBottom="@dimen/dp_4"
         android:id="@+id/lineChart"
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:orientation="vertical" />
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="42dp"
         android:layout_marginTop="@dimen/dp_8"
         android:background="@color/white"
         android:paddingLeft="@dimen/dp_16"

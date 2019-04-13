@@ -160,6 +160,10 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
     @Override
     public void sportTrendSuccess(List<DailySports> list) {
         lineChart.removeAllViews();
+//        list.add(new DailySports("04-13",100));
+//        list.add(new DailySports("04-14",160));
+//        list.add(new DailySports("04-15",140));
+//        list.add(new DailySports("04-16",190));
         if (list.size() == 0)
             return;
         ArrayList<String> xValues = new ArrayList<>();

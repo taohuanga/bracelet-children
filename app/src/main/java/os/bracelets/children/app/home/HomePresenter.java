@@ -141,6 +141,8 @@ public class HomePresenter extends HomeContract.Presenter {
                             mView.sportTrendSuccess(list);
                     } catch (JSONException e) {
                         e.printStackTrace();
+                        if (mView != null)
+                            mView.sportTrendSuccess(new ArrayList<DailySports>());
                     }
                 }
             }

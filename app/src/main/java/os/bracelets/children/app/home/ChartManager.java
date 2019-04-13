@@ -74,6 +74,10 @@ public class ChartManager {
 
         //设置动画效果
 //        mLineChart.animateX(3000);
+        Legend l = mLineChart.getLegend();
+        l.setForm(Legend.LegendForm.EMPTY);
+        l.setTextColor(context.getResources().getColor(R.color.transparent));
+        l.setEnabled(false);
 
         mLineChart.invalidate();
     }
