@@ -231,6 +231,12 @@ interface ApiService {
     Observable<HttpResult> dailySportsList(@Body Map<String, Object> map);
 
     /**
+     * 父母运动趋势图数据
+     */
+    @POST("children/relative/parentSportTrend")
+    Observable<HttpResult> parentSportTrend(@Body Map<String, Object> map);
+
+    /**
      * 编辑个人资料
      */
     @POST("children/setting/modifiedData")

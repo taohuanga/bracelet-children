@@ -428,7 +428,7 @@ public class ApiRequest {
     }
 
     //提醒列表
-    public static Subscription remindList(String accountId,Subscriber<HttpResult> subscriber) {
+    public static Subscription remindList(String accountId, Subscriber<HttpResult> subscriber) {
         Map<String, Object> map = new HashMap<>();
         map.put("tokenId", MyApplication.getInstance().getTokenId());
         map.put("accountId", accountId);
@@ -528,9 +528,21 @@ public class ApiRequest {
                 .subscribe(subscriber);
     }
 
+    //父母运动趋势图数据
+    public static Subscription parentSportTrend(String accountId, Subscriber<HttpResult> subscriber) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("tokenId", MyApplication.getInstance().getTokenId());
+        map.put("accountId", accountId);
+        return ServiceFactory.getInstance()
+                .createService(ApiService.class)
+                .parentSportTrend(map)
+                .compose(RxTransformer.<HttpResult>defaultSchedulers())
+                .subscribe(subscriber);
+    }
+
     //编辑个人资料
     public static Subscription modifyData(String portrait, String nickName, String realName,
-                                            String birthday,  int sex,Subscriber<HttpResult> subscriber) {
+                                          String birthday, int sex, Subscriber<HttpResult> subscriber) {
         Map<String, Object> map = new HashMap<>();
         map.put("tokenId", MyApplication.getInstance().getTokenId());
         map.put("portrait", portrait);

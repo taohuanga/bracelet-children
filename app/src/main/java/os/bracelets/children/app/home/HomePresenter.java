@@ -16,6 +16,7 @@ import java.util.Map;
 
 import aio.health2world.http.CommonService;
 import aio.health2world.http.HttpResult;
+import aio.health2world.utils.AppUtils;
 import aio.health2world.utils.Logger;
 import aio.health2world.utils.SPUtils;
 import okhttp3.ResponseBody;
@@ -78,7 +79,7 @@ public class HomePresenter extends HomeContract.Presenter {
                     try {
                         JSONObject object = new JSONObject(new Gson().toJson(result.data));
                         DailySports sports = DailySports.parseBean(object);
-                        if(mView!=null)
+                        if (mView != null)
                             mView.dailySportsSuccess(sports);
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -115,6 +116,36 @@ public class HomePresenter extends HomeContract.Presenter {
         });
     }
 
+    @Override
+    void parentSportTrend(String accountId) {
+        ApiRequest.parentSportTrend(accountId, new HttpSubscriber() {
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+            }
+
+            @Override
+            public void onNext(HttpResult result) {
+                super.onNext(result);
+                if (result.code.equals(AppConfig.SUCCESS)) {
+                    try {
+                        JSONObject object = new JSONObject(new Gson().toJson(result.data));
+                        JSONArray array = object.optJSONArray("list");
+                        List<DailySports> list = new ArrayList<>();
+                        for (int i = 0; i < array.length(); i++) {
+                            JSONObject obj = array.optJSONObject(i);
+                            DailySports sports = DailySports.parseBean(obj);
+                            list.add(sports);
+                        }
+                        if (mView != null)
+                            mView.sportTrendSuccess(list);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+    }
 
     @Override
     void getWeather() {

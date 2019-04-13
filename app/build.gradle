@@ -94,6 +94,7 @@ dependencies {
     //配合蓝牙库使用 勿删
     compile project(path: ':easeui')
     compile project(path: ':commonlib')
+    compile(name: 'MPChartLib-release', ext: 'aar')
     compile 'no.nordicsemi.android.support.v18:scanner:1.4.0'
     compile 'com.hyman:flowlayout-lib:1.1.2'
     compile 'com.android.support:appcompat-v7:26.1.0'

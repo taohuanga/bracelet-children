@@ -7,6 +7,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.Entry;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -51,6 +54,8 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
 
     private RemindAdapter remindAdapter;
 
+    private LineChart lineChart;
+
     private TextView tvTime, tvWeather, tvStepNum, tvMore;
 
     private int currentPos;
@@ -80,6 +85,12 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
         tvMore = findView(R.id.tvMore);
         tvWeather = findView(R.id.tvWeather);
         tvStepNum = findView(R.id.tvStepNum);
+
+        lineChart = findView(R.id.lineChart);
+        lineChart.setNoDataText("图表暂无数据");
+        //设置是否可以缩放 x和y，默认true
+        lineChart.setScaleXEnabled(true);
+        lineChart.setScaleYEnabled(false);
     }
 
     @Override
@@ -145,6 +156,22 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
         tvStepNum.setText(String.valueOf(sports.getStepNum()));
     }
 
+
+    @Override
+    public void sportTrendSuccess(List<DailySports> list) {
+        lineChart.removeAllViews();
+        if (list.size() == 0)
+            return;
+        ArrayList<String> xValues = new ArrayList<>();
+        ArrayList<Entry> yValues = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            DailySports sports = list.get(i);
+            xValues.add(sports.getDate());
+            yValues.add(new Entry(i, sports.getStepNum()));
+        }
+        ChartManager.initLineChart(getActivity(), lineChart, xValues, yValues);
+    }
+
     @Override
     protected void initListener() {
         EventBus.getDefault().register(this);
@@ -172,6 +199,7 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
     private void loadData(FamilyMember member) {
         mPresenter.msgList(String.valueOf(member.getAccountId()));
         mPresenter.dailySports(String.valueOf(member.getAccountId()));
+        mPresenter.parentSportTrend(String.valueOf(member.getAccountId()));
     }
 
 
@@ -181,7 +209,7 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
             tvStepNum.setText(String.valueOf(event.getT()));
         }
 
-        if(event.getAction()==AppConfig.MSG_FAMILY_MEMBER){
+        if (event.getAction() == AppConfig.MSG_FAMILY_MEMBER) {
             mPresenter.relative();
         }
     }

@@ -7,6 +7,7 @@ import java.io.Serializable;
 public class DailySports implements Serializable {
 
     private String dailyDay;
+    private String date;
 
     private int stepNum;
 
@@ -26,10 +27,27 @@ public class DailySports implements Serializable {
         this.stepNum = stepNum;
     }
 
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public DailySports() {
+    }
+
+    public DailySports(String date, int stepNum) {
+        this.date = date;
+        this.stepNum = stepNum;
+    }
+
     public static DailySports parseBean(JSONObject object) {
         DailySports sports = new DailySports();
         sports.setDailyDay(object.optString("dailyDay"));
         sports.setStepNum(object.optInt("stepNum"));
+        sports.setDailyDay(object.optString("date"));
         return sports;
     }
 }
