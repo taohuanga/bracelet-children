@@ -170,7 +170,7 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
         ArrayList<Entry> yValues = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
             DailySports sports = list.get(i);
-            xValues.add(sports.getDate());
+            xValues.add(sports.getDailyDay());
             yValues.add(new Entry(i, sports.getStepNum()));
         }
         ChartManager.initLineChart(getActivity(), lineChart, xValues, yValues);

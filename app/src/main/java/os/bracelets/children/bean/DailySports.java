@@ -7,7 +7,7 @@ import java.io.Serializable;
 public class DailySports implements Serializable {
 
     private String dailyDay;
-    private String date;
+    private String dailyTime;
 
     private int stepNum;
 
@@ -27,19 +27,19 @@ public class DailySports implements Serializable {
         this.stepNum = stepNum;
     }
 
-    public String getDate() {
-        return date;
+    public String getDailyTime() {
+        return dailyTime;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setDailyTime(String dailyTime) {
+        this.dailyTime = dailyTime;
     }
 
     public DailySports() {
     }
 
-    public DailySports(String date, int stepNum) {
-        this.date = date;
+    public DailySports(String dailyTime, int stepNum) {
+        this.dailyTime = dailyTime;
         this.stepNum = stepNum;
     }
 
@@ -47,7 +47,7 @@ public class DailySports implements Serializable {
         DailySports sports = new DailySports();
         sports.setDailyDay(object.optString("dailyDay"));
         sports.setStepNum(object.optInt("stepNum"));
-        sports.setDailyDay(object.optString("date"));
+        sports.setDailyTime(object.optString("dailyTime"));
         return sports;
     }
 }
