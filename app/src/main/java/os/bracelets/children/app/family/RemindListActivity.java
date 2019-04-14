@@ -1,5 +1,6 @@
 package os.bracelets.children.app.family;
 
+import android.content.Intent;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +19,7 @@ import aio.health2world.http.HttpResult;
 import aio.health2world.view.LoadingDialog;
 import os.bracelets.children.AppConfig;
 import os.bracelets.children.R;
+import os.bracelets.children.app.edit.EditRemindActivity;
 import os.bracelets.children.bean.FamilyMember;
 import os.bracelets.children.bean.Remind;
 import os.bracelets.children.common.BaseActivity;
@@ -76,11 +78,30 @@ public class RemindListActivity extends BaseActivity {
                 finish();
             }
         });
+
+        titleBar.addAction(new TitleBar.TextAction("设置提醒") {
+            @Override
+            public void performAction(View view) {
+                Intent intent = new Intent(RemindListActivity.this, EditRemindActivity.class);
+                intent.putExtra("member", member);
+                startActivityForResult(intent, 0x01);
+            }
+        });
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != RESULT_OK)
+            return;
+        if (requestCode == 0x01) {
+            getRemindList();
+        }
     }
 
     private void getRemindList() {
         ApiRequest.remindList(String.valueOf(member.getAccountId()), new HttpSubscriber() {
-
             @Override
             public void onStart() {
                 super.onStart();
@@ -108,6 +129,7 @@ public class RemindListActivity extends BaseActivity {
                                 Remind bean = Remind.parseBean(obj);
                                 list.add(bean);
                             }
+                            remindList.clear();
                             remindList.addAll(list);
                             remindListAdapter.notifyDataSetChanged();
                         }

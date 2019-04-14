@@ -173,8 +173,9 @@ public class EditRemindActivity extends BaseActivity implements TimePickerView.O
                         super.onNext(result);
                         if (result.code.equals(AppConfig.SUCCESS)) {
                             ToastUtil.showShort("操作成功");
+                            setResult(RESULT_OK);
+                            EditRemindActivity.this.finish();
                         }
-                        EditRemindActivity.this.finish();
                     }
                 });
 

@@ -175,6 +175,11 @@ interface ApiService {
     @POST("children/label/list")
     Observable<HttpResult> tagList(@Body Map<String, Object> map);
 
+    /**
+     * 新增标签
+     */
+    @POST("children/label/add")
+    Observable<HttpResult> tagAdd(@Body Map<String, Object> map);
 
     /**
      * 电子围栏列表

@@ -385,6 +385,19 @@ public class ApiRequest {
                 .subscribe(subscriber);
     }
 
+    //新增标签到系统
+    public static Subscription tagAdd(String labelName, Subscriber<HttpResult> subscriber) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("tokenId", MyApplication.getInstance().getTokenId());
+        map.put("labelName", labelName);
+        return ServiceFactory.getInstance()
+                .createService(ApiService.class)
+                .tagAdd(map)
+                .compose(RxTransformer.<HttpResult>defaultSchedulers())
+                .subscribe(subscriber);
+    }
+
+
     //电子围栏列表
     public static Subscription fenceList(String accountId, Subscriber<HttpResult> subscriber) {
         Map<String, Object> map = new HashMap<>();

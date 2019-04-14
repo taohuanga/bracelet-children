@@ -1,5 +1,6 @@
 package os.bracelets.children.app.edit;
 
+import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -75,7 +76,26 @@ public class LabelEditActivity extends MVPBaseActivity<LabelContract.Presenter> 
                 finish();
             }
         });
+        titleBar.addAction(new TitleBar.TextAction("添加标签") {
+            @Override
+            public void performAction(View view) {
+                Intent intent = new Intent(LabelEditActivity.this, LabelAddActivity.class);
+                startActivityForResult(intent, 0x02);
+            }
+        });
     }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != RESULT_OK)
+            return;
+        if (requestCode == 0x02) {
+            mPresenter.getTagList();
+        }
+    }
+
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {

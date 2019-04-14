@@ -235,6 +235,7 @@ public class EleFenceAddActivity extends MVPActivity<EleFenceAddContract.Present
                         dialog.dismiss();
                         if (result.code.equals(AppConfig.SUCCESS)) {
                             ToastUtil.showShort("添加成功");
+                            setResult(RESULT_OK);
                             finish();
                         }
                     }

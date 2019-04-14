@@ -1,5 +1,6 @@
 package os.bracelets.children.app.edit;
 
+import android.content.Intent;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -73,6 +74,24 @@ public class EleFenceListActivity extends MVPBaseActivity<EleFenceListContract.P
                 finish();
             }
         });
+        titleBar.addAction(new TitleBar.TextAction("添加围栏") {
+            @Override
+            public void performAction(View view) {
+                Intent eleAddIntent = new Intent(EleFenceListActivity.this, EleFenceAddActivity.class);
+                eleAddIntent.putExtra("member", member);
+                startActivityForResult(eleAddIntent,0x01);
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode!=RESULT_OK)
+            return;
+        if(requestCode==0x01){
+            mPresenter.eleFenceList(String.valueOf(member.getAccountId()));
+        }
     }
 
     @Override

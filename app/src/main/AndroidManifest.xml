@@ -121,7 +121,9 @@
 
         <activity android:name=".app.home.SportsListActivity" />
 
-        <activity android:name=".app.family.RemindListActivity"/>
+        <activity android:name=".app.family.RemindListActivity" />
+
+        <activity android:name=".app.edit.LabelAddActivity" />
 
         <activity android:name="aio.health2world.qrcode.CaptureActivity" />
 
