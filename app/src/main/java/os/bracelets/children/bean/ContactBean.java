@@ -10,6 +10,8 @@ import java.io.Serializable;
  */
 
 public class ContactBean implements Serializable {
+
+    private int contactId;
     //    头像
     private String portrait;
     //            昵称
@@ -57,6 +59,14 @@ public class ContactBean implements Serializable {
         return sexDesc;
     }
 
+    public int getContactId() {
+        return contactId;
+    }
+
+    public void setContactId(int contactId) {
+        this.contactId = contactId;
+    }
+
     public void setSexDesc(String sexDesc) {
         this.sexDesc = sexDesc;
     }
@@ -68,6 +78,7 @@ public class ContactBean implements Serializable {
         contact.setPhone(object.optString("phone", ""));
         contact.setSex(object.optInt("sex", 0));
         contact.setSexDesc(object.optString("sexDesc", ""));
+        contact.setContactId(object.optInt("contactId"));
         return contact;
     }
 }

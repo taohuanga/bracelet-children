@@ -588,11 +588,12 @@ public class ApiRequest {
     }
 
     //编辑联系人
-    public static Subscription editContacts(int accountId, String portrait, String nickName,
+    public static Subscription editContacts(int accountId, int contactId,String portrait, String nickName,
                                           String phone, int sex, Subscriber<HttpResult> subscriber) {
         Map<String, Object> map = new HashMap<>();
         map.put("tokenId", MyApplication.getInstance().getTokenId());
         map.put("accountId", String.valueOf(accountId));
+        map.put("contactId", String.valueOf(contactId));
         map.put("portrait", portrait);
         map.put("nickName", nickName);
         map.put("phone", phone);

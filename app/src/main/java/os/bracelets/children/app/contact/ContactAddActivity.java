@@ -299,7 +299,7 @@ public class ContactAddActivity extends BaseActivity implements OptionsPickerVie
     }
 
     private void updateContact() {
-        ApiRequest.editContacts(member.getAccountId(), serverImageUrl, tvNickName.getText().toString(),
+        ApiRequest.editContacts(member.getAccountId(), contact.getContactId(),serverImageUrl, tvNickName.getText().toString(),
                 tvPhone.getText().toString(), tvSex.getText().toString().equals("男") ? 1 : 2, new HttpSubscriber() {
                     @Override
                     public void onError(Throwable e) {
