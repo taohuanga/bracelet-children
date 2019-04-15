@@ -569,4 +569,38 @@ public class ApiRequest {
                 .compose(RxTransformer.<HttpResult>defaultSchedulers())
                 .subscribe(subscriber);
     }
+
+    //编辑提醒
+    public static Subscription editRemind(int remindId, String remindTitle, String remind,
+                                          String remindPeriod, String remindTime, Subscriber<HttpResult> subscriber) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("tokenId", MyApplication.getInstance().getTokenId());
+        map.put("remindId", String.valueOf(remindId));
+        map.put("remindTitle", remindTitle);
+        map.put("remind", remind);
+        map.put("remindPeriod", remindPeriod);
+        map.put("remindTime",remindTime);
+        return ServiceFactory.getInstance()
+                .createService(ApiService.class)
+                .editRemind(map)
+                .compose(RxTransformer.<HttpResult>defaultSchedulers())
+                .subscribe(subscriber);
+    }
+
+    //编辑联系人
+    public static Subscription editContacts(int accountId, String portrait, String nickName,
+                                          String phone, int sex, Subscriber<HttpResult> subscriber) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("tokenId", MyApplication.getInstance().getTokenId());
+        map.put("accountId", String.valueOf(accountId));
+        map.put("portrait", portrait);
+        map.put("nickName", nickName);
+        map.put("phone", phone);
+        map.put("sex",String.valueOf(sex));
+        return ServiceFactory.getInstance()
+                .createService(ApiService.class)
+                .editContacts(map)
+                .compose(RxTransformer.<HttpResult>defaultSchedulers())
+                .subscribe(subscriber);
+    }
 }

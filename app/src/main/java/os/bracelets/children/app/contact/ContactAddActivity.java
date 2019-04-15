@@ -32,10 +32,12 @@ import aio.health2world.view.LoadingDialog;
 import os.bracelets.children.AppConfig;
 import os.bracelets.children.R;
 import os.bracelets.children.app.personal.InputMsgActivity;
+import os.bracelets.children.bean.ContactBean;
 import os.bracelets.children.bean.FamilyMember;
 import os.bracelets.children.common.BaseActivity;
 import os.bracelets.children.http.ApiRequest;
 import os.bracelets.children.http.HttpSubscriber;
+import os.bracelets.children.utils.AppUtils;
 import os.bracelets.children.utils.ImageBase64;
 import os.bracelets.children.utils.TitleBarUtil;
 import os.bracelets.children.view.TitleBar;
@@ -51,13 +53,16 @@ public class ContactAddActivity extends BaseActivity implements OptionsPickerVie
     private TextView tvNickName, tvSex, tvPhone;
     private ImageView ivHeadImg;
     private Button btnSave;
+
     private FamilyMember member;
+    private ContactBean contact;
+
     private TitleBar titleBar;
     private RxPermissions rxPermissions;
     private OptionsPickerView optionsPicker;
     private List<String> listSex = new ArrayList<>();
     private LoadingDialog dialog;
-    private String imagePath = "";
+    private String imagePath = "", serverImageUrl = "";
 
     @Override
     protected int getLayoutId() {
@@ -80,9 +85,24 @@ public class ContactAddActivity extends BaseActivity implements OptionsPickerVie
 
     @Override
     protected void initData() {
-        member = (FamilyMember) getIntent().getSerializableExtra("member");
+        if (getIntent().hasExtra("contact")) {
+            contact = (ContactBean) getIntent().getSerializableExtra("contact");
+            tvNickName.setText(contact.getNickName());
+            tvSex.setText(AppUtils.getSex(contact.getSex()));
+            tvPhone.setText(contact.getPhone());
+            Glide.with(this)
+                    .load(contact.getPortrait())
+                    .placeholder(R.mipmap.ic_default_portrait)
+                    .bitmapTransform(new CropCircleTransformation(this))
+                    .into(ivHeadImg);
+            serverImageUrl = contact.getPortrait();
+        }
 
-        TitleBarUtil.setAttr(this, "", "添加联系人", titleBar);
+        member = (FamilyMember) getIntent().getSerializableExtra("member");
+        if (contact == null)
+            TitleBarUtil.setAttr(this, "", "添加联系人", titleBar);
+        else
+            TitleBarUtil.setAttr(this, "", "编辑联系人", titleBar);
         rxPermissions = new RxPermissions(this);
         optionsPicker = TimePickerUtil.initOptions(this, this);
         listSex.add("男");
@@ -185,7 +205,7 @@ public class ContactAddActivity extends BaseActivity implements OptionsPickerVie
     }
 
     private void addContact() {
-        if (TextUtils.isEmpty(imagePath)) {
+        if (TextUtils.isEmpty(imagePath) && contact == null) {
             ToastUtil.showShort("请选择图片");
             return;
         }
@@ -209,7 +229,10 @@ public class ContactAddActivity extends BaseActivity implements OptionsPickerVie
             ToastUtil.showShort("请选择性别");
             return;
         }
-        uploadImage();
+        if (!TextUtils.isEmpty(imagePath))
+            uploadImage();
+        else
+            updateContact();
     }
 
     private void uploadImage() {
@@ -238,7 +261,11 @@ public class ContactAddActivity extends BaseActivity implements OptionsPickerVie
                     try {
                         JSONObject object = new JSONObject(new Gson().toJson(result.data));
                         String serverPath = object.optString("data");
-                        saveContact(serverPath);
+                        serverImageUrl = serverPath;
+                        if (contact == null)
+                            saveContact(serverPath);
+                        else
+                            updateContact();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -264,6 +291,28 @@ public class ContactAddActivity extends BaseActivity implements OptionsPickerVie
                         dialog.dismiss();
                         if (result.code.equals(AppConfig.SUCCESS)) {
                             ToastUtil.showShort("添加成功");
+                            setResult(RESULT_OK);
+                            finish();
+                        }
+                    }
+                });
+    }
+
+    private void updateContact() {
+        ApiRequest.editContacts(member.getAccountId(), serverImageUrl, tvNickName.getText().toString(),
+                tvPhone.getText().toString(), tvSex.getText().toString().equals("男") ? 1 : 2, new HttpSubscriber() {
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        dialog.dismiss();
+                    }
+
+                    @Override
+                    public void onNext(HttpResult result) {
+                        super.onNext(result);
+                        dialog.dismiss();
+                        if (result.code.equals(AppConfig.SUCCESS)) {
+                            ToastUtil.showShort("操作成功");
                             setResult(RESULT_OK);
                             finish();
                         }

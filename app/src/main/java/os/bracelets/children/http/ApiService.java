@@ -246,4 +246,16 @@ interface ApiService {
      */
     @POST("children/setting/modifiedData")
     Observable<HttpResult> modifyData(@Body Map<String, Object> map);
+
+    /**
+     * 编辑资料
+     */
+    @POST("children/setting/editRemind")
+    Observable<HttpResult> editRemind(@Body Map<String, Object> map);
+
+    /**
+     * 编辑联系人
+     */
+    @POST("children/setting/editContacts")
+    Observable<HttpResult> editContacts(@Body Map<String, Object> map);
 }

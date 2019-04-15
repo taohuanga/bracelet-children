@@ -15,6 +15,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import aio.health2world.brvah.BaseQuickAdapter;
 import aio.health2world.http.HttpResult;
 import aio.health2world.view.LoadingDialog;
 import os.bracelets.children.AppConfig;
@@ -28,7 +29,7 @@ import os.bracelets.children.http.HttpSubscriber;
 import os.bracelets.children.utils.TitleBarUtil;
 import os.bracelets.children.view.TitleBar;
 
-public class RemindListActivity extends BaseActivity {
+public class RemindListActivity extends BaseActivity implements BaseQuickAdapter.OnItemClickListener {
 
     private TitleBar titleBar;
 
@@ -78,7 +79,7 @@ public class RemindListActivity extends BaseActivity {
                 finish();
             }
         });
-
+        remindListAdapter.setOnItemClickListener(this);
         titleBar.addAction(new TitleBar.TextAction("设置提醒") {
             @Override
             public void performAction(View view) {
@@ -98,6 +99,15 @@ public class RemindListActivity extends BaseActivity {
         if (requestCode == 0x01) {
             getRemindList();
         }
+    }
+
+    @Override
+    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        Remind remind = (Remind) adapter.getItem(position);
+        Intent intent = new Intent(RemindListActivity.this, EditRemindActivity.class);
+        intent.putExtra("member", member);
+        intent.putExtra("remind", remind);
+        startActivityForResult(intent, 0x01);
     }
 
     private void getRemindList() {

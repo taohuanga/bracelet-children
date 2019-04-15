@@ -29,7 +29,7 @@ import os.bracelets.children.view.TitleBar;
 
 public class ContactActivity extends MVPBaseActivity<ContactContract.Presenter> implements ContactContract.View,
         SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener,
-        BaseQuickAdapter.OnItemChildClickListener {
+        BaseQuickAdapter.OnItemChildClickListener,BaseQuickAdapter.OnItemClickListener{
 
     private TitleBar titleBar;
 
@@ -88,6 +88,7 @@ public class ContactActivity extends MVPBaseActivity<ContactContract.Presenter> 
         refreshLayout.setOnRefreshListener(this);
         contactAdapter.setOnLoadMoreListener(this, recyclerView);
         contactAdapter.setOnItemChildClickListener(this);
+        contactAdapter.setOnItemClickListener(this);
         titleBar.setLeftClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -125,6 +126,15 @@ public class ContactActivity extends MVPBaseActivity<ContactContract.Presenter> 
     public void onLoadMoreRequested() {
         pageNo++;
         mPresenter.contactList(pageNo, String.valueOf(member.getAccountId()));
+    }
+
+    @Override
+    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        ContactBean contact = (ContactBean) adapter.getItem(position);
+        Intent addIntent = new Intent(ContactActivity.this, ContactAddActivity.class);
+        addIntent.putExtra("member", member);
+        addIntent.putExtra("contact", contact);
+        startActivityForResult(addIntent, 0x01);
     }
 
     @Override
