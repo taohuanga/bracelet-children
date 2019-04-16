@@ -129,8 +129,7 @@ public class HomePresenter extends HomeContract.Presenter {
                 super.onNext(result);
                 if (result.code.equals(AppConfig.SUCCESS)) {
                     try {
-                        JSONObject object = new JSONObject(new Gson().toJson(result.data));
-                        JSONArray array = object.optJSONArray("list");
+                        JSONArray array = new JSONArray(new Gson().toJson(result.data));
                         List<DailySports> list = new ArrayList<>();
                         for (int i = 0; i < array.length(); i++) {
                             JSONObject obj = array.optJSONObject(i);

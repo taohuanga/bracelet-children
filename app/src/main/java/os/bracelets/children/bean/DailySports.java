@@ -47,7 +47,7 @@ public class DailySports implements Serializable {
         DailySports sports = new DailySports();
         sports.setDailyDay(object.optString("dailyDay"));
         sports.setStepNum(object.optInt("stepNum"));
-        sports.setDailyTime(object.optString("dailyTime"));
+        sports.setDailyTime(object.optString("date"));
         return sports;
     }
 }

@@ -180,7 +180,8 @@ public class EditRemindActivity extends BaseActivity implements TimePickerView.O
             ToastUtil.showShort("请设置提醒时间");
             return;
         }
-        remindPeriod = remindPeriod.substring(0, remindPeriod.length() - 1);
+        if (remindPeriod.contains(";"))
+            remindPeriod = remindPeriod.substring(0, remindPeriod.length() - 1);
         if (remind == null) {
             ApiRequest.remind(String.valueOf(member.getAccountId()), title, content, remindPeriod, time,
                     new HttpSubscriber() {
