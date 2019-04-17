@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
@@ -37,11 +38,14 @@ public class HomeTopAdapter extends RecyclerView.Adapter<HomeTopAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int i) {
+        FamilyMember member = familyMemberList.get(i);
         Glide.with(mContext)
-                .load(familyMemberList.get(i).getProfile())
+                .load(member.getProfile())
                 .placeholder(R.mipmap.ic_default_portrait)
                 .bitmapTransform(new CropCircleTransformation(mContext))
                 .into(viewHolder.img);
+
+        viewHolder.tvName.setText(member.getNickName());
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,10 +64,12 @@ public class HomeTopAdapter extends RecyclerView.Adapter<HomeTopAdapter.ViewHold
 
     class ViewHolder extends RecyclerView.ViewHolder {
         ImageView img;
+        TextView tvName;
 
         public ViewHolder(View itemView) {
             super(itemView);
             img = itemView.findViewById(R.id.imageView);
+            tvName = itemView.findViewById(R.id.tvName);
         }
     }
 

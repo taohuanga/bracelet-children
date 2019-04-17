@@ -133,6 +133,8 @@
 
         <activity android:name=".app.edit.EditRemindActivity" />
 
+        <activity android:name=".app.home.EleFenceActivity"/>
+
         <service android:name=".service.AppService" />
 
         <service android:name="com.huichenghe.bleControl.Ble.BluetoothLeService" />

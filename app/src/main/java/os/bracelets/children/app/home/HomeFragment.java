@@ -114,10 +114,19 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         RemindBean remindBean = (RemindBean) adapter.getItem(position);
-        Intent intent = new Intent(getActivity(), FallPositionActivity.class);
-        intent.putExtra("member", familyMemberList.get(currentPos));
-        intent.putExtra("remind", remindBean);
-        startActivity(intent);
+        //0 系统消息 1 跌倒消息 2 电子围栏 3 电量提示
+        if(remindBean.getMsgType()==1){
+            Intent intent = new Intent(getActivity(), FallPositionActivity.class);
+            intent.putExtra("member", familyMemberList.get(currentPos));
+            intent.putExtra("remind", remindBean);
+            startActivity(intent);
+        }
+
+        if(remindBean.getMsgType()==2){
+            Intent intent = new Intent(getActivity(),EleFenceActivity.class);
+            intent.putExtra("remind", remindBean);
+            startActivity(intent);
+        }
     }
 
     @Override
