@@ -83,14 +83,14 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_6"
+                android:layout_marginStart="@dimen/dp_2"
                 android:src="@mipmap/icon_clock_white" />
 
             <TextView
                 android:id="@+id/tvTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginStart="@dimen/dp_2"
                 android:textColor="@color/white" />
 
         </LinearLayout>
@@ -107,15 +107,17 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_6"
+                android:layout_marginStart="@dimen/dp_2"
                 android:src="@mipmap/icon_location_white" />
 
             <TextView
+                android:layout_marginEnd="@dimen/dp_2"
+                android:textSize="@dimen/sp14"
                 android:maxLength="17"
                 android:id="@+id/tvAddress"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginStart="@dimen/dp_2"
                 android:layout_weight="1"
                 android:maxLines="1"
                 android:textColor="@color/white" />
