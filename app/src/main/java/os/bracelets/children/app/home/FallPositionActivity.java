@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -34,6 +35,7 @@ import aio.health2world.glide_transformations.CropCircleTransformation;
 import aio.health2world.utils.AppUtils;
 import aio.health2world.utils.DensityUtil;
 import aio.health2world.utils.DeviceUtil;
+import aio.health2world.utils.Logger;
 import aio.health2world.utils.ToastUtil;
 import os.bracelets.children.R;
 import os.bracelets.children.bean.FamilyMember;
@@ -115,9 +117,12 @@ public class FallPositionActivity extends AppCompatActivity implements AMap.Info
         this.getWindowManager().getDefaultDisplay().getRealMetrics(metric);
         int width = metric.widthPixels;  // 屏幕宽度（像素）
         int height = metric.heightPixels;  // 屏幕高度（像素）
-        LinearLayout layoutWindow = infoWindow.findViewById(R.id.layoutWindow);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width, LinearLayout.LayoutParams.WRAP_CONTENT);
-        layoutWindow.setLayoutParams(params);
+        Logger.i("lsy", "width=" + width + ",height=" + height);
+//        ViewGroup.LayoutParams params = infoWindow.getLayoutParams();
+//        params.width = width;
+//        params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(width, LinearLayout.LayoutParams.WRAP_CONTENT);
+        infoWindow.setLayoutParams(params);
         render(marker, infoWindow);
         return infoWindow;
     }
