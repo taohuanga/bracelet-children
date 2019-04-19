@@ -30,6 +30,7 @@ public class RemindBean implements Serializable {
     private int msgId;
     private int msgType;
     private int isRead;
+    private int accountId;
     //提醒时间
     private String createDate;
     //提醒内容
@@ -43,6 +44,7 @@ public class RemindBean implements Serializable {
     private String phone;
     private String nickName;
     private String portrait;
+    private String relation;
 
 
 
@@ -134,6 +136,22 @@ public class RemindBean implements Serializable {
         this.portrait = portrait;
     }
 
+    public int getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(int accountId) {
+        this.accountId = accountId;
+    }
+
+    public String getRelation() {
+        return relation;
+    }
+
+    public void setRelation(String relation) {
+        this.relation = relation;
+    }
+
     public static RemindBean parseBean(JSONObject object) {
         RemindBean remind = new RemindBean();
         remind.setMsgId(object.optInt("msgId"));
@@ -147,6 +165,8 @@ public class RemindBean implements Serializable {
         remind.setNickName(object.optString("nickName"));
         remind.setPhone(object.optString("phone"));
         remind.setPortrait(object.optString("portrait"));
+        remind.setAccountId(object.optInt("accountId"));
+        remind.setRelation(object.optString("relation"));
         return remind;
     }
 }

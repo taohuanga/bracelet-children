@@ -12,10 +12,8 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
-import com.huichenghe.bleControl.Ble.BluetoothLeService;
 import com.huichenghe.bleControl.Ble.DeviceConfig;
 import com.huichenghe.bleControl.Ble.LocalDeviceEntity;
-import com.hyphenate.easeui.EaseUI;
 import com.tencent.bugly.crashreport.CrashReport;
 
 import java.text.SimpleDateFormat;
@@ -29,7 +27,6 @@ import aio.health2world.utils.Logger;
 import aio.health2world.utils.SPUtils;
 import cn.jpush.android.api.JPushInterface;
 import os.bracelets.children.receiver.BleReceiver;
-import os.bracelets.children.service.AppService;
 
 /**
  * Created by lishiyou on 2019/1/24.
@@ -118,7 +115,7 @@ public class MyApplication extends Application implements AMapLocationListener {
         registerReceiver(new BleReceiver(), filter);
 
         //环信 目前使用的是简单版的
-        EaseUI.getInstance().init(this, null);
+//        EaseUI.getInstance().init(this, null);
 
         initLocation();
 

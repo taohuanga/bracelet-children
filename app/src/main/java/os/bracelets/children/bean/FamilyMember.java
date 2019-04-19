@@ -19,7 +19,7 @@ public class FamilyMember implements Serializable {
 //             "accountId":""
 
     private String nickName;
-    private int sex;
+    private int sex;//0 未知 1 男 2 女
     private String relationship;
     private String profile;
     private String sexDesc;

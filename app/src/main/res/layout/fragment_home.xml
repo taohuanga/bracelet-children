@@ -92,14 +92,16 @@
             android:textSize="@dimen/sp16" />
 
         <ImageView
+            android:layout_marginStart="@dimen/dp_18"
             android:id="@+id/ivSports"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@id/tvTitle"
-            android:src="@mipmap/icon_sports" />
+            android:src="@drawable/icon_parent_man" />
 
         <TextView
+            android:layout_marginStart="@dimen/dp_18"
             android:id="@+id/tvStepNum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

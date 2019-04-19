@@ -5,6 +5,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
@@ -58,6 +59,8 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
 
     private TextView tvTime, tvWeather, tvStepNum, tvMore;
 
+    private ImageView ivSports;
+
     private int currentPos;
 
     @Override
@@ -85,6 +88,7 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
         tvMore = findView(R.id.tvMore);
         tvWeather = findView(R.id.tvWeather);
         tvStepNum = findView(R.id.tvStepNum);
+        ivSports = findView(R.id.ivSports);
 
         lineChart = findView(R.id.lineChart);
         lineChart.setNoDataText("图表暂无数据");
@@ -115,15 +119,15 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         RemindBean remindBean = (RemindBean) adapter.getItem(position);
         //0 系统消息 1 跌倒消息 2 电子围栏 3 电量提示
-        if(remindBean.getMsgType()==1){
+        if (remindBean.getMsgType() == 1) {
             Intent intent = new Intent(getActivity(), FallPositionActivity.class);
-            intent.putExtra("member", familyMemberList.get(currentPos));
+//            intent.putExtra("member", familyMemberList.get(currentPos));
             intent.putExtra("remind", remindBean);
             startActivity(intent);
         }
 
-        if(remindBean.getMsgType()==2){
-            Intent intent = new Intent(getActivity(),EleFenceActivity.class);
+        if (remindBean.getMsgType() == 2) {
+            Intent intent = new Intent(getActivity(), EleFenceActivity.class);
             intent.putExtra("remind", remindBean);
             startActivity(intent);
         }
@@ -163,6 +167,11 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
     @Override
     public void dailySportsSuccess(DailySports sports) {
         tvStepNum.setText(String.valueOf(sports.getStepNum()));
+        FamilyMember member = familyMemberList.get(currentPos);
+        if (member.getSex() == 1)
+            ivSports.setImageResource(R.drawable.icon_parent_man);
+        else
+            ivSports.setImageResource(R.drawable.icon_parent_woman);
     }
 
 

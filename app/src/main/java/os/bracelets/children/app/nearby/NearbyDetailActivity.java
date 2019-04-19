@@ -1,6 +1,5 @@
 package os.bracelets.children.app.nearby;
 
-import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -8,7 +7,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
-import com.hyphenate.easeui.EaseConstant;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -85,11 +83,11 @@ public class NearbyDetailActivity extends MVPBaseActivity {
     @Override
     public void onClick(View v) {
         super.onClick(v);
-        Intent intent = new Intent(this,ChatActivity.class);
-        intent.putExtra(EaseConstant.EXTRA_USER_ID,person.getPhone());
-        intent.putExtra(EaseConstant.EXTRA_USER_NICK,person.getNickName());
-        intent.putExtra(EaseConstant.EXTRA_USER_AVATAR,person.getProfile());
-        startActivity(intent);
+//        Intent intent = new Intent(this,ChatActivity.class);
+//        intent.putExtra(EaseConstant.EXTRA_USER_ID,person.getPhone());
+//        intent.putExtra(EaseConstant.EXTRA_USER_NICK,person.getNickName());
+//        intent.putExtra(EaseConstant.EXTRA_USER_AVATAR,person.getProfile());
+//        startActivity(intent);
     }
 
     private void initPersonMsg(NearbyPerson person){

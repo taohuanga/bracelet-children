@@ -54,7 +54,7 @@ public class FallPositionActivity extends AppCompatActivity implements AMap.Info
 
 //    private GeocodeSearch geocodeSearch;
 
-    private FamilyMember member;
+//    private FamilyMember member;
 
     private RemindBean remind;
 
@@ -74,7 +74,7 @@ public class FallPositionActivity extends AppCompatActivity implements AMap.Info
     }
 
     private void initData() {
-        member = (FamilyMember) getIntent().getSerializableExtra("member");
+//        member = (FamilyMember) getIntent().getSerializableExtra("member");
         remind = (RemindBean) getIntent().getSerializableExtra("remind");
 
         if (aMap == null)
@@ -150,9 +150,9 @@ public class FallPositionActivity extends AppCompatActivity implements AMap.Info
                         FallPositionActivity.this);
                 break;
             case R.id.ivCall:
-                if (!TextUtils.isEmpty(member.getPhone())) {
+                if (!TextUtils.isEmpty(remind.getPhone())) {
                     Intent intent = new Intent(Intent.ACTION_DIAL);
-                    Uri data = Uri.parse("tel:" + member.getPhone());
+                    Uri data = Uri.parse("tel:" + remind.getPhone());
                     intent.setData(data);
                     startActivity(intent);
                 } else {
@@ -172,13 +172,13 @@ public class FallPositionActivity extends AppCompatActivity implements AMap.Info
         ImageView ivImage = view.findViewById(R.id.ivImage);
         ImageView ivCall = view.findViewById(R.id.ivCall);
 
-        tvTitle.setText("您的" + member.getRelationship() + "在此处跌倒，请尽快前往处理！");
-        tvName.setText(member.getNickName());
-        tvPhone.setText(member.getPhone());
+        tvTitle.setText("您的" + remind.getRelation() + "在此处跌倒，请尽快前往处理！");
+        tvName.setText(remind.getNickName());
+        tvPhone.setText(remind.getPhone());
         tvAddress.setText(remind.getLocation());
         tvTime.setText(remind.getCreateDate());
         Glide.with(this)
-                .load(member.getProfile())
+                .load(remind.getPortrait())
                 .placeholder(R.mipmap.ic_default_portrait)
                 .error(R.mipmap.ic_default_portrait)
                 .bitmapTransform(new CropCircleTransformation(this))

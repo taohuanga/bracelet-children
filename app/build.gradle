@@ -92,7 +92,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:multidex:1.0.3'
     //配合蓝牙库使用 勿删
-    compile project(path: ':easeui')
+//    compile project(path: ':easeui')
     compile project(path: ':commonlib')
     compile(name: 'MPChartLib-release', ext: 'aar')
     compile 'no.nordicsemi.android.support.v18:scanner:1.4.0'

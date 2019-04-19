@@ -7,9 +7,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
-import com.hyphenate.EMCallBack;
-import com.hyphenate.chat.EMClient;
-
 import aio.health2world.utils.DeviceUtil;
 import aio.health2world.utils.Logger;
 import cn.jpush.android.api.JPushInterface;
@@ -17,8 +14,8 @@ import os.bracelets.children.MyApplication;
 import os.bracelets.children.R;
 import os.bracelets.children.app.family.FamilyListFragment;
 import os.bracelets.children.app.home.HomeFragment;
-import os.bracelets.children.app.personal.PersonalFragment;
 import os.bracelets.children.app.news.HealthInfoFragment;
+import os.bracelets.children.app.personal.PersonalFragment;
 import os.bracelets.children.bean.BaseInfo;
 import os.bracelets.children.common.MVPBaseActivity;
 import os.bracelets.children.jpush.JPushUtil;
@@ -170,23 +167,23 @@ public class MainActivity extends MVPBaseActivity<MainContract.Presenter> implem
     }
 
     private void loginHx() {
-        EMClient.getInstance()
-                .login(info.getPhone(), info.getPhone(), new EMCallBack() {
-                    @Override
-                    public void onSuccess() {
-                        Logger.i("hx", "login success");
-                    }
-
-                    @Override
-                    public void onError(int i, String s) {
-                        Logger.i("hx", "login failed " + s);
-                    }
-
-                    @Override
-                    public void onProgress(int i, String s) {
-
-                    }
-                });
+//        EMClient.getInstance()
+//                .login(info.getPhone(), info.getPhone(), new EMCallBack() {
+//                    @Override
+//                    public void onSuccess() {
+//                        Logger.i("hx", "login success");
+//                    }
+//
+//                    @Override
+//                    public void onError(int i, String s) {
+//                        Logger.i("hx", "login failed " + s);
+//                    }
+//
+//                    @Override
+//                    public void onProgress(int i, String s) {
+//
+//                    }
+//                });
     }
 
     @Override
