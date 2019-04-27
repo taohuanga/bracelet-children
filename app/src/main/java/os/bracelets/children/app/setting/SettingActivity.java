@@ -2,6 +2,7 @@ package os.bracelets.children.app.setting;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -65,7 +66,7 @@ public class SettingActivity extends MVPBaseActivity<SettingContract.Presenter> 
 
     @Override
     protected void initData() {
-//        mPresenter.loadBaseInfo();
+        mPresenter.loadBaseInfo();
         TitleBarUtil.setAttr(this, "", "设置", titleBar);
     }
 

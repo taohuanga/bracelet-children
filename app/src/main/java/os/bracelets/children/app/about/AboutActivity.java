@@ -3,6 +3,7 @@ package os.bracelets.children.app.about;
 import android.view.View;
 import android.widget.TextView;
 
+import aio.health2world.utils.AppUtils;
 import os.bracelets.children.R;
 import os.bracelets.children.common.BaseActivity;
 import os.bracelets.children.utils.TitleBarUtil;
@@ -16,7 +17,7 @@ public class AboutActivity extends BaseActivity {
 
     private TitleBar titleBar;
 
-    private TextView tvConnect;
+    private TextView tvContent,tvTitle;
 
     @Override
     protected int getLayoutId() {
@@ -26,13 +27,15 @@ public class AboutActivity extends BaseActivity {
     @Override
     protected void initView() {
         titleBar = findView(R.id.titleBar);
-        tvConnect = findView(R.id.tvConnect);
+        tvContent = findView(R.id.tvContent);
+        tvTitle = findView(R.id.tvTitle);
     }
 
     @Override
     protected void initData() {
         TitleBarUtil.setAttr(this, "", "关于我们", titleBar);
-        tvConnect.setText("\r\r\r\r\r\r\r\r" + getResources().getString(R.string.about_content));
+        tvTitle.setText("衣带保子女端 V" + AppUtils.getAppVersionName(this));
+        tvContent.setText("\r\r\r\r\r\r\r\r" + getResources().getString(R.string.about_content));
     }
 
     @Override

@@ -6,6 +6,7 @@
 
     <include layout="@layout/layout_title_bar" />
 
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -14,11 +15,24 @@
         android:src="@mipmap/ic_app_logo" />
 
     <TextView
-        android:id="@+id/tvConnect"
+        android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/sp16"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/dp_8"
+        android:textSize="@dimen/sp15" />
+
+    <TextView
+        android:id="@+id/tvContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_18"
+        android:layout_marginTop="@dimen/dp_48"
+        android:layout_marginEnd="@dimen/dp_18"
+        android:background="@color/white"
+        android:gravity="center_horizontal"
         android:lineSpacingExtra="4dp"
         android:lineSpacingMultiplier="1.2"
+        android:padding="@dimen/dp_8"
         android:textSize="@dimen/sp15" />
 </LinearLayout>
