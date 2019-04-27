@@ -13,7 +13,7 @@ public interface UpdatePwdContract {
 
         void codeSuccess();
 
-        void resetPwdSuccess();
+        void updatePwdSuccess();
 
     }
 
@@ -24,9 +24,8 @@ public interface UpdatePwdContract {
 
         abstract void code(int type, String phone);
 
-//        abstract void updatePwd(String oldPwd, String newPwd);
+        abstract void updatePwd(String oldPwd, String newPwd,String securityCode);
 
-        abstract void resetPwd(String phone,String oldPwd,String password,String securityCode);
     }
 
 }

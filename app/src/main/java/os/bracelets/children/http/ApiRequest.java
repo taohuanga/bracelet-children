@@ -88,11 +88,13 @@ public class ApiRequest {
     }
 
     //修改密码
-    public static Subscription updatePwd(String oldPwd, String newPwd, Subscriber<HttpResult> subscriber) {
+    public static Subscription updatePwd(String oldPwd, String newPwd, String securityCode,
+                                         Subscriber<HttpResult> subscriber) {
         Map<String, Object> map = new HashMap<>();
         map.put("tokenId", MyApplication.getInstance().getTokenId());
         map.put("oldPass", oldPwd);
         map.put("newPass", newPwd);
+        map.put("securityCode", securityCode);
         return ServiceFactory.getInstance()
                 .createService(ApiService.class)
                 .updatePwd(map)
@@ -101,12 +103,11 @@ public class ApiRequest {
     }
 
     //重置密码
-    public static Subscription resetPwd(String phone, String oldPwd,String password, String securityCode,
+    public static Subscription resetPwd(String phone, String password, String securityCode,
                                         Subscriber<HttpResult> subscriber) {
         Map<String, Object> map = new HashMap<>();
         map.put("tokenId", MyApplication.getInstance().getTokenId());
         map.put("phone", phone);
-        map.put("oldPwd", oldPwd);
         map.put("password", password);
         map.put("securityCode", securityCode);
         return ServiceFactory.getInstance()
@@ -580,7 +581,7 @@ public class ApiRequest {
         map.put("remindTitle", remindTitle);
         map.put("remind", remind);
         map.put("remindPeriod", remindPeriod);
-        map.put("remindTime",remindTime);
+        map.put("remindTime", remindTime);
         return ServiceFactory.getInstance()
                 .createService(ApiService.class)
                 .editRemind(map)
@@ -589,8 +590,8 @@ public class ApiRequest {
     }
 
     //编辑联系人
-    public static Subscription editContacts(int accountId, int contactId,String portrait, String nickName,
-                                          String phone, int sex, Subscriber<HttpResult> subscriber) {
+    public static Subscription editContacts(int accountId, int contactId, String portrait, String nickName,
+                                            String phone, int sex, Subscriber<HttpResult> subscriber) {
         Map<String, Object> map = new HashMap<>();
         map.put("tokenId", MyApplication.getInstance().getTokenId());
         map.put("accountId", String.valueOf(accountId));
@@ -598,7 +599,7 @@ public class ApiRequest {
         map.put("portrait", portrait);
         map.put("nickName", nickName);
         map.put("phone", phone);
-        map.put("sex",String.valueOf(sex));
+        map.put("sex", String.valueOf(sex));
         return ServiceFactory.getInstance()
                 .createService(ApiService.class)
                 .editContacts(map)
