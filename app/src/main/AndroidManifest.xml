@@ -9,7 +9,7 @@
         android:name="os.bracelets.children.permission.JPUSH_MESSAGE"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="os.bracelets.parents.permission.JPUSH_MESSAGE" />
+    <uses-permission android:name="os.bracelets.children.permission.JPUSH_MESSAGE" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
@@ -139,7 +139,7 @@
 
         <service android:name=".service.AppService" />
 
-        <service android:name="com.huichenghe.bleControl.Ble.BluetoothLeService" />
+        <!--<service android:name="com.huichenghe.bleControl.Ble.BluetoothLeService" />-->
 
         <service android:name="com.amap.api.location.APSService" />
 
@@ -155,6 +155,7 @@
 
         <!-- Required SDK 核心功能-->
         <!-- 可配置android:process参数将PushService放在其他进程中 -->
+        <!-- Required SDK核心功能-->
         <activity
             android:name="cn.jpush.android.ui.PushActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -164,9 +165,12 @@
                 <action android:name="cn.jpush.android.ui.PushActivity" />
 
                 <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="com.health2world.aio" />
+                <category android:name="os.bracelets.children" />
             </intent-filter>
         </activity>
+
+        <!-- Required SDK 核心功能-->
+        <!-- 可配置android:process参数将PushService放在其他进程中 -->
         <service
             android:name="cn.jpush.android.service.PushService"
             android:exported="false">
@@ -188,7 +192,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="cn.jpush.android.intent.DaemonService" />
-                <category android:name="os.bracelets.parents" />
+                <category android:name="os.bracelets.children" />
             </intent-filter>
 
         </service>
@@ -204,7 +208,7 @@
             android:exported="false">
             <intent-filter android:priority="1000">
                 <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" />   <!--Required  显示通知栏 -->
-                <category android:name="os.bracelets.parents" />
+                <category android:name="os.bracelets.children" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.USER_PRESENT" />
@@ -233,18 +237,15 @@
                 <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" /> <!--Required  用户接收SDK通知栏信息的intent-->
                 <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" /> <!--Required  用户打开自定义通知栏的intent-->
                 <action android:name="cn.jpush.android.intent.CONNECTION" /><!-- 接收网络变化 连接/断开 since 1.6.3 -->
-                <category android:name="os.bracelets.parents" />
+                <category android:name="os.bracelets.children" />
             </intent-filter>
         </receiver>
-        <activity
-            android:name="cn.jpush.android.ui.PopWinActivity"
-            android:exported="false"
-            android:theme="@style/MyDialogStyle" />
+
         <!-- User defined.  For test only  用户自定义接收消息器,3.0.7开始支持,目前新tag/alias接口设置结果会在该广播接收器对应的方法中回调-->
         <receiver android:name=".jpush.MyJPushMessageReceiver">
             <intent-filter>
                 <action android:name="cn.jpush.android.intent.RECEIVE_MESSAGE" />
-                <category android:name="os.bracelets.parents" />
+                <category android:name="os.bracelets.children" />
             </intent-filter>
         </receiver>
         <!-- Required  . Enable it you can get statistics data with channel -->
@@ -253,7 +254,7 @@
             android:value="developer-default" />
         <meta-data
             android:name="JPUSH_APPKEY"
-            android:value="06bf5ebdab8e3481e3966269" /> <!--  </>值来自开发者平台取得的AppKey-->
+            android:value="0d3d72f581e4c46e1ef8a7fc" /> <!--  </>值来自开发者平台取得的AppKey-->
 
         <!--**************************************************************************************************8-->
         <!--&lt;!&ndash;环信相关&ndash;&gt;-->

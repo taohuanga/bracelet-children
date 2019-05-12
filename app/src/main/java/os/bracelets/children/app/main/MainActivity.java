@@ -62,7 +62,8 @@ public class MainActivity extends MVPBaseActivity<MainContract.Presenter> implem
 
     @Override
     protected void initData() {
-        String userId = (String) SPUtils.get(this, AppConfig.USER_ID,"");
+
+        String userId = (String) SPUtils.get(this, AppConfig.USER_ID, "");
         JPushInterface.init(this);
         JPushUtil.setJPushAlias(TagAliasOperatorHelper.ACTION_SET, userId);
 

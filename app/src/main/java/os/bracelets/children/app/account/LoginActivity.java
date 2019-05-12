@@ -86,7 +86,6 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.Presenter> impl
 
     @Override
     protected void initData() {
-
         edAccount.setSelection(edAccount.getText().length());
 
         edPhone.setText((String) SPUtils.get(this, AppConfig.USER_PHONE, ""));
