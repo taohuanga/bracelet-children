@@ -131,10 +131,12 @@ public class HomePresenter extends HomeContract.Presenter {
                     try {
                         JSONArray array = new JSONArray(new Gson().toJson(result.data));
                         List<DailySports> list = new ArrayList<>();
-                        for (int i = 0; i < array.length(); i++) {
-                            JSONObject obj = array.optJSONObject(i);
-                            DailySports sports = DailySports.parseBean(obj);
-                            list.add(sports);
+                        if(array!=null){
+                            for (int i = 0; i < array.length(); i++) {
+                                JSONObject obj = array.optJSONObject(i);
+                                DailySports sports = DailySports.parseBean(obj);
+                                list.add(sports);
+                            }
                         }
                         if (mView != null)
                             mView.sportTrendSuccess(list);
