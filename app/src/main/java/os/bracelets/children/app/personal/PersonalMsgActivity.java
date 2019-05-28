@@ -232,10 +232,10 @@ public class PersonalMsgActivity extends MVPBaseActivity<PersonalMsgContract.Pre
                 startActivityForResult(intentPhone, ITEM_PHONE);
                 break;
             case R.id.layoutHomeAddress:
+                //修改家庭住址
                 Intent intentAddress = new Intent(this, InputMsgActivity.class);
                 intentAddress.putExtra(InputMsgActivity.KEY, "修改住址");
                 startActivityForResult(intentAddress, ITEM_ADDRESS);
-                //修改家庭住址
                 break;
 
         }

@@ -13,6 +13,9 @@ import java.util.Iterator;
 
 import aio.health2world.utils.Logger;
 import cn.jpush.android.api.JPushInterface;
+import os.bracelets.children.app.home.EleFenceActivity;
+import os.bracelets.children.app.home.FallPositionActivity;
+import os.bracelets.children.bean.RemindBean;
 
 /**
  * 自定义接收器
@@ -22,7 +25,7 @@ import cn.jpush.android.api.JPushInterface;
  * 2) 接收不到自定义消息
  */
 public class MyReceiver extends BroadcastReceiver {
-    private static final String TAG = "JIGUANG-Example";
+    private static final String TAG = "JIGUANG-PUSH";
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -46,13 +49,59 @@ public class MyReceiver extends BroadcastReceiver {
             } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
                 Logger.d(TAG, "[MyReceiver] 用户点击打开了通知");
 
-                String msg = bundle.getString(JPushInterface.EXTRA_MESSAGE);
+                // Bundle[{cn.jpush.android.ALERT=温馨提示，您的母亲佩戴的衣带保在【深圳龙华】处触发，时间为2019-5-27左右， 请及时关注!,
+                // cn.jpush.android.EXTRA={"accountId":"228","latitude":"22.654879725982337","longitude":"114.06953839705474","type":"fallNotify"},
+                // cn.jpush.android.NOTIFICATION_ID=463012671,
+                // cn.jpush.android.ALERT_TYPE=-1,
+                // cn.jpush.android.NOTIFICATION_CONTENT_TITLE=跌倒提示,
+                // cn.jpush.android.MSG_ID=9007208654041682}]
+                String alert = bundle.getString(JPushInterface.EXTRA_ALERT);
+                String message = bundle.getString(JPushInterface.EXTRA_EXTRA);
+                String title = bundle.getString(JPushInterface.EXTRA_NOTIFICATION_TITLE);
+                Logger.i("lsy", "title=" + title + ",alert=" + alert + ",message=" + message);
+                JSONObject object = new JSONObject(message);
+                String type = object.optString("type");
+                //跌倒
+                if (type.equals("fallNotify")) {
+                    String latitude = object.optString("latitude");
+                    String longitude = object.optString("longitude");
+                    String location = object.optString("location");
+                    String nickName = object.optString("nickName");
+                    String phone = object.optString("phone");
+                    String portrait = object.optString("portrait");
+                    String relation = object.optString("relation");
+                    String createDate = object.optString("createDate");
 
-                JSONObject object = new JSONObject(msg);
-
-                if (null != object) {
-
+                    RemindBean remind = new RemindBean();
+                    remind.setNickName(nickName);
+                    remind.setPortrait(portrait);
+                    remind.setPhone(phone);
+                    remind.setLongitude(longitude);
+                    remind.setLatitude(latitude);
+                    remind.setLocation(location);
+                    remind.setRelation(relation);
+                    remind.setCreateDate(createDate);
+                    Intent intent2 = new Intent(context, FallPositionActivity.class);
+                    intent2.putExtra("remind", remind);
+                    intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent2);
                 }
+
+
+                if (type.equals("equipmentInfo")) {
+                    String latitude = object.optString("latitude");
+                    String longitude = object.optString("longitude");
+                    String location = object.optString("location");
+                    RemindBean remind = new RemindBean();
+                    remind.setLongitude(longitude);
+                    remind.setLatitude(latitude);
+                    remind.setLocation(location);
+                    Intent intent3 = new Intent(context, EleFenceActivity.class);
+                    intent3.putExtra("remind", remind);
+                    intent3.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent3);
+                }
+
 
             } else if (JPushInterface.ACTION_RICHPUSH_CALLBACK.equals(intent.getAction())) {
                 Logger.d(TAG, "[MyReceiver] 用户收到到RICH PUSH CALLBACK: " + bundle.getString(JPushInterface.EXTRA_EXTRA));

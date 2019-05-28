@@ -205,10 +205,14 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
         tvMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FamilyMember member = familyMemberList.get(currentPos);
-                Intent intent = new Intent(getActivity(), SportsListActivity.class);
-                intent.putExtra("member", member);
-                startActivity(intent);
+                try {
+                    FamilyMember member = familyMemberList.get(currentPos);
+                    Intent intent = new Intent(getActivity(), SportsListActivity.class);
+                    intent.putExtra("member", member);
+                    startActivity(intent);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
