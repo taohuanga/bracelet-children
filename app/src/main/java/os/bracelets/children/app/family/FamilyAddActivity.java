@@ -46,7 +46,7 @@ public class FamilyAddActivity extends MVPBaseActivity<FamilyAddContract.Present
     public static final int ITEM_NICK = 0x02;
     public static final int ITEM_NAME = 0x03;
     public static final int ITEM_SEX = 0x04;
-    public static final int ITEM_BIRTHDAY = 0x05;
+    public static final int ITEM_RELATION = 0x05;
     public static final int ITEM_WEIGHT = 0x06;
     public static final int ITEM_HEIGHT = 0x07;
     public static final int ITEM_PHONE = 0x08;
@@ -66,10 +66,9 @@ public class FamilyAddActivity extends MVPBaseActivity<FamilyAddContract.Present
 
     private TimePickerView pickerView;
 
-    private OptionsPickerView optionsSex, optionsRelation;
+    private OptionsPickerView optionsSex;
 
     private List<String> listSex = new ArrayList<>();
-    private List<String> listRelation = new ArrayList<>();
 
     private String localImagePath = "";
 
@@ -120,25 +119,12 @@ public class FamilyAddActivity extends MVPBaseActivity<FamilyAddContract.Present
         listSex.add("女");
         optionsSex.setPicker(listSex);
 
-        optionsRelation = TimePickerUtil.initOptions(this, new OptionsRelation());
-        listRelation.add("父亲");
-        listRelation.add("母亲");
-        optionsRelation.setPicker(listRelation);
     }
-
 
     class OptionsSex implements OptionsPickerView.OnOptionsSelectListener {
         @Override
         public void onOptionsSelect(int options1, int options2, int options3, View v) {
             tvSex.setText(listSex.get(options1));
-        }
-    }
-
-
-    class OptionsRelation implements OptionsPickerView.OnOptionsSelectListener {
-        @Override
-        public void onOptionsSelect(int options1, int options2, int options3, View v) {
-            tvRelation.setText(listRelation.get(options1));
         }
     }
 
@@ -166,7 +152,6 @@ public class FamilyAddActivity extends MVPBaseActivity<FamilyAddContract.Present
                 finish();
             }
         });
-
     }
 
 
@@ -245,11 +230,11 @@ public class FamilyAddActivity extends MVPBaseActivity<FamilyAddContract.Present
                 startActivityForResult(intentPhone, ITEM_PHONE);
                 break;
             case R.id.layoutRelation:
-                optionsRelation.show();
                 //填写关系
-//                Intent intentAddress = new Intent(this, InputMsgActivity.class);
-//                intentAddress.putExtra(InputMsgActivity.KEY, "修改住址");
-//                startActivityForResult(intentAddress, ITEM_ADDRESS);
+                Intent intentRelation = new Intent(this, InputMsgActivity.class);
+                intentRelation.putExtra(InputMsgActivity.KEY, "填写关系");
+                intentRelation.putExtra(InputMsgActivity.TYPE, ITEM_RELATION);
+                startActivityForResult(intentRelation, ITEM_RELATION);
                 break;
             case R.id.btnSave:
                 if (checkData())
@@ -294,6 +279,9 @@ public class FamilyAddActivity extends MVPBaseActivity<FamilyAddContract.Present
                 break;
             case ITEM_PHONE:
                 tvPhone.setText(data.getStringExtra("data"));
+                break;
+            case ITEM_RELATION:
+                tvRelation.setText(data.getStringExtra("data"));
                 break;
         }
     }

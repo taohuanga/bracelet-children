@@ -258,4 +258,14 @@ interface ApiService {
      */
     @POST("children/setting/editContacts")
     Observable<HttpResult> editContacts(@Body Map<String, Object> map);
+
+    /**
+     * 查询绑定的设备
+     */
+    @POST("children/setting/deviceBindInfo")
+    Observable<HttpResult> deviceBindInfo(@Body Map<String, Object> map);
+
+    @POST("children/setting/deviceUnbind")
+    Observable<HttpResult> deviceUnbind(@Body Map<String, Object> map);
+
 }

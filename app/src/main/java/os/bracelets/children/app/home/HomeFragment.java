@@ -6,8 +6,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.cpoopc.scrollablelayoutlib.ScrollableHelper;
+import com.cpoopc.scrollablelayoutlib.ScrollableLayout;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 
@@ -63,6 +67,10 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
 
     private int currentPos;
 
+//    private ScrollableLayout mScrollLayout;
+//
+//    private RelativeLayout rlSports;
+
     @Override
     protected HomePresenter getPresenter() {
         return new HomePresenter(this);
@@ -76,6 +84,7 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
     @Override
     protected void initView() {
         recyclerCoverFlow = findView(R.id.recyclerCoverFlow);
+//        mScrollLayout = findView(R.id.scrollTableLayout);
 
         recyclerView = findView(R.id.recyclerView);
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
@@ -89,6 +98,7 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
         tvWeather = findView(R.id.tvWeather);
         tvStepNum = findView(R.id.tvStepNum);
         ivSports = findView(R.id.ivSports);
+//        rlSports = findView(R.id.rlSports);
 
         lineChart = findView(R.id.lineChart);
         lineChart.setNoDataText("图表暂无数据");
@@ -110,6 +120,9 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
         familyMemberList = new ArrayList<>();
         topAdapter = new HomeTopAdapter(getActivity(), this, familyMemberList);
         recyclerCoverFlow.setAdapter(topAdapter);
+
+        //默认传第一个
+//        mScrollLayout.getHelper().setCurrentScrollableContainer(this);
 
         mPresenter.getWeather();
         mPresenter.relative();
@@ -215,6 +228,7 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
                 }
             }
         });
+
     }
 
 

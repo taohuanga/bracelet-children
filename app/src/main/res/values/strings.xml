@@ -14,5 +14,6 @@
     </string>
 
     <string name="save">保存</string>
+    <string name="hint_relation">填写与被添加人关系（称谓）</string>
 
 </resources>

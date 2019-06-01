@@ -606,4 +606,30 @@ public class ApiRequest {
                 .compose(RxTransformer.<HttpResult>defaultSchedulers())
                 .subscribe(subscriber);
     }
+
+    //查询绑定的设备
+    public static Subscription deviceBindInfo(int accountId, Subscriber<HttpResult> subscriber) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("tokenId", MyApplication.getInstance().getTokenId());
+        map.put("parentAccountId", String.valueOf(accountId));
+        return ServiceFactory.getInstance()
+                .createService(ApiService.class)
+                .deviceBindInfo(map)
+                .compose(RxTransformer.<HttpResult>defaultSchedulers())
+                .subscribe(subscriber);
+    }
+
+    public static Subscription deviceUnbind(int accountId,String deviceInfo, Subscriber<HttpResult> subscriber) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("tokenId", MyApplication.getInstance().getTokenId());
+        map.put("parentAccountId", String.valueOf(accountId));
+        map.put("deviceInfo", deviceInfo);
+        return ServiceFactory.getInstance()
+                .createService(ApiService.class)
+                .deviceUnbind(map)
+                .compose(RxTransformer.<HttpResult>defaultSchedulers())
+                .subscribe(subscriber);
+    }
+
 }
+

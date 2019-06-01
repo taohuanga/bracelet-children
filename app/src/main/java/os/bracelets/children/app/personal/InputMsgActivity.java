@@ -3,6 +3,7 @@ package os.bracelets.children.app.personal;
 import android.content.Intent;
 import android.text.InputFilter;
 import android.text.InputType;
+import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.view.View;
@@ -63,6 +64,12 @@ public class InputMsgActivity extends BaseActivity {
         if(type==PersonalMsgActivity.ITEM_PHONE){
             editText.setFilters(new InputFilter[]{numberFilter, new InputFilter.LengthFilter(11)});
             editText.setInputType(InputType.TYPE_CLASS_PHONE);
+        }
+
+        if(type==PersonalMsgActivity.ITEM_RELATION){
+            //这里输入自己想要的提示文字
+            SpannableString s = new SpannableString("填写与被添加人关系（称谓）");
+            editText.setHint(s);
         }
     }
 

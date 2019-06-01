@@ -47,7 +47,7 @@ public class PersonalMsgActivity extends MVPBaseActivity<PersonalMsgContract.Pre
     public static final int ITEM_NICK = 0x02;
     public static final int ITEM_NAME = 0x03;
     public static final int ITEM_SEX = 0x04;
-    public static final int ITEM_BIRTHDAY = 0x05;
+    public static final int ITEM_RELATION = 0x05;
     public static final int ITEM_WEIGHT = 0x06;
     public static final int ITEM_HEIGHT = 0x07;
     public static final int ITEM_PHONE = 0x08;
