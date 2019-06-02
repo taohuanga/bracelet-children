@@ -1,17 +1,12 @@
 package os.bracelets.children.app.home;
 
 import android.content.Intent;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.cpoopc.scrollablelayoutlib.ScrollableHelper;
-import com.cpoopc.scrollablelayoutlib.ScrollableLayout;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 
@@ -28,8 +23,6 @@ import aio.health2world.recyclerview.CoverFlowLayoutManger;
 import aio.health2world.recyclerview.DividerItemDecoration;
 import aio.health2world.recyclerview.RecyclerCoverFlow;
 import aio.health2world.utils.DateUtil;
-import aio.health2world.utils.SPUtils;
-import aio.health2world.utils.ToastUtil;
 import os.bracelets.children.AppConfig;
 import os.bracelets.children.R;
 import os.bracelets.children.bean.DailySports;

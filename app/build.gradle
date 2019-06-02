@@ -105,7 +105,7 @@ dependencies {
     compile 'com.hyman:flowlayout-lib:1.1.2'
     compile 'com.android.support:appcompat-v7:26.1.0'
     //折叠控件，解决了滚动冲突
-    compile 'com.github.cpoopc:scrollablelayoutlib:1.0.1'
+//    compile 'com.github.cpoopc:scrollablelayoutlib:1.0.1'
     //高德定位
     //    compile 'com.amap.api:location:3.3.0'
     //    compile 'com.amap.api:search:5.0.0'
