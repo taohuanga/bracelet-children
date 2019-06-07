@@ -143,7 +143,6 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
     public void clickItem(int pos) {
         currentPos = pos;
         recyclerCoverFlow.smoothScrollToPosition(pos);
-        loadData(familyMemberList.get(pos));
     }
 
     @Override

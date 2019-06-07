@@ -10,6 +10,7 @@ import java.util.Map;
 
 import aio.health2world.http.HttpResult;
 import aio.health2world.http.tool.RxTransformer;
+import aio.health2world.utils.Logger;
 import aio.health2world.utils.SPUtils;
 import os.bracelets.children.AppConfig;
 import os.bracelets.children.MyApplication;
@@ -296,6 +297,7 @@ public class ApiRequest {
         Map<String, Object> map = new HashMap<>();
         map.put("tokenId", MyApplication.getInstance().getTokenId());
         map.put("accountId", accountId);
+        Logger.i("lsy","msgList============================");
         return ServiceFactory.getInstance()
                 .createService(ApiService.class)
                 .msgList(map)
