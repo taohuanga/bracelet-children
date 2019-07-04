@@ -53,6 +53,8 @@ public class FallPositionActivity extends AppCompatActivity implements AMap.Info
     private MapView mapView;
 
     private LatLng latLng;
+    //0跌倒 1 预警
+    private int type = 0;
 
 //    private GeocodeSearch geocodeSearch;
 
@@ -66,7 +68,7 @@ public class FallPositionActivity extends AppCompatActivity implements AMap.Info
         setContentView(R.layout.activity_fall_position);
 
         titleBar = findViewById(R.id.titleBar);
-        TitleBarUtil.setAttr(this, "", "跌倒位置", titleBar);
+
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
 
@@ -78,6 +80,13 @@ public class FallPositionActivity extends AppCompatActivity implements AMap.Info
     private void initData() {
 //        member = (FamilyMember) getIntent().getSerializableExtra("member");
         remind = (RemindBean) getIntent().getSerializableExtra("remind");
+        if (getIntent().hasExtra("type"))
+            type = getIntent().getIntExtra("type", 0);
+        if (type == 1) {
+            TitleBarUtil.setAttr(this, "", "预警提醒", titleBar);
+        } else {
+            TitleBarUtil.setAttr(this, "", "跌倒位置", titleBar);
+        }
 
         if (aMap == null)
             aMap = mapView.getMap();
@@ -176,8 +185,10 @@ public class FallPositionActivity extends AppCompatActivity implements AMap.Info
         TextView tvNav = view.findViewById(R.id.tvNav);
         ImageView ivImage = view.findViewById(R.id.ivImage);
         ImageView ivCall = view.findViewById(R.id.ivCall);
-
-        tvTitle.setText("您的" + remind.getRelation() + "在此处跌倒，请尽快前往处理！");
+        if (type == 0)
+            tvTitle.setText("您的" + remind.getRelation() + "在此处跌倒，请尽快前往处理！");
+        else
+            tvTitle.setText("感应到佩戴者运动幅度可能较大");
         tvName.setText(remind.getNickName());
         tvPhone.setText(remind.getPhone());
         tvAddress.setText(remind.getLocation());

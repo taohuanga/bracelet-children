@@ -83,11 +83,36 @@ public class MyReceiver extends BroadcastReceiver {
                     remind.setCreateDate(createDate);
                     Intent intent2 = new Intent(context, FallPositionActivity.class);
                     intent2.putExtra("remind", remind);
+                    intent2.putExtra("type",0);
                     intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent2);
                 }
+                //预警
+                if(type.equals("preFallNotify")){
+                    String latitude = object.optString("latitude");
+                    String longitude = object.optString("longitude");
+                    String location = object.optString("location");
+                    String nickName = object.optString("nickName");
+                    String phone = object.optString("phone");
+                    String portrait = object.optString("portrait");
+                    String relation = object.optString("relation");
+                    String createDate = object.optString("createDate");
 
-
+                    RemindBean remind = new RemindBean();
+                    remind.setNickName(nickName);
+                    remind.setPortrait(portrait);
+                    remind.setPhone(phone);
+                    remind.setLongitude(longitude);
+                    remind.setLatitude(latitude);
+                    remind.setLocation(location);
+                    remind.setRelation(relation);
+                    remind.setCreateDate(createDate);
+                    Intent intent2 = new Intent(context, FallPositionActivity.class);
+                    intent2.putExtra("remind", remind);
+                    intent2.putExtra("type",1);
+                    intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent2);
+                }
                 if (type.equals("equipmentInfo")) {
                     String latitude = object.optString("latitude");
                     String longitude = object.optString("longitude");
