@@ -186,7 +186,7 @@ public class FallPositionActivity extends AppCompatActivity implements AMap.Info
         ImageView ivImage = view.findViewById(R.id.ivImage);
         ImageView ivCall = view.findViewById(R.id.ivCall);
         if (type == 0)
-            tvTitle.setText("您的" + remind.getRelation() + "在此处跌倒，请尽快前往处理！");
+            tvTitle.setText("您的" + remind.getRelation() + "佩戴的衣带保在此处触发！");
         else
             tvTitle.setText("感应到佩戴者运动幅度可能较大");
         tvName.setText(remind.getNickName());

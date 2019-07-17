@@ -60,7 +60,7 @@ public class DetailActivity extends MVPBaseActivity<DetailContract.Presenter> im
     private RxPermissions rxPermissions;
 
     private TimePickerView pickerView;
-//    private OptionsPickerView relationPicker;
+    //    private OptionsPickerView relationPicker;
     private OptionsPickerView sexPicker;
 
     private List<String> listSex = new ArrayList<>();
@@ -262,6 +262,7 @@ public class DetailActivity extends MVPBaseActivity<DetailContract.Presenter> im
                 //修改昵称
                 Intent intentNick = new Intent(this, InputMsgActivity.class);
                 intentNick.putExtra(InputMsgActivity.KEY, "修改昵称");
+                intentNick.putExtra(InputMsgActivity.TYPE, ITEM_NICK);
                 startActivityForResult(intentNick, ITEM_NICK);
                 break;
             case R.id.layoutName:
