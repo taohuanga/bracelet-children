@@ -130,6 +130,8 @@
 
         <activity android:name="aio.health2world.qrcode.CaptureActivity" />
 
+        <activity android:name=".app.account.AgreementActivity"/>
+
         <activity
             android:name=".app.edit.EditNavActivity"
             android:theme="@style/dialogStyle" />
