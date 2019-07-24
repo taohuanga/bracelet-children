@@ -91,6 +91,7 @@ public class DeviceBindActivity extends BaseActivity {
                 ToastUtil.showShort("请输入设备编号");
                 return;
             }
+            deviceNo = deviceNo.replace(":","").toUpperCase();
             if (bindType == 0) {
                 bindDevice(deviceNo);
             } else {
@@ -131,6 +132,7 @@ public class DeviceBindActivity extends BaseActivity {
                         JSONObject object = new JSONObject(new Gson().toJson(result.data));
                         String macAddress = object.optString("macAddress");
                         if (!TextUtils.isEmpty(macAddress)) {
+                            macAddress = macAddress.replace(":","").toUpperCase();
                             edDeviceNo.setText(macAddress);
                             edDeviceNo.setSelection(edDeviceNo.getText().length());
                         }
