@@ -105,6 +105,7 @@
                     android:src="@mipmap/icon_phone" />
 
                 <EditText
+                    android:maxLength="11"
                     android:id="@+id/edPhone"
                     android:layout_width="match_parent"
                     android:layout_height="38dp"

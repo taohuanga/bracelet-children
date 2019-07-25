@@ -2,6 +2,8 @@ package os.bracelets.children.app.edit;
 
 import android.content.Intent;
 import android.media.Image;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +15,9 @@ import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import aio.health2world.http.HttpResult;
 import aio.health2world.qrcode.CaptureActivity;
@@ -61,8 +66,9 @@ public class DeviceBindActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+        edDeviceNo.setFilters(new InputFilter[]{typeFilter, new InputFilter.LengthFilter(12)});
         member = (FamilyMember) getIntent().getSerializableExtra("member");
-        tvName.setText(member.getNickName());
+//        tvName.setText(member.getNickName());
         dialog = new LoadingDialog(this);
         getBindMsg();
     }
@@ -150,6 +156,10 @@ public class DeviceBindActivity extends BaseActivity {
     }
 
     private void bindDevice(String deviceNo) {
+        if (deviceNo.length() != 12) {
+            ToastUtil.showShort("请输入正确的mac地址");
+            return;
+        }
         ApiRequest.bindDevice(String.valueOf(member.getAccountId()), deviceNo,
                 new HttpSubscriber() {
                     @Override
@@ -201,6 +211,15 @@ public class DeviceBindActivity extends BaseActivity {
             }
         });
     }
+
+    private InputFilter typeFilter = new InputFilter() {
+        @Override
+        public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+            Pattern p = Pattern.compile("[^a-zA-Z0-9]");
+            Matcher m = p.matcher(source.toString());
+            return m.replaceAll("").trim().toUpperCase();
+        }
+    };
 
     @Override
     protected void onDestroy() {
