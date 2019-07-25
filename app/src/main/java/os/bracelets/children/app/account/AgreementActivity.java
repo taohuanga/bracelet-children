@@ -30,7 +30,8 @@ public class AgreementActivity extends BaseActivity {
     @Override
     protected void initData() {
         webView.getSettings().setJavaScriptEnabled(true);
-        webView.loadUrl("file:///android_asset/html/Agreement.html");
+        webView.loadUrl("http://www.zgznhh.com/Agreement.html");
+//        webView.loadUrl("file:///android_asset/html/Agreement.html");
     }
 
     @Override
