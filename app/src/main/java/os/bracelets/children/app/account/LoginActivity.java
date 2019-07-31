@@ -156,7 +156,8 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.Presenter> impl
                 login();
                 break;
             case R.id.btnRegister:
-                startActivity(new Intent(this, RegisterActivity.class));
+//                startActivity(new Intent(this, RegisterActivity.class));
+                startActivity(new Intent(this, AgreementActivity.class));
                 break;
             case R.id.btnForgetPwd:
                 startActivity(new Intent(this, ResetPwdActivity.class));
