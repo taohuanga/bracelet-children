@@ -14,6 +14,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.lang.reflect.Member;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -38,7 +39,7 @@ import os.bracelets.children.utils.DataString;
  */
 
 public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implements HomeContract.View,
-        HomeTopAdapter.onItemClick, BaseQuickAdapter.OnItemClickListener {
+        HomeTopAdapter.onItemClick, BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.RequestLoadMoreListener {
 
     private RecyclerCoverFlow recyclerCoverFlow;
 
@@ -59,6 +60,8 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
     private ImageView ivSports;
 
     private int currentPos;
+
+    private int pageNo = 1;
 
 //    private ScrollableLayout mScrollLayout;
 //
@@ -129,6 +132,15 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
             Intent intent = new Intent(getActivity(), FallPositionActivity.class);
 //            intent.putExtra("member", familyMemberList.get(currentPos));
             intent.putExtra("remind", remindBean);
+            intent.putExtra("type", 0);
+            startActivity(intent);
+        }
+
+        if (remindBean.getMsgType() == 5) {
+            Intent intent = new Intent(getActivity(), FallPositionActivity.class);
+//            intent.putExtra("member", familyMemberList.get(currentPos));
+            intent.putExtra("remind", remindBean);
+            intent.putExtra("type", 1);
             startActivity(intent);
         }
 
@@ -147,10 +159,24 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
 
     @Override
     public void loadMsgSuccess(List<RemindBean> list) {
-        remindList.clear();
+        if (pageNo == 1) {
+            remindList.clear();
+        }
+        if (list.size() >= AppConfig.PAGE_SIZE) {
+            remindAdapter.loadMoreComplete();
+        } else {
+            remindAdapter.loadMoreEnd();
+        }
         remindList.addAll(list);
         remindAdapter.notifyDataSetChanged();
         recyclerView.scrollToPosition(0);
+    }
+
+    @Override
+    public void onLoadMoreRequested() {
+        pageNo++;
+        FamilyMember member = familyMemberList.get(currentPos);
+        mPresenter.msgList(pageNo, String.valueOf(member.getAccountId()));
     }
 
     @Override
@@ -163,6 +189,7 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
         if (list.size() == 0)
             return;
         currentPos = 0;
+        pageNo = 1;
         familyMemberList.clear();
         familyMemberList.addAll(list);
         topAdapter.notifyDataSetChanged();
@@ -199,10 +226,12 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
     protected void initListener() {
         EventBus.getDefault().register(this);
         remindAdapter.setOnItemClickListener(this);
+        remindAdapter.setOnLoadMoreListener(this, recyclerView);
         recyclerCoverFlow.setOnItemSelectedListener(new CoverFlowLayoutManger.OnSelected() {
             @Override
             public void onItemSelected(int position) {
                 currentPos = position;
+                pageNo = 1;
                 loadData(familyMemberList.get(position));
             }
         });
@@ -225,7 +254,7 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
 
 
     private void loadData(FamilyMember member) {
-        mPresenter.msgList(String.valueOf(member.getAccountId()));
+        mPresenter.msgList(pageNo, String.valueOf(member.getAccountId()));
         mPresenter.dailySports(String.valueOf(member.getAccountId()));
         mPresenter.parentSportTrend(String.valueOf(member.getAccountId()));
     }

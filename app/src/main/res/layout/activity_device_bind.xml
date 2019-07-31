@@ -60,6 +60,8 @@
             android:textSize="@dimen/sp15" />
 
         <EditText
+            android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            android:maxLength="12"
             android:id="@+id/edDeviceNo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

@@ -91,8 +91,8 @@ public class HomePresenter extends HomeContract.Presenter {
     }
 
     @Override
-    void msgList(String accountId) {
-        ApiRequest.msgList(accountId, new HttpSubscriber() {
+    void msgList(int pageNo,String accountId) {
+        ApiRequest.msgList(pageNo,accountId, new HttpSubscriber() {
             @Override
             public void onNext(HttpResult result) {
                 super.onNext(result);
@@ -110,6 +110,8 @@ public class HomePresenter extends HomeContract.Presenter {
                             mView.loadMsgSuccess(list);
                     } catch (JSONException e) {
                         e.printStackTrace();
+                        if (mView != null)
+                            mView.loadMsgSuccess(new ArrayList<RemindBean>());
                     }
                 }
             }
@@ -131,12 +133,10 @@ public class HomePresenter extends HomeContract.Presenter {
                     try {
                         JSONArray array = new JSONArray(new Gson().toJson(result.data));
                         List<DailySports> list = new ArrayList<>();
-                        if(array!=null){
-                            for (int i = 0; i < array.length(); i++) {
-                                JSONObject obj = array.optJSONObject(i);
-                                DailySports sports = DailySports.parseBean(obj);
-                                list.add(sports);
-                            }
+                        for (int i = 0; i < array.length(); i++) {
+                            JSONObject obj = array.optJSONObject(i);
+                            DailySports sports = DailySports.parseBean(obj);
+                            list.add(sports);
                         }
                         if (mView != null)
                             mView.sportTrendSuccess(list);

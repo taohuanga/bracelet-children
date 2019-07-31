@@ -293,11 +293,12 @@ public class ApiRequest {
     }
 
     //消息列表
-    public static Subscription msgList(String accountId, Subscriber<HttpResult> subscriber) {
+    public static Subscription msgList(int pageNo,String accountId, Subscriber<HttpResult> subscriber) {
         Map<String, Object> map = new HashMap<>();
         map.put("tokenId", MyApplication.getInstance().getTokenId());
         map.put("accountId", accountId);
-        Logger.i("lsy","msgList============================");
+        map.put("pageNo", String.valueOf(pageNo));
+        map.put("pageSize", String.valueOf(AppConfig.PAGE_SIZE));
         return ServiceFactory.getInstance()
                 .createService(ApiService.class)
                 .msgList(map)

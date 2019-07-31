@@ -39,7 +39,7 @@ public interface HomeContract {
 
         abstract void relative();
 
-        abstract void msgList(String accountId);
+        abstract void msgList(int pageNo,String accountId);
 
         abstract void dailySports(String accountId);
 
