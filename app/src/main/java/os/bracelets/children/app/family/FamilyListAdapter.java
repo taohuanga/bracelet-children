@@ -37,8 +37,9 @@ public class FamilyListAdapter extends BaseQuickAdapter<FamilyMember, BaseViewHo
 
         if (!TextUtils.isEmpty(item.getLabels())) {
             List<String> list = new ArrayList<>();
-            for (String s : item.getLabels().split(";")) {
-                list.add(s);
+            String[] labels = item.getLabels().split(";");
+            for (String s : labels) {
+                list.add(s.split(",")[1]);
             }
             flowLayout.setAdapter(new TagListAdapter(mContext, list));
         }
