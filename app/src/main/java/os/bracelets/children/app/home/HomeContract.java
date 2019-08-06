@@ -24,6 +24,9 @@ public interface HomeContract {
         void relativeSuccess(List<FamilyMember> list);
 
         void dailySportsSuccess(DailySports sports);
+
+        void sportTrendSuccess(List<DailySports> list);
+
     }
 
     abstract class Presenter extends BasePresenter<View> {
@@ -36,8 +39,10 @@ public interface HomeContract {
 
         abstract void relative();
 
-        abstract void msgList(String accountId);
+        abstract void msgList(int pageNo,String accountId);
 
         abstract void dailySports(String accountId);
+
+        abstract void parentSportTrend(String accountId);
     }
 }

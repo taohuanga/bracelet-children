@@ -2,12 +2,23 @@ package os.bracelets.children.app.edit;
 
 import android.content.Intent;
 import android.media.Image;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.method.ReplacementTransformationMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.gson.Gson;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import aio.health2world.http.HttpResult;
 import aio.health2world.qrcode.CaptureActivity;
@@ -35,6 +46,8 @@ public class DeviceBindActivity extends BaseActivity {
     private FamilyMember member;
 
     private LoadingDialog dialog;
+    //0 绑定  1 解绑
+    private int bindType = 0;
 
     @Override
     protected int getLayoutId() {
@@ -54,9 +67,11 @@ public class DeviceBindActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+        edDeviceNo.setTransformationMethod(new UpperCaseTransform());
         member = (FamilyMember) getIntent().getSerializableExtra("member");
-        tvName.setText(member.getNickName());
+//        tvName.setText(member.getNickName());
         dialog = new LoadingDialog(this);
+        getBindMsg();
     }
 
     @Override
@@ -83,7 +98,12 @@ public class DeviceBindActivity extends BaseActivity {
                 ToastUtil.showShort("请输入设备编号");
                 return;
             }
-            bindDevice(deviceNo);
+            deviceNo = deviceNo.replace(":", "").toUpperCase();
+            if (bindType == 0) {
+                bindDevice(deviceNo);
+            } else {
+                unbindDevice(deviceNo);
+            }
         }
     }
 
@@ -99,7 +119,48 @@ public class DeviceBindActivity extends BaseActivity {
         }
     }
 
+    private void getBindMsg() {
+        dialog.show();
+        ApiRequest.deviceBindInfo(member.getAccountId(), new HttpSubscriber() {
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+                if (dialog != null && dialog.isShowing())
+                    dialog.dismiss();
+            }
+
+            @Override
+            public void onNext(HttpResult result) {
+                super.onNext(result);
+                if (dialog != null && dialog.isShowing())
+                    dialog.dismiss();
+                if (result.code.equals(AppConfig.SUCCESS)) {
+                    try {
+                        JSONObject object = new JSONObject(new Gson().toJson(result.data));
+                        String macAddress = object.optString("macAddress");
+                        if (!TextUtils.isEmpty(macAddress)) {
+                            macAddress = macAddress.replace(":", "").toUpperCase();
+                            edDeviceNo.setText(macAddress);
+                            edDeviceNo.setSelection(edDeviceNo.getText().length());
+                        }
+                        bindType = 1;
+                        btnBind.setText("解绑该设备");
+                        btnBind.setBackgroundResource(R.drawable.shape_unbind_device_bg);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+        });
+    }
+
     private void bindDevice(String deviceNo) {
+        if (deviceNo.length() != 12) {
+            ToastUtil.showShort("请输入正确的mac地址");
+            return;
+        }
         ApiRequest.bindDevice(String.valueOf(member.getAccountId()), deviceNo,
                 new HttpSubscriber() {
                     @Override
@@ -124,6 +185,46 @@ public class DeviceBindActivity extends BaseActivity {
                         }
                     }
                 });
+    }
+
+    private void unbindDevice(final String deviceNo) {
+        dialog.show();
+        ApiRequest.deviceUnbind(member.getAccountId(), deviceNo, new HttpSubscriber() {
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+                if (dialog != null && dialog.isShowing())
+                    dialog.dismiss();
+            }
+
+            @Override
+            public void onNext(HttpResult result) {
+                super.onNext(result);
+                if (dialog != null && dialog.isShowing())
+                    dialog.dismiss();
+                if (result.code.equals(AppConfig.SUCCESS)) {
+                    ToastUtil.showShort("操作成功");
+                    edDeviceNo.getText().clear();
+                    bindType = 0;
+                    btnBind.setText("绑定设备");
+                    btnBind.setBackgroundResource(R.drawable.shape_button_bg);
+                }
+            }
+        });
+    }
+
+    public class UpperCaseTransform extends ReplacementTransformationMethod {
+        @Override
+        protected char[] getOriginal() {
+            char[] aa = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
+            return aa;
+        }
+
+        @Override
+        protected char[] getReplacement() {
+            char[] cc = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
+            return cc;
+        }
     }
 
     @Override

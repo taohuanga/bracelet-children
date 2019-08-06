@@ -15,4 +15,5 @@
 
     <color name="home_text_selected">#3899fa</color>
     <color name="home_text_unselected">#666666</color>
+    <color name="transparent">#00000000</color>
 </resources>

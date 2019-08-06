@@ -26,8 +26,6 @@ import aio.health2world.utils.TimePickerUtil;
 import aio.health2world.utils.ToastUtil;
 import os.bracelets.children.R;
 import os.bracelets.children.app.personal.InputMsgActivity;
-import os.bracelets.children.app.personal.PersonalMsgActivity;
-import os.bracelets.children.app.personal.UpdatePhoneActivity;
 import os.bracelets.children.bean.FamilyMember;
 import os.bracelets.children.common.MVPBaseActivity;
 import os.bracelets.children.utils.AppUtils;
@@ -40,7 +38,7 @@ public class DetailActivity extends MVPBaseActivity<DetailContract.Presenter> im
     public static final int ITEM_NICK = 0x02;
     public static final int ITEM_NAME = 0x03;
     public static final int ITEM_SEX = 0x04;
-    public static final int ITEM_BIRTHDAY = 0x05;
+    public static final int ITEM_RELATION = 0x05;
     public static final int ITEM_WEIGHT = 0x06;
     public static final int ITEM_HEIGHT = 0x07;
     public static final int ITEM_PHONE = 0x08;
@@ -62,7 +60,7 @@ public class DetailActivity extends MVPBaseActivity<DetailContract.Presenter> im
     private RxPermissions rxPermissions;
 
     private TimePickerView pickerView;
-    private OptionsPickerView relationPicker;
+    //    private OptionsPickerView relationPicker;
     private OptionsPickerView sexPicker;
 
     private List<String> listSex = new ArrayList<>();
@@ -116,16 +114,16 @@ public class DetailActivity extends MVPBaseActivity<DetailContract.Presenter> im
 
         pickerView = TimePickerUtil.init(this, new TimeSelectListener());
         sexPicker = TimePickerUtil.initOptions(this, new SexSelectListener());
-        relationPicker = TimePickerUtil.initOptions(this, new RelationSelectListener());
+//        relationPicker = TimePickerUtil.initOptions(this, new RelationSelectListener());
         listSex.add("男");
         listSex.add("女");
         sexPicker.setPicker(listSex);
 
-        listRelation.add("父子");
-        listRelation.add("母子");
-        listRelation.add("父女");
-        listRelation.add("母女");
-        relationPicker.setPicker(listRelation);
+//        listRelation.add("父子");
+//        listRelation.add("母子");
+//        listRelation.add("父女");
+//        listRelation.add("母女");
+//        relationPicker.setPicker(listRelation);
 
         accountId = getIntent().getStringExtra("accountId");
         mPresenter.memberInfo(accountId);
@@ -203,6 +201,9 @@ public class DetailActivity extends MVPBaseActivity<DetailContract.Presenter> im
             case ITEM_PHONE:
                 tvPhone.setText(data.getStringExtra("data"));
                 break;
+            case ITEM_RELATION:
+                tvRelation.setText(data.getStringExtra("data"));
+                break;
         }
     }
 
@@ -261,6 +262,7 @@ public class DetailActivity extends MVPBaseActivity<DetailContract.Presenter> im
                 //修改昵称
                 Intent intentNick = new Intent(this, InputMsgActivity.class);
                 intentNick.putExtra(InputMsgActivity.KEY, "修改昵称");
+                intentNick.putExtra(InputMsgActivity.TYPE, ITEM_NICK);
                 startActivityForResult(intentNick, ITEM_NICK);
                 break;
             case R.id.layoutName:
@@ -278,7 +280,10 @@ public class DetailActivity extends MVPBaseActivity<DetailContract.Presenter> im
                 pickerView.show();
                 break;
             case R.id.layoutRelation:
-                relationPicker.show();
+                Intent intentRelation = new Intent(this, InputMsgActivity.class);
+                intentRelation.putExtra(InputMsgActivity.KEY, "填写关系");
+                intentRelation.putExtra(InputMsgActivity.TYPE, ITEM_RELATION);
+                startActivityForResult(intentRelation, ITEM_RELATION);
                 break;
             case R.id.layoutHeight:
                 //修改身高
@@ -296,11 +301,11 @@ public class DetailActivity extends MVPBaseActivity<DetailContract.Presenter> im
                 break;
             case R.id.layoutPhone:
                 //修改手机号
-                //修改体重
-                Intent intentPhone = new Intent(this, InputMsgActivity.class);
-                intentPhone.putExtra(InputMsgActivity.KEY, "修改手机号");
-                intentPhone.putExtra(InputMsgActivity.TYPE, ITEM_PHONE);
-                startActivityForResult(intentPhone, ITEM_PHONE);
+                ToastUtil.showShort("手机号码不支持修改");
+//                Intent intentPhone = new Intent(this, InputMsgActivity.class);
+//                intentPhone.putExtra(InputMsgActivity.KEY, "修改手机号");
+//                intentPhone.putExtra(InputMsgActivity.TYPE, ITEM_PHONE);
+//                startActivityForResult(intentPhone, ITEM_PHONE);
                 break;
             case R.id.btnSave:
                 if (checkData()) {

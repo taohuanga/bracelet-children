@@ -50,7 +50,7 @@ public class PersonalFragment extends BaseFragment implements INaviInfoCallback 
 
     private Button btnLogout;
 
-    private View layoutUpdatePwd, layoutUpdateMsg, layoutNearby, layoutNav, layoutFeedBack, layoutAbout;
+    private View layoutUpdatePwd, layoutUpdateMsg, layoutNearby, layoutNav, layoutFeedBack, layoutAbout,layoutExit;
 
     @Override
     protected int getLayoutId() {
@@ -68,6 +68,7 @@ public class PersonalFragment extends BaseFragment implements INaviInfoCallback 
         layoutFeedBack = findView(R.id.layoutFeedBack);
         layoutAbout = findView(R.id.layoutAbout);
         layoutNav = findView(R.id.layoutNav);
+        layoutExit = findView(R.id.layoutExit);
         getUserInfo();
     }
 
@@ -85,6 +86,7 @@ public class PersonalFragment extends BaseFragment implements INaviInfoCallback 
         setOnClickListener(layoutAbout);
         setOnClickListener(layoutNearby);
         setOnClickListener(layoutNav);
+        setOnClickListener(layoutExit);
     }
 
     @Override
@@ -92,6 +94,7 @@ public class PersonalFragment extends BaseFragment implements INaviInfoCallback 
         super.onClick(v);
         switch (v.getId()) {
             case R.id.btnLogout:
+            case R.id.layoutExit:
                 logout();
                 break;
             case R.id.layoutUpdatePwd:
@@ -121,7 +124,7 @@ public class PersonalFragment extends BaseFragment implements INaviInfoCallback 
 
     private void logout() {
         new android.support.v7.app.AlertDialog.Builder(getActivity())
-                .setMessage("确认注销登录吗？")
+                .setMessage("确认退出登录吗？")
                 .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -131,9 +134,10 @@ public class PersonalFragment extends BaseFragment implements INaviInfoCallback 
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        SPUtils.put(MyApplication.getInstance(), AppConfig.IS_LOGIN, false);
-                        startActivity(new Intent(getActivity(), LoginActivity.class));
-                        getActivity().finish();
+//                        SPUtils.put(MyApplication.getInstance(), AppConfig.IS_LOGIN, false);
+//                        startActivity(new Intent(getActivity(), LoginActivity.class));
+//                        getActivity().finish();
+                        MyApplication.getInstance().logout();
                     }
                 })
                 .create()

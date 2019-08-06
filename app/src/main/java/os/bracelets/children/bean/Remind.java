@@ -12,6 +12,7 @@ public class Remind implements Serializable {
     private String remindContent;
     private String remindPeriod;
     private String remindTime;
+    private int remindId;
 
     public String getRemindTitle() {
         return remindTitle;
@@ -45,10 +46,19 @@ public class Remind implements Serializable {
         this.remindTime = remindTime;
     }
 
+    public int getRemindId() {
+        return remindId;
+    }
+
+    public void setRemindId(int remindId) {
+        this.remindId = remindId;
+    }
+
     public static Remind parseBean(JSONObject object){
 
         Remind remind = new Remind();
 
+        remind.setRemindId(object.optInt("remindId"));
         remind.setRemindTitle(object.optString("remindTitle"));
         remind.setRemindContent(object.optString("remindContent"));
         remind.setRemindPeriod(object.optString("remindPeriod"));

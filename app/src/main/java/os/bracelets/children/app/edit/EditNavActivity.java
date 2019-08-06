@@ -13,7 +13,7 @@ import os.bracelets.children.common.BaseActivity;
 
 public class EditNavActivity extends BaseActivity {
 
-    private RelativeLayout rlContact, rlAddContact, rlSetTag, rlAddTag, rlAddRemind,rlRemindList, rlBindDevice, rlEleList, rlAddEle;
+    private RelativeLayout rlContact, rlSetTag, rlAddTag,rlRemindList, rlBindDevice, rlEleList;
 
     private FamilyMember member;
 
@@ -29,12 +29,12 @@ public class EditNavActivity extends BaseActivity {
         rlContact = findView(R.id.rlContact);
         rlSetTag = findView(R.id.rlSetTag);
         rlAddTag = findView(R.id.rlAddTag);
-        rlAddRemind = findView(R.id.rlAddRemind);
+//        rlAddRemind = findView(R.id.rlAddRemind);
         rlRemindList = findView(R.id.rlRemindList);
         rlBindDevice = findView(R.id.rlBindDevice);
         rlEleList = findView(R.id.rlEleList);
-        rlAddEle = findView(R.id.rlAddEle);
-        rlAddContact = findView(R.id.rlAddContact);
+//        rlAddEle = findView(R.id.rlAddEle);
+//        rlAddContact = findView(R.id.rlAddContact);
     }
 
     @Override
@@ -47,12 +47,12 @@ public class EditNavActivity extends BaseActivity {
         rlContact.setOnClickListener(this);
         rlSetTag.setOnClickListener(this);
         rlAddTag.setOnClickListener(this);
-        rlAddRemind.setOnClickListener(this);
+//        rlAddRemind.setOnClickListener(this);
         rlRemindList.setOnClickListener(this);
         rlBindDevice.setOnClickListener(this);
         rlEleList.setOnClickListener(this);
-        rlAddEle.setOnClickListener(this);
-        rlAddContact.setOnClickListener(this);
+//        rlAddEle.setOnClickListener(this);
+//        rlAddContact.setOnClickListener(this);
     }
 
     @Override
@@ -66,13 +66,13 @@ public class EditNavActivity extends BaseActivity {
                 startActivityForResult(contactIntent,ITEM_LABEL);
                 finish();
                 break;
-            case R.id.rlAddContact:
-                //添加联系人
-                Intent addIntent = new Intent(this, ContactAddActivity.class);
-                addIntent.putExtra("member", member);
-                startActivity(addIntent);
-                finish();
-                break;
+//            case R.id.rlAddContact:
+//                //添加联系人
+//                Intent addIntent = new Intent(this, ContactAddActivity.class);
+//                addIntent.putExtra("member", member);
+//                startActivity(addIntent);
+//                finish();
+//                break;
             case R.id.rlSetTag:
                 Intent tagIntent = new Intent(this, LabelEditActivity.class);
                 tagIntent.putExtra("member", member);
@@ -81,12 +81,12 @@ public class EditNavActivity extends BaseActivity {
                 break;
             case R.id.rlAddTag:
                 break;
-            case R.id.rlAddRemind:
-                Intent intent = new Intent(this, EditRemindActivity.class);
-                intent.putExtra("member", member);
-                startActivity(intent);
-                finish();
-                break;
+//            case R.id.rlAddRemind:
+//                Intent intent = new Intent(this, EditRemindActivity.class);
+//                intent.putExtra("member", member);
+//                startActivity(intent);
+//                finish();
+//                break;
             case R.id.rlRemindList:
                 Intent remindIntent = new Intent(this, RemindListActivity.class);
                 remindIntent.putExtra("member", member);
@@ -105,12 +105,12 @@ public class EditNavActivity extends BaseActivity {
                 startActivity(eleListIntent);
                 finish();
                 break;
-            case R.id.rlAddEle:
-                Intent eleAddIntent = new Intent(this, EleFenceAddActivity.class);
-                eleAddIntent.putExtra("member", member);
-                startActivity(eleAddIntent);
-                finish();
-                break;
+//            case R.id.rlAddEle:
+//                Intent eleAddIntent = new Intent(this, EleFenceAddActivity.class);
+//                eleAddIntent.putExtra("member", member);
+//                startActivity(eleAddIntent);
+//                finish();
+//                break;
         }
     }
 }

@@ -1,5 +1,6 @@
 package os.bracelets.children.app.edit;
 
+import android.content.Intent;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +10,7 @@ import android.widget.Button;
 import java.util.ArrayList;
 import java.util.List;
 
+import aio.health2world.brvah.BaseQuickAdapter;
 import os.bracelets.children.R;
 import os.bracelets.children.bean.EleFence;
 import os.bracelets.children.bean.FamilyMember;
@@ -17,7 +19,7 @@ import os.bracelets.children.utils.TitleBarUtil;
 import os.bracelets.children.view.TitleBar;
 
 public class EleFenceListActivity extends MVPBaseActivity<EleFenceListContract.Presenter> implements
-        EleFenceListContract.View {
+        EleFenceListContract.View , BaseQuickAdapter.OnItemClickListener {
 
     private TitleBar titleBar;
 
@@ -73,6 +75,35 @@ public class EleFenceListActivity extends MVPBaseActivity<EleFenceListContract.P
                 finish();
             }
         });
+        eleFenceAdapter.setOnItemClickListener(this);
+        titleBar.addAction(new TitleBar.TextAction("添加围栏") {
+            @Override
+            public void performAction(View view) {
+                Intent eleAddIntent = new Intent(EleFenceListActivity.this, EleFenceAddActivity.class);
+                eleAddIntent.putExtra("member", member);
+                startActivityForResult(eleAddIntent,0x01);
+            }
+        });
+    }
+
+    @Override
+    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        EleFence eleFence = (EleFence) adapter.getItem(position);
+        Intent eleAddIntent = new Intent(EleFenceListActivity.this, EleFenceAddActivity.class);
+        eleAddIntent.putExtra("member", member);
+        eleAddIntent.putExtra("eleFence", eleFence);
+        startActivityForResult(eleAddIntent,0x01);
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode!=RESULT_OK)
+            return;
+        if(requestCode==0x01){
+            mPresenter.eleFenceList(String.valueOf(member.getAccountId()));
+        }
     }
 
     @Override

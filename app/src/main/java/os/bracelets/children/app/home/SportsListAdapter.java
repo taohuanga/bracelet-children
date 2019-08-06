@@ -18,7 +18,7 @@ public class SportsListAdapter extends BaseQuickAdapter<DailySports, BaseViewHol
 
     @Override
     protected void convert(BaseViewHolder helper, DailySports item) {
-        helper.setText(R.id.tvTime, item.getDailyDay());
+        helper.setText(R.id.tvTime, item.getDailyDay() + " " + item.getDailyTime());
         helper.setText(R.id.tvStepNum, String.valueOf(item.getStepNum()));
     }
 }

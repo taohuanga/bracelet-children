@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -34,6 +35,7 @@ import aio.health2world.glide_transformations.CropCircleTransformation;
 import aio.health2world.utils.AppUtils;
 import aio.health2world.utils.DensityUtil;
 import aio.health2world.utils.DeviceUtil;
+import aio.health2world.utils.Logger;
 import aio.health2world.utils.ToastUtil;
 import os.bracelets.children.R;
 import os.bracelets.children.bean.FamilyMember;
@@ -51,10 +53,12 @@ public class FallPositionActivity extends AppCompatActivity implements AMap.Info
     private MapView mapView;
 
     private LatLng latLng;
+    //0跌倒 1 预警
+    private int type = 0;
 
 //    private GeocodeSearch geocodeSearch;
 
-    private FamilyMember member;
+//    private FamilyMember member;
 
     private RemindBean remind;
 
@@ -64,7 +68,7 @@ public class FallPositionActivity extends AppCompatActivity implements AMap.Info
         setContentView(R.layout.activity_fall_position);
 
         titleBar = findViewById(R.id.titleBar);
-        TitleBarUtil.setAttr(this, "", "跌倒位置", titleBar);
+
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
 
@@ -74,8 +78,15 @@ public class FallPositionActivity extends AppCompatActivity implements AMap.Info
     }
 
     private void initData() {
-        member = (FamilyMember) getIntent().getSerializableExtra("member");
+//        member = (FamilyMember) getIntent().getSerializableExtra("member");
         remind = (RemindBean) getIntent().getSerializableExtra("remind");
+        if (getIntent().hasExtra("type"))
+            type = getIntent().getIntExtra("type", 0);
+        if (type == 1) {
+            TitleBarUtil.setAttr(this, "", "预警提醒", titleBar);
+        } else {
+            TitleBarUtil.setAttr(this, "", "跌倒位置", titleBar);
+        }
 
         if (aMap == null)
             aMap = mapView.getMap();
@@ -115,9 +126,12 @@ public class FallPositionActivity extends AppCompatActivity implements AMap.Info
         this.getWindowManager().getDefaultDisplay().getRealMetrics(metric);
         int width = metric.widthPixels;  // 屏幕宽度（像素）
         int height = metric.heightPixels;  // 屏幕高度（像素）
-        LinearLayout layoutWindow = infoWindow.findViewById(R.id.layoutWindow);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width, LinearLayout.LayoutParams.WRAP_CONTENT);
-        layoutWindow.setLayoutParams(params);
+        Logger.i("lsy", "width=" + width + ",height=" + height);
+//        ViewGroup.LayoutParams params = infoWindow.getLayoutParams();
+//        params.width = width;
+//        params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(width, LinearLayout.LayoutParams.WRAP_CONTENT);
+        infoWindow.setLayoutParams(params);
         render(marker, infoWindow);
         return infoWindow;
     }
@@ -150,9 +164,9 @@ public class FallPositionActivity extends AppCompatActivity implements AMap.Info
                         FallPositionActivity.this);
                 break;
             case R.id.ivCall:
-                if (!TextUtils.isEmpty(member.getPhone())) {
+                if (!TextUtils.isEmpty(remind.getPhone())) {
                     Intent intent = new Intent(Intent.ACTION_DIAL);
-                    Uri data = Uri.parse("tel:" + member.getPhone());
+                    Uri data = Uri.parse("tel:" + remind.getPhone());
                     intent.setData(data);
                     startActivity(intent);
                 } else {
@@ -171,14 +185,16 @@ public class FallPositionActivity extends AppCompatActivity implements AMap.Info
         TextView tvNav = view.findViewById(R.id.tvNav);
         ImageView ivImage = view.findViewById(R.id.ivImage);
         ImageView ivCall = view.findViewById(R.id.ivCall);
-
-        tvTitle.setText("您的" + member.getRelationship() + "在此处跌倒，请尽快前往处理！");
-        tvName.setText(member.getNickName());
-        tvPhone.setText(member.getPhone());
+        if (type == 0)
+            tvTitle.setText(remind.getRelation() + "佩戴的衣带保在此处触发！");
+        else
+            tvTitle.setText("感应到佩戴者运动幅度可能较大");
+        tvName.setText(remind.getNickName());
+        tvPhone.setText(remind.getPhone());
         tvAddress.setText(remind.getLocation());
         tvTime.setText(remind.getCreateDate());
         Glide.with(this)
-                .load(member.getProfile())
+                .load(remind.getPortrait())
                 .placeholder(R.mipmap.ic_default_portrait)
                 .error(R.mipmap.ic_default_portrait)
                 .bitmapTransform(new CropCircleTransformation(this))

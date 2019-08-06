@@ -7,18 +7,17 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
-import com.hyphenate.EMCallBack;
-import com.hyphenate.chat.EMClient;
-
 import aio.health2world.utils.DeviceUtil;
 import aio.health2world.utils.Logger;
+import aio.health2world.utils.SPUtils;
 import cn.jpush.android.api.JPushInterface;
+import os.bracelets.children.AppConfig;
 import os.bracelets.children.MyApplication;
 import os.bracelets.children.R;
 import os.bracelets.children.app.family.FamilyListFragment;
 import os.bracelets.children.app.home.HomeFragment;
-import os.bracelets.children.app.personal.PersonalFragment;
 import os.bracelets.children.app.news.HealthInfoFragment;
+import os.bracelets.children.app.personal.PersonalFragment;
 import os.bracelets.children.bean.BaseInfo;
 import os.bracelets.children.common.MVPBaseActivity;
 import os.bracelets.children.jpush.JPushUtil;
@@ -63,14 +62,15 @@ public class MainActivity extends MVPBaseActivity<MainContract.Presenter> implem
 
     @Override
     protected void initData() {
+
+        String userId = (String) SPUtils.get(this, AppConfig.USER_ID, "");
         JPushInterface.init(this);
-        JPushUtil.setJPushAlias(TagAliasOperatorHelper.ACTION_SET, DeviceUtil.getAndroidId(this));
+        JPushUtil.setJPushAlias(TagAliasOperatorHelper.ACTION_SET, userId);
 
         if (getIntent().hasExtra("info"))
             info = (BaseInfo) getIntent().getSerializableExtra("info");
         if (info != null)
             loginHx();
-
         mPresenter.uploadLocation();
     }
 
@@ -170,29 +170,29 @@ public class MainActivity extends MVPBaseActivity<MainContract.Presenter> implem
     }
 
     private void loginHx() {
-        EMClient.getInstance()
-                .login(info.getPhone(), info.getPhone(), new EMCallBack() {
-                    @Override
-                    public void onSuccess() {
-                        Logger.i("hx", "login success");
-                    }
-
-                    @Override
-                    public void onError(int i, String s) {
-                        Logger.i("hx", "login failed " + s);
-                    }
-
-                    @Override
-                    public void onProgress(int i, String s) {
-
-                    }
-                });
+//        EMClient.getInstance()
+//                .login(info.getPhone(), info.getPhone(), new EMCallBack() {
+//                    @Override
+//                    public void onSuccess() {
+//                        Logger.i("hx", "login success");
+//                    }
+//
+//                    @Override
+//                    public void onError(int i, String s) {
+//                        Logger.i("hx", "login failed " + s);
+//                    }
+//
+//                    @Override
+//                    public void onProgress(int i, String s) {
+//
+//                    }
+//                });
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Logger.i("MainActivity","requestCode="+requestCode);
+        Logger.i("MainActivity", "requestCode=" + requestCode);
     }
 
     public void logout() {

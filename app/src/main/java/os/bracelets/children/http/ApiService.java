@@ -175,6 +175,11 @@ interface ApiService {
     @POST("children/label/list")
     Observable<HttpResult> tagList(@Body Map<String, Object> map);
 
+    /**
+     * 新增标签
+     */
+    @POST("children/label/add")
+    Observable<HttpResult> tagAdd(@Body Map<String, Object> map);
 
     /**
      * 电子围栏列表
@@ -231,8 +236,36 @@ interface ApiService {
     Observable<HttpResult> dailySportsList(@Body Map<String, Object> map);
 
     /**
+     * 父母运动趋势图数据
+     */
+    @POST("children/relative/parentSportTrend")
+    Observable<HttpResult> parentSportTrend(@Body Map<String, Object> map);
+
+    /**
      * 编辑个人资料
      */
     @POST("children/setting/modifiedData")
     Observable<HttpResult> modifyData(@Body Map<String, Object> map);
+
+    /**
+     * 编辑资料
+     */
+    @POST("children/setting/editRemind")
+    Observable<HttpResult> editRemind(@Body Map<String, Object> map);
+
+    /**
+     * 编辑联系人
+     */
+    @POST("children/setting/editContacts")
+    Observable<HttpResult> editContacts(@Body Map<String, Object> map);
+
+    /**
+     * 查询绑定的设备
+     */
+    @POST("children/setting/deviceBindInfo")
+    Observable<HttpResult> deviceBindInfo(@Body Map<String, Object> map);
+
+    @POST("children/setting/deviceUnbind")
+    Observable<HttpResult> deviceUnbind(@Body Map<String, Object> map);
+
 }

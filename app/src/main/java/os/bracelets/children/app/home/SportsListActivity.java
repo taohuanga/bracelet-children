@@ -1,6 +1,7 @@
 package os.bracelets.children.app.home;
 
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -45,6 +46,7 @@ public class SportsListActivity extends MVPBaseActivity<SportsContract.Presenter
         TitleBarUtil.setAttr(this, "", "更多数据", titleBar);
         recyclerView = findView(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
 
         refreshLayout = findView(R.id.refreshLayout);
         refreshLayout.setEnabled(false);

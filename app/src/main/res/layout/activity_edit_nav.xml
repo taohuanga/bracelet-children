@@ -5,45 +5,6 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:id="@+id/rlContact"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@drawable/selector_item_click_bg"
-        android:gravity="center">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="联系人列表"
-            android:textColor="@color/black6"
-            android:textSize="@dimen/sp15" />
-    </RelativeLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#f6f6f6" />
-
-    <RelativeLayout
-        android:id="@+id/rlAddContact"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@drawable/selector_item_click_bg"
-        android:gravity="center">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="添加联系人"
-            android:textColor="@color/black6"
-            android:textSize="@dimen/sp15" />
-    </RelativeLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#f6f6f6" />
 
     <RelativeLayout
         android:id="@+id/rlSetTag"
@@ -56,67 +17,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="设置标签"
-            android:textColor="@color/black6"
-            android:textSize="@dimen/sp15" />
-    </RelativeLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#f6f6f6"
-        android:visibility="gone" />
-
-    <RelativeLayout
-        android:id="@+id/rlAddTag"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@drawable/selector_item_click_bg"
-        android:gravity="center"
-        android:visibility="gone">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="添加标签"
-            android:textColor="@color/black6"
-            android:textSize="@dimen/sp15" />
-    </RelativeLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#f6f6f6" />
-
-    <RelativeLayout
-        android:id="@+id/rlAddRemind"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@drawable/selector_item_click_bg"
-        android:gravity="center">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="设置提醒"
-            android:textColor="@color/black6"
-            android:textSize="@dimen/sp15" />
-    </RelativeLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#f6f6f6" />
-
-    <RelativeLayout
-        android:id="@+id/rlRemindList"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@drawable/selector_item_click_bg"
-        android:gravity="center">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="提醒列表"
             android:textColor="@color/black6"
             android:textSize="@dimen/sp15" />
     </RelativeLayout>
@@ -140,6 +40,91 @@
             android:textSize="@dimen/sp15" />
     </RelativeLayout>
 
+
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1dp"-->
+        <!--android:background="#f6f6f6" />-->
+
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/rlAddContact"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="48dp"-->
+        <!--android:background="@drawable/selector_item_click_bg"-->
+        <!--android:gravity="center">-->
+
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="添加联系人"-->
+            <!--android:textColor="@color/black6"-->
+            <!--android:textSize="@dimen/sp15" />-->
+    <!--</RelativeLayout>-->
+
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#f6f6f6"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:id="@+id/rlAddTag"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/selector_item_click_bg"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="添加标签"
+            android:textColor="@color/black6"
+            android:textSize="@dimen/sp15" />
+    </RelativeLayout>
+
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1dp"-->
+        <!--android:background="#f6f6f6" />-->
+
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/rlAddRemind"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="48dp"-->
+        <!--android:background="@drawable/selector_item_click_bg"-->
+        <!--android:gravity="center">-->
+
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="设置提醒"-->
+            <!--android:textColor="@color/black6"-->
+            <!--android:textSize="@dimen/sp15" />-->
+    <!--</RelativeLayout>-->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#f6f6f6" />
+
+    <RelativeLayout
+        android:id="@+id/rlRemindList"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/selector_item_click_bg"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="提醒列表"
+            android:textColor="@color/black6"
+            android:textSize="@dimen/sp15" />
+    </RelativeLayout>
+
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -155,18 +140,36 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="电子围栏"
+            android:text="电子围栏列表"
             android:textColor="@color/black6"
             android:textSize="@dimen/sp15" />
     </RelativeLayout>
 
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1dp"-->
+        <!--android:background="#f6f6f6" />-->
+
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/rlAddEle"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="48dp"-->
+        <!--android:background="@drawable/selector_item_click_bg"-->
+        <!--android:gravity="center">-->
+
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="添加电子围栏"-->
+            <!--android:textColor="@color/black6"-->
+            <!--android:textSize="@dimen/sp15" />-->
+    <!--</RelativeLayout>-->
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#f6f6f6" />
-
     <RelativeLayout
-        android:id="@+id/rlAddEle"
+        android:id="@+id/rlContact"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="@drawable/selector_item_click_bg"
@@ -175,9 +178,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="添加电子围栏"
+            android:text="联系人列表"
             android:textColor="@color/black6"
             android:textSize="@dimen/sp15" />
     </RelativeLayout>
-
 </LinearLayout>

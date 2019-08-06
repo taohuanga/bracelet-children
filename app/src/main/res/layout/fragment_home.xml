@@ -5,12 +5,14 @@
     android:background="#eee"
     android:orientation="vertical">
 
+
     <aio.health2world.recyclerview.RecyclerCoverFlow
         android:id="@+id/recyclerCoverFlow"
         android:layout_width="match_parent"
         android:layout_height="160dp"
         android:layout_gravity="center"
         android:background="@mipmap/bg_home_top" />
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -67,9 +69,18 @@
 
     </LinearLayout>
 
-    <RelativeLayout
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/lineChart"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="100dp"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/dp_4" />
+
+    <RelativeLayout
+        android:id="@+id/rlSports"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
         android:layout_marginTop="@dimen/dp_8"
         android:background="@color/white"
         android:paddingLeft="@dimen/dp_16"
@@ -85,17 +96,19 @@
 
         <ImageView
             android:id="@+id/ivSports"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
             android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/dp_18"
             android:layout_toEndOf="@id/tvTitle"
-            android:src="@mipmap/icon_sports" />
+            android:src="@drawable/icon_parent_man" />
 
         <TextView
             android:id="@+id/tvStepNum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/dp_18"
             android:layout_toEndOf="@id/ivSports"
             android:text="--"
             android:textColor="@color/appThemeColor"
@@ -130,5 +143,4 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:background="@color/white" />
-
 </LinearLayout>

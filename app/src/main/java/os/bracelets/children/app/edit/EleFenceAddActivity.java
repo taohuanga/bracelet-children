@@ -33,6 +33,7 @@ import aio.health2world.utils.ToastUtil;
 import aio.health2world.view.LoadingDialog;
 import os.bracelets.children.AppConfig;
 import os.bracelets.children.R;
+import os.bracelets.children.bean.EleFence;
 import os.bracelets.children.bean.FamilyMember;
 import os.bracelets.children.common.MVPActivity;
 import os.bracelets.children.http.ApiRequest;
@@ -58,6 +59,7 @@ public class EleFenceAddActivity extends MVPActivity<EleFenceAddContract.Present
     private TextView btnAdd;
 
     private FamilyMember member;
+    private EleFence eleFence;
 
     private LatLng latLng;
 
@@ -87,16 +89,28 @@ public class EleFenceAddActivity extends MVPActivity<EleFenceAddContract.Present
         dialog = new LoadingDialog(this);
         member = (FamilyMember) getIntent().getSerializableExtra("member");
 
-        TitleBarUtil.setAttr(this, "", "添加电子围栏", titleBar);
+        if(getIntent().hasExtra("eleFence"))
+            eleFence = (EleFence) getIntent().getSerializableExtra("eleFence");
+
         if (aMap == null) {
             aMap = mapView.getMap();
         }
-        double latitude = Double.parseDouble((String) SPUtils.get(this, AppConfig.LATITUDE, ""));
-        double longitude = Double.parseDouble((String) SPUtils.get(this, AppConfig.LONGITUDE, ""));
-        aMap.moveCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(
-                new LatLng(latitude, longitude), 18, 30, 30)));
+        if(eleFence!=null){
+            TitleBarUtil.setAttr(this, "", "编辑电子围栏", titleBar);
+            double latitude = Double.parseDouble(eleFence.getLatitude());
+            double longitude = Double.parseDouble(eleFence.getLongitude());
+            aMap.moveCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(
+                    new LatLng(latitude, longitude), 18, 30, 30)));
+            tvAddress.setText(eleFence.getLocation());
+            btnAdd.setText(getString(R.string.save));
+        }else {
+            TitleBarUtil.setAttr(this, "", "添加电子围栏", titleBar);
+            double latitude = Double.parseDouble((String) SPUtils.get(this, AppConfig.LATITUDE, ""));
+            double longitude = Double.parseDouble((String) SPUtils.get(this, AppConfig.LONGITUDE, ""));
+            aMap.moveCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(
+                    new LatLng(latitude, longitude), 18, 30, 30)));
+        }
         aMap.moveCamera(CameraUpdateFactory.zoomTo((float) 13.5));
-
         addListener();
 
     }
@@ -235,6 +249,7 @@ public class EleFenceAddActivity extends MVPActivity<EleFenceAddContract.Present
                         dialog.dismiss();
                         if (result.code.equals(AppConfig.SUCCESS)) {
                             ToastUtil.showShort("添加成功");
+                            setResult(RESULT_OK);
                             finish();
                         }
                     }
