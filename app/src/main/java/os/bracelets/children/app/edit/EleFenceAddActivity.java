@@ -144,8 +144,8 @@ public class EleFenceAddActivity extends MVPActivity<EleFenceAddContract.Present
                 startJumpAnimation();
                 latLng = position.target;
                 LatLonPoint point = new LatLonPoint(latLng.latitude, latLng.longitude);
-                RegeocodeQuery query = new RegeocodeQuery(point, 100,
-                        GeocodeSearch.AMAP);// 第一个参数表示一个Latlng，第二参数表示范围多少米，第三个参数表示是火系坐标系还是GPS原生坐标系
+                // 第一个参数表示一个Latlng，第二参数表示范围多少米，第三个参数表示是火系坐标系还是GPS原生坐标系
+                RegeocodeQuery query = new RegeocodeQuery(point, 100, GeocodeSearch.AMAP);
                 geocodeSearch.getFromLocationAsyn(query);// 设置异步逆地理编码请求
             }
         });
