@@ -18,6 +18,6 @@ public class EleFenceListAdapter extends BaseQuickAdapter<EleFence, BaseViewHold
     @Override
     protected void convert(BaseViewHolder helper, EleFence item) {
         helper.setText(R.id.tvLocation, item.getLocation());
-        helper.setText(R.id.tvScope, "范围" + item.getFenceScope());
+        helper.setText(R.id.tvScope, "范围" + item.getFenceScope() + "m");
     }
 }

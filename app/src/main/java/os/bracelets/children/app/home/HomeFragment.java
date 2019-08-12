@@ -145,8 +145,9 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
         }
 
         if (remindBean.getMsgType() == 2) {
-            Intent intent = new Intent(getActivity(), EleFenceActivity.class);
+            Intent intent = new Intent(getActivity(), FallPositionActivity.class);
             intent.putExtra("remind", remindBean);
+            intent.putExtra("type", 2);
             startActivity(intent);
         }
     }

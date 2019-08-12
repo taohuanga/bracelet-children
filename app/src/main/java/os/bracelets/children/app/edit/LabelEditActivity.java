@@ -35,6 +35,8 @@ public class LabelEditActivity extends MVPBaseActivity<LabelContract.Presenter> 
 
     private Button btnSave;
 
+    private List<LabelBean> mLabels = new ArrayList<>();
+
     @Override
     protected LabelContract.Presenter getPresenter() {
         return new LabelPresenter(this);
@@ -62,6 +64,20 @@ public class LabelEditActivity extends MVPBaseActivity<LabelContract.Presenter> 
         recyclerView.setAdapter(listAdapter);
         listAdapter.bindToRecyclerView(recyclerView);
         listAdapter.setEmptyView(R.layout.layout_empty_view);
+
+        String labels = member.getLabels();
+
+        if (!TextUtils.isEmpty(labels)) {
+            String[] l = labels.split(";");
+            for (String s : l) {
+                String[] s1 = s.split(",");
+                LabelBean bean = new LabelBean();
+                bean.setLabelId(Integer.valueOf(s1[0]));
+                bean.setLabelType(Integer.valueOf(s1[1]));
+                bean.setLabelName(s1[2]);
+                mLabels.add(bean);
+            }
+        }
 
         mPresenter.getTagList();
     }
@@ -112,7 +128,7 @@ public class LabelEditActivity extends MVPBaseActivity<LabelContract.Presenter> 
     @Override
     public void loadTagSuccess(List<LabelBean> list) {
         labelList.clear();
-        int labelType = 0;
+        int labelType = -1;
         for (LabelBean label : list) {
             if (labelType != label.getLabelType()) {
                 LabelSection section = new LabelSection(true, label.getLabelTypeDesc());
@@ -120,6 +136,17 @@ public class LabelEditActivity extends MVPBaseActivity<LabelContract.Presenter> 
                 labelType = label.getLabelType();
             }
             labelList.add(new LabelSection(label));
+        }
+
+        for (LabelSection section : labelList) {
+            if (section.isHeader)
+                continue;
+            for (LabelBean bean : mLabels) {
+                if (section.t.getLabelId() == bean.getLabelId()) {
+                    section.t.setChecked(true);
+                    break;
+                }
+            }
         }
         listAdapter.notifyDataSetChanged();
     }
@@ -156,11 +183,15 @@ public class LabelEditActivity extends MVPBaseActivity<LabelContract.Presenter> 
             if (label.t.isChecked())
                 labelIds += label.t.getLabelId() + ";";
         }
+//        if (TextUtils.isEmpty(labelIds)) {
+//            ToastUtil.showShort("请选择标签");
+//            return;
+//        }
         if (TextUtils.isEmpty(labelIds)) {
-            ToastUtil.showShort("请选择标签");
-            return;
+
+        } else {
+            labelIds = labelIds.substring(0, labelIds.length() - 1);
         }
-        labelIds = labelIds.substring(0, labelIds.length() - 1);
 
         mPresenter.setTag(String.valueOf(member.getAccountId()), labelIds);
     }

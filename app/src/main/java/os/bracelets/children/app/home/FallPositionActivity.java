@@ -53,7 +53,7 @@ public class FallPositionActivity extends AppCompatActivity implements AMap.Info
     private MapView mapView;
 
     private LatLng latLng;
-    //0跌倒 1 预警
+    //0跌倒 1 预警 2电子围栏
     private int type = 0;
 
 //    private GeocodeSearch geocodeSearch;
@@ -82,10 +82,13 @@ public class FallPositionActivity extends AppCompatActivity implements AMap.Info
         remind = (RemindBean) getIntent().getSerializableExtra("remind");
         if (getIntent().hasExtra("type"))
             type = getIntent().getIntExtra("type", 0);
-        if (type == 1) {
-            TitleBarUtil.setAttr(this, "", "预警提醒", titleBar);
-        } else {
+
+        if (type == 0) {
             TitleBarUtil.setAttr(this, "", "跌倒位置", titleBar);
+        } else if (type == 2) {
+            TitleBarUtil.setAttr(this, "", "电子围栏", titleBar);
+        } else {
+            TitleBarUtil.setAttr(this, "", "预警提醒", titleBar);
         }
 
         if (aMap == null)
@@ -185,10 +188,13 @@ public class FallPositionActivity extends AppCompatActivity implements AMap.Info
         TextView tvNav = view.findViewById(R.id.tvNav);
         ImageView ivImage = view.findViewById(R.id.ivImage);
         ImageView ivCall = view.findViewById(R.id.ivCall);
-        if (type == 0)
+        if (type == 0) {
             tvTitle.setText(remind.getRelation() + "佩戴的衣带保在此处触发！");
-        else
+        } else if (type == 2) {
+            tvTitle.setText("已超出预定的活动范围，请及时关注！");
+        } else {
             tvTitle.setText("感应到佩戴者运动幅度可能较大");
+        }
         tvName.setText(remind.getNickName());
         tvPhone.setText(remind.getPhone());
         tvAddress.setText(remind.getLocation());
