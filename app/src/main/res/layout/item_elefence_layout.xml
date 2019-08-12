@@ -13,6 +13,7 @@
         android:src="@mipmap/icon_elefence" />
 
     <TextView
+        android:layout_marginEnd="@dimen/dp_8"
         android:id="@+id/tvLocation"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
