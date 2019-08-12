@@ -191,7 +191,7 @@ public class FallPositionActivity extends AppCompatActivity implements AMap.Info
         if (type == 0) {
             tvTitle.setText(remind.getRelation() + "佩戴的衣带保在此处触发！");
         } else if (type == 2) {
-            tvTitle.setText(remind.getRelation() + "已离开活动范围，请尽快处理！");
+            tvTitle.setText("已超出预定的活动范围，请及时关注！");
         } else {
             tvTitle.setText("感应到佩戴者运动幅度可能较大");
         }
