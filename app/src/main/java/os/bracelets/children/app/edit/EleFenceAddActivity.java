@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Interpolator;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.amap.api.maps.AMap;
@@ -27,8 +28,13 @@ import com.amap.api.services.geocoder.GeocodeSearch;
 import com.amap.api.services.geocoder.RegeocodeQuery;
 import com.amap.api.services.geocoder.RegeocodeResult;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import aio.health2world.http.HttpResult;
+import aio.health2world.pickeview.OptionsPickerView;
 import aio.health2world.utils.SPUtils;
+import aio.health2world.utils.TimePickerUtil;
 import aio.health2world.utils.ToastUtil;
 import aio.health2world.view.LoadingDialog;
 import os.bracelets.children.AppConfig;
@@ -42,7 +48,7 @@ import os.bracelets.children.utils.TitleBarUtil;
 import os.bracelets.children.view.TitleBar;
 
 public class EleFenceAddActivity extends MVPActivity<EleFenceAddContract.Presenter> implements
-        EleFenceAddContract.View, GeocodeSearch.OnGeocodeSearchListener {
+        EleFenceAddContract.View, GeocodeSearch.OnGeocodeSearchListener, OptionsPickerView.OnOptionsSelectListener {
 
     private TitleBar titleBar;
 
@@ -54,9 +60,11 @@ public class EleFenceAddActivity extends MVPActivity<EleFenceAddContract.Present
 
     private GeocodeSearch geocodeSearch;
 
+    private RegeocodeQuery query;
+
     private TextView tvAddress;
 
-    private TextView btnAdd;
+    private TextView btnAdd, tvRange;
 
     private FamilyMember member;
     private EleFence eleFence;
@@ -64,6 +72,10 @@ public class EleFenceAddActivity extends MVPActivity<EleFenceAddContract.Present
     private LatLng latLng;
 
     private LoadingDialog dialog;
+    private OptionsPickerView pickerView;
+    private List<String> optionList = new ArrayList<>();
+
+    private LinearLayout llRange;
 
     @Override
     protected EleFenceAddContract.Presenter getPresenter() {
@@ -75,11 +87,12 @@ public class EleFenceAddActivity extends MVPActivity<EleFenceAddContract.Present
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_elefence_add);
         tvAddress = findViewById(R.id.tvAddress);
+        tvRange = findViewById(R.id.tvRange);
         btnAdd = findViewById(R.id.btnAdd);
         titleBar = findViewById(R.id.titleBar);
         mapView = findViewById(R.id.mapView);
+        llRange = findViewById(R.id.llRange);
         mapView.onCreate(savedInstanceState);
-        geocodeSearch = new GeocodeSearch(this);
 
         initData();
     }
@@ -87,15 +100,28 @@ public class EleFenceAddActivity extends MVPActivity<EleFenceAddContract.Present
 
     private void initData() {
         dialog = new LoadingDialog(this);
+        geocodeSearch = new GeocodeSearch(this);
+        pickerView = TimePickerUtil.initOptions(this, this);
+        optionList.add("1 km");
+        optionList.add("2 km");
+        optionList.add("3 km");
+        optionList.add("4 km");
+        optionList.add("5 km");
+        optionList.add("6 km");
+        optionList.add("7 km");
+        optionList.add("8 km");
+        optionList.add("9 km");
+        optionList.add("10 km");
+        pickerView.setPicker(optionList);
         member = (FamilyMember) getIntent().getSerializableExtra("member");
 
-        if(getIntent().hasExtra("eleFence"))
+        if (getIntent().hasExtra("eleFence"))
             eleFence = (EleFence) getIntent().getSerializableExtra("eleFence");
 
         if (aMap == null) {
             aMap = mapView.getMap();
         }
-        if(eleFence!=null){
+        if (eleFence != null) {
             TitleBarUtil.setAttr(this, "", "编辑电子围栏", titleBar);
             double latitude = Double.parseDouble(eleFence.getLatitude());
             double longitude = Double.parseDouble(eleFence.getLongitude());
@@ -103,7 +129,7 @@ public class EleFenceAddActivity extends MVPActivity<EleFenceAddContract.Present
                     new LatLng(latitude, longitude), 18, 30, 30)));
             tvAddress.setText(eleFence.getLocation());
             btnAdd.setText(getString(R.string.save));
-        }else {
+        } else {
             TitleBarUtil.setAttr(this, "", "添加电子围栏", titleBar);
             double latitude = Double.parseDouble((String) SPUtils.get(this, AppConfig.LATITUDE, ""));
             double longitude = Double.parseDouble((String) SPUtils.get(this, AppConfig.LONGITUDE, ""));
@@ -118,6 +144,7 @@ public class EleFenceAddActivity extends MVPActivity<EleFenceAddContract.Present
     private void addListener() {
 
         btnAdd.setOnClickListener(this);
+        llRange.setOnClickListener(this);
         geocodeSearch.setOnGeocodeSearchListener(this);
         titleBar.setLeftClickListener(new View.OnClickListener() {
             @Override
@@ -145,10 +172,18 @@ public class EleFenceAddActivity extends MVPActivity<EleFenceAddContract.Present
                 latLng = position.target;
                 LatLonPoint point = new LatLonPoint(latLng.latitude, latLng.longitude);
                 // 第一个参数表示一个Latlng，第二参数表示范围多少米，第三个参数表示是火系坐标系还是GPS原生坐标系
-                RegeocodeQuery query = new RegeocodeQuery(point, 100, GeocodeSearch.AMAP);
+                query = new RegeocodeQuery(point, rang * 1000, GeocodeSearch.AMAP);
                 geocodeSearch.getFromLocationAsyn(query);// 设置异步逆地理编码请求
             }
         });
+    }
+
+    private int rang = 3;
+
+    @Override
+    public void onOptionsSelect(int options1, int options2, int options3, View v) {
+        tvRange.setText("范围" + optionList.get(options1).replace(" ", ""));
+        rang = options1 + 1;
     }
 
     private void addMarkersToMap() {
@@ -203,6 +238,9 @@ public class EleFenceAddActivity extends MVPActivity<EleFenceAddContract.Present
             case R.id.btnAdd:
                 addEleFence();
                 break;
+            case R.id.llRange:
+                pickerView.show();
+                break;
         }
     }
 
@@ -228,7 +266,7 @@ public class EleFenceAddActivity extends MVPActivity<EleFenceAddContract.Present
         if (latLng == null || TextUtils.isEmpty(tvAddress.getText().toString()))
             return;
         ApiRequest.fenceAdd(String.valueOf(member.getAccountId()), tvAddress.getText().toString(),
-                String.valueOf(latLng.longitude), String.valueOf(latLng.latitude), "100",
+                String.valueOf(latLng.longitude), String.valueOf(latLng.latitude), String.valueOf(rang * 1000),
                 new HttpSubscriber() {
 
                     @Override
