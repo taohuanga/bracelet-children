@@ -72,7 +72,7 @@ public class InputMsgActivity extends BaseActivity {
             editText.setHint(s);
         }
 
-        if (type == PersonalMsgActivity.ITEM_NICK) {
+        if (type == PersonalMsgActivity.ITEM_NAME) {
             //这里输入自己想要的提示文字
             findView(R.id.tvDescription).setVisibility(View.VISIBLE);
         }

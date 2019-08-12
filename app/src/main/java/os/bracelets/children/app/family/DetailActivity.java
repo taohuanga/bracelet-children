@@ -269,6 +269,7 @@ public class DetailActivity extends MVPBaseActivity<DetailContract.Presenter> im
                 //修改真实姓名
                 Intent intentName = new Intent(this, InputMsgActivity.class);
                 intentName.putExtra(InputMsgActivity.KEY, "修改姓名");
+                intentName.putExtra(InputMsgActivity.TYPE, ITEM_NAME);
                 startActivityForResult(intentName, ITEM_NAME);
                 break;
             case R.id.layoutSex:
