@@ -293,7 +293,7 @@ public class ApiRequest {
     }
 
     //消息列表
-    public static Subscription msgList(int pageNo,String accountId, Subscriber<HttpResult> subscriber) {
+    public static Subscription msgList(int pageNo, String accountId, Subscriber<HttpResult> subscriber) {
         Map<String, Object> map = new HashMap<>();
         map.put("tokenId", MyApplication.getInstance().getTokenId());
         map.put("accountId", accountId);
@@ -472,11 +472,14 @@ public class ApiRequest {
     }
 
     //绑定硬件
-    public static Subscription bindDevice(String accountId, String deviceNo, Subscriber<HttpResult> subscriber) {
+    public static Subscription bindDevice(String accountId, String deviceNo, String bindTimes, Subscriber<HttpResult> subscriber) {
         Map<String, Object> map = new HashMap<>();
         map.put("tokenId", MyApplication.getInstance().getTokenId());
         map.put("accountId", accountId);
         map.put("equipmentSn", deviceNo);
+        if (!TextUtils.isEmpty(bindTimes)) {
+            map.put("bindTimes", bindTimes);
+        }
         return ServiceFactory.getInstance()
                 .createService(ApiService.class)
                 .bindDevice(map)
@@ -622,7 +625,7 @@ public class ApiRequest {
                 .subscribe(subscriber);
     }
 
-    public static Subscription deviceUnbind(int accountId,String deviceInfo, Subscriber<HttpResult> subscriber) {
+    public static Subscription deviceUnbind(int accountId, String deviceInfo, Subscriber<HttpResult> subscriber) {
         Map<String, Object> map = new HashMap<>();
         map.put("tokenId", MyApplication.getInstance().getTokenId());
         map.put("parentAccountId", String.valueOf(accountId));
