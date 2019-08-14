@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
@@ -23,6 +24,7 @@ import aio.health2world.brvah.BaseQuickAdapter;
 import aio.health2world.recyclerview.CoverFlowLayoutManger;
 import aio.health2world.recyclerview.DividerItemDecoration;
 import aio.health2world.recyclerview.RecyclerCoverFlow;
+import aio.health2world.scrollablelayout.ScrollableLayout;
 import aio.health2world.utils.DateUtil;
 import os.bracelets.children.AppConfig;
 import os.bracelets.children.R;
@@ -63,8 +65,8 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
 
     private int pageNo = 1;
 
-//    private ScrollableLayout mScrollLayout;
-//
+    private ScrollableLayout scrollableLayout;
+
 //    private RelativeLayout rlSports;
 
     @Override
@@ -80,7 +82,7 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
     @Override
     protected void initView() {
         recyclerCoverFlow = findView(R.id.recyclerCoverFlow);
-//        mScrollLayout = findView(R.id.scrollTableLayout);
+        scrollableLayout = findView(R.id.scrollableLayout);
 
         recyclerView = findView(R.id.recyclerView);
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
@@ -101,6 +103,7 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
         //设置是否可以缩放 x和y，默认true
         lineChart.setScaleXEnabled(true);
         lineChart.setScaleYEnabled(false);
+        scrollableLayout.getHelper().setCurrentScrollableContainer(recyclerView);
     }
 
     @Override
