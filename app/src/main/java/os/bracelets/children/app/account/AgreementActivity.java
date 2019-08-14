@@ -54,6 +54,7 @@ public class AgreementActivity extends BaseActivity {
                 break;
             case R.id.btnAgree:
                 startActivity(new Intent(this,RegisterActivity.class));
+                finish();
                 break;
         }
     }
