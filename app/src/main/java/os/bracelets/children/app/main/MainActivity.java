@@ -195,7 +195,4 @@ public class MainActivity extends MVPBaseActivity<MainContract.Presenter> implem
         Logger.i("MainActivity", "requestCode=" + requestCode);
     }
 
-    public void logout() {
-        MyApplication.getInstance().logout();
-    }
 }

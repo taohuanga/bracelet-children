@@ -1,11 +1,13 @@
 package os.bracelets.children.app.account;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -105,6 +107,21 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.Presenter> impl
                         }
                     });
         }
+        if (getIntent().hasExtra("flag")) {
+            boolean flag = getIntent().getBooleanExtra("flag", false);
+            if (flag) {
+                new AlertDialog.Builder(this)
+                        .setMessage("您的账号已在其他设备上登录！")
+                        .setPositiveButton("确认退出", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        })
+                        .create()
+                        .show();
+            }
+        }
     }
 
     @Override
@@ -120,8 +137,8 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.Presenter> impl
     @Override
     public void loginSuccess(BaseInfo info) {
         SPUtils.put(this, AppConfig.IS_LOGIN, true);
-        Intent intent = new Intent(this,MainActivity.class);
-        intent.putExtra("info",info);
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("info", info);
         startActivity(intent);
         finish();
     }
