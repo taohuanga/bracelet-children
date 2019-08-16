@@ -2,7 +2,7 @@ package os.bracelets.children.app.account;
 
 import android.content.Intent;
 import android.view.View;
-import android.webkit.WebView;
+import android.webkit.WebSettings;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
@@ -40,7 +40,13 @@ public class AgreementActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        webView.getSettings().setJavaScriptEnabled(true);
+        WebSettings settings = webView.getSettings();
+        settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        settings.setDisplayZoomControls(true);
+        settings.setJavaScriptEnabled(true);
+        settings.setSupportZoom(true);
+        settings.setUseWideViewPort(true);
+        settings.setLoadWithOverviewMode(true);
         webView.loadUrl("http://www.zgznhh.com/Agreement.html");
 //        webView.loadUrl("file:///android_asset/html/Agreement.html");
     }
@@ -70,14 +76,14 @@ public class AgreementActivity extends BaseActivity {
             }
         });
 
-        webView.setOnCustomScroolChangeListener(new MyWebView.ScrollInterface() {
+        webView.setOnCustomScrollChangeListener(new MyWebView.ScrollInterface() {
             @Override
             public void onSChanged(int l, int t, int oldl, int oldt) {
                 //WebView的总高度
                 float webViewContentHeight = webView.getContentHeight() * webView.getScale();
                 //WebView的现高度
                 float webViewCurrentHeight = (webView.getHeight() + webView.getScrollY());
-                if ((webViewContentHeight - webViewCurrentHeight) == 0) {
+                if ((webViewContentHeight - webViewCurrentHeight) <=20) {
                     layoutBottom.setVisibility(View.VISIBLE);
                 } else {
                     layoutBottom.setVisibility(View.GONE);
