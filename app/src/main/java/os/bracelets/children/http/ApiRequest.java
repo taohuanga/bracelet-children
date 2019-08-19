@@ -120,10 +120,13 @@ public class ApiRequest {
 
 
     //重置密码
-    public static Subscription updatePhone(String oldPhone, String newPhone, String loginPass, String securityCode,
+    public static Subscription updatePhone(String accountId, String oldPhone, String newPhone, String loginPass, String securityCode,
                                            Subscriber<HttpResult> subscriber) {
         Map<String, Object> map = new HashMap<>();
         map.put("tokenId", MyApplication.getInstance().getTokenId());
+        if (!TextUtils.isEmpty(accountId)) {
+            map.put("accountId", accountId);
+        }
         map.put("oldPhone", oldPhone);
         map.put("newPhone", newPhone);
         map.put("loginPass", loginPass);

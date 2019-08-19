@@ -309,6 +309,7 @@ public class DetailActivity extends MVPBaseActivity<DetailContract.Presenter> im
                 if (!TextUtils.isEmpty(phone)) {
                     intentPhone.putExtra("oldPhone", phone);
                 }
+                intentPhone.putExtra("accountId",accountId);
                 startActivityForResult(intentPhone, ITEM_PHONE);
                 break;
             case R.id.btnSave:

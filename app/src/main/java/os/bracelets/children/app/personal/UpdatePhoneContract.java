@@ -26,6 +26,6 @@ public interface UpdatePhoneContract {
         //获取手机验证码
         abstract void securityCode(int type, String phone);
 
-        abstract void updatePhone(String oldPhone, String newPhone,String code,String pwd);
+        abstract void updatePhone(String accountId,String oldPhone, String newPhone,String code,String pwd);
     }
 }

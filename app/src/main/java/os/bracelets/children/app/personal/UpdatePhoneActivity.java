@@ -22,7 +22,7 @@ public class UpdatePhoneActivity extends MVPBaseActivity<UpdatePhoneContract.Pre
 
     private TitleBar titleBar;
 
-    private String oldPhone;
+    private String accountId,oldPhone;
 
     private EditText edOldPhone, edNewPhone, edCode, edPwd;
 
@@ -30,7 +30,10 @@ public class UpdatePhoneActivity extends MVPBaseActivity<UpdatePhoneContract.Pre
 
     private Button btnSubmit;
 
-
+    @Override
+    protected UpdatePhoneContract.Presenter getPresenter() {
+        return new UpdatePhonePresenter(this);
+    }
     @Override
     protected int getLayoutId() {
         return R.layout.activity_update_phone;
@@ -54,11 +57,7 @@ public class UpdatePhoneActivity extends MVPBaseActivity<UpdatePhoneContract.Pre
             oldPhone = getIntent().getStringExtra("oldPhone");
             edOldPhone.setText(oldPhone);
         }
-    }
-
-    @Override
-    protected UpdatePhoneContract.Presenter getPresenter() {
-        return new UpdatePhonePresenter(this);
+        accountId = getIntent().getStringExtra("accountId");
     }
 
     @Override
@@ -109,7 +108,7 @@ public class UpdatePhoneActivity extends MVPBaseActivity<UpdatePhoneContract.Pre
                     ToastUtil.showShort("请输入登录密码");
                     return;
                 }
-                mPresenter.updatePhone(oldPhone, newPhone, code, pwd);
+                mPresenter.updatePhone(accountId,oldPhone, newPhone, code, pwd);
                 break;
         }
     }

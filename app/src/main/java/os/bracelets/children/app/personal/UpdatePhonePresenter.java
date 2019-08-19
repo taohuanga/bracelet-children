@@ -48,8 +48,8 @@ public class UpdatePhonePresenter extends UpdatePhoneContract.Presenter {
     }
 
     @Override
-    void updatePhone(String oldPhone, String newPhone, String code, String pwd) {
-        ApiRequest.updatePhone(oldPhone, newPhone, MD5Util.getMD5String(pwd), code, new HttpSubscriber() {
+    void updatePhone(String accountId,String oldPhone, String newPhone, String code, String pwd) {
+        ApiRequest.updatePhone(accountId,oldPhone, newPhone, MD5Util.getMD5String(pwd), code, new HttpSubscriber() {
             @Override
             public void onStart() {
                 super.onStart();
