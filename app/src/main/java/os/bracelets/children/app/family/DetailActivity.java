@@ -200,7 +200,7 @@ public class DetailActivity extends MVPBaseActivity<DetailContract.Presenter> im
                 tvHeight.setText(data.getStringExtra("data"));
                 break;
             case ITEM_PHONE:
-//                tvPhone.setText(data.getStringExtra("data"));
+                tvPhone.setText(data.getStringExtra("data"));
                 break;
             case ITEM_RELATION:
                 tvRelation.setText(data.getStringExtra("data"));
@@ -304,12 +304,15 @@ public class DetailActivity extends MVPBaseActivity<DetailContract.Presenter> im
             case R.id.layoutPhone:
                 //修改手机号
 //                ToastUtil.showShort("手机号码不支持修改");
-                Intent intentPhone = new Intent(this, UpdatePhoneActivity.class);
-                String phone = tvPhone.getText().toString().trim();
-                if (!TextUtils.isEmpty(phone)) {
-                    intentPhone.putExtra("oldPhone", phone);
-                }
-                intentPhone.putExtra("accountId",accountId);
+                Intent intentPhone = new Intent(this, InputMsgActivity.class);
+                intentPhone.putExtra(InputMsgActivity.KEY, "修改手机号");
+                intentPhone.putExtra(InputMsgActivity.TYPE, ITEM_PHONE);
+//                Intent intentPhone = new Intent(this, UpdatePhoneActivity.class);
+//                String phone = tvPhone.getText().toString().trim();
+//                if (!TextUtils.isEmpty(phone)) {
+//                    intentPhone.putExtra("oldPhone", phone);
+//                }
+//                intentPhone.putExtra("accountId",accountId);
                 startActivityForResult(intentPhone, ITEM_PHONE);
                 break;
             case R.id.btnSave:
