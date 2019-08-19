@@ -118,6 +118,23 @@ public class ApiRequest {
                 .subscribe(subscriber);
     }
 
+
+    //重置密码
+    public static Subscription updatePhone(String oldPhone, String newPhone, String loginPass, String securityCode,
+                                           Subscriber<HttpResult> subscriber) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("tokenId", MyApplication.getInstance().getTokenId());
+        map.put("oldPhone", oldPhone);
+        map.put("newPhone", newPhone);
+        map.put("loginPass", loginPass);
+        map.put("securityCode", securityCode);
+        return ServiceFactory.getInstance()
+                .createService(ApiService.class)
+                .updatePhone(map)
+                .compose(RxTransformer.<HttpResult>defaultSchedulers())
+                .subscribe(subscriber);
+    }
+
     //首页获取步数
     public static Subscription about(Subscriber<HttpResult> subscriber) {
         Map<String, Object> map = new HashMap<>();

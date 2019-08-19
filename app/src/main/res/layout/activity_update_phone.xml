@@ -6,4 +6,154 @@
 
     <include layout="@layout/layout_title_bar" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="18dp"
+        android:background="@drawable/shape_edit_text_bg"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="@dimen/dp_4">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="@dimen/dp_4"
+            android:src="@mipmap/icon_phone" />
+
+        <EditText
+            android:id="@+id/edOldPhone"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@color/white"
+            android:hint="原手机号码"
+            android:inputType="number"
+            android:maxLength="11"
+            android:maxLines="1"
+            android:textColor="#666"
+            android:textColorHint="@color/black9"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="18dp"
+        android:background="@drawable/shape_edit_text_bg"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="@dimen/dp_4">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="@dimen/dp_4"
+            android:src="@mipmap/icon_phone" />
+
+        <EditText
+            android:id="@+id/edNewPhone"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@color/white"
+            android:hint="新手机号码"
+            android:inputType="number"
+            android:maxLength="11"
+            android:maxLines="1"
+            android:textColor="#666"
+            android:textColorHint="@color/black9"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="18dp"
+        android:background="@drawable/shape_edit_text_bg"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="@dimen/dp_4">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="@dimen/dp_4"
+            android:src="@mipmap/icon_code" />
+
+        <EditText
+            android:id="@+id/edCode"
+            android:layout_width="0dp"
+            android:layout_height="38dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:hint="短信验证码"
+            android:inputType="number"
+            android:maxLines="1"
+            android:textColor="#666"
+            android:textColorHint="#999"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tvCode"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="获取验证码"
+            android:textColor="@color/blue"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="18dp"
+        android:background="@drawable/shape_edit_text_bg"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="@dimen/dp_4">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="@dimen/dp_4"
+            android:src="@mipmap/icon_pwd" />
+
+        <EditText
+            android:id="@+id/edPwd"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@color/white"
+            android:hint="输入登录密码"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:textColor="#666"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:layout_marginLeft="@dimen/dp_18"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="18dp"
+        android:background="@drawable/shape_button_bg"
+        android:text="提交"
+        android:textColor="@color/white"
+        android:textSize="15sp" />
 </LinearLayout>

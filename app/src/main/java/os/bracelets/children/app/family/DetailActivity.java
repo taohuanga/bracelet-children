@@ -26,6 +26,7 @@ import aio.health2world.utils.TimePickerUtil;
 import aio.health2world.utils.ToastUtil;
 import os.bracelets.children.R;
 import os.bracelets.children.app.personal.InputMsgActivity;
+import os.bracelets.children.app.personal.UpdatePhoneActivity;
 import os.bracelets.children.bean.FamilyMember;
 import os.bracelets.children.common.MVPBaseActivity;
 import os.bracelets.children.utils.AppUtils;
@@ -199,7 +200,7 @@ public class DetailActivity extends MVPBaseActivity<DetailContract.Presenter> im
                 tvHeight.setText(data.getStringExtra("data"));
                 break;
             case ITEM_PHONE:
-                tvPhone.setText(data.getStringExtra("data"));
+//                tvPhone.setText(data.getStringExtra("data"));
                 break;
             case ITEM_RELATION:
                 tvRelation.setText(data.getStringExtra("data"));
@@ -302,11 +303,13 @@ public class DetailActivity extends MVPBaseActivity<DetailContract.Presenter> im
                 break;
             case R.id.layoutPhone:
                 //修改手机号
-                ToastUtil.showShort("手机号码不支持修改");
-//                Intent intentPhone = new Intent(this, InputMsgActivity.class);
-//                intentPhone.putExtra(InputMsgActivity.KEY, "修改手机号");
-//                intentPhone.putExtra(InputMsgActivity.TYPE, ITEM_PHONE);
-//                startActivityForResult(intentPhone, ITEM_PHONE);
+//                ToastUtil.showShort("手机号码不支持修改");
+                Intent intentPhone = new Intent(this, UpdatePhoneActivity.class);
+                String phone = tvPhone.getText().toString().trim();
+                if (!TextUtils.isEmpty(phone)) {
+                    intentPhone.putExtra("oldPhone", phone);
+                }
+                startActivityForResult(intentPhone, ITEM_PHONE);
                 break;
             case R.id.btnSave:
                 if (checkData()) {

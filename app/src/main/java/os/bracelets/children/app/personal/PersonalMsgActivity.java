@@ -275,7 +275,7 @@ public class PersonalMsgActivity extends MVPBaseActivity<PersonalMsgContract.Pre
                 tvHeight.setText(data.getStringExtra("data"));
                 break;
             case ITEM_PHONE:
-                tvPhone.setText(data.getStringExtra("data"));
+//                tvPhone.setText(data.getStringExtra("data"));
                 break;
             case ITEM_ADDRESS:
                 tvHomeAddress.setText(data.getStringExtra("data"));

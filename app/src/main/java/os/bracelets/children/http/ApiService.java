@@ -55,7 +55,11 @@ interface ApiService {
     @POST("member/memberAccount/phoneExist")
     Observable<HttpResult> phoneExist(@Body Map<String, Object> map);
 
-
+    /**
+     * 修改绑定的手机号
+     */
+    @POST("member/memberAccount/updatePhone")
+    Observable<HttpResult> updatePhone(@Body Map<String, Object> map);
     /**
      * 上传位置信息（经纬度坐标）
      */
