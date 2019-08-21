@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -29,10 +31,13 @@ import os.bracelets.children.app.personal.InputMsgActivity;
 import os.bracelets.children.app.personal.UpdatePhoneActivity;
 import os.bracelets.children.bean.FamilyMember;
 import os.bracelets.children.common.MVPBaseActivity;
+import os.bracelets.children.common.MsgEvent;
 import os.bracelets.children.utils.AppUtils;
 import os.bracelets.children.utils.TitleBarUtil;
 import os.bracelets.children.view.TitleBar;
 import rx.functions.Action1;
+
+import static os.bracelets.children.app.family.FamilyListFragment.REQUEST_FAMILY_CHANGED;
 
 public class DetailActivity extends MVPBaseActivity<DetailContract.Presenter> implements DetailContract.View {
     public static final int ITEM_HEAD = 0x01;
@@ -216,6 +221,8 @@ public class DetailActivity extends MVPBaseActivity<DetailContract.Presenter> im
 
     @Override
     public void updateMsgSuccess() {
+        ToastUtil.showShort("操作成功");
+        EventBus.getDefault().post(new MsgEvent<>(REQUEST_FAMILY_CHANGED));
         setResult(RESULT_OK);
         finish();
     }

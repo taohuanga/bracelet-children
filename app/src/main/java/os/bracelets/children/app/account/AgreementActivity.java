@@ -3,6 +3,7 @@ package os.bracelets.children.app.account;
 import android.content.Intent;
 import android.view.View;
 import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
@@ -14,7 +15,7 @@ import os.bracelets.children.view.TitleBar;
 
 public class AgreementActivity extends BaseActivity {
 
-    private MyWebView webView;
+    private WebView webView;
 
     private TitleBar titleBar;
 
@@ -76,19 +77,19 @@ public class AgreementActivity extends BaseActivity {
             }
         });
 
-        webView.setOnCustomScrollChangeListener(new MyWebView.ScrollInterface() {
-            @Override
-            public void onSChanged(int l, int t, int oldl, int oldt) {
-                //WebView的总高度
-                float webViewContentHeight = webView.getContentHeight() * webView.getScale();
-                //WebView的现高度
-                float webViewCurrentHeight = (webView.getHeight() + webView.getScrollY());
-                if ((webViewContentHeight - webViewCurrentHeight) <=20) {
-                    layoutBottom.setVisibility(View.VISIBLE);
-                } else {
-                    layoutBottom.setVisibility(View.GONE);
-                }
-            }
-        });
+//        webView.setOnCustomScrollChangeListener(new MyWebView.ScrollInterface() {
+//            @Override
+//            public void onSChanged(int l, int t, int oldl, int oldt) {
+//                //WebView的总高度
+//                float webViewContentHeight = webView.getContentHeight() * webView.getScale();
+//                //WebView的现高度
+//                float webViewCurrentHeight = (webView.getHeight() + webView.getScrollY());
+//                if ((webViewContentHeight - webViewCurrentHeight) <=20) {
+//                    layoutBottom.setVisibility(View.VISIBLE);
+//                } else {
+//                    layoutBottom.setVisibility(View.GONE);
+//                }
+//            }
+//        });
     }
 }

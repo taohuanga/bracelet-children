@@ -29,7 +29,7 @@ public class FamilyListAdapter extends BaseQuickAdapter<FamilyMember, BaseViewHo
     @Override
     protected void convert(BaseViewHolder helper, FamilyMember item) {
         helper.setText(R.id.personRelation, item.getRelationship());
-        helper.setText(R.id.personName, item.getNickName());
+        helper.setText(R.id.personName, item.getRealName());
 
         TagFlowLayout flowLayout = helper.getView(R.id.flowLayout);
 

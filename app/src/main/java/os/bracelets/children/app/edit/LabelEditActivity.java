@@ -7,6 +7,8 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,8 +19,11 @@ import os.bracelets.children.bean.FamilyMember;
 import os.bracelets.children.bean.LabelBean;
 import os.bracelets.children.bean.LabelSection;
 import os.bracelets.children.common.MVPBaseActivity;
+import os.bracelets.children.common.MsgEvent;
 import os.bracelets.children.utils.TitleBarUtil;
 import os.bracelets.children.view.TitleBar;
+
+import static os.bracelets.children.app.family.FamilyListFragment.REQUEST_FAMILY_CHANGED;
 
 public class LabelEditActivity extends MVPBaseActivity<LabelContract.Presenter> implements LabelContract.View,
         BaseQuickAdapter.OnItemClickListener {
@@ -154,6 +159,7 @@ public class LabelEditActivity extends MVPBaseActivity<LabelContract.Presenter> 
 
     @Override
     public void setTagSuccess() {
+        EventBus.getDefault().post(new MsgEvent<>(REQUEST_FAMILY_CHANGED));
         setResult(RESULT_OK);
         finish();
     }
@@ -187,9 +193,7 @@ public class LabelEditActivity extends MVPBaseActivity<LabelContract.Presenter> 
 //            ToastUtil.showShort("请选择标签");
 //            return;
 //        }
-        if (TextUtils.isEmpty(labelIds)) {
-
-        } else {
+        if (!TextUtils.isEmpty(labelIds)) {
             labelIds = labelIds.substring(0, labelIds.length() - 1);
         }
 

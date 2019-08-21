@@ -35,6 +35,8 @@ import os.bracelets.children.utils.TitleBarUtil;
 import os.bracelets.children.view.TitleBar;
 import rx.functions.Action1;
 
+import static os.bracelets.children.app.family.FamilyListFragment.REQUEST_FAMILY_CHANGED;
+
 /**
  * Created by lishiyou on 2019/3/26.
  */
@@ -162,9 +164,11 @@ public class FamilyAddActivity extends MVPBaseActivity<FamilyAddContract.Present
 
     @Override
     public void addMemberSuccess() {
+        ToastUtil.showShort("操作成功");
         setResult(RESULT_OK);
-        finish();
         EventBus.getDefault().post(new MsgEvent<>(AppConfig.MSG_FAMILY_MEMBER));
+        EventBus.getDefault().post(new MsgEvent<>(REQUEST_FAMILY_CHANGED));
+        finish();
     }
 
     @Override
@@ -198,6 +202,7 @@ public class FamilyAddActivity extends MVPBaseActivity<FamilyAddContract.Present
                 //填写真实姓名
                 Intent intentName = new Intent(this, InputMsgActivity.class);
                 intentName.putExtra(InputMsgActivity.KEY, "填写姓名");
+                intentName.putExtra(InputMsgActivity.TYPE, ITEM_NAME);
                 startActivityForResult(intentName, ITEM_NAME);
                 break;
             case R.id.layoutSex:
@@ -291,11 +296,10 @@ public class FamilyAddActivity extends MVPBaseActivity<FamilyAddContract.Present
             ToastUtil.showShort("请选择图片");
             return false;
         }
-
-        if (TextUtils.isEmpty(tvNickName.getText())) {
-            ToastUtil.showShort("请填写昵称");
-            return false;
-        }
+//        if (TextUtils.isEmpty(tvNickName.getText())) {
+//            ToastUtil.showShort("请填写昵称");
+//            return false;
+//        }
         if (TextUtils.isEmpty(tvName.getText())) {
             ToastUtil.showShort("请填写姓名");
             return false;

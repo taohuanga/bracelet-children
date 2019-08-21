@@ -56,6 +56,7 @@
                 android:background="#f6f6f6" />
 
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/layoutNickName"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"

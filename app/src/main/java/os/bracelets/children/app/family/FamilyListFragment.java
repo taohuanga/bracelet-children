@@ -9,16 +9,22 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import aio.health2world.brvah.BaseQuickAdapter;
 import aio.health2world.utils.Logger;
 import aio.health2world.utils.ToastUtil;
+import os.bracelets.children.AppConfig;
 import os.bracelets.children.R;
 import os.bracelets.children.app.edit.EditNavActivity;
 import os.bracelets.children.bean.FamilyMember;
 import os.bracelets.children.common.MVPBaseFragment;
+import os.bracelets.children.common.MsgEvent;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -29,7 +35,7 @@ import static android.app.Activity.RESULT_OK;
 public class FamilyListFragment extends MVPBaseFragment<FamilyContract.Presenter> implements FamilyContract.View,
         SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.OnItemChildClickListener {
 
-    public static final int REQUEST_FAMILY_ADD = 0x01;
+    public static final int REQUEST_FAMILY_CHANGED = 0x01;
 
     private RecyclerView recyclerView;
 
@@ -54,6 +60,7 @@ public class FamilyListFragment extends MVPBaseFragment<FamilyContract.Presenter
 
     @Override
     protected void initView() {
+        EventBus.getDefault().register(this);
         ivAdd = findView(R.id.ivAdd);
         refreshLayout = findView(R.id.refreshLayout);
         recyclerView = findView(R.id.recyclerView);
@@ -125,19 +132,30 @@ public class FamilyListFragment extends MVPBaseFragment<FamilyContract.Presenter
         switch (v.getId()) {
             case R.id.ivAdd:
                 Intent intent = new Intent(getActivity(), FamilyAddActivity.class);
-                startActivityForResult(intent, REQUEST_FAMILY_ADD);
+                startActivityForResult(intent, REQUEST_FAMILY_CHANGED);
                 break;
         }
     }
-
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMsgEvent(MsgEvent event) {
+        if(event.getAction()==REQUEST_FAMILY_CHANGED){
+            onRefresh();
+        }
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_OK)
             return;
-        if (requestCode == REQUEST_FAMILY_ADD) {
-            onRefresh();
-        }
+//        if (requestCode == REQUEST_FAMILY_ADD) {
+//            onRefresh();
+//        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        EventBus.getDefault().unregister(this);
     }
 }
