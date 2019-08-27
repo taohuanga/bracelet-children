@@ -2,6 +2,7 @@ package os.bracelets.children.app.family;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -32,7 +33,7 @@ import os.bracelets.children.utils.TitleBarUtil;
 import os.bracelets.children.view.TitleBar;
 
 public class RemindListActivity extends BaseActivity implements BaseQuickAdapter.OnItemClickListener
-        , BaseQuickAdapter.OnItemLongClickListener {
+        , BaseQuickAdapter.OnItemLongClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     private TitleBar titleBar;
 
@@ -46,6 +47,8 @@ public class RemindListActivity extends BaseActivity implements BaseQuickAdapter
 
     private RemindListAdapter remindListAdapter;
 
+    private SwipeRefreshLayout refreshLayout;
+
     private int delPosition = 0;
 
     @Override
@@ -58,6 +61,8 @@ public class RemindListActivity extends BaseActivity implements BaseQuickAdapter
         titleBar = findView(R.id.titleBar);
         TitleBarUtil.setAttr(this, "", "提醒列表", titleBar);
 
+        refreshLayout = findView(R.id.refreshLayout);
+        refreshLayout.setColorSchemeColors(getResources().getColor(R.color.appThemeColor));
         recyclerView = findView(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
@@ -86,6 +91,7 @@ public class RemindListActivity extends BaseActivity implements BaseQuickAdapter
         });
         remindListAdapter.setOnItemClickListener(this);
         remindListAdapter.setOnItemLongClickListener(this);
+        refreshLayout.setOnRefreshListener(this);
         titleBar.addAction(new TitleBar.TextAction("设置提醒") {
             @Override
             public void performAction(View view) {
@@ -108,6 +114,11 @@ public class RemindListActivity extends BaseActivity implements BaseQuickAdapter
     }
 
     @Override
+    public void onRefresh() {
+        getRemindList();
+    }
+
+    @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         Remind remind = (Remind) adapter.getItem(position);
         Intent intent = new Intent(RemindListActivity.this, EditRemindActivity.class);
@@ -121,7 +132,7 @@ public class RemindListActivity extends BaseActivity implements BaseQuickAdapter
         delPosition = position;
         final Remind remind = (Remind) adapter.getItem(position);
         new AlertDialog.Builder(this)
-                .setMessage("是否需要删除该亲人？")
+                .setMessage("是否需要删除该提醒？")
                 .setNegativeButton(getString(R.string.pickerview_cancel), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -151,12 +162,14 @@ public class RemindListActivity extends BaseActivity implements BaseQuickAdapter
             public void onError(Throwable e) {
                 super.onError(e);
                 dialog.dismiss();
+                refreshLayout.setRefreshing(false);
             }
 
             @Override
             public void onNext(HttpResult result) {
                 super.onNext(result);
                 dialog.dismiss();
+                refreshLayout.setRefreshing(false);
                 if (result.code.equals(AppConfig.SUCCESS)) {
                     try {
                         JSONObject object = new JSONObject(new Gson().toJson(result.data));
@@ -177,6 +190,7 @@ public class RemindListActivity extends BaseActivity implements BaseQuickAdapter
                     }
                 } else {
                     dialog.dismiss();
+                    refreshLayout.setRefreshing(false);
                 }
             }
         });
