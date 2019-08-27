@@ -163,7 +163,7 @@ public class ContactActivity extends MVPBaseActivity<ContactContract.Presenter> 
 
                     }
                 })
-                .setPositiveButton(getString(R.string.sure), new DialogInterface.OnClickListener() {
+                .setPositiveButton(getString(R.string.sure1), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         mPresenter.contactDelete(String.valueOf(contact.getContactId()));

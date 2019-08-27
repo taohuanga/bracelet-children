@@ -134,7 +134,7 @@ public class FamilyListFragment extends MVPBaseFragment<FamilyContract.Presenter
 
                     }
                 })
-                .setPositiveButton(getString(R.string.sure), new DialogInterface.OnClickListener() {
+                .setPositiveButton(getString(R.string.sure1), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         mPresenter.delFamilyMember(String.valueOf(member.getRelationshipId()));

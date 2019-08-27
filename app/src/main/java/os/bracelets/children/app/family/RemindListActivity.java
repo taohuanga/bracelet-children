@@ -76,7 +76,10 @@ public class RemindListActivity extends BaseActivity implements BaseQuickAdapter
 
         remindList = new ArrayList<>();
         remindListAdapter = new RemindListAdapter(remindList);
+        remindListAdapter.bindToRecyclerView(recyclerView);
+        remindListAdapter.setEmptyView(R.layout.layout_empty_view);
         recyclerView.setAdapter(remindListAdapter);
+
 
         getRemindList();
     }
@@ -139,7 +142,7 @@ public class RemindListActivity extends BaseActivity implements BaseQuickAdapter
 
                     }
                 })
-                .setPositiveButton(getString(R.string.sure), new DialogInterface.OnClickListener() {
+                .setPositiveButton(getString(R.string.sure1), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         delRemind(String.valueOf(remind.getRemindId()));
