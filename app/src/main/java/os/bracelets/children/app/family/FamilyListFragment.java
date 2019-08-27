@@ -147,7 +147,7 @@ public class FamilyListFragment extends MVPBaseFragment<FamilyContract.Presenter
 
     @Override
     public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-        if (view.getId() == R.id.imgEdit) {
+        if (view.getId() == R.id.llEdit) {
             FamilyMember member = (FamilyMember) adapter.getItem(position);
             Intent intent = new Intent(getActivity(), EditNavActivity.class);
             intent.putExtra("member", member);

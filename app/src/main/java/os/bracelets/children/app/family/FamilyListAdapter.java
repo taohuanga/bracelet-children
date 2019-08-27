@@ -52,7 +52,9 @@ public class FamilyListAdapter extends BaseQuickAdapter<FamilyMember, BaseViewHo
                 .into((ImageView) helper.getView(R.id.personImage));
 
 
-        helper.addOnClickListener(R.id.imgEdit);
+//        helper.addOnClickListener(R.id.imgEdit);
+//        helper.addOnClickListener(R.id.textEdit);
+        helper.addOnClickListener(R.id.llEdit);
     }
 
 }
