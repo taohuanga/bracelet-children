@@ -32,6 +32,7 @@ public class FamilyMember implements Serializable {
     private String phone;
 
     private int accountId;
+    private int relationshipId;
 
     public String getNickName() {
         return nickName;
@@ -130,6 +131,14 @@ public class FamilyMember implements Serializable {
         this.phone = phone;
     }
 
+    public int getRelationshipId() {
+        return relationshipId;
+    }
+
+    public void setRelationshipId(int relationshipId) {
+        this.relationshipId = relationshipId;
+    }
+
     public static FamilyMember parseBean(JSONObject object) {
         FamilyMember member = new FamilyMember();
         member.setNickName(object.optString("nickName", ""));
@@ -139,6 +148,7 @@ public class FamilyMember implements Serializable {
         member.setLabels(object.optString("labels", ""));
         member.setSex(object.optInt("sex", 0));
         member.setAccountId(object.optInt("accountId", 0));
+        member.setRelationshipId(object.optInt("relationshipId",0));
 
         member.setRealName(object.optString("realName", ""));
         member.setBirthday(object.optString("birthday", ""));

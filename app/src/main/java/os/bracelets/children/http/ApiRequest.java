@@ -657,5 +657,51 @@ public class ApiRequest {
                 .subscribe(subscriber);
     }
 
+    //亲人关系id 多个分号分割
+    public static Subscription relationshipDelete(String ids, Subscriber<HttpResult> subscriber) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("tokenId", MyApplication.getInstance().getTokenId());
+        map.put("relationshipIds", ids);
+        return ServiceFactory.getInstance()
+                .createService(ApiService.class)
+                .relationshipDelete(map)
+                .compose(RxTransformer.<HttpResult>defaultSchedulers())
+                .subscribe(subscriber);
+    }
+
+    //多个分号分割
+    public static Subscription delRemind(String remindIds, Subscriber<HttpResult> subscriber) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("tokenId", MyApplication.getInstance().getTokenId());
+        map.put("remindIds", remindIds);
+        return ServiceFactory.getInstance()
+                .createService(ApiService.class)
+                .delRemind(map)
+                .compose(RxTransformer.<HttpResult>defaultSchedulers())
+                .subscribe(subscriber);
+    }
+
+    public static Subscription delFence(String fenceIds, Subscriber<HttpResult> subscriber) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("tokenId", MyApplication.getInstance().getTokenId());
+        map.put("fenceIds", fenceIds);
+        return ServiceFactory.getInstance()
+                .createService(ApiService.class)
+                .delFence(map)
+                .compose(RxTransformer.<HttpResult>defaultSchedulers())
+                .subscribe(subscriber);
+    }
+
+
+    public static Subscription delContacts(String contactIds, Subscriber<HttpResult> subscriber) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("tokenId", MyApplication.getInstance().getTokenId());
+        map.put("contactIds", contactIds);
+        return ServiceFactory.getInstance()
+                .createService(ApiService.class)
+                .delContacts(map)
+                .compose(RxTransformer.<HttpResult>defaultSchedulers())
+                .subscribe(subscriber);
+    }
 }
 

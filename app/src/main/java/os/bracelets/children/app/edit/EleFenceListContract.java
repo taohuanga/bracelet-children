@@ -12,6 +12,8 @@ public interface EleFenceListContract {
 
         void loadEleFenceSuccess(List<EleFence> list);
 
+        void deleteSuccess();
+
     }
 
 
@@ -22,5 +24,7 @@ public interface EleFenceListContract {
         }
 
         abstract void eleFenceList(String accountId);
+
+        abstract void delFence(String ids);
     }
 }

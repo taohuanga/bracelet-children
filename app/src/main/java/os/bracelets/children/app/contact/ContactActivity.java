@@ -1,8 +1,10 @@
 package os.bracelets.children.app.contact;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -29,7 +31,7 @@ import os.bracelets.children.view.TitleBar;
 
 public class ContactActivity extends MVPBaseActivity<ContactContract.Presenter> implements ContactContract.View,
         SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener,
-        BaseQuickAdapter.OnItemChildClickListener,BaseQuickAdapter.OnItemClickListener{
+        BaseQuickAdapter.OnItemChildClickListener, BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.OnItemLongClickListener {
 
     private TitleBar titleBar;
 
@@ -46,6 +48,8 @@ public class ContactActivity extends MVPBaseActivity<ContactContract.Presenter> 
     private RxPermissions rxPermissions;
 
     private FamilyMember member;
+
+    private int delPosition = 0;
 
     @Override
     protected int getLayoutId() {
@@ -89,6 +93,7 @@ public class ContactActivity extends MVPBaseActivity<ContactContract.Presenter> 
         contactAdapter.setOnLoadMoreListener(this, recyclerView);
         contactAdapter.setOnItemChildClickListener(this);
         contactAdapter.setOnItemClickListener(this);
+        contactAdapter.setOnItemLongClickListener(this);
         titleBar.setLeftClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,6 +149,35 @@ public class ContactActivity extends MVPBaseActivity<ContactContract.Presenter> 
         if (TextUtils.isEmpty(phone))
             return;
         callPhone(phone);
+    }
+
+    @Override
+    public boolean onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+        delPosition = position;
+        final ContactBean contact = (ContactBean) adapter.getItem(position);
+        new AlertDialog.Builder(this)
+                .setMessage("是否需要删除该联系人？")
+                .setNegativeButton(getString(R.string.pickerview_cancel), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                })
+                .setPositiveButton(getString(R.string.sure), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mPresenter.contactDelete(String.valueOf(contact.getContactId()));
+                    }
+                })
+                .create()
+                .show();
+        return false;
+    }
+
+    @Override
+    public void deleteSuccess() {
+        personList.remove(delPosition);
+        contactAdapter.notifyItemRemoved(delPosition);
     }
 
     @Override

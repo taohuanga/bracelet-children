@@ -269,7 +269,37 @@ interface ApiService {
     @POST("children/setting/deviceBindInfo")
     Observable<HttpResult> deviceBindInfo(@Body Map<String, Object> map);
 
+    /**
+     * 设备解绑
+     * @param map
+     * @return
+     */
     @POST("children/setting/deviceUnbind")
     Observable<HttpResult> deviceUnbind(@Body Map<String, Object> map);
 
+    /**
+     * 删除亲人
+     * @param map
+     * @return
+     */
+    @POST("children/relationship/delete")
+    Observable<HttpResult> relationshipDelete(@Body Map<String, Object> map);
+
+    /**
+     * 删除提醒
+     */
+    @POST("children/setting/delRemind")
+    Observable<HttpResult> delRemind(@Body Map<String, Object> map);
+
+    /**
+     * 删除电子围栏
+     */
+    @POST("children/setting/delFence")
+    Observable<HttpResult> delFence(@Body Map<String, Object> map);
+
+    /**
+     * 删除联系人
+     */
+    @POST("children/setting/delContacts")
+    Observable<HttpResult> delContacts(@Body Map<String, Object> map);
 }

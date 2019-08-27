@@ -17,6 +17,8 @@ public interface ContactContract {
         void loadContactSuccess(List<ContactBean> contactList);
 
         void loadContactError();
+
+        void deleteSuccess();
     }
 
     abstract class Presenter extends BasePresenter<View> {
@@ -28,6 +30,7 @@ public interface ContactContract {
 
         abstract void contactList(int pageNo,String accountId);
 
+        abstract void contactDelete(String ids);
     }
 
 }

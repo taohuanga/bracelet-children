@@ -62,4 +62,35 @@ public class ContactPresenter extends ContactContract.Presenter {
             }
         });
     }
+
+    @Override
+    void contactDelete(String ids) {
+        ApiRequest.delContacts(ids, new HttpSubscriber() {
+
+            @Override
+            public void onStart() {
+                super.onStart();
+                if (mView != null)
+                    mView.showLoading();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+                if (mView != null)
+                    mView.hideLoading();
+            }
+
+            @Override
+            public void onNext(HttpResult result) {
+                super.onNext(result);
+                if (mView != null)
+                    mView.hideLoading();
+                if (result.code.equals(AppConfig.SUCCESS)) {
+                    if (mView != null)
+                        mView.deleteSuccess();
+                }
+            }
+        });
+    }
 }

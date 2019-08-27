@@ -1,7 +1,9 @@
 package os.bracelets.children.app.family;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -33,7 +35,8 @@ import static android.app.Activity.RESULT_OK;
  */
 
 public class FamilyListFragment extends MVPBaseFragment<FamilyContract.Presenter> implements FamilyContract.View,
-        SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.OnItemChildClickListener {
+        SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.OnItemChildClickListener,
+        BaseQuickAdapter.OnItemLongClickListener {
 
     public static final int REQUEST_FAMILY_CHANGED = 0x01;
 
@@ -46,6 +49,8 @@ public class FamilyListFragment extends MVPBaseFragment<FamilyContract.Presenter
     private FamilyListAdapter familyAdapter;
 
     private ImageView ivAdd;
+
+    private int delPosition = 0;
 
     @Override
     protected FamilyPresenter getPresenter() {
@@ -87,6 +92,7 @@ public class FamilyListFragment extends MVPBaseFragment<FamilyContract.Presenter
         refreshLayout.setOnRefreshListener(this);
         familyAdapter.setOnItemClickListener(this);
         familyAdapter.setOnItemChildClickListener(this);
+        familyAdapter.setOnItemLongClickListener(this);
     }
 
     @Override
@@ -117,6 +123,29 @@ public class FamilyListFragment extends MVPBaseFragment<FamilyContract.Presenter
     }
 
     @Override
+    public boolean onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+        delPosition = position;
+        final FamilyMember member = (FamilyMember) adapter.getItem(position);
+        new AlertDialog.Builder(getActivity())
+                .setMessage("是否需要删除该亲人？")
+                .setNegativeButton(getString(R.string.pickerview_cancel), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                })
+                .setPositiveButton(getString(R.string.sure), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mPresenter.delFamilyMember(String.valueOf(member.getRelationshipId()));
+                    }
+                })
+                .create()
+                .show();
+        return false;
+    }
+
+    @Override
     public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
         if (view.getId() == R.id.imgEdit) {
             FamilyMember member = (FamilyMember) adapter.getItem(position);
@@ -124,6 +153,12 @@ public class FamilyListFragment extends MVPBaseFragment<FamilyContract.Presenter
             intent.putExtra("member", member);
             startActivity(intent);
         }
+    }
+
+    @Override
+    public void deleteSuccess() {
+        familyMemberList.remove(delPosition);
+        familyAdapter.notifyItemRemoved(delPosition);
     }
 
     @Override
@@ -136,9 +171,10 @@ public class FamilyListFragment extends MVPBaseFragment<FamilyContract.Presenter
                 break;
         }
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMsgEvent(MsgEvent event) {
-        if(event.getAction()==REQUEST_FAMILY_CHANGED){
+        if (event.getAction() == REQUEST_FAMILY_CHANGED) {
             onRefresh();
         }
     }

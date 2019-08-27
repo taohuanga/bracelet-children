@@ -1,6 +1,8 @@
 package os.bracelets.children.app.family;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -29,7 +31,8 @@ import os.bracelets.children.http.HttpSubscriber;
 import os.bracelets.children.utils.TitleBarUtil;
 import os.bracelets.children.view.TitleBar;
 
-public class RemindListActivity extends BaseActivity implements BaseQuickAdapter.OnItemClickListener {
+public class RemindListActivity extends BaseActivity implements BaseQuickAdapter.OnItemClickListener
+        , BaseQuickAdapter.OnItemLongClickListener {
 
     private TitleBar titleBar;
 
@@ -42,6 +45,8 @@ public class RemindListActivity extends BaseActivity implements BaseQuickAdapter
     private List<Remind> remindList;
 
     private RemindListAdapter remindListAdapter;
+
+    private int delPosition = 0;
 
     @Override
     protected int getLayoutId() {
@@ -80,6 +85,7 @@ public class RemindListActivity extends BaseActivity implements BaseQuickAdapter
             }
         });
         remindListAdapter.setOnItemClickListener(this);
+        remindListAdapter.setOnItemLongClickListener(this);
         titleBar.addAction(new TitleBar.TextAction("设置提醒") {
             @Override
             public void performAction(View view) {
@@ -108,6 +114,29 @@ public class RemindListActivity extends BaseActivity implements BaseQuickAdapter
         intent.putExtra("member", member);
         intent.putExtra("remind", remind);
         startActivityForResult(intent, 0x01);
+    }
+
+    @Override
+    public boolean onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+        delPosition = position;
+        final Remind remind = (Remind) adapter.getItem(position);
+        new AlertDialog.Builder(this)
+                .setMessage("是否需要删除该亲人？")
+                .setNegativeButton(getString(R.string.pickerview_cancel), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                })
+                .setPositiveButton(getString(R.string.sure), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        delRemind(String.valueOf(remind.getRemindId()));
+                    }
+                })
+                .create()
+                .show();
+        return false;
     }
 
     private void getRemindList() {
@@ -148,6 +177,33 @@ public class RemindListActivity extends BaseActivity implements BaseQuickAdapter
                     }
                 } else {
                     dialog.dismiss();
+                }
+            }
+        });
+    }
+
+    private void delRemind(String ids) {
+        ApiRequest.delRemind(ids, new HttpSubscriber() {
+
+            @Override
+            public void onStart() {
+                super.onStart();
+                dialog.show();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+                dialog.dismiss();
+            }
+
+            @Override
+            public void onNext(HttpResult result) {
+                super.onNext(result);
+                dialog.dismiss();
+                if (result.code.equals(AppConfig.SUCCESS)) {
+                    remindList.remove(delPosition);
+                    remindListAdapter.notifyItemRemoved(delPosition);
                 }
             }
         });
