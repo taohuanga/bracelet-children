@@ -1,6 +1,7 @@
 package os.bracelets.children.app.home;
 
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 
 import com.google.gson.Gson;
 
@@ -41,6 +42,32 @@ public class HomePresenter extends HomeContract.Presenter {
 
     public HomePresenter(HomeContract.View mView) {
         super(mView);
+    }
+
+    @Override
+    void familyList() {
+        ApiRequest.familyList(new HttpSubscriber() {
+            @Override
+            public void onNext(HttpResult result) {
+                super.onNext(result);
+                if (result.code.equals(AppConfig.SUCCESS)) {
+                    try {
+                        JSONObject object = new JSONObject(new Gson().toJson(result.data));
+                        JSONArray array = object.optJSONArray("list");
+                        List<FamilyMember> list = new ArrayList<>();
+                        for (int i = 0; i < array.length(); i++) {
+                            JSONObject obj = array.optJSONObject(i);
+                            FamilyMember member = FamilyMember.parseBean(obj);
+                            list.add(member);
+                        }
+                        if (mView != null)
+                            mView.loadFamilySuccess(list);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
     }
 
     @Override
@@ -91,8 +118,8 @@ public class HomePresenter extends HomeContract.Presenter {
     }
 
     @Override
-    void msgList(int pageNo,String accountId) {
-        ApiRequest.msgList(pageNo,accountId, new HttpSubscriber() {
+    void msgList(int pageNo, String accountId) {
+        ApiRequest.msgList(pageNo, accountId, new HttpSubscriber() {
             @Override
             public void onNext(HttpResult result) {
                 super.onNext(result);
@@ -130,21 +157,28 @@ public class HomePresenter extends HomeContract.Presenter {
             public void onNext(HttpResult result) {
                 super.onNext(result);
                 if (result.code.equals(AppConfig.SUCCESS)) {
-                    try {
-                        JSONArray array = new JSONArray(new Gson().toJson(result.data));
-                        List<DailySports> list = new ArrayList<>();
-                        for (int i = 0; i < array.length(); i++) {
-                            JSONObject obj = array.optJSONObject(i);
-                            DailySports sports = DailySports.parseBean(obj);
-                            list.add(sports);
+                    String data = (String) result.data;
+                    if (!TextUtils.isEmpty(data)) {
+                        try {
+                            JSONArray array = new JSONArray(new Gson().toJson(result.data));
+                            List<DailySports> list = new ArrayList<>();
+                            for (int i = 0; i < array.length(); i++) {
+                                JSONObject obj = array.optJSONObject(i);
+                                DailySports sports = DailySports.parseBean(obj);
+                                list.add(sports);
+                            }
+                            if (mView != null)
+                                mView.sportTrendSuccess(list);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            if (mView != null)
+                                mView.sportTrendSuccess(new ArrayList<DailySports>());
                         }
-                        if (mView != null)
-                            mView.sportTrendSuccess(list);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                    } else {
                         if (mView != null)
                             mView.sportTrendSuccess(new ArrayList<DailySports>());
                     }
+
                 }
             }
         });

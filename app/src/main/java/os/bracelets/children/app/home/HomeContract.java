@@ -27,6 +27,8 @@ public interface HomeContract {
 
         void sportTrendSuccess(List<DailySports> list);
 
+        void loadFamilySuccess(List<FamilyMember> list);
+
     }
 
     abstract class Presenter extends BasePresenter<View> {
@@ -38,6 +40,8 @@ public interface HomeContract {
         abstract void getWeather();
 
         abstract void relative();
+
+        abstract void familyList();
 
         abstract void msgList(int pageNo,String accountId);
 

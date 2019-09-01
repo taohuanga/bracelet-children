@@ -2,6 +2,7 @@ package os.bracelets.children.app.home;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +10,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.zhy.view.flowlayout.FlowLayout;
+import com.zhy.view.flowlayout.TagAdapter;
+import com.zhy.view.flowlayout.TagFlowLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import aio.health2world.glide_transformations.CropCircleTransformation;
@@ -38,15 +43,39 @@ public class HomeTopAdapter extends RecyclerView.Adapter<HomeTopAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int i) {
-        FamilyMember member = familyMemberList.get(i);
-        Glide.with(mContext)
-                .load(member.getProfile())
-                .placeholder(R.mipmap.ic_default_portrait)
-                .bitmapTransform(new CropCircleTransformation(mContext))
-                .into(viewHolder.img);
+        if (i == 0) {
+            viewHolder.img.setImageResource(R.drawable.grzx_03);
+        } else {
+            FamilyMember member = familyMemberList.get(i);
+            Glide.with(mContext)
+                    .load(member.getProfile())
+                    .placeholder(R.mipmap.ic_default_portrait)
+                    .bitmapTransform(new CropCircleTransformation(mContext))
+                    .into(viewHolder.img);
 
-        viewHolder.tvName.setText(member.getNickName());
-
+            viewHolder.tvName.setText(member.getRealName());
+            viewHolder.flowLayout.removeAllViews();
+            String labels = member.getLabels();
+            final List<String> labelArray = new ArrayList<>();
+            if (!TextUtils.isEmpty(labels)) {
+                String[] label = labels.split(";");
+                for (String s : label) {
+                    labelArray.add(s.split(",")[2]);
+                }
+                viewHolder.flowLayout.setAdapter(new TagAdapter(labelArray) {
+                    @Override
+                    public View getView(FlowLayout flowLayout, int i, Object o) {
+                        TextView view = new TextView(mContext);
+                        view.setTextSize(13f);
+                        view.setPadding(4, 4, 4, 4);
+                        view.setTextColor(mContext.getResources().getColor(R.color.white));
+                        view.setBackgroundResource(R.drawable.shape_tag_text_bg);
+                        view.setText(labelArray.get(i));
+                        return view;
+                    }
+                });
+            }
+        }
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,15 +94,21 @@ public class HomeTopAdapter extends RecyclerView.Adapter<HomeTopAdapter.ViewHold
     class ViewHolder extends RecyclerView.ViewHolder {
         ImageView img;
         TextView tvName;
+        TagFlowLayout flowLayout;
 
         public ViewHolder(View itemView) {
             super(itemView);
             img = itemView.findViewById(R.id.imageView);
             tvName = itemView.findViewById(R.id.tvName);
+            flowLayout = itemView.findViewById(R.id.flowLayout);
         }
     }
 
     interface onItemClick {
         void clickItem(int pos);
+    }
+
+    interface onItemLongClick {
+        void clickLongItem(int pos);
     }
 }

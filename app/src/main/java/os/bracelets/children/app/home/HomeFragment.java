@@ -162,6 +162,11 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
     }
 
     @Override
+    public void loadFamilySuccess(List<FamilyMember> list) {
+
+    }
+
+    @Override
     public void loadMsgSuccess(List<RemindBean> list) {
         if (pageNo == 1) {
             remindList.clear();
