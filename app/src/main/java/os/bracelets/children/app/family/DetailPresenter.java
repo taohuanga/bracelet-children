@@ -130,4 +130,33 @@ public class DetailPresenter extends DetailContract.Presenter {
                     }
                 });
     }
+
+    @Override
+    void delFamilyMember(String ids) {
+        ApiRequest.relationshipDelete(ids, new HttpSubscriber() {
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+                if(mView!=null)
+                    mView.hideLoading();
+            }
+
+            @Override
+            public void onNext(HttpResult result) {
+                super.onNext(result);
+                if(mView!=null)
+                    mView.hideLoading();
+                if(result.code.equals(AppConfig.SUCCESS)){
+                    mView.deleteSuccess();
+                }
+            }
+
+            @Override
+            public void onStart() {
+                super.onStart();
+                if(mView!=null)
+                    mView.showLoading();
+            }
+        });
+    }
 }

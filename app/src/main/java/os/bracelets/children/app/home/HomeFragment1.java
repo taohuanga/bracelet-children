@@ -3,6 +3,7 @@ package os.bracelets.children.app.home;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -161,6 +162,7 @@ public class HomeFragment1 extends MVPBaseFragment<HomeContract.Presenter> imple
             recyclerCoverFlow.smoothScrollToPosition(pos);
             Intent intent = new Intent(getActivity(), DetailActivity.class);
             intent.putExtra("accountId", String.valueOf(familyMemberList.get(pos).getAccountId()));
+            intent.putExtra("relationShipId", String.valueOf(familyMemberList.get(pos).getRelationshipId()));
             startActivity(intent);
         }
     }
@@ -168,6 +170,8 @@ public class HomeFragment1 extends MVPBaseFragment<HomeContract.Presenter> imple
     @Override
     public void onClick(View v) {
         super.onClick(v);
+        if (familyMemberList.size() == 1)
+            return;
         int pos = currentPos == 0 ? 1 : currentPos;
         switch (v.getId()) {
             case R.id.llMsg:
@@ -240,13 +244,16 @@ public class HomeFragment1 extends MVPBaseFragment<HomeContract.Presenter> imple
     public void loadFamilySuccess(List<FamilyMember> list) {
         familyMemberList.clear();
         familyMemberList.add(new FamilyMember());
-        if (list.size() == 0)
-            return;
-        currentPos = 1;
-        familyMemberList.addAll(list);
+        if (list.size() > 0)
+            familyMemberList.addAll(list);
+        if (familyMemberList.size() == 1) {
+            currentPos = 0;
+        } else {
+            currentPos = 1;
+            loadData(familyMemberList.get(currentPos));
+        }
         topAdapter.notifyDataSetChanged();
-        recyclerCoverFlow.smoothScrollToPosition(currentPos);
-        loadData(list.get(currentPos));
+//        recyclerCoverFlow.smoothScrollToPosition(0);
     }
 
     @Override

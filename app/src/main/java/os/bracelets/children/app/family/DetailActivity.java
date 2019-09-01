@@ -1,9 +1,11 @@
 package os.bracelets.children.app.family;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -61,7 +63,7 @@ public class DetailActivity extends MVPBaseActivity<DetailContract.Presenter> im
 
     private ImageView ivHeadImg;
 
-    private Button btnSave;
+    private Button btnSave,btnDelete;
 
     private RxPermissions rxPermissions;
 
@@ -75,6 +77,8 @@ public class DetailActivity extends MVPBaseActivity<DetailContract.Presenter> im
     private String localImagePath;
 
     private String serverImageUrl;
+
+    private String  relationShipId;
 
     @Override
     protected DetailPresenter getPresenter() {
@@ -90,6 +94,7 @@ public class DetailActivity extends MVPBaseActivity<DetailContract.Presenter> im
     protected void initView() {
         titleBar = findView(R.id.titleBar);
         btnSave = findView(R.id.btnSave);
+        btnDelete = findView(R.id.btnDelete);
 
         ivHeadImg = findView(R.id.ivHeadImg);
         tvNickName = findView(R.id.tvNickName);
@@ -132,6 +137,7 @@ public class DetailActivity extends MVPBaseActivity<DetailContract.Presenter> im
 //        relationPicker.setPicker(listRelation);
 
         accountId = getIntent().getStringExtra("accountId");
+        relationShipId = getIntent().getStringExtra("relationShipId");
         mPresenter.memberInfo(accountId);
     }
 
@@ -147,6 +153,7 @@ public class DetailActivity extends MVPBaseActivity<DetailContract.Presenter> im
         layoutPhone.setOnClickListener(this);
         layoutRelation.setOnClickListener(this);
         btnSave.setOnClickListener(this);
+        btnDelete.setOnClickListener(this);
         titleBar.setLeftClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -331,7 +338,33 @@ public class DetailActivity extends MVPBaseActivity<DetailContract.Presenter> im
                     }
                 }
                 break;
+            case R.id.btnDelete:
+                new AlertDialog.Builder(this)
+                        .setMessage("是否需要删除该亲人？")
+                        .setNegativeButton(getString(R.string.pickerview_cancel), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        })
+                        .setPositiveButton(getString(R.string.sure1), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                mPresenter.delFamilyMember(relationShipId);
+                            }
+                        })
+                        .create()
+                        .show();
+                break;
         }
+    }
+
+    @Override
+    public void deleteSuccess() {
+        ToastUtil.showShort("操作成功");
+        EventBus.getDefault().post(new MsgEvent<>(REQUEST_FAMILY_CHANGED));
+        setResult(RESULT_OK);
+        finish();
     }
 
     private class SexSelectListener implements OptionsPickerView.OnOptionsSelectListener {

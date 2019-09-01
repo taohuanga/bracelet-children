@@ -45,6 +45,8 @@ public class HomeTopAdapter extends RecyclerView.Adapter<HomeTopAdapter.ViewHold
     public void onBindViewHolder(ViewHolder viewHolder, final int i) {
         if (i == 0) {
             viewHolder.img.setImageResource(R.drawable.grzx_03);
+            viewHolder.tvName.setText("");
+            viewHolder.flowLayout.removeAllViews();
         } else {
             FamilyMember member = familyMemberList.get(i);
             Glide.with(mContext)
