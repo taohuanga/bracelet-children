@@ -33,6 +33,7 @@ public class FamilyMember implements Serializable {
 
     private int accountId;
     private int relationshipId;
+    private boolean checked;
 
     public String getNickName() {
         return nickName;
@@ -137,6 +138,14 @@ public class FamilyMember implements Serializable {
 
     public void setRelationshipId(int relationshipId) {
         this.relationshipId = relationshipId;
+    }
+
+    public boolean isChecked() {
+        return checked;
+    }
+
+    public void setChecked(boolean checked) {
+        this.checked = checked;
     }
 
     public static FamilyMember parseBean(JSONObject object) {

@@ -66,7 +66,7 @@ public class HomeFragment1 extends MVPBaseFragment<HomeContract.Presenter> imple
 
     private ImageView ivSports;
 
-    private int currentPos;
+    private int currentPos = 0;
 
     private LinearLayout llMsg, llSetTag, llBindDevice, llRemindList, llFence, llContact;
 
@@ -117,11 +117,12 @@ public class HomeFragment1 extends MVPBaseFragment<HomeContract.Presenter> imple
             @Override
             public void onItemSelected(int position) {
                 currentPos = position;
-                if (position == 0) {
-//                    startActivity(new Intent(getActivity(), FamilyAddActivity.class));
-                } else {
-                    loadData(familyMemberList.get(position));
+                for (FamilyMember member:familyMemberList){
+                    member.setChecked(false);
                 }
+                familyMemberList.get(currentPos).setChecked(true);
+                topAdapter.notifyDataSetChanged();
+                loadData(familyMemberList.get(position == 0 ? 1 : position));
             }
         });
 
@@ -155,15 +156,18 @@ public class HomeFragment1 extends MVPBaseFragment<HomeContract.Presenter> imple
 
     @Override
     public void clickItem(int pos) {
-        currentPos = pos;
-        if (pos == 0) {
-            startActivity(new Intent(getActivity(), FamilyAddActivity.class));
+        recyclerCoverFlow.smoothScrollToPosition(pos);
+        if (pos != currentPos) {
+            currentPos = pos;
         } else {
-            recyclerCoverFlow.smoothScrollToPosition(pos);
-            Intent intent = new Intent(getActivity(), DetailActivity.class);
-            intent.putExtra("accountId", String.valueOf(familyMemberList.get(pos).getAccountId()));
-            intent.putExtra("relationShipId", String.valueOf(familyMemberList.get(pos).getRelationshipId()));
-            startActivity(intent);
+            if (pos == 0) {
+                startActivity(new Intent(getActivity(), FamilyAddActivity.class));
+            } else {
+                Intent intent = new Intent(getActivity(), DetailActivity.class);
+                intent.putExtra("accountId", String.valueOf(familyMemberList.get(pos).getAccountId()));
+                intent.putExtra("relationShipId", String.valueOf(familyMemberList.get(pos).getRelationshipId()));
+                startActivity(intent);
+            }
         }
     }
 
@@ -246,12 +250,7 @@ public class HomeFragment1 extends MVPBaseFragment<HomeContract.Presenter> imple
         familyMemberList.add(new FamilyMember());
         if (list.size() > 0)
             familyMemberList.addAll(list);
-        if (familyMemberList.size() == 1) {
-            currentPos = 0;
-        } else {
-            currentPos = 1;
-            loadData(familyMemberList.get(currentPos));
-        }
+//        loadData(familyMemberList.get(currentPos));
         topAdapter.notifyDataSetChanged();
 //        recyclerCoverFlow.smoothScrollToPosition(0);
     }

@@ -77,6 +77,11 @@ public class HomeTopAdapter extends RecyclerView.Adapter<HomeTopAdapter.ViewHold
                     }
                 });
             }
+            if (member.isChecked()) {
+                viewHolder.flowLayout.setVisibility(View.VISIBLE);
+            } else {
+                viewHolder.flowLayout.setVisibility(View.INVISIBLE);
+            }
         }
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

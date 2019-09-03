@@ -1,8 +1,5 @@
 package os.bracelets.children.app.home;
 
-import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
-
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -17,7 +14,6 @@ import java.util.Map;
 
 import aio.health2world.http.CommonService;
 import aio.health2world.http.HttpResult;
-import aio.health2world.utils.AppUtils;
 import aio.health2world.utils.Logger;
 import aio.health2world.utils.SPUtils;
 import okhttp3.ResponseBody;
@@ -157,28 +153,21 @@ public class HomePresenter extends HomeContract.Presenter {
             public void onNext(HttpResult result) {
                 super.onNext(result);
                 if (result.code.equals(AppConfig.SUCCESS)) {
-                    String data = (String) result.data;
-                    if (!TextUtils.isEmpty(data)) {
-                        try {
-                            JSONArray array = new JSONArray(new Gson().toJson(result.data));
-                            List<DailySports> list = new ArrayList<>();
-                            for (int i = 0; i < array.length(); i++) {
-                                JSONObject obj = array.optJSONObject(i);
-                                DailySports sports = DailySports.parseBean(obj);
-                                list.add(sports);
-                            }
-                            if (mView != null)
-                                mView.sportTrendSuccess(list);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            if (mView != null)
-                                mView.sportTrendSuccess(new ArrayList<DailySports>());
+                    try {
+                        JSONArray array = new JSONArray(new Gson().toJson(result.data));
+                        List<DailySports> list = new ArrayList<>();
+                        for (int i = 0; i < array.length(); i++) {
+                            JSONObject obj = array.optJSONObject(i);
+                            DailySports sports = DailySports.parseBean(obj);
+                            list.add(sports);
                         }
-                    } else {
+                        if (mView != null)
+                            mView.sportTrendSuccess(list);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                         if (mView != null)
                             mView.sportTrendSuccess(new ArrayList<DailySports>());
                     }
-
                 }
             }
         });
