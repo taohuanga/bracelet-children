@@ -11,6 +11,8 @@ public interface MsgListContract {
     interface View extends BaseView<Presenter> {
 
         void loadMsgSuccess(List<RemindBean> list);
+
+        void  msgReadSuccess();
     }
 
     abstract class Presenter extends BasePresenter<View> {
@@ -21,5 +23,6 @@ public interface MsgListContract {
 
         abstract void msgList(int pageNo, String accountId);
 
+        abstract void msgRead(int type,int msgId);
     }
 }

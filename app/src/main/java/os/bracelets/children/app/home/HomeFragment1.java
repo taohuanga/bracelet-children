@@ -62,7 +62,7 @@ public class HomeFragment1 extends MVPBaseFragment<HomeContract.Presenter> imple
 
     private LineChart lineChart;
 
-    private TextView tvTime, tvWeather, tvStepNum, tvMore;
+    private TextView tvTime, tvWeather, tvStepNum, tvMore, tvUnReadMsg;
 
     private ImageView ivSports;
 
@@ -89,6 +89,7 @@ public class HomeFragment1 extends MVPBaseFragment<HomeContract.Presenter> imple
         tvWeather = findView(R.id.tvWeather);
         tvStepNum = findView(R.id.tvStepNum);
         ivSports = findView(R.id.ivSports);
+        tvUnReadMsg = findView(R.id.tvUnReadMsg);
 
         llMsg = findView(R.id.llMsg);
         llSetTag = findView(R.id.llSetTag);
@@ -116,13 +117,15 @@ public class HomeFragment1 extends MVPBaseFragment<HomeContract.Presenter> imple
         recyclerCoverFlow.setOnItemSelectedListener(new CoverFlowLayoutManger.OnSelected() {
             @Override
             public void onItemSelected(int position) {
-                currentPos = position;
-                for (FamilyMember member:familyMemberList){
-                    member.setChecked(false);
+                if (recyclerCoverFlow.getScrollState() == RecyclerView.SCROLL_STATE_IDLE) {
+                    currentPos = position;
+                    for (FamilyMember member : familyMemberList) {
+                        member.setChecked(false);
+                    }
+                    familyMemberList.get(currentPos).setChecked(true);
+                    topAdapter.notifyDataSetChanged();
+                    loadData(familyMemberList.get(position == 0 ? 1 : position));
                 }
-                familyMemberList.get(currentPos).setChecked(true);
-                topAdapter.notifyDataSetChanged();
-                loadData(familyMemberList.get(position == 0 ? 1 : position));
             }
         });
 
@@ -212,32 +215,11 @@ public class HomeFragment1 extends MVPBaseFragment<HomeContract.Presenter> imple
     }
 
     private void loadData(FamilyMember member) {
-//        mPresenter.msgList(pageNo, String.valueOf(member.getAccountId()));
         mPresenter.dailySports(String.valueOf(member.getAccountId()));
         mPresenter.parentSportTrend(String.valueOf(member.getAccountId()));
+        mPresenter.unreadMsg(String.valueOf(member.getAccountId()));
     }
 
-    @Override
-    public void loadMsgSuccess(List<RemindBean> list) {
-//        if (pageNo == 1) {
-//            remindList.clear();
-//        }
-//        if (list.size() >= AppConfig.PAGE_SIZE) {
-//            remindAdapter.loadMoreComplete();
-//        } else {
-//            remindAdapter.loadMoreEnd();
-//        }
-//        remindList.addAll(list);
-//        remindAdapter.notifyDataSetChanged();
-//        recyclerView.scrollToPosition(0);
-    }
-
-//    @Override
-//    public void onLoadMoreRequested() {
-//        pageNo++;
-//        FamilyMember member = familyMemberList.get(currentPos);
-//        mPresenter.msgList(pageNo, String.valueOf(member.getAccountId()));
-//    }
 
     @Override
     public void loginWeatherSuccess(WeatherInfo info) {
@@ -250,21 +232,18 @@ public class HomeFragment1 extends MVPBaseFragment<HomeContract.Presenter> imple
         familyMemberList.add(new FamilyMember());
         if (list.size() > 0)
             familyMemberList.addAll(list);
-//        loadData(familyMemberList.get(currentPos));
         topAdapter.notifyDataSetChanged();
 //        recyclerCoverFlow.smoothScrollToPosition(0);
     }
 
     @Override
-    public void relativeSuccess(List<FamilyMember> list) {
-//        if (list.size() == 0)
-//            return;
-//        currentPos = 0;
-//        pageNo = 1;
-//        familyMemberList.clear();
-//        familyMemberList.addAll(list);
-//        topAdapter.notifyDataSetChanged();
-//        loadData(list.get(0));
+    public void unreadMsgSuccess(int count) {
+        if (count == 0)
+            tvUnReadMsg.setVisibility(View.INVISIBLE);
+        else {
+            tvUnReadMsg.setVisibility(View.VISIBLE);
+            tvUnReadMsg.setText(String.valueOf(count));
+        }
     }
 
     @Override

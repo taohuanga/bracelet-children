@@ -70,12 +70,12 @@
     </LinearLayout>
 
     <ScrollView
-        android:layout_marginTop="2dp"
-        android:scrollbars="none"
         android:id="@+id/scrollableLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_marginTop="2dp"
+        android:layout_weight="1"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -132,10 +132,10 @@
             </RelativeLayout>
 
             <com.github.mikephil.charting.charts.LineChart
-                android:layout_marginTop="@dimen/dp_2"
                 android:id="@+id/lineChart"
                 android:layout_width="match_parent"
                 android:layout_height="140dp"
+                android:layout_marginTop="@dimen/dp_2"
                 android:background="@color/white"
                 android:orientation="vertical"
                 android:paddingBottom="@dimen/dp_4" />
@@ -144,10 +144,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingStart="@dimen/dp_8"
-                android:paddingEnd="@dimen/dp_8"
                 android:background="@color/white"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/dp_8"
+                android:paddingEnd="@dimen/dp_8">
 
                 <LinearLayout
                     android:id="@+id/llMsg"
@@ -159,11 +159,28 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <ImageView
+                    <RelativeLayout
+                        android:layout_width="38dp"
+                        android:layout_height="38dp">
 
-                        android:layout_width="22dp"
-                        android:layout_height="22dp"
-                        android:src="@mipmap/grzx_14" />
+                        <ImageView
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
+                            android:layout_centerInParent="true"
+                            android:src="@mipmap/grzx_14" />
+
+                        <TextView
+                            android:id="@+id/tvUnReadMsg"
+                            android:visibility="invisible"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_alignParentEnd="true"
+                            android:background="@drawable/shape_msg_unread_bg"
+                            android:gravity="center"
+                            android:text="0"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/sp12" />
+                    </RelativeLayout>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -177,13 +194,14 @@
 
                 <LinearLayout
                     android:id="@+id/llSetTag"
-                    android:gravity="center"
                     android:layout_width="0dp"
                     android:layout_height="80dp"
                     android:layout_margin="@dimen/dp_6"
                     android:layout_weight="1"
                     android:background="@mipmap/grzx2_05"
+                    android:gravity="center"
                     android:orientation="vertical">
+
                     <ImageView
 
                         android:layout_width="22dp"
@@ -201,13 +219,14 @@
 
                 <LinearLayout
                     android:id="@+id/llBindDevice"
-                    android:gravity="center"
                     android:layout_width="0dp"
                     android:layout_height="80dp"
                     android:layout_margin="@dimen/dp_6"
                     android:layout_weight="1"
                     android:background="@mipmap/grzx2_07"
+                    android:gravity="center"
                     android:orientation="vertical">
+
                     <ImageView
 
                         android:layout_width="22dp"
@@ -225,13 +244,13 @@
             </LinearLayout>
 
             <LinearLayout
-                android:paddingBottom="@dimen/dp_16"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="horizontal"
                 android:paddingStart="@dimen/dp_8"
                 android:paddingEnd="@dimen/dp_8"
-                android:background="@color/white"
-                android:orientation="horizontal">
+                android:paddingBottom="@dimen/dp_16">
 
                 <LinearLayout
                     android:id="@+id/llRemindList"
@@ -261,13 +280,14 @@
 
                 <LinearLayout
                     android:id="@+id/llFence"
-                    android:gravity="center"
                     android:layout_width="0dp"
                     android:layout_height="80dp"
                     android:layout_margin="@dimen/dp_6"
                     android:layout_weight="1"
                     android:background="@mipmap/grzx2_05"
+                    android:gravity="center"
                     android:orientation="vertical">
+
                     <ImageView
 
                         android:layout_width="22dp"
@@ -285,13 +305,14 @@
 
                 <LinearLayout
                     android:id="@+id/llContact"
-                    android:gravity="center"
                     android:layout_width="0dp"
                     android:layout_height="80dp"
                     android:layout_margin="@dimen/dp_6"
                     android:layout_weight="1"
                     android:background="@mipmap/grzx2_07"
+                    android:gravity="center"
                     android:orientation="vertical">
+
                     <ImageView
 
                         android:layout_width="22dp"

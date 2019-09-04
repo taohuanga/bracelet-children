@@ -128,6 +128,13 @@ public class MsgListActivity extends MVPBaseActivity<MsgListContract.Presenter> 
             intent.putExtra("type", 2);
             startActivity(intent);
         }
+
+        mPresenter.msgRead(remindBean.getMsgType(),remindBean.getMsgId());
+    }
+
+    @Override
+    public void msgReadSuccess() {
+
     }
 
     @Override

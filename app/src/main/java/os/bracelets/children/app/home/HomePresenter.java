@@ -66,31 +66,6 @@ public class HomePresenter extends HomeContract.Presenter {
         });
     }
 
-    @Override
-    void relative() {
-        ApiRequest.relative(new HttpSubscriber() {
-            @Override
-            public void onNext(HttpResult result) {
-                super.onNext(result);
-                if (result.code.equals(AppConfig.SUCCESS)) {
-                    try {
-                        JSONObject object = new JSONObject(new Gson().toJson(result.data));
-                        JSONArray array = object.optJSONArray("list");
-                        List<FamilyMember> list = new ArrayList<>();
-                        for (int i = 0; i < array.length(); i++) {
-                            JSONObject obj = array.optJSONObject(i);
-                            FamilyMember member = FamilyMember.parseBean(obj);
-                            list.add(member);
-                        }
-                        if (mView != null)
-                            mView.relativeSuccess(list);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
-    }
 
     @Override
     void dailySports(String accountId) {
@@ -113,33 +88,6 @@ public class HomePresenter extends HomeContract.Presenter {
         });
     }
 
-    @Override
-    void msgList(int pageNo, String accountId) {
-        ApiRequest.msgList(pageNo, accountId, new HttpSubscriber() {
-            @Override
-            public void onNext(HttpResult result) {
-                super.onNext(result);
-                if (result.code.equals(AppConfig.SUCCESS)) {
-                    try {
-                        JSONObject object = new JSONObject(new Gson().toJson(result.data));
-                        JSONArray array = object.optJSONArray("list");
-                        List<RemindBean> list = new ArrayList<>();
-                        for (int i = 0; i < array.length(); i++) {
-                            JSONObject obj = array.optJSONObject(i);
-                            RemindBean remindBean = RemindBean.parseBean(obj);
-                            list.add(remindBean);
-                        }
-                        if (mView != null)
-                            mView.loadMsgSuccess(list);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        if (mView != null)
-                            mView.loadMsgSuccess(new ArrayList<RemindBean>());
-                    }
-                }
-            }
-        });
-    }
 
     @Override
     void parentSportTrend(String accountId) {
@@ -215,5 +163,27 @@ public class HomePresenter extends HomeContract.Presenter {
 
                     }
                 });
+    }
+
+    @Override
+    void unreadMsg(String accountId) {
+        ApiRequest.unreadMsg(accountId, new HttpSubscriber() {
+            @Override
+            public void onNext(HttpResult result) {
+                super.onNext(result);
+                if (result.code.equals(AppConfig.SUCCESS)) {
+                    try {
+                        JSONObject object = new JSONObject(new Gson().toJson(result.data));
+                        int stepNum = object.optInt("stepNum", 0);
+                        int isReadNum = object.optInt("isReadNum");
+                        if (mView != null) {
+                            mView.unreadMsgSuccess(isReadNum);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
     }
 }

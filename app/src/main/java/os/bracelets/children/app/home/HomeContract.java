@@ -19,16 +19,13 @@ public interface HomeContract {
 
         void loginWeatherSuccess(WeatherInfo info);
 
-        void  loadMsgSuccess(List<RemindBean> list);
-
-        void relativeSuccess(List<FamilyMember> list);
-
         void dailySportsSuccess(DailySports sports);
 
         void sportTrendSuccess(List<DailySports> list);
 
         void loadFamilySuccess(List<FamilyMember> list);
 
+        void unreadMsgSuccess(int count);
     }
 
     abstract class Presenter extends BasePresenter<View> {
@@ -39,14 +36,12 @@ public interface HomeContract {
 
         abstract void getWeather();
 
-        abstract void relative();
-
         abstract void familyList();
-
-        abstract void msgList(int pageNo,String accountId);
 
         abstract void dailySports(String accountId);
 
         abstract void parentSportTrend(String accountId);
+
+        abstract void unreadMsg(String accountId);
     }
 }

@@ -65,4 +65,17 @@ public class MsgListPresenter extends MsgListContract.Presenter {
             }
         });
     }
+
+    @Override
+    void msgRead(int type, int msgId) {
+        ApiRequest.msgRead(type, msgId, new HttpSubscriber() {
+            @Override
+            public void onNext(HttpResult result) {
+                if (result.code.equals(AppConfig.SUCCESS)) {
+                    if (mView != null)
+                        mView.msgReadSuccess();
+                }
+            }
+        });
+    }
 }

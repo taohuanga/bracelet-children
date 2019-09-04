@@ -7,15 +7,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
-import aio.health2world.utils.DeviceUtil;
 import aio.health2world.utils.Logger;
 import aio.health2world.utils.SPUtils;
 import cn.jpush.android.api.JPushInterface;
 import os.bracelets.children.AppConfig;
-import os.bracelets.children.MyApplication;
 import os.bracelets.children.R;
 import os.bracelets.children.app.family.FamilyListFragment;
-import os.bracelets.children.app.home.HomeFragment;
 import os.bracelets.children.app.home.HomeFragment1;
 import os.bracelets.children.app.news.HealthInfoFragment;
 import os.bracelets.children.app.personal.PersonalFragment;

@@ -302,4 +302,16 @@ interface ApiService {
      */
     @POST("children/setting/delContacts")
     Observable<HttpResult> delContacts(@Body Map<String, Object> map);
+
+    /**
+     * 获取首页亲人未读消息数
+     */
+    @POST("children/relative/home")
+    Observable<HttpResult> unreadMsg(@Body Map<String, Object> map);
+
+    /**
+     * 标记消息为已读
+     */
+    @POST("sys/message/read")
+    Observable<HttpResult> msgRead(@Body Map<String, Object> map);
 }
