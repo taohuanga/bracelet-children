@@ -124,7 +124,9 @@ public class HomeFragment1 extends MVPBaseFragment<HomeContract.Presenter> imple
                     }
                     familyMemberList.get(currentPos).setChecked(true);
                     topAdapter.notifyDataSetChanged();
-                    loadData(familyMemberList.get(position == 0 ? 1 : position));
+                    if (familyMemberList.size() > 1 && position != 0) {
+                        loadData(familyMemberList.get(position));
+                    }
                 }
             }
         });
@@ -177,38 +179,37 @@ public class HomeFragment1 extends MVPBaseFragment<HomeContract.Presenter> imple
     @Override
     public void onClick(View v) {
         super.onClick(v);
-        if (familyMemberList.size() == 1)
+        if (familyMemberList.size() == 1 || currentPos == 0)
             return;
-        int pos = currentPos == 0 ? 1 : currentPos;
         switch (v.getId()) {
             case R.id.llMsg:
                 Intent intentMsg = new Intent(getActivity(), MsgListActivity.class);
-                intentMsg.putExtra("accountId", String.valueOf(familyMemberList.get(pos).getAccountId()));
+                intentMsg.putExtra("accountId", String.valueOf(familyMemberList.get(currentPos).getAccountId()));
                 startActivity(intentMsg);
                 break;
             case R.id.llSetTag:
                 Intent intentTag = new Intent(getActivity(), LabelEditActivity.class);
-                intentTag.putExtra("member", familyMemberList.get(pos));
+                intentTag.putExtra("member", familyMemberList.get(currentPos));
                 startActivity(intentTag);
                 break;
             case R.id.llBindDevice:
                 Intent bindIntent = new Intent(getActivity(), DeviceBindActivity.class);
-                bindIntent.putExtra("member", familyMemberList.get(pos));
+                bindIntent.putExtra("member", familyMemberList.get(currentPos));
                 startActivity(bindIntent);
                 break;
             case R.id.llRemindList:
                 Intent remindIntent = new Intent(getActivity(), RemindListActivity.class);
-                remindIntent.putExtra("member", familyMemberList.get(pos));
+                remindIntent.putExtra("member", familyMemberList.get(currentPos));
                 startActivity(remindIntent);
                 break;
             case R.id.llFence:
                 Intent eleListIntent = new Intent(getActivity(), EleFenceListActivity.class);
-                eleListIntent.putExtra("member", familyMemberList.get(pos));
+                eleListIntent.putExtra("member", familyMemberList.get(currentPos));
                 startActivity(eleListIntent);
                 break;
             case R.id.llContact:
                 Intent contactIntent = new Intent(getActivity(), ContactActivity.class);
-                contactIntent.putExtra("member", familyMemberList.get(pos));
+                contactIntent.putExtra("member", familyMemberList.get(currentPos));
                 startActivity(contactIntent);
                 break;
         }
