@@ -6,6 +6,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +19,7 @@ import os.bracelets.children.app.home.FallPositionActivity;
 import os.bracelets.children.app.home.RemindAdapter;
 import os.bracelets.children.bean.RemindBean;
 import os.bracelets.children.common.MVPBaseActivity;
+import os.bracelets.children.common.MsgEvent;
 import os.bracelets.children.utils.TitleBarUtil;
 import os.bracelets.children.view.TitleBar;
 
@@ -82,9 +85,16 @@ public class MsgListActivity extends MVPBaseActivity<MsgListContract.Presenter> 
         titleBar.setLeftClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                EventBus.getDefault().post(new MsgEvent<>(AppConfig.MSG_COUNT_CHANGED));
                 finish();
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        EventBus.getDefault().post(new MsgEvent<>(AppConfig.MSG_COUNT_CHANGED));
     }
 
     @Override

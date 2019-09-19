@@ -44,6 +44,7 @@ public class AppConfig {
     public static final int MSG_STEP_COUNT = 13;
     //亲人列表数据发生变化
     public static final int MSG_FAMILY_MEMBER = 14;
+    public static final int MSG_COUNT_CHANGED= 15;
 
     //手环UUID
     public static final String BLUETOOTH_NAME = "DFZ";

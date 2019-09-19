@@ -266,7 +266,7 @@ public class EleFenceAddActivity extends MVPActivity<EleFenceAddContract.Present
         if (latLng == null || TextUtils.isEmpty(tvAddress.getText().toString()))
             return;
         ApiRequest.fenceAdd(String.valueOf(member.getAccountId()), tvAddress.getText().toString(),
-                String.valueOf(latLng.longitude), String.valueOf(latLng.latitude), String.valueOf(rang * 1000),
+                String.valueOf(latLng.longitude), String.valueOf(latLng.latitude), String.valueOf(rang),
                 new HttpSubscriber() {
 
                     @Override

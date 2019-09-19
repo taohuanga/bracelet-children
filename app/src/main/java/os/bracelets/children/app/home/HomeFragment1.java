@@ -161,10 +161,7 @@ public class HomeFragment1 extends MVPBaseFragment<HomeContract.Presenter> imple
 
     @Override
     public void clickItem(int pos) {
-        recyclerCoverFlow.smoothScrollToPosition(pos);
-        if (pos != currentPos) {
-            currentPos = pos;
-        } else {
+        if (currentPos == pos) {
             if (pos == 0) {
                 startActivity(new Intent(getActivity(), FamilyAddActivity.class));
             } else {
@@ -174,6 +171,19 @@ public class HomeFragment1 extends MVPBaseFragment<HomeContract.Presenter> imple
                 startActivity(intent);
             }
         }
+//        recyclerCoverFlow.smoothScrollToPosition(pos);
+//        if (pos != currentPos) {
+//            currentPos = pos;
+//        } else {
+//            if (pos == 0) {
+//                startActivity(new Intent(getActivity(), FamilyAddActivity.class));
+//            } else {
+//                Intent intent = new Intent(getActivity(), DetailActivity.class);
+//                intent.putExtra("accountId", String.valueOf(familyMemberList.get(pos).getAccountId()));
+//                intent.putExtra("relationShipId", String.valueOf(familyMemberList.get(pos).getRelationshipId()));
+//                startActivity(intent);
+//            }
+//        }
     }
 
     @Override
@@ -283,6 +293,12 @@ public class HomeFragment1 extends MVPBaseFragment<HomeContract.Presenter> imple
 
         if (event.getAction() == REQUEST_FAMILY_CHANGED) {
             mPresenter.familyList();
+        }
+
+        if (event.getAction() == AppConfig.MSG_COUNT_CHANGED) {
+            if (familyMemberList.size() > 1 && currentPos != 0) {
+                loadData(familyMemberList.get(currentPos));
+            }
         }
     }
 
