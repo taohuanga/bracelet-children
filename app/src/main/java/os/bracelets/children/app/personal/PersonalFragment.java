@@ -2,9 +2,14 @@ package os.bracelets.children.app.personal;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -50,7 +55,20 @@ public class PersonalFragment extends BaseFragment implements INaviInfoCallback 
 
     private Button btnLogout;
 
-    private View layoutUpdatePwd, layoutUpdateMsg, layoutNearby, layoutNav, layoutFeedBack, layoutAbout,layoutExit;
+    private View layoutUpdatePwd, layoutUpdateMsg, layoutNearby, layoutNav, layoutFeedBack, layoutAbout, layoutExit;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getActivity().getWindow();
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(Color.TRANSPARENT);
+        }
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     protected int getLayoutId() {
@@ -59,6 +77,9 @@ public class PersonalFragment extends BaseFragment implements INaviInfoCallback 
 
     @Override
     protected void initView() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            findView(R.id.view).setVisibility(View.VISIBLE);
+        }
         ivImage = findView(R.id.ivImage);
         tvName = findView(R.id.tvName);
         btnLogout = findView(R.id.btnLogout);
@@ -101,7 +122,7 @@ public class PersonalFragment extends BaseFragment implements INaviInfoCallback 
                 startActivity(new Intent(getActivity(), UpdatePwdActivity.class));
                 break;
             case R.id.layoutUpdateMsg:
-                startActivityForResult(new Intent(getActivity(), PersonalMsgActivity.class),0x02);
+                startActivityForResult(new Intent(getActivity(), PersonalMsgActivity.class), 0x02);
                 break;
             case R.id.layoutNearby:
                 startActivity(new Intent(getActivity(), NearbyActivity.class));
@@ -175,9 +196,9 @@ public class PersonalFragment extends BaseFragment implements INaviInfoCallback 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode!=RESULT_OK)
+        if (resultCode != RESULT_OK)
             return;
-        if(requestCode==0x02){
+        if (requestCode == 0x02) {
             getUserInfo();
         }
     }

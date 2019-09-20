@@ -1,10 +1,16 @@
 package os.bracelets.children.app.news;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -42,12 +48,28 @@ public class HealthInfoFragment extends MVPBaseFragment<HealthInfoContract.Prese
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getActivity().getWindow();
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(Color.TRANSPARENT);
+        }
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
     protected int getLayoutId() {
         return R.layout.fragment_news;
     }
 
     @Override
     protected void initView() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            findView(R.id.view).setVisibility(View.VISIBLE);
+        }
         recyclerView = findView(R.id.recyclerView);
         refreshLayout = findView(R.id.refreshLayout);
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());

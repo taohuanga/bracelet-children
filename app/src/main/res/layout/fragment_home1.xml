@@ -6,13 +6,19 @@
     android:background="#eee"
     android:orientation="vertical">
 
-
-    <aio.health2world.recyclerview.RecyclerCoverFlow
-        android:id="@+id/recyclerCoverFlow"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_gravity="center"
-        android:background="@mipmap/bg_home_top" />
+        android:layout_height="220dp"
+        android:background="@mipmap/bg_home_top">
+
+        <aio.health2world.recyclerview.RecyclerCoverFlow
+            android:id="@+id/recyclerCoverFlow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center" />
+    </RelativeLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -171,7 +177,6 @@
 
                         <TextView
                             android:id="@+id/tvUnReadMsg"
-                            android:visibility="invisible"
                             android:layout_width="18dp"
                             android:layout_height="18dp"
                             android:layout_alignParentEnd="true"
@@ -179,7 +184,8 @@
                             android:gravity="center"
                             android:text="0"
                             android:textColor="@color/white"
-                            android:textSize="@dimen/sp12" />
+                            android:textSize="@dimen/sp12"
+                            android:visibility="invisible" />
                     </RelativeLayout>
 
                     <TextView
