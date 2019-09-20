@@ -33,7 +33,7 @@ public class ResultSubscriber<T> extends Subscriber<HttpResult<T>> {
             ToastUtil.showShort(t.errorMessage);
         }
         if (t.code.equals("004") || t.code.equals("109")) {
-            MyApplication.getInstance().logout();
+            MyApplication.getInstance().logout(true);
         }
     }
 

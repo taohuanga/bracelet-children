@@ -118,6 +118,26 @@ public class ApiRequest {
                 .subscribe(subscriber);
     }
 
+
+    //重置密码
+    public static Subscription updatePhone(String accountId, String oldPhone, String newPhone, String loginPass, String securityCode,
+                                           Subscriber<HttpResult> subscriber) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("tokenId", MyApplication.getInstance().getTokenId());
+        if (!TextUtils.isEmpty(accountId)) {
+            map.put("accountId", accountId);
+        }
+        map.put("oldPhone", oldPhone);
+        map.put("newPhone", newPhone);
+        map.put("loginPass", loginPass);
+        map.put("securityCode", securityCode);
+        return ServiceFactory.getInstance()
+                .createService(ApiService.class)
+                .updatePhone(map)
+                .compose(RxTransformer.<HttpResult>defaultSchedulers())
+                .subscribe(subscriber);
+    }
+
     //首页获取步数
     public static Subscription about(Subscriber<HttpResult> subscriber) {
         Map<String, Object> map = new HashMap<>();
@@ -293,7 +313,7 @@ public class ApiRequest {
     }
 
     //消息列表
-    public static Subscription msgList(int pageNo,String accountId, Subscriber<HttpResult> subscriber) {
+    public static Subscription msgList(int pageNo, String accountId, Subscriber<HttpResult> subscriber) {
         Map<String, Object> map = new HashMap<>();
         map.put("tokenId", MyApplication.getInstance().getTokenId());
         map.put("accountId", accountId);
@@ -472,11 +492,14 @@ public class ApiRequest {
     }
 
     //绑定硬件
-    public static Subscription bindDevice(String accountId, String deviceNo, Subscriber<HttpResult> subscriber) {
+    public static Subscription bindDevice(String accountId, String deviceNo, String bindTimes, Subscriber<HttpResult> subscriber) {
         Map<String, Object> map = new HashMap<>();
         map.put("tokenId", MyApplication.getInstance().getTokenId());
         map.put("accountId", accountId);
         map.put("equipmentSn", deviceNo);
+        if (!TextUtils.isEmpty(bindTimes)) {
+            map.put("bindTimes", bindTimes);
+        }
         return ServiceFactory.getInstance()
                 .createService(ApiService.class)
                 .bindDevice(map)
@@ -622,7 +645,7 @@ public class ApiRequest {
                 .subscribe(subscriber);
     }
 
-    public static Subscription deviceUnbind(int accountId,String deviceInfo, Subscriber<HttpResult> subscriber) {
+    public static Subscription deviceUnbind(int accountId, String deviceInfo, Subscriber<HttpResult> subscriber) {
         Map<String, Object> map = new HashMap<>();
         map.put("tokenId", MyApplication.getInstance().getTokenId());
         map.put("parentAccountId", String.valueOf(accountId));
@@ -634,5 +657,74 @@ public class ApiRequest {
                 .subscribe(subscriber);
     }
 
+    //亲人关系id 多个分号分割
+    public static Subscription relationshipDelete(String ids, Subscriber<HttpResult> subscriber) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("tokenId", MyApplication.getInstance().getTokenId());
+        map.put("relationshipIds", ids);
+        return ServiceFactory.getInstance()
+                .createService(ApiService.class)
+                .relationshipDelete(map)
+                .compose(RxTransformer.<HttpResult>defaultSchedulers())
+                .subscribe(subscriber);
+    }
+
+    //多个分号分割
+    public static Subscription delRemind(String remindIds, Subscriber<HttpResult> subscriber) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("tokenId", MyApplication.getInstance().getTokenId());
+        map.put("remindIds", remindIds);
+        return ServiceFactory.getInstance()
+                .createService(ApiService.class)
+                .delRemind(map)
+                .compose(RxTransformer.<HttpResult>defaultSchedulers())
+                .subscribe(subscriber);
+    }
+
+    public static Subscription delFence(String fenceIds, Subscriber<HttpResult> subscriber) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("tokenId", MyApplication.getInstance().getTokenId());
+        map.put("fenceIds", fenceIds);
+        return ServiceFactory.getInstance()
+                .createService(ApiService.class)
+                .delFence(map)
+                .compose(RxTransformer.<HttpResult>defaultSchedulers())
+                .subscribe(subscriber);
+    }
+
+
+    public static Subscription delContacts(String contactIds, Subscriber<HttpResult> subscriber) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("tokenId", MyApplication.getInstance().getTokenId());
+        map.put("contactIds", contactIds);
+        return ServiceFactory.getInstance()
+                .createService(ApiService.class)
+                .delContacts(map)
+                .compose(RxTransformer.<HttpResult>defaultSchedulers())
+                .subscribe(subscriber);
+    }
+
+    public static Subscription unreadMsg(String accountId, Subscriber<HttpResult> subscriber) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("tokenId", MyApplication.getInstance().getTokenId());
+        map.put("accountId", accountId);
+        return ServiceFactory.getInstance()
+                .createService(ApiService.class)
+                .unreadMsg(map)
+                .compose(RxTransformer.<HttpResult>defaultSchedulers())
+                .subscribe(subscriber);
+    }
+
+    public static Subscription msgRead(int type, int msgId, Subscriber<HttpResult> subscriber) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("tokenId", MyApplication.getInstance().getTokenId());
+        map.put("type", String.valueOf(type));
+        map.put("ids", String.valueOf(msgId));
+        return ServiceFactory.getInstance()
+                .createService(ApiService.class)
+                .msgRead(map)
+                .compose(RxTransformer.<HttpResult>defaultSchedulers())
+                .subscribe(subscriber);
+    }
 }
 

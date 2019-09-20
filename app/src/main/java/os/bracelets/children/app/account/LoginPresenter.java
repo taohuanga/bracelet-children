@@ -96,7 +96,7 @@ public class LoginPresenter extends LoginContract.Presenter {
     }
 
     @Override
-    void fastLogin(String phone, String securityCode) {
+    void fastLogin(final String phone, String securityCode) {
         ApiRequest.fastLogin(phone, securityCode, new HttpSubscriber() {
 
             @Override
@@ -126,7 +126,7 @@ public class LoginPresenter extends LoginContract.Presenter {
                         SPUtils.put(MyApplication.getInstance(), AppConfig.USER_ID, String.valueOf(info.getUserId()));
                         SPUtils.put(MyApplication.getInstance(), AppConfig.USER_IMG, info.getPortrait());
                         SPUtils.put(MyApplication.getInstance(), AppConfig.USER_NICK, info.getNickName());
-                        SPUtils.put(MyApplication.getInstance(), AppConfig.USER_PHONE, info.getPhone());
+                        SPUtils.put(MyApplication.getInstance(), AppConfig.USER_PHONE, phone);
                         mView.loginSuccess(info);
                     } catch (JSONException e) {
                         e.printStackTrace();

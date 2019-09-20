@@ -10,7 +10,9 @@ import os.bracelets.children.common.BaseView;
 public interface UpdatePhoneContract {
 
     interface View extends BaseView<Presenter> {
+        void securityCodeSuccess();
 
+        void updatePhoneSuccess();
     }
 
 
@@ -19,5 +21,11 @@ public interface UpdatePhoneContract {
         public Presenter(View mView) {
             super(mView);
         }
+
+
+        //获取手机验证码
+        abstract void securityCode(int type, String phone);
+
+        abstract void updatePhone(String accountId,String oldPhone, String newPhone,String code,String pwd);
     }
 }

@@ -50,7 +50,7 @@ public class MyApplication extends Application implements AMapLocationListener {
     public void onCreate() {
         super.onCreate();
         INSTANCE = this;
-        SApplication.init(INSTANCE,AppConfig.isDebug);
+        SApplication.init(INSTANCE, AppConfig.isDebug);
 
         initApp();
 
@@ -97,11 +97,13 @@ public class MyApplication extends Application implements AMapLocationListener {
     }
 
     //退出当前程序 回到登录界面
-    public void logout() {
+    public void logout(boolean flag) {
         SPUtils.put(this, AppConfig.IS_LOGIN, false);
         AppManager.getInstance().finishAllActivity();
         Intent intent = new Intent("os.bracelets.children.login");
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        if (flag)
+            intent.putExtra("flag", true);
         startActivity(intent);
     }
 

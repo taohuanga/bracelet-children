@@ -202,6 +202,7 @@ public class PersonalMsgActivity extends MVPBaseActivity<PersonalMsgContract.Pre
                 //修改真实姓名
                 Intent intentName = new Intent(this, InputMsgActivity.class);
                 intentName.putExtra(InputMsgActivity.KEY, "修改姓名");
+//                intentName.putExtra(InputMsgActivity.TYPE, ITEM_NAME);
                 startActivityForResult(intentName, ITEM_NAME);
                 break;
             case R.id.layoutSex:
@@ -274,7 +275,7 @@ public class PersonalMsgActivity extends MVPBaseActivity<PersonalMsgContract.Pre
                 tvHeight.setText(data.getStringExtra("data"));
                 break;
             case ITEM_PHONE:
-                tvPhone.setText(data.getStringExtra("data"));
+//                tvPhone.setText(data.getStringExtra("data"));
                 break;
             case ITEM_ADDRESS:
                 tvHomeAddress.setText(data.getStringExtra("data"));

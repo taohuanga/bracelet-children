@@ -137,7 +137,7 @@ public class PersonalFragment extends BaseFragment implements INaviInfoCallback 
 //                        SPUtils.put(MyApplication.getInstance(), AppConfig.IS_LOGIN, false);
 //                        startActivity(new Intent(getActivity(), LoginActivity.class));
 //                        getActivity().finish();
-                        MyApplication.getInstance().logout();
+                        MyApplication.getInstance().logout(false);
                     }
                 })
                 .create()

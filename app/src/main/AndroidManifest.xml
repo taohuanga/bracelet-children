@@ -132,6 +132,8 @@
 
         <activity android:name=".app.account.AgreementActivity"/>
 
+        <activity android:name=".app.family.MsgListActivity"/>
+
         <activity
             android:name=".app.edit.EditNavActivity"
             android:theme="@style/dialogStyle" />

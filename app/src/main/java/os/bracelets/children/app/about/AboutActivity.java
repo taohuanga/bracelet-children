@@ -3,7 +3,7 @@ package os.bracelets.children.app.about;
 import android.view.View;
 import android.widget.TextView;
 
-import aio.health2world.utils.AppUtils;
+import os.bracelets.children.BuildConfig;
 import os.bracelets.children.R;
 import os.bracelets.children.common.BaseActivity;
 import os.bracelets.children.utils.TitleBarUtil;
@@ -34,7 +34,7 @@ public class AboutActivity extends BaseActivity {
     @Override
     protected void initData() {
         TitleBarUtil.setAttr(this, "", "关于我们", titleBar);
-        tvTitle.setText("衣带保子女端 V" + AppUtils.getAppVersionName(this));
+        tvTitle.setText("衣带保子女端 V" + BuildConfig.VERSION_NAME + "_" + BuildConfig.GIT_VERSION);
         tvContent.setText("\r\r\r\r\r\r\r\r" + getResources().getString(R.string.about_content));
     }
 

@@ -14,6 +14,7 @@ public interface DetailContract {
 
         void updateMsgSuccess();
 
+        void deleteSuccess();
     }
 
 
@@ -30,6 +31,8 @@ public interface DetailContract {
         abstract void updateMsg(String accountId, String profile, String nickName, String realName,
                                       int sex, String birthday, String height, String weight, String relationship,
                                       String phone);
+
+        abstract void delFamilyMember(String ids);
     }
 
 }

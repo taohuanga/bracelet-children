@@ -55,7 +55,11 @@ interface ApiService {
     @POST("member/memberAccount/phoneExist")
     Observable<HttpResult> phoneExist(@Body Map<String, Object> map);
 
-
+    /**
+     * 修改绑定的手机号
+     */
+    @POST("member/memberAccount/updatePhone")
+    Observable<HttpResult> updatePhone(@Body Map<String, Object> map);
     /**
      * 上传位置信息（经纬度坐标）
      */
@@ -265,7 +269,49 @@ interface ApiService {
     @POST("children/setting/deviceBindInfo")
     Observable<HttpResult> deviceBindInfo(@Body Map<String, Object> map);
 
+    /**
+     * 设备解绑
+     * @param map
+     * @return
+     */
     @POST("children/setting/deviceUnbind")
     Observable<HttpResult> deviceUnbind(@Body Map<String, Object> map);
 
+    /**
+     * 删除亲人
+     * @param map
+     * @return
+     */
+    @POST("children/relationship/delete")
+    Observable<HttpResult> relationshipDelete(@Body Map<String, Object> map);
+
+    /**
+     * 删除提醒
+     */
+    @POST("children/setting/delRemind")
+    Observable<HttpResult> delRemind(@Body Map<String, Object> map);
+
+    /**
+     * 删除电子围栏
+     */
+    @POST("children/setting/delFence")
+    Observable<HttpResult> delFence(@Body Map<String, Object> map);
+
+    /**
+     * 删除联系人
+     */
+    @POST("children/setting/delContacts")
+    Observable<HttpResult> delContacts(@Body Map<String, Object> map);
+
+    /**
+     * 获取首页亲人未读消息数
+     */
+    @POST("children/relative/home")
+    Observable<HttpResult> unreadMsg(@Body Map<String, Object> map);
+
+    /**
+     * 标记消息为已读
+     */
+    @POST("sys/message/read")
+    Observable<HttpResult> msgRead(@Body Map<String, Object> map);
 }

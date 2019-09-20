@@ -1,7 +1,9 @@
 package os.bracelets.children.app.edit;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.Image;
+import android.support.v7.app.AlertDialog;
 import android.text.InputFilter;
 import android.text.Spanned;
 import android.text.TextUtils;
@@ -100,7 +102,7 @@ public class DeviceBindActivity extends BaseActivity {
             }
             deviceNo = deviceNo.replace(":", "").toUpperCase();
             if (bindType == 0) {
-                bindDevice(deviceNo);
+                bindDevice(deviceNo, "");
             } else {
                 unbindDevice(deviceNo);
             }
@@ -152,16 +154,17 @@ public class DeviceBindActivity extends BaseActivity {
                     }
 
                 }
+
             }
         });
     }
 
-    private void bindDevice(String deviceNo) {
+    private void bindDevice(String deviceNo, String bindTimes) {
         if (deviceNo.length() != 12) {
             ToastUtil.showShort("请输入正确的mac地址");
             return;
         }
-        ApiRequest.bindDevice(String.valueOf(member.getAccountId()), deviceNo,
+        ApiRequest.bindDevice(String.valueOf(member.getAccountId()), deviceNo, bindTimes,
                 new HttpSubscriber() {
                     @Override
                     public void onStart() {
@@ -177,11 +180,33 @@ public class DeviceBindActivity extends BaseActivity {
 
                     @Override
                     public void onNext(HttpResult result) {
-                        super.onNext(result);
+//                        super.onNext(result);
                         dialog.dismiss();
                         if (result.code.equals(AppConfig.SUCCESS)) {
                             ToastUtil.showShort("操作成功");
                             finish();
+                        }
+                        //设备已被其他用户绑定
+                        if (result.code.equals("006")) {
+                            new AlertDialog.Builder(DeviceBindActivity.this)
+                                    .setMessage("该设备已被其他用户绑定，是否强制绑定该设备？")
+                                    .setNegativeButton("取消绑定", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+
+                                        }
+                                    })
+                                    .setPositiveButton("强制绑定", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            String deviceNo = edDeviceNo.getText().toString().trim();
+                                            deviceNo = deviceNo.replace(":", "").toUpperCase();
+                                            bindDevice(deviceNo, "1");
+                                        }
+                                    })
+                                    .create()
+                                    .show();
+
                         }
                     }
                 });

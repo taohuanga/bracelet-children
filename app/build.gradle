@@ -18,10 +18,10 @@ android {
         applicationId "os.bracelets.children"
         minSdkVersion 21
         targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.0.1"
         multiDexEnabled true
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        buildConfigField "String", "GIT_VERSION", "\"" + gitVersion() + "\""
     }
 
     signingConfigs {

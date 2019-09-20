@@ -62,7 +62,8 @@
                 android:background="@drawable/selector_item_click_bg"
                 android:gravity="center_vertical"
                 android:paddingLeft="@dimen/dp_16"
-                android:paddingRight="@dimen/dp_16">
+                android:paddingRight="@dimen/dp_16"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -395,6 +396,18 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/sp15" />
 
+            <Button
+                android:id="@+id/btnDelete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="@dimen/dp_8"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="@dimen/dp_16"
+                android:background="@drawable/shape_unbind_device_bg"
+                android:text="删除"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp15" />
         </LinearLayout>
     </ScrollView>
 

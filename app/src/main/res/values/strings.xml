@@ -12,10 +12,11 @@
         保护老人两侧髋关节、臀部、尾椎骨以及骶骨等容易受伤部位，降低人身伤害。衣带保根据人体工学设计，
         穿戴舒服，美观时尚!
     </string>
-    <string name="description">温馨提示：您修改的姓名会在您的亲人跌倒或者其他提示信息中显示，例如跌倒“温馨提示，
+    <string name="description">温馨提示：您填写或修改的姓名会在您的亲人跌倒或者其他提示信息中显示，例如跌倒“温馨提示，
         XX佩戴的衣带保在【上海市静安区南京西路XXX号附近】处触发，
         时间为2019-06-14 14:50:47左右， 请及时关注!”</string>
     <string name="save">保存</string>
     <string name="hint_relation">填写与被添加人关系（称谓）</string>
-
+    <string name="delete1">删除</string>
+    <string name="sure1">确定</string>
 </resources>

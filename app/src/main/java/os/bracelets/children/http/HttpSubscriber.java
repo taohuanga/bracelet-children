@@ -32,8 +32,8 @@ public abstract class HttpSubscriber extends Subscriber<HttpResult> {
             ToastUtil.showShort(result.errorMessage);
         }
         if (result.code.equals("004")) {
-            ToastUtil.showShort("账号已失效，请重新登录！");
-            MyApplication.getInstance().logout();
+//            ToastUtil.showShort("账号已失效，请重新登录！");
+            MyApplication.getInstance().logout(true);
         }
     }
 }

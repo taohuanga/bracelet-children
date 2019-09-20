@@ -17,6 +17,8 @@ public interface FamilyContract {
         void loadFamilySuccess(List<FamilyMember> list);
 
         void loadFamilyError();
+
+        void deleteSuccess();
     }
 
 
@@ -26,6 +28,8 @@ public interface FamilyContract {
         }
 
         abstract void familyList();
+
+        abstract void delFamilyMember(String ids);
     }
 
 }

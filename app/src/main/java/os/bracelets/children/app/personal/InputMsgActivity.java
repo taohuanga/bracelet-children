@@ -12,6 +12,7 @@ import android.widget.EditText;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import aio.health2world.utils.MatchUtil;
 import aio.health2world.utils.ToastUtil;
 import os.bracelets.children.R;
 import os.bracelets.children.common.BaseActivity;
@@ -72,7 +73,7 @@ public class InputMsgActivity extends BaseActivity {
             editText.setHint(s);
         }
 
-        if (type == PersonalMsgActivity.ITEM_NICK) {
+        if (type == PersonalMsgActivity.ITEM_NAME) {
             //这里输入自己想要的提示文字
             findView(R.id.tvDescription).setVisibility(View.VISIBLE);
         }
@@ -99,6 +100,12 @@ public class InputMsgActivity extends BaseActivity {
         if (TextUtils.isEmpty(msg)) {
             ToastUtil.showShort("请输入内容");
             return;
+        }
+        if (type == PersonalMsgActivity.ITEM_PHONE) {
+            if (!MatchUtil.isChinaPhoneLegal(msg)) {
+                ToastUtil.showShort("手机号格式不正确");
+                return;
+            }
         }
         Intent intent = new Intent();
         intent.putExtra("data", msg);
