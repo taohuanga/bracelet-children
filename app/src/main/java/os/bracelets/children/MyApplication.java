@@ -1,32 +1,24 @@
 package os.bracelets.children;
 
 import android.app.Application;
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.support.multidex.MultiDex;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
-import com.huichenghe.bleControl.Ble.DeviceConfig;
-import com.huichenghe.bleControl.Ble.LocalDeviceEntity;
 import com.tencent.bugly.crashreport.CrashReport;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import aio.health2world.SApplication;
 import aio.health2world.utils.AppManager;
 import aio.health2world.utils.Logger;
 import aio.health2world.utils.SPUtils;
 import cn.jpush.android.api.JPushInterface;
-import os.bracelets.children.receiver.BleReceiver;
 
 /**
  * Created by lishiyou on 2019/1/24.
@@ -37,10 +29,6 @@ public class MyApplication extends Application implements AMapLocationListener {
     public static MyApplication INSTANCE;
 
     private boolean isBleConnect = false;
-    //扫描到的蓝牙设备的集合
-    private List<LocalDeviceEntity> deviceList = new ArrayList<>();
-    //记录已连接的设备
-    private LocalDeviceEntity deviceEntity;
     //声明mlocationClient对象
     public AMapLocationClient mlocationClient;
     //声明mLocationOption对象
@@ -53,9 +41,6 @@ public class MyApplication extends Application implements AMapLocationListener {
         SApplication.init(INSTANCE, AppConfig.isDebug);
 
         initApp();
-
-//        startService(new Intent(this, BluetoothLeService.class));
-//        startService(new Intent(this, AppService.class));
 
     }
 
@@ -72,17 +57,6 @@ public class MyApplication extends Application implements AMapLocationListener {
         return AppConfig.SERVER_URL;
     }
 
-    public List<LocalDeviceEntity> getDeviceList() {
-        return deviceList;
-    }
-
-    public LocalDeviceEntity getDeviceEntity() {
-        return deviceEntity;
-    }
-
-    public void setDeviceEntity(LocalDeviceEntity deviceEntity) {
-        this.deviceEntity = deviceEntity;
-    }
 
     public boolean isBleConnect() {
         return isBleConnect;
@@ -92,9 +66,6 @@ public class MyApplication extends Application implements AMapLocationListener {
         isBleConnect = bleConnect;
     }
 
-    public void clearEntityList() {
-        deviceList.clear();
-    }
 
     //退出当前程序 回到登录界面
     public void logout(boolean flag) {
@@ -108,14 +79,6 @@ public class MyApplication extends Application implements AMapLocationListener {
     }
 
     private void initApp() {
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(DeviceConfig.DEVICE_CONNECTING_AUTO);
-        filter.addAction(DeviceConfig.DEVICE_CONNECTE_AND_NOTIFY_SUCESSFUL);
-        filter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
-        filter.addAction(BluetoothAdapter.ACTION_CONNECTION_STATE_CHANGED);
-        filter.addAction(BluetoothDevice.ACTION_ACL_DISCONNECTED);
-        registerReceiver(new BleReceiver(), filter);
-
         //环信 目前使用的是简单版的
 //        EaseUI.getInstance().init(this, null);
 
@@ -140,30 +103,6 @@ public class MyApplication extends Application implements AMapLocationListener {
         super.onLowMemory();
         mlocationClient.stopLocation();
         mlocationClient.onDestroy();
-    }
-
-    /**
-     * 添加设备到集合
-     *
-     * @param bleDevice
-     */
-    public void addDevice(LocalDeviceEntity bleDevice) {
-        removeDevice(bleDevice);
-        deviceList.add(bleDevice);
-    }
-
-    /**
-     * 移除设备
-     *
-     * @param bleDevice
-     */
-    public void removeDevice(LocalDeviceEntity bleDevice) {
-        for (int i = 0; i < deviceList.size(); i++) {
-            LocalDeviceEntity device = deviceList.get(i);
-            if (bleDevice.getAddress().equals(device.getAddress())) {
-                deviceList.remove(i);
-            }
-        }
     }
 
     private void initLocation() {

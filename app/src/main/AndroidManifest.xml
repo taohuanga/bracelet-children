@@ -88,8 +88,6 @@
 
         <activity android:name=".app.account.ResetPwdActivity" />
 
-        <activity android:name=".app.ble.DeviceListActivity" />
-
         <activity android:name=".app.news.InfoDetailActivity" />
 
         <activity android:name=".app.personal.PersonalMsgActivity" />
@@ -142,7 +140,7 @@
 
         <activity android:name=".app.home.EleFenceActivity" />
 
-        <service android:name=".service.AppService" />
+        <!--<service android:name=".service.AppService" />-->
 
         <!--<service android:name="com.huichenghe.bleControl.Ble.BluetoothLeService" />-->
 
