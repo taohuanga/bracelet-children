@@ -13,7 +13,7 @@ import cn.jpush.android.api.JPushInterface;
 import os.bracelets.children.AppConfig;
 import os.bracelets.children.R;
 import os.bracelets.children.app.family.FamilyListFragment;
-import os.bracelets.children.app.home.HomeFragment1;
+import os.bracelets.children.app.home.HomeFragment;
 import os.bracelets.children.app.news.HealthInfoFragment;
 import os.bracelets.children.app.personal.PersonalFragment;
 import os.bracelets.children.bean.BaseInfo;
@@ -26,7 +26,7 @@ import os.bracelets.children.view.HomeTabs;
 public class MainActivity extends MVPBaseActivity<MainContract.Presenter> implements MainContract.View
         , HomeTabs.OnCheckedChangeListener {
 
-    private HomeFragment1 homeFragment;
+    private HomeFragment homeFragment;
 
     private FamilyListFragment familyFragment;
 
@@ -103,7 +103,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.Presenter> implem
             case 0:
                 if (homeFragment == null) {
                     // 如果androidFragment为空，则创建一个并添加到界面上
-                    homeFragment = new HomeFragment1();
+                    homeFragment = new HomeFragment();
                     transaction.add(R.id.container, homeFragment);
                 } else
                     // 如果androidFragment不为空，则直接将它显示出来

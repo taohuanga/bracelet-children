@@ -88,7 +88,7 @@ public class ContactAddActivity extends BaseActivity implements OptionsPickerVie
         if (getIntent().hasExtra("contact")) {
             contact = (ContactBean) getIntent().getSerializableExtra("contact");
             tvNickName.setText(contact.getNickName());
-            tvSex.setText(AppUtils.getSex(contact.getSex()));
+            tvSex.setText(AppUtils.getSex(this,contact.getSex()));
             tvPhone.setText(contact.getPhone());
             Glide.with(this)
                     .load(contact.getPortrait())
@@ -100,13 +100,13 @@ public class ContactAddActivity extends BaseActivity implements OptionsPickerVie
 
         member = (FamilyMember) getIntent().getSerializableExtra("member");
         if (contact == null)
-            TitleBarUtil.setAttr(this, "", "添加联系人", titleBar);
+            TitleBarUtil.setAttr(this, "", getString(R.string.add_contact), titleBar);
         else
-            TitleBarUtil.setAttr(this, "", "编辑联系人", titleBar);
+            TitleBarUtil.setAttr(this, "", getString(R.string.update_contact), titleBar);
         rxPermissions = new RxPermissions(this);
         optionsPicker = TimePickerUtil.initOptions(this, this);
-        listSex.add("男");
-        listSex.add("女");
+        listSex.add(getString(R.string.man));
+        listSex.add(getString(R.string.woman));
         optionsPicker.setPicker(listSex);
 
         dialog = new LoadingDialog(this);
@@ -148,7 +148,7 @@ public class ContactAddActivity extends BaseActivity implements OptionsPickerVie
                                     intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/jpeg");
                                     startActivityForResult(intent, ITEM_HEAD);
                                 } else {
-                                    ToastUtil.showShort("相关权限被拒绝");
+                                    ToastUtil.showShort(getString(R.string.permission_denied));
                                 }
                             }
                         });
@@ -160,13 +160,13 @@ public class ContactAddActivity extends BaseActivity implements OptionsPickerVie
             case R.id.layoutNickName:
                 //修改昵称
                 Intent intentNick = new Intent(this, InputMsgActivity.class);
-                intentNick.putExtra(InputMsgActivity.KEY, "填写昵称");
+                intentNick.putExtra(InputMsgActivity.KEY, getString(R.string.input_nickname));
                 startActivityForResult(intentNick, ITEM_NICK);
                 break;
             case R.id.layoutPhone:
                 //修改手机号
                 Intent intentPhone = new Intent(this, InputMsgActivity.class);
-                intentPhone.putExtra(InputMsgActivity.KEY, "填写手机号");
+                intentPhone.putExtra(InputMsgActivity.KEY, getString(R.string.input_phone));
                 intentPhone.putExtra(InputMsgActivity.TYPE, ITEM_PHONE);
                 startActivityForResult(intentPhone, ITEM_PHONE);
                 break;
@@ -206,27 +206,27 @@ public class ContactAddActivity extends BaseActivity implements OptionsPickerVie
 
     private void addContact() {
         if (TextUtils.isEmpty(imagePath) && contact == null) {
-            ToastUtil.showShort("请选择图片");
+            ToastUtil.showShort(getString(R.string.select_image));
             return;
         }
 
         String nickName = tvNickName.getText().toString();
 
         if (TextUtils.isEmpty(nickName)) {
-            ToastUtil.showShort("请填写昵称");
+            ToastUtil.showShort(getString(R.string.input_nickname));
             return;
         }
 
         String phone = tvPhone.getText().toString().trim();
         if (TextUtils.isEmpty(phone)) {
-            ToastUtil.showShort("请填写手机号");
+            ToastUtil.showShort(getString(R.string.input_phone));
             return;
         }
 
         String sex = tvSex.getText().toString();
 
         if (TextUtils.isEmpty(sex)) {
-            ToastUtil.showShort("请选择性别");
+            ToastUtil.showShort(getString(R.string.select_sex));
             return;
         }
         if (!TextUtils.isEmpty(imagePath))
@@ -290,7 +290,7 @@ public class ContactAddActivity extends BaseActivity implements OptionsPickerVie
                         super.onNext(result);
                         dialog.dismiss();
                         if (result.code.equals(AppConfig.SUCCESS)) {
-                            ToastUtil.showShort("添加成功");
+                            ToastUtil.showShort(getString(R.string.add_success));
                             setResult(RESULT_OK);
                             finish();
                         }
@@ -300,7 +300,8 @@ public class ContactAddActivity extends BaseActivity implements OptionsPickerVie
 
     private void updateContact() {
         ApiRequest.editContacts(member.getAccountId(), contact.getContactId(),serverImageUrl, tvNickName.getText().toString(),
-                tvPhone.getText().toString(), tvSex.getText().toString().equals("男") ? 1 : 2, new HttpSubscriber() {
+                tvPhone.getText().toString(), tvSex.getText().toString().equals(getString(R.string.man))
+                        ? 1 : 2, new HttpSubscriber() {
                     @Override
                     public void onError(Throwable e) {
                         super.onError(e);
@@ -312,7 +313,7 @@ public class ContactAddActivity extends BaseActivity implements OptionsPickerVie
                         super.onNext(result);
                         dialog.dismiss();
                         if (result.code.equals(AppConfig.SUCCESS)) {
-                            ToastUtil.showShort("操作成功");
+                            ToastUtil.showShort(getString(R.string.action_success));
                             setResult(RESULT_OK);
                             finish();
                         }

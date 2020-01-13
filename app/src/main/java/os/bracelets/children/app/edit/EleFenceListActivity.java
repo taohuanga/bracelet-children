@@ -52,7 +52,7 @@ public class EleFenceListActivity extends MVPBaseActivity<EleFenceListContract.P
         btnSave = findView(R.id.btnSave);
         btnSave.setVisibility(View.GONE);
         titleBar = findView(R.id.titleBar);
-        TitleBarUtil.setAttr(this, "", "电子围栏", titleBar);
+        TitleBarUtil.setAttr(this, "", getString(R.string.electronic_fence), titleBar);
         recyclerView = findView(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
@@ -81,7 +81,7 @@ public class EleFenceListActivity extends MVPBaseActivity<EleFenceListContract.P
         });
         eleFenceAdapter.setOnItemClickListener(this);
         eleFenceAdapter.setOnItemLongClickListener(this);
-        titleBar.addAction(new TitleBar.TextAction("添加围栏") {
+        titleBar.addAction(new TitleBar.TextAction(getString(R.string.add_electronic_fence)) {
             @Override
             public void performAction(View view) {
                 Intent eleAddIntent = new Intent(EleFenceListActivity.this, EleFenceAddActivity.class);
@@ -107,14 +107,14 @@ public class EleFenceListActivity extends MVPBaseActivity<EleFenceListContract.P
         delPosition = position;
         final EleFence eleFence = (EleFence) adapter.getItem(position);
         new AlertDialog.Builder(this)
-                .setMessage("是否需要删除该电子围栏？")
+                .setMessage(getString(R.string.is_delete_electronic_fence))
                 .setNegativeButton(getString(R.string.pickerview_cancel), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
                     }
                 })
-                .setPositiveButton(getString(R.string.sure1), new DialogInterface.OnClickListener() {
+                .setPositiveButton(getString(R.string.sure), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         mPresenter.delFence(String.valueOf(eleFence.getId()));

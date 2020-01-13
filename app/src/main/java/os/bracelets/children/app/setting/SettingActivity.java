@@ -67,7 +67,7 @@ public class SettingActivity extends MVPBaseActivity<SettingContract.Presenter> 
     @Override
     protected void initData() {
         mPresenter.loadBaseInfo();
-        TitleBarUtil.setAttr(this, "", "设置", titleBar);
+        TitleBarUtil.setAttr(this, "", getString(R.string.setting), titleBar);
     }
 
 
@@ -130,14 +130,14 @@ public class SettingActivity extends MVPBaseActivity<SettingContract.Presenter> 
 
     private void logout() {
         new android.support.v7.app.AlertDialog.Builder(this)
-                .setMessage("确认注销登录吗？")
-                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                .setMessage(getString(R.string.sure_log_out))
+                .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
                     }
                 })
-                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                .setPositiveButton(getString(R.string.sure), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         SPUtils.put(SettingActivity.this, AppConfig.IS_LOGIN, false);

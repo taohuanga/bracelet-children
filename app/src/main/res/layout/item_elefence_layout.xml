@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_8"
         android:layout_weight="1"
-        android:text="电子围栏地址"
+        android:text=""
         android:textColor="@color/black6"
         android:textSize="@dimen/sp15" />
 
@@ -27,5 +27,5 @@
         android:id="@+id/tvScope"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="范围" />
+        android:text="" />
 </LinearLayout>

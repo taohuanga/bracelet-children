@@ -27,7 +27,7 @@
             android:layout_marginStart="@dimen/dp_8"
             android:layout_marginEnd="@dimen/dp_8"
             android:layout_weight="1"
-            android:text="增加电子围栏"
+            android:text="@string/add_electronic_fence"
             android:textColor="@color/black6"
             android:textSize="@dimen/sp15" />
 
@@ -35,7 +35,7 @@
             android:id="@+id/tvRange"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="默认3km" />
+            android:text="@string/default_3km" />
 
     </LinearLayout>
 
@@ -92,7 +92,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/dp_8"
         android:background="@drawable/shape_button_bg"
-        android:text="添加"
+        android:text="@string/add"
         android:textColor="@color/white"
         android:textSize="@dimen/sp15" />
 </LinearLayout>

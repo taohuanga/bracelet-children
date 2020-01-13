@@ -17,6 +17,171 @@
         时间为2019-06-14 14:50:47左右， 请及时关注!”</string>
     <string name="save">保存</string>
     <string name="hint_relation">填写与被添加人关系（称谓）</string>
-    <string name="delete1">删除</string>
-    <string name="sure1">确定</string>
+    <string name="delete">删除</string>
+    <string name="sure">确定</string>
+    <string name="about_us">关于我们</string>
+    <string name="feed_back">意见反馈</string>
+    <string name="permission_denied">相关权限被拒绝</string>
+    <string name="input_title">请输入标题</string>
+    <string name="input_content">请输入内容</string>
+    <string name="commit">提交</string>
+    <string name="disagreement">不同意该协议</string>
+    <string name="agreement">同意该协议</string>
+    <string name="account_login_other_device">您的账号已在其他设备上登录！</string>
+    <string name="confirm_quit">确认退出</string>
+    <string name="code_later">%d秒后获取</string>
+    <string name="verification_code">获取验证码</string>
+    <string name="account_or_password_incorrect">账号密码校验错误</string>
+    <string name="input_phone">请输入手机号</string>
+    <string name="input_password">请输入密码</string>
+    <string name="phone_incorrect">手机号格式不正确</string>
+    <string name="input_code">请输入短信验证码</string>
+    <string name="login_by_code">短信登录</string>
+    <string name="login_by_pwd">密码登录</string>
+    <string name="login">登录</string>
+    <string name="resister_new_account">新注册账号</string>
+    <string name="forget_password">忘记密码</string>
+    <string name="register">注册</string>
+    <string name="accept_user_agreement">注：使用本软件表示接受该</string>
+    <string name="user_agreement">用户协议</string>
+    <string name="send_success">短信发送成功</string>
+    <string name="register_success">注册成功</string>
+    <string name="password_not_match">两次密码不一致</string>
+    <string name="input_new_password">请输入新密码</string>
+    <string name="confirm_new_password">请确认新密码</string>
+    <string name="contact">联系人</string>
+    <string name="contact_list">联系人列表</string>
+    <string name="add_contact">添加联系人</string>
+    <string name="is_delete_contact">是否需要删除该联系人？</string>
+    <string name="update_contact">编辑联系人</string>
+    <string name="man">男</string>
+    <string name="woman">女</string>
+    <string name="unknow">未知</string>
+    <string name="input_nickname">填写昵称</string>
+    <string name="select_image">请选择图片</string>
+    <string name="select_sex">请选择性别</string>
+    <string name="add_success">添加成功</string>
+    <string name="action_success">操作成功</string>
+    <string name="portrait">头像</string>
+    <string name="nickname">昵称</string>
+    <string name="not_filled">未填写</string>
+    <string name="phone_number">手机号码</string>
+    <string name="sex">性别</string>
+    <string name="bind_device">绑定设备</string>
+    <string name="input_device_no">请输入设备编号</string>
+    <string name="unbind_device">解绑该设备</string>
+    <string name="please_input_correct_mac_address">请输入正确的mac地址</string>
+    <string name="is_unbind_device">该设备已被其他用户绑定，是否强制绑定该设备？</string>
+    <string name="bind_cancel">取消绑定</string>
+    <string name="mandatory_binding">强制绑定</string>
+    <string name="scan">扫一扫</string>
+    <string name="mac_address">MAC地址</string>
+    <string name="device_number">设备号</string>
+    <string name="bind">绑定</string>
+    <string name="set_tag">设置标签</string>
+    <string name="remind_list">提醒列表</string>
+    <string name="electronic_fence_list">电子围栏列表</string>
+    <string name="set_remind">设置提醒</string>
+    <string name="electronic_fence">电子围栏</string>
+    <string name="is_delete_electronic_fence">是否需要删除该电子围栏？</string>
+    <string name="add_electronic_fence">添加电子围栏</string>
+    <string name="update_remind">编辑提醒</string>
+    <string name="select_date">选择周期</string>
+    <string name="title_not_null">标题不能为空</string>
+    <string name="content_not_null">内容不能为空</string>
+    <string name="set_remind_period">请设置提醒周期</string>
+    <string name="set_remind_time">请设置提醒时间</string>
+    <string name="remind_title">提醒标题</string>
+    <string name="remind_content">提醒内容</string>
+    <string name="remind_time">提醒时间</string>
+    <string name="remind_period">提醒周期</string>
+    <string name="update_electronic_fence">编辑电子围栏</string>
+    <string name="default_3km">默认3km</string>
+    <string name="add">添加</string>
+    <string name="scope">范围</string>
+    <string name="add_tag">添加标签</string>
+    <string name="tag_can_not_null">标签不能为空</string>
+    <string name="data_exception">数据异常</string>
+    <string name="input_tag_you_need">请输入要添加的标签</string>
+    <string name="relative_detail">亲人详情</string>
+    <string name="relative_list">亲人列表</string>
+    <string name="update_nickname">修改昵称</string>
+    <string name="update_name">修改姓名</string>
+    <string name="input_relation">填写关系</string>
+    <string name="update_height">修改身高</string>
+    <string name="update_weight">修改体重</string>
+    <string name="update_phone_number">修改手机号</string>
+    <string name="is_delete_relation">是否需要删除该亲人？</string>
+    <string name="please_upload_head_portrait">请先上传头像</string>
+    <string name="nick_name_not_null">昵称不能为空</string>
+    <string name="name_not_null">姓名不能为空</string>
+    <string name="sex_not_null">性别不能为空</string>
+    <string name="birthday_not_null">出生日期不能为空</string>
+    <string name="name">姓名</string>
+    <string name="relation">关系</string>
+    <string name="birthday">生日</string>
+    <string name="weight_kg">体重(kg)</string>
+    <string name="height_cm">身高(cm)</string>
+    <string name="add_relation">添加亲人</string>
+    <string name="input_name">填写姓名</string>
+    <string name="input_weight">填写体重</string>
+    <string name="input_height">填写身高</string>
+    <string name="select_birthday">请选择出生日期</string>
+    <string name="message">消息</string>
+    <string name="is_delete_remind">是否需要删除该提醒？</string>
+    <string name="fall_position">跌倒位置</string>
+    <string name="warning_alert">预警提醒</string>
+    <string name="strike_here">%s佩戴的衣带保在此处触发！</string>
+    <string name="attention_out_of_scope">已超出预定的活动范围，请及时关注！</string>
+    <string name="large_margin">感应到佩戴者运动幅度可能较大</string>
+    <string name="no_data">暂无数据</string>
+    <string name="sports_talent">运动达人</string>
+    <string name="more"><![CDATA[更多>]]></string>
+    <string name="more_data">更多数据</string>
+    <string name="navigation">导航</string>
+    <string name="nearby">附近的人</string>
+    <string name="information_list">资讯列表</string>
+    <string name="information_detail">资讯详情</string>
+    <string name="input_relation_added">填写与被添加人关系（称谓）</string>
+    <string name="sure_log_out">确认退出登录吗？</string>
+    <string name="cancel">取消</string>
+    <string name="update_password">修改密码</string>
+    <string name="modified_data">修改资料</string>
+    <string name="location_navigation">位置导航</string>
+    <string name="log_out">退出登录</string>
+    <string name="update_address">修改住址</string>
+    <string name="input_old_password">请输入原密码</string>
+    <string name="input_old_phone">请输入原手机号</string>
+    <string name="input_new_phone">请输入新手机号</string>
+    <string name="input_login_password">请输入登录密码</string>
+    <string name="can_not_same">新密码不能与原密码一样</string>
+    <string name="new_password_not_match">两次输入的新密码不一致</string>
+    <string name="setting">设置</string>
+    <string name="sensor">传感器</string>
+    <string name="remind_notify">消息提醒</string>
+    <string name="help_center">帮助中心</string>
+
+    <string-array name="date_array">
+        <item>周一</item>
+        <item>周二</item>
+        <item>周三</item>
+        <item>周四</item>
+        <item>周五</item>
+        <item>周六</item>
+        <item>周日</item>
+    </string-array>
+
+    <string-array name="home_tab_data">
+        <item>首页</item>
+        <item>亲人</item>
+        <item>资讯</item>
+        <item>我的</item>
+    </string-array>
+
+    <string-array name="area_code">
+        <item>中国 +86</item>
+        <item>美国 +1</item>
+        <item>日本 +81</item>
+    </string-array>
+
 </resources>

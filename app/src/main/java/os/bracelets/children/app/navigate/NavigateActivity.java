@@ -32,7 +32,7 @@ public class NavigateActivity extends MVPBaseActivity<NavigateContract.Presenter
 
     @Override
     protected void initData() {
-        TitleBarUtil.setAttr(this, "", "导航", titleBar);
+        TitleBarUtil.setAttr(this, "", getString(R.string.navigation), titleBar);
     }
 
 

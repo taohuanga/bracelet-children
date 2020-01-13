@@ -36,7 +36,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="短信登录"
+                    android:text="@string/login_by_code"
                     android:textColor="#83A4F1"
                     android:textSize="15sp" />
 
@@ -64,7 +64,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="密码登录"
+                    android:text="@string/login_by_pwd"
                     android:textColor="@color/black_normal"
                     android:textSize="15sp" />
 
@@ -105,19 +105,30 @@
                     android:src="@mipmap/icon_phone" />
 
                 <EditText
+                    android:layout_weight="1"
                     android:maxLength="11"
                     android:id="@+id/edPhone"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="38dp"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
                     android:background="@color/white"
-                    android:hint="请输入手机号码"
+                    android:hint="@string/input_phone"
                     android:inputType="number"
                     android:maxLines="1"
                     android:textColor="#666"
                     android:textColorHint="@color/black9"
                     android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/tvArea"
+                    android:gravity="center"
+                    android:paddingEnd="8dp"
+                    android:paddingStart="8dp"
+                    android:text="+86"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"/>
+
             </LinearLayout>
 
             <LinearLayout
@@ -146,7 +157,7 @@
                     android:layout_marginRight="8dp"
                     android:layout_weight="1"
                     android:background="@color/white"
-                    android:hint="请输入短信验证码"
+                    android:hint="@string/input_code"
                     android:maxLines="1"
                     android:textColor="#666"
                     android:textColorHint="#999"
@@ -157,7 +168,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="获取验证码"
+                    android:text="@string/verification_code"
                     android:textColor="@color/blue"
                     android:textSize="15sp" />
             </LinearLayout>
@@ -241,7 +252,7 @@
             android:layout_marginRight="36dp"
             android:layout_marginTop="36dp"
             android:background="@drawable/shape_button_bg"
-            android:text="登录"
+            android:text="@string/login"
             android:textColor="@color/white"
             android:textSize="15sp" />
 
@@ -261,7 +272,7 @@
                 android:layout_marginRight="@dimen/dp_12"
                 android:layout_weight="1"
                 android:background="@drawable/shape_button_bg_gray"
-                android:text="新注册账号"
+                android:text="@string/resister_new_account"
                 android:textColor="#666"
                 android:textSize="15sp" />
 
@@ -273,7 +284,7 @@
                 android:layout_marginLeft="@dimen/dp_12"
                 android:layout_weight="1"
                 android:background="@drawable/shape_button_bg_gray"
-                android:text="忘记密码"
+                android:text="@string/forget_password"
                 android:textColor="#666"
                 android:textSize="15sp" />
         </LinearLayout>

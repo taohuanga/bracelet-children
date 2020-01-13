@@ -15,7 +15,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="联系人列表"
+            android:text="@string/contact_list"
             android:textColor="@color/black6"
             android:textSize="@dimen/sp15" />
     </RelativeLayout>
@@ -35,7 +35,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="添加联系人"
+            android:text="@string/add_contact"
             android:textColor="@color/black6"
             android:textSize="@dimen/sp15" />
     </RelativeLayout>
@@ -55,7 +55,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="设置标签"
+            android:text="@string/set_tag"
             android:textColor="@color/black6"
             android:textSize="@dimen/sp15" />
     </RelativeLayout>
@@ -97,7 +97,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="设置提醒"
+            android:text="@string/set_remind"
             android:textColor="@color/black6"
             android:textSize="@dimen/sp15" />
     </RelativeLayout>
@@ -116,7 +116,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="提醒列表"
+            android:text="@string/remind_list"
             android:textColor="@color/black6"
             android:textSize="@dimen/sp15" />
     </RelativeLayout>
@@ -135,7 +135,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="绑定设备"
+            android:text="@string/bind_device"
             android:textColor="@color/black6"
             android:textSize="@dimen/sp15" />
     </RelativeLayout>
@@ -155,7 +155,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="电子围栏"
+            android:text="@string/electronic_fence"
             android:textColor="@color/black6"
             android:textSize="@dimen/sp15" />
     </RelativeLayout>
@@ -175,7 +175,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="添加电子围栏"
+            android:text="@string/add_electronic_fence"
             android:textColor="@color/black6"
             android:textSize="@dimen/sp15" />
     </RelativeLayout>

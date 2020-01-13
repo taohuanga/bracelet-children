@@ -92,7 +92,7 @@ public class NearbyDetailActivity extends MVPBaseActivity {
 
     private void initPersonMsg(NearbyPerson person){
         tvName.setText(person.getNickName());
-        tvSex.setText(AppUtils.getSex(person.getSex()));
+        tvSex.setText(AppUtils.getSex(this,person.getSex()));
         tvHeight.setText(String.valueOf(person.getHeight())+"cm");
         tvWeight.setText(String.valueOf(person.getWeight())+"kg");
         tvBirthday.setText(person.getBirthday());

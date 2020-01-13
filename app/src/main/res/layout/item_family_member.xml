@@ -35,7 +35,7 @@
             android:id="@+id/personName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_8"
+            android:layout_marginStart="@dimen/dp_8"
             android:layout_toEndOf="@id/personRelation"
             android:text=""
             android:textColor="@color/black6"
@@ -72,7 +72,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="更多功能"
+            android:text="@string/more_data"
             android:textSize="@dimen/sp15" />
     </LinearLayout>
 

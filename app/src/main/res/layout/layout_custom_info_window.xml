@@ -133,7 +133,7 @@
                 android:paddingTop="@dimen/dp_6"
                 android:paddingRight="@dimen/dp_12"
                 android:paddingBottom="@dimen/dp_6"
-                android:text="导航"
+                android:text="@string/navigation"
                 android:textColor="@color/white" />
         </LinearLayout>
     </LinearLayout>

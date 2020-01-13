@@ -33,8 +33,8 @@ public class AboutActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        TitleBarUtil.setAttr(this, "", "关于我们", titleBar);
-        tvTitle.setText("衣带保子女端 V" + BuildConfig.VERSION_NAME + "_" + BuildConfig.GIT_VERSION);
+        TitleBarUtil.setAttr(this, "", getString(R.string.about_us), titleBar);
+        tvTitle.setText(getString(R.string.app_name)+"V" + BuildConfig.VERSION_NAME + "_" + BuildConfig.GIT_VERSION);
         tvContent.setText("\r\r\r\r\r\r\r\r" + getResources().getString(R.string.about_content));
     }
 

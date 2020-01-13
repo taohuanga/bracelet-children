@@ -127,14 +127,14 @@ public class FamilyListFragment extends MVPBaseFragment<FamilyContract.Presenter
         delPosition = position;
         final FamilyMember member = (FamilyMember) adapter.getItem(position);
         new AlertDialog.Builder(getActivity())
-                .setMessage("是否需要删除该亲人？")
+                .setMessage(getString(R.string.is_delete_relation))
                 .setNegativeButton(getString(R.string.pickerview_cancel), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
                     }
                 })
-                .setPositiveButton(getString(R.string.sure1), new DialogInterface.OnClickListener() {
+                .setPositiveButton(getString(R.string.sure), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         mPresenter.delFamilyMember(String.valueOf(member.getRelationshipId()));

@@ -112,7 +112,7 @@ public class FamilyAddActivity extends MVPBaseActivity<FamilyAddContract.Present
 
     @Override
     protected void initData() {
-        TitleBarUtil.setAttr(this, "", "添加亲人", titleBar);
+        TitleBarUtil.setAttr(this, "", getString(R.string.add_relation), titleBar);
         rxPermissions = new RxPermissions(this);
 
         pickerView = TimePickerUtil.init(this, this);
@@ -164,7 +164,7 @@ public class FamilyAddActivity extends MVPBaseActivity<FamilyAddContract.Present
 
     @Override
     public void addMemberSuccess() {
-        ToastUtil.showShort("操作成功");
+        ToastUtil.showShort(getString(R.string.action_success));
         setResult(RESULT_OK);
         EventBus.getDefault().post(new MsgEvent<>(AppConfig.MSG_FAMILY_MEMBER));
         EventBus.getDefault().post(new MsgEvent<>(REQUEST_FAMILY_CHANGED));
@@ -187,7 +187,7 @@ public class FamilyAddActivity extends MVPBaseActivity<FamilyAddContract.Present
                                     intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/jpeg");
                                     startActivityForResult(intent, ITEM_HEAD);
                                 } else {
-                                    ToastUtil.showShort("相关权限被拒绝");
+                                    ToastUtil.showShort(getString(R.string.permission_denied));
                                 }
                             }
                         });
@@ -195,13 +195,13 @@ public class FamilyAddActivity extends MVPBaseActivity<FamilyAddContract.Present
             case R.id.layoutNickName:
                 //填写昵称
                 Intent intentNick = new Intent(this, InputMsgActivity.class);
-                intentNick.putExtra(InputMsgActivity.KEY, "填写昵称");
+                intentNick.putExtra(InputMsgActivity.KEY, getString(R.string.input_nickname));
                 startActivityForResult(intentNick, ITEM_NICK);
                 break;
             case R.id.layoutName:
                 //填写真实姓名
                 Intent intentName = new Intent(this, InputMsgActivity.class);
-                intentName.putExtra(InputMsgActivity.KEY, "填写姓名");
+                intentName.putExtra(InputMsgActivity.KEY, getString(R.string.input_name));
                 intentName.putExtra(InputMsgActivity.TYPE, ITEM_NAME);
                 startActivityForResult(intentName, ITEM_NAME);
                 break;
@@ -216,28 +216,28 @@ public class FamilyAddActivity extends MVPBaseActivity<FamilyAddContract.Present
             case R.id.layoutHeight:
                 //填写身高
                 Intent intentHeight = new Intent(this, InputMsgActivity.class);
-                intentHeight.putExtra(InputMsgActivity.KEY, "填写身高");
+                intentHeight.putExtra(InputMsgActivity.KEY, getString(R.string.input_height));
                 intentHeight.putExtra(InputMsgActivity.TYPE, ITEM_HEIGHT);
                 startActivityForResult(intentHeight, ITEM_HEIGHT);
                 break;
             case R.id.layoutWeight:
                 //填写体重
                 Intent intentWeight = new Intent(this, InputMsgActivity.class);
-                intentWeight.putExtra(InputMsgActivity.KEY, "填写体重");
+                intentWeight.putExtra(InputMsgActivity.KEY, getString(R.string.input_weight));
                 intentWeight.putExtra(InputMsgActivity.TYPE, ITEM_WEIGHT);
                 startActivityForResult(intentWeight, ITEM_WEIGHT);
                 break;
             case R.id.layoutPhone:
                 //填写手机号
                 Intent intentPhone = new Intent(this, InputMsgActivity.class);
-                intentPhone.putExtra(InputMsgActivity.KEY, "填写手机号");
+                intentPhone.putExtra(InputMsgActivity.KEY, getString(R.string.input_phone));
                 intentPhone.putExtra(InputMsgActivity.TYPE, ITEM_PHONE);
                 startActivityForResult(intentPhone, ITEM_PHONE);
                 break;
             case R.id.layoutRelation:
                 //填写关系
                 Intent intentRelation = new Intent(this, InputMsgActivity.class);
-                intentRelation.putExtra(InputMsgActivity.KEY, "填写关系");
+                intentRelation.putExtra(InputMsgActivity.KEY, getString(R.string.input_relation));
                 intentRelation.putExtra(InputMsgActivity.TYPE, ITEM_RELATION);
                 startActivityForResult(intentRelation, ITEM_RELATION);
                 break;
@@ -293,7 +293,7 @@ public class FamilyAddActivity extends MVPBaseActivity<FamilyAddContract.Present
 
     private boolean checkData() {
         if (TextUtils.isEmpty(localImagePath)) {
-            ToastUtil.showShort("请选择图片");
+            ToastUtil.showShort(getString(R.string.select_image));
             return false;
         }
 //        if (TextUtils.isEmpty(tvNickName.getText())) {
@@ -301,32 +301,32 @@ public class FamilyAddActivity extends MVPBaseActivity<FamilyAddContract.Present
 //            return false;
 //        }
         if (TextUtils.isEmpty(tvName.getText())) {
-            ToastUtil.showShort("请填写姓名");
+            ToastUtil.showShort(getString(R.string.input_name));
             return false;
         }
         if (TextUtils.isEmpty(tvSex.getText())) {
-            ToastUtil.showShort("请选择性别");
+            ToastUtil.showShort(getString(R.string.select_sex));
             return false;
         }
         if (TextUtils.isEmpty(tvRelation.getText())) {
-            ToastUtil.showShort("请选择关系");
+            ToastUtil.showShort(getString(R.string.input_relation));
             return false;
         }
 
         if (TextUtils.isEmpty(tvBirthday.getText())) {
-            ToastUtil.showShort("请选择出生日期");
+            ToastUtil.showShort(getString(R.string.select_birthday));
             return false;
         }
         if (TextUtils.isEmpty(tvHeight.getText())) {
-            ToastUtil.showShort("请填写身高");
+            ToastUtil.showShort(getString(R.string.input_height));
             return false;
         }
         if (TextUtils.isEmpty(tvWeight.getText())) {
-            ToastUtil.showShort("请填写体重");
+            ToastUtil.showShort(getString(R.string.input_weight));
             return false;
         }
         if (TextUtils.isEmpty(tvPhone.getText())) {
-            ToastUtil.showShort("请填写手机号");
+            ToastUtil.showShort(getString(R.string.input_phone));
             return false;
         }
         return true;
@@ -335,7 +335,7 @@ public class FamilyAddActivity extends MVPBaseActivity<FamilyAddContract.Present
     private void uploadMsg(String serverPath) {
         String nickName = tvNickName.getText().toString();
         String name = tvName.getText().toString();
-        int sex = tvSex.getText().equals("男") ? 1 : 2;
+        int sex = tvSex.getText().equals(getString(R.string.man)) ? 1 : 2;
         String relation = tvRelation.getText().toString();
         String birthday = tvBirthday.getText().toString();
         String height = tvHeight.getText().toString();

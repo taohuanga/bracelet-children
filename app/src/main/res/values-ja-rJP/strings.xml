@@ -1,0 +1,184 @@
+<resources>
+    <string name="app_name">yidaibao子の端</string>
+    <string name="title_1">Cool card</string>
+    <string name="title_2">Ok card</string>
+    <string name="title_3">Bad card</string>
+    <string name="title_4">Ugly card</string>
+
+    <string name="text_1">Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Etiam eget ligula eu lectus lobortis condimentum.</string>
+
+    <string name="about_content">
+           ベルトはスマートケアベルトです。予期せぬ転倒を知能的に検出し、エアバッグを開けて90%の衝撃力を減らすことができます。
+老人の両側の腰の関節、臀部、尾の椎骨と仙骨などの傷を受けやすい部位を保護して、人身の傷害を下げます。衣帯は人体工学に基づいて設計され、
+服を着るのは楽で、美しくてファッション的です。
+    </string>
+    <string name="description">
+暖かいヒント：あなたが記入または修正した名前は、家族が転倒したり、他のヒント情報に表示されます。
+XXが身につけている衣帯保は【上海市静安区南京西路XXX号近く】で触発され、
+        時間は2019-06-14:50:47ぐらいです。ご注意ください。</string>
+    <string name="save">保存</string>
+    <string name="hint_relation">記入と被添加人の関係（名称）</string>
+
+    <string name="delete">删除</string>
+    <string name="sure">確定</string>
+    <string name="about_us">私たちについて</string>
+    <string name="feed_back">意見のフィードバック</string>
+    <string name="permission_denied">権限は拒否された</string>
+    <string name="input_title">タイトルを入力してください</string>
+    <string name="input_content">内容を入力してください</string>
+    <string name="commit">提交</string>提出
+    <string name="disagreement">この合意に同意しない</string>
+    <string name="agreement">この合意に同意する</string>
+    <string name="account_login_other_device">あなたのアカウントは他の機器に登録されています</string>
+    <string name="confirm_quit">終了の確認</string>
+    <string name="code_later">%d秒後に</string>
+    <string name="verification_code">検証コードを取得する</string>
+    <string name="account_or_password_incorrect">アカウントのパスワード検証エラー</string>
+    <string name="input_phone">携帯の番号を入力してください</string>
+    <string name="input_password">パスワードを入力してください</string>
+    <string name="phone_incorrect">携帯電話の番号のフォーマットが正しくない</string>
+    <string name="input_code">メールの検証コードを入力してください。</string>
+    <string name="login_by_code">メッセージの登録</string>
+    <string name="login_by_pwd">パスワードの登録</string>
+    <string name="login">登録</string>
+    <string name="resister_new_account">新規にアカウントを登録する</string>
+    <string name="forget_password">パスワードを忘れる</string>
+    <string name="register">登録</string>
+    <string name="accept_user_agreement">注:本ソフトを使ってこれを受け入れることを示します</string>
+    <string name="user_agreement">ユーザープロトコル</string>
+    <string name="send_success">メール送信成功</string>
+    <string name="register_success">登録に成功する</string>
+    <string name="password_not_match">2回のパスワードが一致しない</string>
+    <string name="input_new_password">新しいパスワードを入力してください</string>
+    <string name="confirm_new_password">新しいパスワードを確認してください</string>
+    <string name="contact">連絡先</string>
+    <string name="contact_list">連絡先リスト</string>
+    <string name="add_contact">連絡先を追加</string>
+    <string name="is_delete_contact">連絡先を削除する必要があるかどうか</string>
+    <string name="update_contact">連絡先を編集する</string>
+    <string name="man">男</string>
+    <string name="woman">女</string>
+    <string name="unknow">未知</string>
+    <string name="input_nickname">ニックネームを記入する</string>
+    <string name="select_image">写真を選んでください</string>
+    <string name="select_sex">性別を選んでください</string>
+    <string name="add_success">追加成功</string>
+    <string name="action_success">操作に成功する</string>
+    <string name="portrait">顔写真</string>
+    <string name="nickname">ニックネーム</string>
+    <string name="not_filled">未記入</string>
+    <string name="phone_number">携帯電話番号</string>
+    <string name="sex">性别</string>
+    <string name="bind_device">バインディングデバイス</string>
+    <string name="input_device_no">デバイス番号を入力してください </string>
+    <string name="unbind_device">この装置を解凍する</string>
+    <string name="please_input_correct_mac_address">正しいmacアドレスを入力してください。</string>
+    <string name="is_unbind_device">強制デバイスは他のユーザによってバインディングされました。強制的にデバイスをバインドしますか？</string>
+    <string name="bind_cancel">バインディングを解除する</string>
+    <string name="mandatory_binding">強制バインディング</string>
+    <string name="scan">スキャン</string>
+    <string name="mac_address">MACアドレス</string>
+    <string name="device_number">デバイス番号</string>
+    <string name="bind">結合</string>
+    <string name="set_tag">ラベルの設定</string>
+    <string name="remind_list">リマインダリスト</string>
+    <string name="electronic_fence_list">電子囲いリスト</string>
+    <string name="set_remind">リマインダを設定</string>
+    <string name="electronic_fence">電子囲い</string>
+    <string name="is_delete_electronic_fence">この電子囲いを削除しますか？</string>
+    <string name="add_electronic_fence">電子囲いを追加</string>
+
+    <string name="update_remind">リマインダを編集</string>
+    <string name="select_date">サイクルを選択</string>
+    <string name="title_not_null">タイトルが空になってはいけません</string>
+    <string name="content_not_null">内容は空欄にしてはいけません</string>
+    <string name="set_remind_period">リマインダの周期を設定してください。</string>
+    <string name="set_remind_time">リマインダ時間を設定してください。</string>
+    <string name="remind_title">リマインダのタイトル</string>
+    <string name="remind_content">リマインダの内容</string>
+    <string name="remind_time">リマインダ時間</string>
+    <string name="remind_period">リマインダの周期</string>
+    <string name="update_electronic_fence">電子囲いを編集</string>
+    <string name="default_3km">デフォルト3KM</string>
+    <string name="add">追加</string>
+    <string name="scope">範囲</string>
+    <string name="add_tag">ラベルを 追加</string>
+    <string name="tag_can_not_null">ラベルは空になってはいけません</string>
+    <string name="data_exception">データ異常</string>
+    <string name="input_tag_you_need">追加するラベルを入力してください。</string>
+    <string name="relative_detail">家族の詳細</string>
+    <string name="relative_list">家族リスト</string>
+    <string name="update_nickname">ニックネームを変更</string>
+    <string name="update_name">名前を変更</string>
+    <string name="input_relation">関係を記入する</string>
+    <string name="update_height">身長を変更</string>
+    <string name="update_weight">体重を変更</string>
+    <string name="update_phone_number">携帯電話番号を変更</string>
+    <string name="is_delete_relation">肉親を削除する必要があるかどうか</string>
+    <string name="please_upload_head_portrait">まず画像をアップロードしてください</string>
+    <string name="nick_name_not_null">ニックネームは空になってはいけません</string>
+    <string name="name_not_null">名前は空になってはいけません</string>
+    <string name="sex_not_null">性别は空になってはいけません</string>
+    <string name="birthday_not_null">生年月日は空になってはいけません</string>
+    <string name="name">名前</string>
+    <string name="relation">関係</string>
+    <string name="birthday">誕生日</string>
+    <string name="weight_kg">体重(kg)</string>
+    <string name="height_cm">身長(cm)</string>
+    <string name="add_relation">家族を追加</string>
+    <string name="input_name">名前を記入する</string>
+    <string name="input_weight">体重を記入する</string>
+    <string name="input_height">身長を記入する</string>
+    <string name="select_birthday">生年月日を選んでください。</string>
+    <string name="message">メッセージ</string>
+    <string name="is_delete_remind">アラームを削除する必要がありますか？</string>
+    <string name="fall_position">転倒位置</string>
+    <string name="warning_alert">警告する</string>
+    <string name="strike_here">%s着用のyi dai baoがここでトリガされます。</string>
+    <string name="attention_out_of_scope">予定の活動範囲を超えていますので、ご注意ください</string>
+    <string name="large_margin">装着者の運動幅が大きいと感じるかもしれません</string>
+
+    <string name="no_data">データがありません</string>
+    <string name="sports_talent">スポーツの達人</string>
+    <string name="more">詳細></string>
+    <string name="more_data">詳細データ</string>
+    <string name="navigation">ナビゲータ</string>
+    <string name="nearby">近所の人</string>
+    <string name="information_list">情報リスト</string>
+    <string name="information_detail">情報の詳細</string>
+    <string name="input_relation_added">被添加者との関係(名称)を記入する</string>
+    <string name="sure_log_out">ログアウトを確認しますか</string>
+    <string name="cancel">キャンセル</string>
+    <string name="update_password">パスワードを変更</string>
+    <string name="modified_data">資料を修正する</string>
+    <string name="location_navigation">位置ナビゲーション</string>
+    <string name="log_out">ログアウト</string>
+    <string name="update_address">住所を修正する</string>
+    <string name="input_old_password">元のパスワードを入力してください</string>
+    <string name="input_old_phone">元の携帯番号を入力してください。</string>
+    <string name="input_new_phone">新しい携帯番号を入力してください。</string>
+    <string name="input_login_password">ログインパスワードを入力してください。</string>
+    <string name="can_not_same">新しいパスワードは元のパスワードと同じではいけません。</string>
+    <string name="new_password_not_match">二回入力した新しいパスワードが一致しません</string>
+    <string name="setting">設定</string>
+    <string name="sensor">センサー</string>
+    <string name="remind_notify">メッセージリマインダ</string>
+    <string name="help_center">ヘルプセンター</string>
+
+    <string-array name="date_array">
+        <item>月曜日</item>
+        <item>火曜日</item>
+        <item>水曜日</item>
+        <item>木曜日</item>
+        <item>金曜日</item>
+        <item>土曜日</item>
+        <item>日曜日</item>
+    </string-array>
+
+    <string-array name="home_tab_data">
+        <item>トップページ</item>
+        <item>家族</item>
+        <item>情報</item>
+        <item>私の</item>
+    </string-array>
+</resources>

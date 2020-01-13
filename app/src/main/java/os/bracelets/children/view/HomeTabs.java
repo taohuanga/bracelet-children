@@ -22,11 +22,12 @@ public class HomeTabs extends FrameLayout implements OnClickListener {
     private RadioButton radioButton2;
     private RadioButton radioButton3;
 
-    private static final String[] TITLES = {"首页","亲人","资讯","我的"};
+    private String[] TITLES;
 
     public HomeTabs(Context context, AttributeSet attrs) {
         super(context, attrs);
         LayoutInflater.from(context).inflate(R.layout.layout_home_tab, this);
+        TITLES = context.getResources().getStringArray(R.array.home_tab_data);
         initView();
         addListener();
     }

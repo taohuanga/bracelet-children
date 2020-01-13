@@ -46,7 +46,7 @@ public class EleFenceActivity extends AppCompatActivity {
 
     protected void initData() {
 
-        TitleBarUtil.setAttr(this,"","查看电子围栏",titleBar);
+        TitleBarUtil.setAttr(this,"",getString(R.string.electronic_fence),titleBar);
 
         remind = (RemindBean) getIntent().getSerializableExtra("remind");
 

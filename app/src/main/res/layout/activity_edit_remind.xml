@@ -18,7 +18,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="提醒标题"
+            android:text="@string/remind_title"
             android:textColor="@color/black6"
             android:textSize="@dimen/sp15" />
 
@@ -31,7 +31,7 @@
             android:layout_weight="1"
             android:background="@color/white"
             android:gravity="right|center_vertical"
-            android:hint="请输入标题"
+            android:hint="@string/input_title"
             android:maxLines="1"
             android:textColor="@color/black6"
             android:textColorHint="@color/black9"
@@ -55,7 +55,7 @@
         android:layout_height="wrap_content"
         android:paddingLeft="16dp"
         android:paddingTop="12dp"
-        android:text="提醒内容"
+        android:text="@string/remind_content"
         android:textColor="@color/black6"
         android:textSize="@dimen/sp15" />
 
@@ -68,7 +68,7 @@
         android:layout_marginEnd="10dp"
         android:background="@color/white"
         android:gravity="top"
-        android:hint="请输入内容"
+        android:hint="@string/input_content"
         android:padding="@dimen/dp_6"
         android:textColor="@color/black6"
         android:textColorHint="@color/black9"
@@ -91,7 +91,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="提醒周期"
+            android:text="@string/remind_period"
             android:textColor="@color/black6"
             android:textSize="@dimen/sp15" />
 
@@ -103,7 +103,7 @@
             android:layout_marginStart="@dimen/dp_8"
             android:layout_weight="1"
             android:gravity="right"
-            android:hint="未填写"
+            android:hint="@string/not_filled"
             android:maxLines="1"
             android:textColor="@color/black6"
             android:textColorHint="@color/black9"
@@ -145,7 +145,7 @@
             android:layout_marginStart="@dimen/dp_8"
             android:layout_weight="1"
             android:gravity="right"
-            android:hint="未填写"
+            android:hint="@string/not_filled"
             android:maxLines="1"
             android:textColor="@color/black6"
             android:textColorHint="@color/black9"
@@ -169,7 +169,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/dp_16"
         android:background="@drawable/shape_button_bg"
-        android:text="保存"
+        android:text="@string/save"
         android:textColor="@color/white"
         android:textSize="@dimen/dp_16" />
 </LinearLayout>

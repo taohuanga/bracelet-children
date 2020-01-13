@@ -102,7 +102,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="运动达人"
+                    android:text="@string/sports_talent"
                     android:textSize="@dimen/sp16" />
 
                 <ImageView
@@ -132,7 +132,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:gravity="center_vertical"
-                    android:text="更多>"
+                    android:text="@string/more"
                     android:textSize="@dimen/sp15" />
 
             </RelativeLayout>
@@ -192,7 +192,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_6"
-                        android:text="消息"
+                        android:text="@string/message"
                         android:textColor="@color/white"
                         android:textSize="@dimen/sp15" />
 
@@ -218,7 +218,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_8"
-                        android:text="设置标签"
+                        android:text="@string/set_tag"
                         android:textColor="@color/white"
                         android:textSize="@dimen/sp15" />
                 </LinearLayout>
@@ -243,7 +243,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_8"
-                        android:text="绑定设备"
+                        android:text="@string/bind_device"
                         android:textColor="@color/white"
                         android:textSize="@dimen/sp15" />
                 </LinearLayout>
@@ -276,9 +276,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
                         android:layout_marginTop="@dimen/dp_8"
-                        android:text="提醒列表"
+                        android:text="@string/remind_list"
                         android:textColor="@color/white"
                         android:textSize="@dimen/sp15" />
 
@@ -304,7 +303,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_8"
-                        android:text="电子围栏"
+                        android:text="@string/electronic_fence"
                         android:textColor="@color/white"
                         android:textSize="@dimen/sp15" />
                 </LinearLayout>
@@ -329,7 +328,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_8"
-                        android:text="联系人"
+                        android:text="@string/contact"
                         android:textColor="@color/white"
                         android:textSize="@dimen/sp15" />
                 </LinearLayout>

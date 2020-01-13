@@ -17,8 +17,8 @@ public class RegisterPresenter extends RegisterContract.Presenter {
     }
 
     @Override
-    void code(int type, String phone) {
-        ApiRequest.code(type, phone, new HttpSubscriber() {
+    void code(int type, String phone,String areaCode) {
+        ApiRequest.code(type, phone, areaCode,new HttpSubscriber() {
 
             @Override
             public void onStart() {
@@ -40,7 +40,6 @@ public class RegisterPresenter extends RegisterContract.Presenter {
                 if (mView != null)
                     mView.hideLoading();
                 if (result.code.equals(AppConfig.SUCCESS)) {
-                    ToastUtil.showShort("短信发送成功");
                     if (mView != null)
                         mView.codeSuccess();
                 }
@@ -72,7 +71,6 @@ public class RegisterPresenter extends RegisterContract.Presenter {
                 if (mView != null)
                     mView.hideLoading();
                 if (result.code.equals(AppConfig.SUCCESS)) {
-                    ToastUtil.showShort("注册成功");
                     mView.registerSuccess(phone);
                 } else {
                     ToastUtil.showShort(result.errorMessage);

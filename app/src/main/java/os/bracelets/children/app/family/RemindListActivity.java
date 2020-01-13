@@ -59,7 +59,7 @@ public class RemindListActivity extends BaseActivity implements BaseQuickAdapter
     @Override
     protected void initView() {
         titleBar = findView(R.id.titleBar);
-        TitleBarUtil.setAttr(this, "", "提醒列表", titleBar);
+        TitleBarUtil.setAttr(this, "", getString(R.string.remind_list), titleBar);
 
         refreshLayout = findView(R.id.refreshLayout);
         refreshLayout.setColorSchemeColors(getResources().getColor(R.color.appThemeColor));
@@ -95,7 +95,7 @@ public class RemindListActivity extends BaseActivity implements BaseQuickAdapter
         remindListAdapter.setOnItemClickListener(this);
         remindListAdapter.setOnItemLongClickListener(this);
         refreshLayout.setOnRefreshListener(this);
-        titleBar.addAction(new TitleBar.TextAction("设置提醒") {
+        titleBar.addAction(new TitleBar.TextAction(getString(R.string.set_remind)) {
             @Override
             public void performAction(View view) {
                 Intent intent = new Intent(RemindListActivity.this, EditRemindActivity.class);
@@ -135,14 +135,14 @@ public class RemindListActivity extends BaseActivity implements BaseQuickAdapter
         delPosition = position;
         final Remind remind = (Remind) adapter.getItem(position);
         new AlertDialog.Builder(this)
-                .setMessage("是否需要删除该提醒？")
+                .setMessage(getString(R.string.is_delete_remind))
                 .setNegativeButton(getString(R.string.pickerview_cancel), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
                     }
                 })
-                .setPositiveButton(getString(R.string.sure1), new DialogInterface.OnClickListener() {
+                .setPositiveButton(getString(R.string.sure), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         delRemind(String.valueOf(remind.getRemindId()));

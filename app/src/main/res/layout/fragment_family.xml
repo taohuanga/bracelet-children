@@ -14,7 +14,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="亲人列表"
+            android:text="@string/relative_list"
             android:textColor="@color/white"
             android:textSize="@dimen/sp15" />
 

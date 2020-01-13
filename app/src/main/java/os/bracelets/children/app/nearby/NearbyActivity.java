@@ -59,7 +59,7 @@ public class NearbyActivity extends MVPBaseActivity<NearbyContract.Presenter> im
 
     @Override
     protected void initData() {
-        TitleBarUtil.setAttr(this, "", "附近的人", titleBar);
+        TitleBarUtil.setAttr(this, "", getString(R.string.nearby), titleBar);
         refreshLayout.setColorSchemeColors(mContext.getResources().getColor(R.color.appThemeColor));
         personList = new ArrayList<>();
         nearbyAdapter = new NearbyAdapter(personList);

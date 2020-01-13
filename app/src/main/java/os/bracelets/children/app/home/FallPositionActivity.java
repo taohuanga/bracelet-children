@@ -84,11 +84,11 @@ public class FallPositionActivity extends AppCompatActivity implements AMap.Info
             type = getIntent().getIntExtra("type", 0);
 
         if (type == 0) {
-            TitleBarUtil.setAttr(this, "", "跌倒位置", titleBar);
+            TitleBarUtil.setAttr(this, "", getString(R.string.fall_position), titleBar);
         } else if (type == 2) {
-            TitleBarUtil.setAttr(this, "", "电子围栏", titleBar);
+            TitleBarUtil.setAttr(this, "", getString(R.string.electronic_fence), titleBar);
         } else {
-            TitleBarUtil.setAttr(this, "", "预警提醒", titleBar);
+            TitleBarUtil.setAttr(this, "", getString(R.string.warning_alert), titleBar);
         }
 
         if (aMap == null)
@@ -172,8 +172,6 @@ public class FallPositionActivity extends AppCompatActivity implements AMap.Info
                     Uri data = Uri.parse("tel:" + remind.getPhone());
                     intent.setData(data);
                     startActivity(intent);
-                } else {
-                    ToastUtil.showShort("不支持的操作");
                 }
                 break;
         }
@@ -189,11 +187,12 @@ public class FallPositionActivity extends AppCompatActivity implements AMap.Info
         ImageView ivImage = view.findViewById(R.id.ivImage);
         ImageView ivCall = view.findViewById(R.id.ivCall);
         if (type == 0) {
-            tvTitle.setText(remind.getRelation() + "佩戴的衣带保在此处触发！");
+//            tvTitle.setText(remind.getRelation() + getString(R.string.strike_here));
+            tvTitle.setText(String.format(getString(R.string.strike_here),remind.getRelation()));
         } else if (type == 2) {
-            tvTitle.setText("已超出预定的活动范围，请及时关注！");
+            tvTitle.setText(getString(R.string.attention_out_of_scope));
         } else {
-            tvTitle.setText("感应到佩戴者运动幅度可能较大");
+            tvTitle.setText(getString(R.string.large_margin));
         }
         tvName.setText(remind.getNickName());
         tvPhone.setText(remind.getPhone());

@@ -27,7 +27,7 @@ public class NearbyAdapter extends BaseQuickAdapter<NearbyPerson, BaseViewHolder
     @Override
     protected void convert(BaseViewHolder helper, NearbyPerson item) {
         helper.setText(R.id.personName, item.getNickName());
-        helper.setText(R.id.personSex, AppUtils.getSex(item.getSex()));
+        helper.setText(R.id.personSex, AppUtils.getSex(mContext,item.getSex()));
         helper.setText(R.id.personAge, String.valueOf(item.getAge()) + "岁");
         helper.setText(R.id.personDistance, item.getDistance());
         if (item.getUserType() == 0)

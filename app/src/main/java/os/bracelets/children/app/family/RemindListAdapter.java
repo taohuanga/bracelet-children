@@ -18,9 +18,10 @@ public class RemindListAdapter extends BaseQuickAdapter<Remind, BaseViewHolder> 
 
     @Override
     protected void convert(BaseViewHolder helper, Remind item) {
-        helper.setText(R.id.tvTitle, "提醒标题：" + item.getRemindTitle());
-        helper.setText(R.id.tvTime, "提醒时间：" + item.getRemindTime());
-        helper.setText(R.id.tvDate, "提醒周期：" + AppUtils.getRemindDate(item.getRemindPeriod()));
-        helper.setText(R.id.tvContent, "提醒内容：" + item.getRemindContent());
+        helper.setText(R.id.tvTitle, mContext.getString(R.string.remind_title) + "：" + item.getRemindTitle());
+        helper.setText(R.id.tvTime, mContext.getString(R.string.remind_time) + "：" + item.getRemindTime());
+        helper.setText(R.id.tvDate, mContext.getString(R.string.remind_period) + "："
+                + AppUtils.getRemindDate(mContext,item.getRemindPeriod()));
+        helper.setText(R.id.tvContent, mContext.getString(R.string.remind_content)+"：" + item.getRemindContent());
     }
 }

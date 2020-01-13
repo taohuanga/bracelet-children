@@ -15,6 +15,6 @@
         android:background="@drawable/shape_tag_unselect"
         android:gravity="center"
         android:padding="@dimen/dp_8"
-        android:text="标签"
+        android:text="--"
         android:textColor="@color/black6" />
 </LinearLayout>

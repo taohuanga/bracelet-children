@@ -28,7 +28,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="头像"
+                    android:text="@string/portrait"
                     android:textColor="@color/black6"
                     android:textSize="@dimen/sp15" />
 
@@ -67,7 +67,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="昵称"
+                    android:text="@string/nickname"
                     android:textColor="@color/black6"
                     android:textSize="@dimen/sp15" />
 
@@ -79,7 +79,7 @@
                     android:layout_marginLeft="@dimen/dp_8"
                     android:layout_weight="1"
                     android:gravity="right"
-                    android:hint="未填写"
+                    android:hint="@string/not_filled"
                     android:maxLines="1"
                     android:textColor="@color/black6"
                     android:textColorHint="@color/black9"
@@ -109,7 +109,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="姓名"
+                    android:text="@string/name"
                     android:textColor="@color/black6"
                     android:textSize="@dimen/sp15" />
 
@@ -121,7 +121,7 @@
                     android:layout_marginStart="@dimen/dp_8"
                     android:layout_weight="1"
                     android:gravity="right"
-                    android:hint="未填写"
+                    android:hint="@string/not_filled"
                     android:maxLines="1"
                     android:textColor="@color/black6"
                     android:textColorHint="@color/black9"
@@ -151,7 +151,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="性别"
+                    android:text="@string/sex"
                     android:textColor="@color/black6"
                     android:textSize="@dimen/sp15" />
 
@@ -163,7 +163,7 @@
                     android:layout_marginStart="@dimen/dp_8"
                     android:layout_weight="1"
                     android:gravity="right"
-                    android:hint="未填写"
+                    android:hint="@string/not_filled"
                     android:maxLines="1"
                     android:textColor="@color/black6"
                     android:textColorHint="@color/black9"
@@ -193,7 +193,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="生日"
+                    android:text="@string/birthday"
                     android:textColor="@color/black6"
                     android:textSize="@dimen/sp15" />
 
@@ -205,7 +205,7 @@
                     android:layout_marginStart="@dimen/dp_8"
                     android:layout_weight="1"
                     android:gravity="right"
-                    android:hint="未填写"
+                    android:hint="@string/not_filled"
                     android:maxLines="1"
                     android:textColor="@color/black6"
                     android:textColorHint="@color/black9"
@@ -250,7 +250,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="right"
-                    android:hint="未填写"
+                    android:hint="@string/not_filled"
                     android:maxLines="1"
                     android:textColor="@color/black6"
                     android:textColorHint="@color/black9"
@@ -296,7 +296,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="right"
-                    android:hint="未填写"
+                    android:hint="@string/not_filled"
                     android:maxLines="1"
                     android:textColor="@color/black6"
                     android:textColorHint="@color/black9"
@@ -342,7 +342,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="right"
-                    android:hint="未填写"
+                    android:hint="@string/not_filled"
                     android:maxLines="1"
                     android:textColor="@color/black6"
                     android:textColorHint="@color/black9"
@@ -389,7 +389,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_18"
                     android:gravity="right"
-                    android:hint="未填写"
+                    android:hint="@string/not_filled"
                     android:maxLines="1"
                     android:textColor="@color/black6"
                     android:textColorHint="@color/black9"

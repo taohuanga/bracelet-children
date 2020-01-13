@@ -54,7 +54,7 @@ public class MsgListActivity extends MVPBaseActivity<MsgListContract.Presenter> 
     protected void initView() {
         titleBar = findView(R.id.titleBar);
 
-        TitleBarUtil.setAttr(this, "", "消息", titleBar);
+        TitleBarUtil.setAttr(this, "", getString(R.string.message), titleBar);
         recyclerView = findView(R.id.recyclerView);
         LinearLayoutManager manager = new LinearLayoutManager(this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);

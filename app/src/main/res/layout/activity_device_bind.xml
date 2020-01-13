@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_16"
-            android:text="扫一扫"
+            android:text="@string/scan"
             android:textColor="@color/black6"
             android:textSize="@dimen/sp17" />
 
@@ -55,7 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="MAC地址"
+            android:text="@string/mac_address"
             android:textColor="@color/black6"
             android:textSize="@dimen/sp15" />
 
@@ -68,7 +68,7 @@
             android:layout_marginStart="8dp"
             android:background="@color/white"
             android:gravity="right|center_vertical"
-            android:hint="设备号"
+            android:hint="@string/device_number"
             android:maxLines="1"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
@@ -87,7 +87,7 @@
         android:layout_marginStart="@dimen/dp_16"
         android:layout_marginEnd="@dimen/dp_16"
         android:background="@drawable/shape_button_bg"
-        android:text="绑定"
+        android:text="@string/bind"
         android:textColor="@color/white"
         android:textSize="@dimen/sp15" />
 </LinearLayout>

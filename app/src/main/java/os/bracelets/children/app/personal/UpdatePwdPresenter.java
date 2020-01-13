@@ -18,7 +18,7 @@ public class UpdatePwdPresenter extends UpdatePwdContract.Presenter {
 
     @Override
     void code(int type, String phone) {
-        ApiRequest.code(type, phone, new HttpSubscriber() {
+        ApiRequest.code(type, phone,"", new HttpSubscriber() {
 
             @Override
             public void onStart() {
@@ -40,7 +40,6 @@ public class UpdatePwdPresenter extends UpdatePwdContract.Presenter {
                 if (mView != null)
                     mView.hideLoading();
                 if (result.code.equals(AppConfig.SUCCESS)) {
-                    ToastUtil.showShort("短信发送成功");
                     if (mView != null)
                         mView.codeSuccess();
                 }

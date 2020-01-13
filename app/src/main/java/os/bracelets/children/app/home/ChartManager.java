@@ -34,7 +34,7 @@ public class ChartManager {
         initChartStyle(mLineChart, xValues);
 
         //设置折线的样式
-        LineDataSet dataSet = new LineDataSet(yValue, "运动趋势图");
+        LineDataSet dataSet = new LineDataSet(yValue, "");
         dataSet.setColor(context.getResources().getColor(R.color.appThemeColor));
         dataSet.setCircleColor(context.getResources().getColor(R.color.appThemeColor));
         //线上显示值

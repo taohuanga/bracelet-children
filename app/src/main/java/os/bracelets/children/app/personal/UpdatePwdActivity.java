@@ -56,7 +56,7 @@ public class UpdatePwdActivity extends MVPBaseActivity<UpdatePwdContract.Present
 
     @Override
     protected void initData() {
-        TitleBarUtil.setAttr(this, "", "修改密码", titleBar);
+        TitleBarUtil.setAttr(this, "", getString(R.string.update_password), titleBar);
     }
 
 
@@ -79,7 +79,7 @@ public class UpdatePwdActivity extends MVPBaseActivity<UpdatePwdContract.Present
             case R.id.tvCode:
                 phone = (String) SPUtils.get(this, AppConfig.USER_PHONE, "");
                 if (TextUtils.isEmpty(phone)) {
-                    ToastUtil.showShort("手机号信息有误");
+                    ToastUtil.showShort(getString(R.string.phone_incorrect));
                     return;
                 }
                 mPresenter.code(3, phone);
@@ -96,19 +96,19 @@ public class UpdatePwdActivity extends MVPBaseActivity<UpdatePwdContract.Present
         String rePwd = edRePwd.getText().toString().trim();
         String code = edCode.getText().toString().trim();
         if (TextUtils.isEmpty(oldPwd)) {
-            ToastUtil.showShort("请输入原密码");
+            ToastUtil.showShort(getString(R.string.input_old_password));
             return;
         }
         if (TextUtils.isEmpty(newPwd)) {
-            ToastUtil.showShort("请输入新密码");
+            ToastUtil.showShort(getString(R.string.input_new_password));
             return;
         }
         if (TextUtils.equals(oldPwd, newPwd)) {
-            ToastUtil.showShort("新密码不能与原密码一样");
+            ToastUtil.showShort(getString(R.string.can_not_same));
             return;
         }
         if (!TextUtils.equals(newPwd, rePwd)) {
-            ToastUtil.showShort("两次输入的新密码不一致");
+            ToastUtil.showShort(getString(R.string.new_password_not_match));
             return;
         }
         mPresenter.updatePwd(MD5Util.getMD5String(oldPwd), MD5Util.getMD5String(newPwd), code);
@@ -118,19 +118,21 @@ public class UpdatePwdActivity extends MVPBaseActivity<UpdatePwdContract.Present
     private CountDownTimer countDownTimer = new CountDownTimer(59000, 1000) {
         @Override
         public void onTick(long millisUntilFinished) {
-            tvCode.setText(millisUntilFinished / 1000 + "秒后获取");
+//            tvCode.setText(millisUntilFinished / 1000 + "秒后获取");
+            tvCode.setText(String.format(getString(R.string.code_later),millisUntilFinished / 1000));
         }
 
         @Override
         public void onFinish() {
             tvCode.setEnabled(true);
             tvCode.setTextColor(mContext.getResources().getColor(R.color.blue));
-            tvCode.setText("获取验证码");
+            tvCode.setText(getString(R.string.verification_code));
         }
     };
 
     @Override
     public void codeSuccess() {
+        ToastUtil.showShort(getString(R.string.send_success));
         tvCode.setEnabled(false);
         tvCode.setTextColor(mContext.getResources().getColor(R.color.black9));
         countDownTimer.start();
@@ -138,7 +140,7 @@ public class UpdatePwdActivity extends MVPBaseActivity<UpdatePwdContract.Present
 
     @Override
     public void updatePwdSuccess() {
-        ToastUtil.showShort("操作成功");
+        ToastUtil.showShort(getString(R.string.action_success));
         finish();
     }
 }

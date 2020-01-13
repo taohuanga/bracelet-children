@@ -56,7 +56,7 @@ public class LabelEditActivity extends MVPBaseActivity<LabelContract.Presenter> 
     protected void initView() {
         btnSave = findView(R.id.btnSave);
         titleBar = findView(R.id.titleBar);
-        TitleBarUtil.setAttr(this, "", "设置标签", titleBar);
+        TitleBarUtil.setAttr(this, "", getString(R.string.set_tag), titleBar);
         recyclerView = findView(R.id.recyclerView);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 4));
     }
@@ -97,7 +97,7 @@ public class LabelEditActivity extends MVPBaseActivity<LabelContract.Presenter> 
                 finish();
             }
         });
-        titleBar.addAction(new TitleBar.TextAction("添加标签") {
+        titleBar.addAction(new TitleBar.TextAction(getString(R.string.add_tag)) {
             @Override
             public void performAction(View view) {
                 Intent intent = new Intent(LabelEditActivity.this, LabelAddActivity.class);
@@ -178,7 +178,7 @@ public class LabelEditActivity extends MVPBaseActivity<LabelContract.Presenter> 
 
     private void saveTag() {
         if (member == null || member.getAccountId() == 0) {
-            ToastUtil.showShort("亲人数据异常");
+            ToastUtil.showShort(getString(R.string.data_exception));
             return;
         }
         //是否有选择中标签

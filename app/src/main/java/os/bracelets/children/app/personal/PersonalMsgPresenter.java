@@ -137,7 +137,6 @@ public class PersonalMsgPresenter extends PersonalMsgContract.Presenter {
                 if (mView != null)
                     mView.hideLoading();
                 if (result.code.equals(AppConfig.SUCCESS)) {
-                    ToastUtil.showShort("资料保存成功");
                     if (mView != null)
                         mView.updateMsgSuccess();
                 }

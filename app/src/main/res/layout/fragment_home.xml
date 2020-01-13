@@ -104,7 +104,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text="运动达人"
+                android:text="@string/sports_talent"
                 android:textSize="@dimen/sp16" />
 
             <ImageView
@@ -134,7 +134,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:gravity="center_vertical"
-                android:text="更多>"
+                android:text="@string/more"
                 android:textSize="@dimen/sp15" />
 
         </RelativeLayout>
@@ -147,7 +147,7 @@
             android:gravity="center_vertical"
             android:paddingLeft="@dimen/dp_16"
             android:paddingRight="@dimen/dp_16"
-            android:text="消息提醒"
+            android:text="@string/remind_notify"
             android:textSize="@dimen/sp16" />
 
 

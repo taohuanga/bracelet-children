@@ -50,10 +50,13 @@ public class ApiRequest {
     }
 
     //获取手机验证码
-    public static Subscription code(int type, String phone, Subscriber<HttpResult> subscriber) {
+    public static Subscription code(int type, String phone, String areaCode, Subscriber<HttpResult> subscriber) {
         Map<String, Object> map = new HashMap<>();
         map.put("type", String.valueOf(type));
         map.put("phone", phone);
+        if (!TextUtils.isEmpty(areaCode)) {
+            map.put("areaCode", areaCode);
+        }
         return ServiceFactory.getInstance()
                 .createService(ApiService.class)
                 .code(map)
@@ -726,5 +729,17 @@ public class ApiRequest {
                 .compose(RxTransformer.<HttpResult>defaultSchedulers())
                 .subscribe(subscriber);
     }
+
+    //获取帮助中心网址
+    public static Subscription helpUrl(Subscriber<HttpResult> subscriber) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("tokenId", MyApplication.getInstance().getTokenId());
+        return ServiceFactory.getInstance()
+                .createService(ApiService.class)
+                .helpUrl(map)
+                .compose(RxTransformer.<HttpResult>defaultSchedulers())
+                .subscribe(subscriber);
+    }
+
 }
 

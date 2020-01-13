@@ -314,4 +314,11 @@ interface ApiService {
      */
     @POST("sys/message/read")
     Observable<HttpResult> msgRead(@Body Map<String, Object> map);
+
+    /**
+     * 帮助中心网址
+     */
+    @POST("sys/app/helpUrl")
+    Observable<HttpResult> helpUrl(@Body Map<String, Object> map);
+
 }

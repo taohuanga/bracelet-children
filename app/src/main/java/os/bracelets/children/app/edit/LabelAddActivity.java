@@ -41,7 +41,7 @@ public class LabelAddActivity extends BaseActivity {
     @Override
     protected void initData() {
         dialog = new LoadingDialog(this);
-        TitleBarUtil.setAttr(this, "", "添加标签", titleBar);
+        TitleBarUtil.setAttr(this, "", getString(R.string.add_tag), titleBar);
     }
 
     @Override
@@ -66,7 +66,7 @@ public class LabelAddActivity extends BaseActivity {
     private void addLabel() {
         String label = editText.getText().toString().trim();
         if (TextUtils.isEmpty(label)) {
-            ToastUtil.showShort("标签不能为空");
+            ToastUtil.showShort(getString(R.string.tag_can_not_null));
             return;
         }
 

@@ -48,9 +48,14 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.Presenter> impl
 
     private View layoutMsg, layoutPwd, lineMsg, linePwd;
 
-    private TextView tvMsgLogin, tvPwdLogin, tvCode;
+    private TextView tvMsgLogin, tvPwdLogin, tvCode,tvArea;
 
     private View layoutPhone, layoutAccount;
+
+    private String[] codeArray = new String[]{"+86", "+1", "+81"};
+    private String[] areaArray;
+    private String areaCode = "+86";
+
 
     @Override
     protected LoginContract.Presenter getPresenter() {
@@ -91,6 +96,7 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.Presenter> impl
         tvMsgLogin = findView(R.id.tvMsgLogin);
         tvPwdLogin = findView(R.id.tvPwdLogin);
         tvCode = findView(R.id.tvCode);
+        tvArea = findView(R.id.tvArea);
         lineMsg = findView(R.id.lineMsg);
         linePwd = findView(R.id.linePwd);
         layoutPhone = findView(R.id.layoutPhone);
@@ -104,6 +110,8 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.Presenter> impl
         edPhone.setText((String) SPUtils.get(this, AppConfig.USER_PHONE, ""));
         edPhone.setSelection(edPhone.getText().length());
 
+        areaArray = getResources().getStringArray(R.array.area_code);
+
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             RxPermissions rxPermissions = new RxPermissions(this);
             rxPermissions
@@ -113,7 +121,7 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.Presenter> impl
                         public void call(Boolean aBoolean) {
                             if (aBoolean) {
                             } else {
-                                ToastUtil.showShort("相关权限被拒绝");
+                                ToastUtil.showShort(getString(R.string.permission_denied));
                             }
                         }
                     });
@@ -122,8 +130,8 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.Presenter> impl
             boolean flag = getIntent().getBooleanExtra("flag", false);
             if (flag) {
                 new AlertDialog.Builder(this)
-                        .setMessage("您的账号已在其他设备上登录！")
-                        .setPositiveButton("确认退出", new DialogInterface.OnClickListener() {
+                        .setMessage(getString(R.string.account_login_other_device))
+                        .setPositiveButton(getString(R.string.confirm_quit), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
@@ -138,6 +146,7 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.Presenter> impl
     @Override
     protected void initListener() {
         tvCode.setOnClickListener(this);
+        tvArea.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
         btnRegister.setOnClickListener(this);
         btnForgetPwd.setOnClickListener(this);
@@ -165,14 +174,15 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.Presenter> impl
     private CountDownTimer countDownTimer = new CountDownTimer(59000, 1000) {
         @Override
         public void onTick(long millisUntilFinished) {
-            tvCode.setText(millisUntilFinished / 1000 + "秒后获取");
+//            tvCode.setText(millisUntilFinished / 1000 + "秒后获取");
+            tvCode.setText(String.format(getString(R.string.code_later),millisUntilFinished / 1000));
         }
 
         @Override
         public void onFinish() {
             tvCode.setEnabled(true);
             tvCode.setTextColor(mContext.getResources().getColor(R.color.blue));
-            tvCode.setText("获取验证码");
+            tvCode.setText(getString(R.string.verification_code));
         }
     };
 
@@ -197,6 +207,18 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.Presenter> impl
                 break;
             case R.id.tvCode:
                 getCode();
+                break;
+            case R.id.tvArea:
+                new AlertDialog.Builder(this)
+                        .setItems(areaArray, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                areaCode = codeArray[which];
+                                tvArea.setText(areaCode);
+                            }
+                        })
+                        .create()
+                        .show();
                 break;
 
         }
@@ -236,22 +258,22 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.Presenter> impl
             if (checkInput(account, pwd)) {
                 mPresenter.login(account, MD5Util.getMD5String(pwd));
             } else {
-                ToastUtil.showShort("账号密码校验错误");
+                ToastUtil.showShort(getString(R.string.account_or_password_incorrect));
             }
         } else {
             //短信登录
             String phone = edPhone.getText().toString().trim();
             String code = edCode.getText().toString().trim();
             if (TextUtils.isEmpty(phone)) {
-                ToastUtil.showShort("请输入手机号");
+                ToastUtil.showShort(getString(R.string.input_phone));
                 return;
             }
             if (!MatchUtil.isPhoneLegal(phone)) {
-                ToastUtil.showShort("手机号格式不正确");
+                ToastUtil.showShort(getString(R.string.phone_incorrect));
                 return;
             }
             if (TextUtils.isEmpty(code)) {
-                ToastUtil.showShort("请输入验证码");
+                ToastUtil.showShort(getString(R.string.input_code));
                 return;
             }
             mPresenter.fastLogin(phone, code);
@@ -264,13 +286,13 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.Presenter> impl
     private void getCode() {
         String phone = edPhone.getText().toString().trim();
         if (TextUtils.isEmpty(phone)) {
-            ToastUtil.showShort("请输入手机号");
+            ToastUtil.showShort(getString(R.string.input_phone));
             return;
         }
         if (!MatchUtil.isPhoneLegal(phone)) {
-            ToastUtil.showShort("手机号格式不正确");
+            ToastUtil.showShort(getString(R.string.phone_incorrect));
             return;
         }
-        mPresenter.securityCode(2, phone);
+        mPresenter.securityCode(2, phone,areaCode);
     }
 }

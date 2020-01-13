@@ -43,7 +43,7 @@ public class SportsListActivity extends MVPBaseActivity<SportsContract.Presenter
     @Override
     protected void initView() {
         titleBar = findView(R.id.titleBar);
-        TitleBarUtil.setAttr(this, "", "更多数据", titleBar);
+        TitleBarUtil.setAttr(this, "", getString(R.string.more_data), titleBar);
         recyclerView = findView(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));

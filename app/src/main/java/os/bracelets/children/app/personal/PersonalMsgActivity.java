@@ -107,7 +107,7 @@ public class PersonalMsgActivity extends MVPBaseActivity<PersonalMsgContract.Pre
 
     @Override
     protected void initData() {
-        TitleBarUtil.setAttr(this, "", "修改资料", titleBar);
+        TitleBarUtil.setAttr(this, "", getString(R.string.modified_data), titleBar);
         mPresenter.userInfo();
         rxPermissions = new RxPermissions(this);
         pickerView = TimePickerUtil.init(this, this);
@@ -135,7 +135,7 @@ public class PersonalMsgActivity extends MVPBaseActivity<PersonalMsgContract.Pre
                 finish();
             }
         });
-        titleBar.addAction(new TitleBar.TextAction("保存") {
+        titleBar.addAction(new TitleBar.TextAction(getString(R.string.save)) {
             @Override
             public void performAction(View view) {
                 saveMsg();
@@ -167,7 +167,7 @@ public class PersonalMsgActivity extends MVPBaseActivity<PersonalMsgContract.Pre
 
         tvNickName.setText(info.getNickName());
         tvName.setText(info.getName());
-        tvSex.setText(AppUtils.getSex(info.getSex()));
+        tvSex.setText(AppUtils.getSex(this,info.getSex()));
         tvBirthday.setText(info.getBirthday());
     }
 
@@ -187,7 +187,7 @@ public class PersonalMsgActivity extends MVPBaseActivity<PersonalMsgContract.Pre
                                     intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/jpeg");
                                     startActivityForResult(intent, ITEM_HEAD);
                                 } else {
-                                    ToastUtil.showShort("相关权限被拒绝");
+                                    ToastUtil.showShort(getString(R.string.permission_denied));
                                 }
                             }
                         });
@@ -195,13 +195,13 @@ public class PersonalMsgActivity extends MVPBaseActivity<PersonalMsgContract.Pre
             case R.id.layoutNickName:
                 //修改昵称
                 Intent intentNick = new Intent(this, InputMsgActivity.class);
-                intentNick.putExtra(InputMsgActivity.KEY, "修改昵称");
+                intentNick.putExtra(InputMsgActivity.KEY, getString(R.string.update_nickname));
                 startActivityForResult(intentNick, ITEM_NICK);
                 break;
             case R.id.layoutName:
                 //修改真实姓名
                 Intent intentName = new Intent(this, InputMsgActivity.class);
-                intentName.putExtra(InputMsgActivity.KEY, "修改姓名");
+                intentName.putExtra(InputMsgActivity.KEY, getString(R.string.update_name));
 //                intentName.putExtra(InputMsgActivity.TYPE, ITEM_NAME);
                 startActivityForResult(intentName, ITEM_NAME);
                 break;
@@ -216,14 +216,14 @@ public class PersonalMsgActivity extends MVPBaseActivity<PersonalMsgContract.Pre
             case R.id.layoutHeight:
                 //修改身高
                 Intent intentHeight = new Intent(this, InputMsgActivity.class);
-                intentHeight.putExtra(InputMsgActivity.KEY, "修改身高");
+                intentHeight.putExtra(InputMsgActivity.KEY, getString(R.string.update_height));
                 intentHeight.putExtra(InputMsgActivity.TYPE, ITEM_HEIGHT);
                 startActivityForResult(intentHeight, ITEM_HEIGHT);
                 break;
             case R.id.layoutWeight:
                 //修改体重
                 Intent intentWeight = new Intent(this, InputMsgActivity.class);
-                intentWeight.putExtra(InputMsgActivity.KEY, "修改体重");
+                intentWeight.putExtra(InputMsgActivity.KEY, getString(R.string.update_weight));
                 intentWeight.putExtra(InputMsgActivity.TYPE, ITEM_WEIGHT);
                 startActivityForResult(intentWeight, ITEM_WEIGHT);
                 break;
@@ -235,7 +235,7 @@ public class PersonalMsgActivity extends MVPBaseActivity<PersonalMsgContract.Pre
             case R.id.layoutHomeAddress:
                 //修改家庭住址
                 Intent intentAddress = new Intent(this, InputMsgActivity.class);
-                intentAddress.putExtra(InputMsgActivity.KEY, "修改住址");
+                intentAddress.putExtra(InputMsgActivity.KEY, getString(R.string.update_address));
                 startActivityForResult(intentAddress, ITEM_ADDRESS);
                 break;
 
@@ -286,12 +286,12 @@ public class PersonalMsgActivity extends MVPBaseActivity<PersonalMsgContract.Pre
     //保存资料
     private void saveMsg() {
         if (TextUtils.isEmpty(serverImageUrl) && TextUtils.isEmpty(localImagePath)) {
-            ToastUtil.showShort("请先上传头像");
+            ToastUtil.showShort(getString(R.string.please_upload_head_portrait));
             return;
         }
         String nickName = tvNickName.getText().toString().trim();
         if (TextUtils.isEmpty(nickName)) {
-            ToastUtil.showShort("昵称不能为空");
+            ToastUtil.showShort(getString(R.string.nick_name_not_null));
             return;
         }
         String name = tvName.getText().toString();
@@ -302,19 +302,19 @@ public class PersonalMsgActivity extends MVPBaseActivity<PersonalMsgContract.Pre
         //0未知 1男 2女
         String sex = tvSex.getText().toString().trim();
         if (TextUtils.isEmpty(sex)) {
-            ToastUtil.showShort("性别不能为空");
+            ToastUtil.showShort(getString(R.string.sex_not_null));
             return;
         }
         int sexType = 0;
-        if (sex.equals("男")) {
+        if (sex.equals(getString(R.string.man))) {
             sexType = 1;
-        } else if (sex.equals("女")) {
+        } else if (sex.equals(getString(R.string.woman))) {
             sexType = 2;
         }
 
         String birthday = tvBirthday.getText().toString();
         if (TextUtils.isEmpty(birthday)) {
-            ToastUtil.showShort("出生日期不能为空");
+            ToastUtil.showShort(getString(R.string.birthday_not_null));
             return;
         }
         if (!TextUtils.isEmpty(localImagePath))
@@ -326,6 +326,7 @@ public class PersonalMsgActivity extends MVPBaseActivity<PersonalMsgContract.Pre
 
     @Override
     public void updateMsgSuccess() {
+        ToastUtil.showShort(getString(R.string.action_success));
         setResult(RESULT_OK);
         finish();
     }
@@ -333,7 +334,7 @@ public class PersonalMsgActivity extends MVPBaseActivity<PersonalMsgContract.Pre
     @Override
     public void uploadImageSuccess(String imageUrl) {
         mPresenter.modifyData(imageUrl, tvNickName.getText().toString(), tvName.getText().toString(),
-                tvBirthday.getText().toString(), tvSex.getText().equals("男") ? 1 : 2);
+                tvBirthday.getText().toString(), tvSex.getText().equals(getString(R.string.man)) ? 1 : 2);
     }
 
 

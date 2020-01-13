@@ -67,7 +67,7 @@ public class ContactActivity extends MVPBaseActivity<ContactContract.Presenter> 
 
     @Override
     protected void initData() {
-        TitleBarUtil.setAttr(this, "", "联系人列表", titleBar);
+        TitleBarUtil.setAttr(this, "", getString(R.string.contact_list), titleBar);
         rxPermissions = new RxPermissions(this);
         refreshLayout.setColorSchemeColors(mContext.getResources().getColor(R.color.appThemeColor));
         personList = new ArrayList<>();
@@ -100,7 +100,7 @@ public class ContactActivity extends MVPBaseActivity<ContactContract.Presenter> 
                 finish();
             }
         });
-        titleBar.addAction(new TitleBar.TextAction("添加联系人") {
+        titleBar.addAction(new TitleBar.TextAction(getString(R.string.add_contact)) {
             @Override
             public void performAction(View view) {
                 Intent addIntent = new Intent(ContactActivity.this, ContactAddActivity.class);
@@ -156,14 +156,14 @@ public class ContactActivity extends MVPBaseActivity<ContactContract.Presenter> 
         delPosition = position;
         final ContactBean contact = (ContactBean) adapter.getItem(position);
         new AlertDialog.Builder(this)
-                .setMessage("是否需要删除该联系人？")
+                .setMessage(getString(R.string.is_delete_contact))
                 .setNegativeButton(getString(R.string.pickerview_cancel), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
                     }
                 })
-                .setPositiveButton(getString(R.string.sure1), new DialogInterface.OnClickListener() {
+                .setPositiveButton(getString(R.string.sure), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         mPresenter.contactDelete(String.valueOf(contact.getContactId()));

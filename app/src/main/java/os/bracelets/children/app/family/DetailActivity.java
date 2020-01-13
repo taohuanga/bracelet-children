@@ -119,7 +119,7 @@ public class DetailActivity extends MVPBaseActivity<DetailContract.Presenter> im
 
     @Override
     protected void initData() {
-        TitleBarUtil.setAttr(this, "", "亲人详情", titleBar);
+        TitleBarUtil.setAttr(this, "", getString(R.string.relative_detail), titleBar);
         rxPermissions = new RxPermissions(this);
 
 
@@ -166,7 +166,7 @@ public class DetailActivity extends MVPBaseActivity<DetailContract.Presenter> im
     public void loadMemberInfoSuccess(FamilyMember member) {
         tvNickName.setText(member.getNickName());
         tvName.setText(member.getRealName());
-        tvSex.setText(AppUtils.getSex(member.getSex()));
+        tvSex.setText(AppUtils.getSex(this,member.getSex()));
         tvRelation.setText(member.getRelationship());
         tvBirthday.setText(member.getBirthday());
         tvWeight.setText(member.getWeight());
@@ -228,7 +228,7 @@ public class DetailActivity extends MVPBaseActivity<DetailContract.Presenter> im
 
     @Override
     public void updateMsgSuccess() {
-        ToastUtil.showShort("操作成功");
+        ToastUtil.showShort(getString(R.string.action_success));
         EventBus.getDefault().post(new MsgEvent<>(REQUEST_FAMILY_CHANGED));
         setResult(RESULT_OK);
         finish();
@@ -240,9 +240,9 @@ public class DetailActivity extends MVPBaseActivity<DetailContract.Presenter> im
         //0未知 1男 2女
         String sex = tvSex.getText().toString().trim();
         int sexType = 0;
-        if (sex.equals("男")) {
+        if (sex.equals(getString(R.string.man))) {
             sexType = 1;
-        } else if (sex.equals("女")) {
+        } else if (sex.equals(getString(R.string.woman))) {
             sexType = 2;
         }
         String birthday = tvBirthday.getText().toString();
@@ -268,7 +268,7 @@ public class DetailActivity extends MVPBaseActivity<DetailContract.Presenter> im
                                     intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/jpeg");
                                     startActivityForResult(intent, ITEM_HEAD);
                                 } else {
-                                    ToastUtil.showShort("相关权限被拒绝");
+                                    ToastUtil.showShort(getString(R.string.permission_denied));
                                 }
                             }
                         });
@@ -276,14 +276,14 @@ public class DetailActivity extends MVPBaseActivity<DetailContract.Presenter> im
             case R.id.layoutNickName:
                 //修改昵称
                 Intent intentNick = new Intent(this, InputMsgActivity.class);
-                intentNick.putExtra(InputMsgActivity.KEY, "修改昵称");
+                intentNick.putExtra(InputMsgActivity.KEY, getString(R.string.update_nickname));
                 intentNick.putExtra(InputMsgActivity.TYPE, ITEM_NICK);
                 startActivityForResult(intentNick, ITEM_NICK);
                 break;
             case R.id.layoutName:
                 //修改真实姓名
                 Intent intentName = new Intent(this, InputMsgActivity.class);
-                intentName.putExtra(InputMsgActivity.KEY, "修改姓名");
+                intentName.putExtra(InputMsgActivity.KEY, getString(R.string.update_name));
                 intentName.putExtra(InputMsgActivity.TYPE, ITEM_NAME);
                 startActivityForResult(intentName, ITEM_NAME);
                 break;
@@ -297,21 +297,21 @@ public class DetailActivity extends MVPBaseActivity<DetailContract.Presenter> im
                 break;
             case R.id.layoutRelation:
                 Intent intentRelation = new Intent(this, InputMsgActivity.class);
-                intentRelation.putExtra(InputMsgActivity.KEY, "填写关系");
+                intentRelation.putExtra(InputMsgActivity.KEY, getString(R.string.input_relation));
                 intentRelation.putExtra(InputMsgActivity.TYPE, ITEM_RELATION);
                 startActivityForResult(intentRelation, ITEM_RELATION);
                 break;
             case R.id.layoutHeight:
                 //修改身高
                 Intent intentHeight = new Intent(this, InputMsgActivity.class);
-                intentHeight.putExtra(InputMsgActivity.KEY, "修改身高");
+                intentHeight.putExtra(InputMsgActivity.KEY, getString(R.string.update_height));
                 intentHeight.putExtra(InputMsgActivity.TYPE, ITEM_HEIGHT);
                 startActivityForResult(intentHeight, ITEM_HEIGHT);
                 break;
             case R.id.layoutWeight:
                 //修改体重
                 Intent intentWeight = new Intent(this, InputMsgActivity.class);
-                intentWeight.putExtra(InputMsgActivity.KEY, "修改体重");
+                intentWeight.putExtra(InputMsgActivity.KEY, getString(R.string.update_weight));
                 intentWeight.putExtra(InputMsgActivity.TYPE, ITEM_WEIGHT);
                 startActivityForResult(intentWeight, ITEM_WEIGHT);
                 break;
@@ -319,7 +319,7 @@ public class DetailActivity extends MVPBaseActivity<DetailContract.Presenter> im
                 //修改手机号
 //                ToastUtil.showShort("手机号码不支持修改");
                 Intent intentPhone = new Intent(this, InputMsgActivity.class);
-                intentPhone.putExtra(InputMsgActivity.KEY, "修改手机号");
+                intentPhone.putExtra(InputMsgActivity.KEY, R.string.update_phone_number);
                 intentPhone.putExtra(InputMsgActivity.TYPE, ITEM_PHONE);
 //                Intent intentPhone = new Intent(this, UpdatePhoneActivity.class);
 //                String phone = tvPhone.getText().toString().trim();
@@ -340,14 +340,14 @@ public class DetailActivity extends MVPBaseActivity<DetailContract.Presenter> im
                 break;
             case R.id.btnDelete:
                 new AlertDialog.Builder(this)
-                        .setMessage("是否需要删除该亲人？")
+                        .setMessage(getString(R.string.is_delete_relation))
                         .setNegativeButton(getString(R.string.pickerview_cancel), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
                             }
                         })
-                        .setPositiveButton(getString(R.string.sure1), new DialogInterface.OnClickListener() {
+                        .setPositiveButton(getString(R.string.sure), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 mPresenter.delFamilyMember(relationShipId);
@@ -361,7 +361,7 @@ public class DetailActivity extends MVPBaseActivity<DetailContract.Presenter> im
 
     @Override
     public void deleteSuccess() {
-        ToastUtil.showShort("操作成功");
+        ToastUtil.showShort(getString(R.string.action_success));
         EventBus.getDefault().post(new MsgEvent<>(REQUEST_FAMILY_CHANGED));
         setResult(RESULT_OK);
         finish();
@@ -391,23 +391,23 @@ public class DetailActivity extends MVPBaseActivity<DetailContract.Presenter> im
 
     private boolean checkData() {
         if (TextUtils.isEmpty(serverImageUrl) && TextUtils.isEmpty(localImagePath)) {
-            ToastUtil.showShort("请先上传头像");
+            ToastUtil.showShort(getString(R.string.please_upload_head_portrait));
             return false;
         }
         String nickName = tvNickName.getText().toString().trim();
         if (TextUtils.isEmpty(nickName)) {
-            ToastUtil.showShort("昵称不能为空");
+            ToastUtil.showShort(getString(R.string.nick_name_not_null));
             return false;
         }
         String name = tvName.getText().toString();
         if (TextUtils.isEmpty(name)) {
-            ToastUtil.showShort("姓名不能为空");
+            ToastUtil.showShort(getString(R.string.name_not_null));
             return false;
         }
         //0未知 1男 2女
         String sex = tvSex.getText().toString().trim();
         if (TextUtils.isEmpty(sex)) {
-            ToastUtil.showShort("性别不能为空");
+            ToastUtil.showShort(getString(R.string.sex_not_null));
             return false;
         }
         return true;

@@ -43,7 +43,8 @@ public class EditRemindActivity extends BaseActivity implements TimePickerView.O
 
     private SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
     private TimePickerView pickerView;
-    private String[] date = {"周一", "周二", "周三", "周四", "周五", "周六", "周日"};
+    //    private String[] date = {"周一", "周二", "周三", "周四", "周五", "周六", "周日"};
+    private String[] date;
     private boolean[] checked = {false, false, false, false, false, false, false};
     private String remindPeriod = "";
     private String remindTime = "";
@@ -59,6 +60,7 @@ public class EditRemindActivity extends BaseActivity implements TimePickerView.O
 
     @Override
     protected void initView() {
+        date = getResources().getStringArray(R.array.date_array);
         titleBar = findView(R.id.titleBar);
         edTitle = findView(R.id.edTitle);
         edContent = findView(R.id.edContent);
@@ -77,14 +79,14 @@ public class EditRemindActivity extends BaseActivity implements TimePickerView.O
         member = (FamilyMember) getIntent().getSerializableExtra("member");
         pickerView = TimePickerUtil.initTime(this, this);
         if (remind != null) {
-            TitleBarUtil.setAttr(this, "", "编辑提醒", titleBar);
+            TitleBarUtil.setAttr(this, "", getString(R.string.update_remind), titleBar);
             remindPeriod = remind.getRemindPeriod();
             edTitle.setText(remind.getRemindTitle());
             edContent.setText(remind.getRemindContent());
-            tvCycle.setText(AppUtils.getRemindDate(remind.getRemindPeriod()));
+            tvCycle.setText(AppUtils.getRemindDate(this,remind.getRemindPeriod()));
             tvTime.setText(remind.getRemindTime());
         } else {
-            TitleBarUtil.setAttr(this, "", "设置提醒", titleBar);
+            TitleBarUtil.setAttr(this, "", getString(R.string.set_remind), titleBar);
         }
     }
 
@@ -110,35 +112,37 @@ public class EditRemindActivity extends BaseActivity implements TimePickerView.O
             case R.id.llRemindCycle:
                 if (alertDialog == null)
                     alertDialog = new AlertDialog.Builder(this)
-                            .setTitle("选择周期")
+                            .setTitle(getString(R.string.select_date))
                             .setMultiChoiceItems(date, checked, new DialogInterface.OnMultiChoiceClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which, boolean isChecked) {
 
                                 }
                             })
-                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            .setPositiveButton(getString(R.string.sure), new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     remindPeriod = "";
                                     remindTime = "";
                                     for (int i = 0; i < checked.length; i++) {
-                                        if (checked[i])
+                                        if (checked[i]) {
                                             remindPeriod += (i + 1) + ";";
-                                        if (i == 0 && checked[i])
-                                            remindTime += "周一" + " ";
-                                        if (i == 1 && checked[i])
-                                            remindTime += "周二" + " ";
-                                        if (i == 2 && checked[i])
-                                            remindTime += "周三" + " ";
-                                        if (i == 3 && checked[i])
-                                            remindTime += "周四" + " ";
-                                        if (i == 4 && checked[i])
-                                            remindTime += "周五" + " ";
-                                        if (i == 5 && checked[i])
-                                            remindTime += "周六" + " ";
-                                        if (i == 6 && checked[i])
-                                            remindTime += "周日";
+                                            remindTime += date[i] + " ";
+                                        }
+//                                        if (i == 0 && checked[i])
+//                                            remindTime += date[0]+ " ";
+//                                        if (i == 1 && checked[i])
+//                                            remindTime += date[1] + " ";
+//                                        if (i == 2 && checked[i])
+//                                            remindTime += "周三" + " ";
+//                                        if (i == 3 && checked[i])
+//                                            remindTime += "周四" + " ";
+//                                        if (i == 4 && checked[i])
+//                                            remindTime += "周五" + " ";
+//                                        if (i == 5 && checked[i])
+//                                            remindTime += "周六" + " ";
+//                                        if (i == 6 && checked[i])
+//                                            remindTime += "周日";
                                     }
                                     tvCycle.setText(remindTime);
                                 }
@@ -165,19 +169,19 @@ public class EditRemindActivity extends BaseActivity implements TimePickerView.O
         String time = tvTime.getText().toString();
 
         if (TextUtils.isEmpty(title)) {
-            ToastUtil.showShort("标题不能为空");
+            ToastUtil.showShort(getString(R.string.title_not_null));
             return;
         }
         if (TextUtils.isEmpty(content)) {
-            ToastUtil.showShort("内容不能为空");
+            ToastUtil.showShort(getString(R.string.content_not_null));
             return;
         }
         if (TextUtils.isEmpty(cycle)) {
-            ToastUtil.showShort("请设置提醒周期");
+            ToastUtil.showShort(getString(R.string.set_remind_period));
             return;
         }
         if (TextUtils.isEmpty(time)) {
-            ToastUtil.showShort("请设置提醒时间");
+            ToastUtil.showShort(getString(R.string.set_remind_time));
             return;
         }
         if (remindPeriod.contains(";"))
@@ -203,7 +207,7 @@ public class EditRemindActivity extends BaseActivity implements TimePickerView.O
                             super.onNext(result);
                             dialog.dismiss();
                             if (result.code.equals(AppConfig.SUCCESS)) {
-                                ToastUtil.showShort("操作成功");
+                                ToastUtil.showShort(getString(R.string.action_success));
                                 setResult(RESULT_OK);
                                 EditRemindActivity.this.finish();
                             }
@@ -229,7 +233,7 @@ public class EditRemindActivity extends BaseActivity implements TimePickerView.O
                     super.onNext(result);
                     dialog.dismiss();
                     if (result.code.equals(AppConfig.SUCCESS)) {
-                        ToastUtil.showShort("操作成功");
+                        ToastUtil.showShort(getString(R.string.action_success));
                         setResult(RESULT_OK);
                         EditRemindActivity.this.finish();
                     }

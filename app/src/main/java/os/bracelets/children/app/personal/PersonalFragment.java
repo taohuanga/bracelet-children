@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -35,6 +36,7 @@ import os.bracelets.children.MyApplication;
 import os.bracelets.children.R;
 import os.bracelets.children.app.about.AboutActivity;
 import os.bracelets.children.app.about.FeedBackActivity;
+import os.bracelets.children.app.about.HelpActivity;
 import os.bracelets.children.app.account.LoginActivity;
 import os.bracelets.children.app.nearby.NearbyActivity;
 import os.bracelets.children.common.BaseFragment;
@@ -55,7 +57,8 @@ public class PersonalFragment extends BaseFragment implements INaviInfoCallback 
 
     private Button btnLogout;
 
-    private View layoutUpdatePwd, layoutUpdateMsg, layoutNearby, layoutNav, layoutFeedBack, layoutAbout, layoutExit;
+    private View layoutUpdatePwd, layoutUpdateMsg, layoutNearby, layoutNav, layoutFeedBack,
+            layoutHelp,layoutAbout, layoutExit;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -90,6 +93,7 @@ public class PersonalFragment extends BaseFragment implements INaviInfoCallback 
         layoutAbout = findView(R.id.layoutAbout);
         layoutNav = findView(R.id.layoutNav);
         layoutExit = findView(R.id.layoutExit);
+        layoutHelp = findView(R.id.layoutHelp);
         getUserInfo();
     }
 
@@ -108,6 +112,7 @@ public class PersonalFragment extends BaseFragment implements INaviInfoCallback 
         setOnClickListener(layoutNearby);
         setOnClickListener(layoutNav);
         setOnClickListener(layoutExit);
+        setOnClickListener(layoutHelp);
     }
 
     @Override
@@ -140,19 +145,22 @@ public class PersonalFragment extends BaseFragment implements INaviInfoCallback 
             case R.id.layoutAbout:
                 startActivity(new Intent(getActivity(), AboutActivity.class));
                 break;
+            case R.id.layoutHelp:
+                startActivity(new Intent(getActivity(), HelpActivity.class));
+                break;
         }
     }
 
     private void logout() {
-        new android.support.v7.app.AlertDialog.Builder(getActivity())
-                .setMessage("确认退出登录吗？")
-                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+        new AlertDialog.Builder(getActivity())
+                .setMessage(getString(R.string.sure_log_out))
+                .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
                     }
                 })
-                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                .setPositiveButton(getString(R.string.sure), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 //                        SPUtils.put(MyApplication.getInstance(), AppConfig.IS_LOGIN, false);

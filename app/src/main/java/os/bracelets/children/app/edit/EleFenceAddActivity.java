@@ -122,7 +122,7 @@ public class EleFenceAddActivity extends MVPActivity<EleFenceAddContract.Present
             aMap = mapView.getMap();
         }
         if (eleFence != null) {
-            TitleBarUtil.setAttr(this, "", "编辑电子围栏", titleBar);
+            TitleBarUtil.setAttr(this, "", getString(R.string.update_electronic_fence), titleBar);
             double latitude = Double.parseDouble(eleFence.getLatitude());
             double longitude = Double.parseDouble(eleFence.getLongitude());
             aMap.moveCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(
@@ -130,7 +130,7 @@ public class EleFenceAddActivity extends MVPActivity<EleFenceAddContract.Present
             tvAddress.setText(eleFence.getLocation());
             btnAdd.setText(getString(R.string.save));
         } else {
-            TitleBarUtil.setAttr(this, "", "添加电子围栏", titleBar);
+            TitleBarUtil.setAttr(this, "", getString(R.string.add_electronic_fence), titleBar);
             double latitude = Double.parseDouble((String) SPUtils.get(this, AppConfig.LATITUDE, ""));
             double longitude = Double.parseDouble((String) SPUtils.get(this, AppConfig.LONGITUDE, ""));
             aMap.moveCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(
@@ -286,7 +286,7 @@ public class EleFenceAddActivity extends MVPActivity<EleFenceAddContract.Present
                         super.onNext(result);
                         dialog.dismiss();
                         if (result.code.equals(AppConfig.SUCCESS)) {
-                            ToastUtil.showShort("添加成功");
+                            ToastUtil.showShort(getString(R.string.action_success));
                             setResult(RESULT_OK);
                             finish();
                         }

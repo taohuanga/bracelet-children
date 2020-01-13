@@ -69,7 +69,7 @@ public class InputMsgActivity extends BaseActivity {
 
         if (type == PersonalMsgActivity.ITEM_RELATION) {
             //这里输入自己想要的提示文字
-            SpannableString s = new SpannableString("填写与被添加人关系（称谓）");
+            SpannableString s = new SpannableString(getString(R.string.input_relation_added));
             editText.setHint(s);
         }
 
@@ -87,7 +87,7 @@ public class InputMsgActivity extends BaseActivity {
                 finish();
             }
         });
-        titleBar.addAction(new TitleBar.TextAction("确定") {
+        titleBar.addAction(new TitleBar.TextAction(getString(R.string.sure)) {
             @Override
             public void performAction(View view) {
                 save();
@@ -98,12 +98,12 @@ public class InputMsgActivity extends BaseActivity {
     private void save() {
         String msg = editText.getText().toString().trim();
         if (TextUtils.isEmpty(msg)) {
-            ToastUtil.showShort("请输入内容");
+            ToastUtil.showShort(getString(R.string.input_content));
             return;
         }
         if (type == PersonalMsgActivity.ITEM_PHONE) {
             if (!MatchUtil.isChinaPhoneLegal(msg)) {
-                ToastUtil.showShort("手机号格式不正确");
+                ToastUtil.showShort(getString(R.string.phone_incorrect));
                 return;
             }
         }

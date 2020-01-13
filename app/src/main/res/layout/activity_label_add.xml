@@ -13,7 +13,7 @@
         android:layout_height="48dp"
         android:layout_margin="@dimen/sp16"
         android:background="@drawable/shape_edit_text_bg"
-        android:hint="请输入要添加的标签"
+        android:hint="@string/input_tag_you_need"
         android:padding="@dimen/dp_8"
         android:textColor="@color/black6"
         android:textColorHint="@color/black9"
@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/dp_16"
         android:background="@drawable/shape_button_bg"
-        android:text="确定"
+        android:text="@string/sure"
         android:textColor="@color/white"
         android:textSize="@dimen/sp15" />
 
