@@ -12,7 +12,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import aio.health2world.utils.MD5Util;
-import aio.health2world.utils.MatchUtil;
 import aio.health2world.utils.ToastUtil;
 import os.bracelets.children.R;
 import os.bracelets.children.common.MVPBaseActivity;
@@ -25,15 +24,15 @@ public class RegisterActivity extends MVPBaseActivity<RegisterContract.Presenter
 
     private EditText edAccount, edCode, edPwd;
 
-    private TextView tvCode,tvArea;
+    private TextView tvCode, tvArea;
 
     private Button btnRegister;
 
     private LinearLayout llAgreement;
 
-    private String[] codeArray = new String[]{"+86", "+1", "+81"};
+    private String[] codeArray = new String[]{"86", "81"};
     private String[] areaArray;
-    private String areaCode = "+86";
+    private String areaCode = "86";
 
     @Override
     protected RegisterContract.Presenter getPresenter() {
@@ -81,7 +80,7 @@ public class RegisterActivity extends MVPBaseActivity<RegisterContract.Presenter
                 register();
                 break;
             case R.id.llAgreement:
-                startActivity(new Intent(this,AgreementActivity.class));
+                startActivity(new Intent(this, AgreementActivity.class));
                 break;
             case R.id.tvArea:
                 //选择区号
@@ -108,11 +107,15 @@ public class RegisterActivity extends MVPBaseActivity<RegisterContract.Presenter
             ToastUtil.showShort(getString(R.string.input_phone));
             return;
         }
-        if (!MatchUtil.isPhoneLegal(phone)) {
+        if(phone.length()!=11){
             ToastUtil.showShort(getString(R.string.phone_incorrect));
             return;
         }
-        mPresenter.code(1, areaCode,phone);
+//        if (!MatchUtil.isPhoneLegal(phone)) {
+//            ToastUtil.showShort(getString(R.string.phone_incorrect));
+//            return;
+//        }
+        mPresenter.code(1, phone, areaCode);
     }
 
     private void register() {
@@ -163,7 +166,7 @@ public class RegisterActivity extends MVPBaseActivity<RegisterContract.Presenter
         @Override
         public void onTick(long millisUntilFinished) {
 //            tvCode.setText(millisUntilFinished / 1000 + "秒后获取");
-            tvCode.setText(String.format(getString(R.string.code_later),millisUntilFinished / 1000));
+            tvCode.setText(String.format(getString(R.string.code_later), millisUntilFinished / 1000));
         }
 
         @Override

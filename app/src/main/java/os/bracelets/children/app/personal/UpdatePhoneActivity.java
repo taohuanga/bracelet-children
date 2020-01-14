@@ -7,7 +7,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import aio.health2world.utils.MatchUtil;
 import aio.health2world.utils.ToastUtil;
 import os.bracelets.children.R;
 import os.bracelets.children.common.MVPBaseActivity;
@@ -85,19 +84,30 @@ public class UpdatePhoneActivity extends MVPBaseActivity<UpdatePhoneContract.Pre
                     ToastUtil.showShort(getString(R.string.input_old_phone));
                     return;
                 }
-                if (!MatchUtil.isPhoneLegal(phone)) {
+
+                if(phone.length()!=11){
                     ToastUtil.showShort(getString(R.string.phone_incorrect));
                     return;
                 }
+//                if (!MatchUtil.isPhoneLegal(phone)) {
+//                    ToastUtil.showShort(getString(R.string.phone_incorrect));
+//                    return;
+//                }
                 String newPhone = edNewPhone.getText().toString().trim();
                 if (TextUtils.isEmpty(newPhone)) {
                     ToastUtil.showShort(getString(R.string.input_new_phone));
                     return;
                 }
-                if (!MatchUtil.isPhoneLegal(newPhone)) {
+
+                if(newPhone.length()!=11){
                     ToastUtil.showShort(getString(R.string.phone_incorrect));
                     return;
                 }
+
+//                if (!MatchUtil.isPhoneLegal(newPhone)) {
+//                    ToastUtil.showShort(getString(R.string.phone_incorrect));
+//                    return;
+//                }
                 String code = edCode.getText().toString().trim();
                 if (TextUtils.isEmpty(code)) {
                     ToastUtil.showShort(getString(R.string.input_code));
@@ -151,19 +161,27 @@ public class UpdatePhoneActivity extends MVPBaseActivity<UpdatePhoneContract.Pre
             ToastUtil.showShort(getString(R.string.input_old_phone));
             return;
         }
-        if (!MatchUtil.isPhoneLegal(phone)) {
+        if(phone.length()!=11){
             ToastUtil.showShort(getString(R.string.phone_incorrect));
             return;
         }
+//        if (!MatchUtil.isPhoneLegal(phone)) {
+//            ToastUtil.showShort(getString(R.string.phone_incorrect));
+//            return;
+//        }
         String newPhone = edNewPhone.getText().toString().trim();
         if (TextUtils.isEmpty(newPhone)) {
             ToastUtil.showShort(getString(R.string.input_new_phone));
             return;
         }
-        if (!MatchUtil.isPhoneLegal(newPhone)) {
+        if(phone.length()!=11){
             ToastUtil.showShort(getString(R.string.phone_incorrect));
             return;
         }
+//        if (!MatchUtil.isPhoneLegal(newPhone)) {
+//            ToastUtil.showShort(getString(R.string.phone_incorrect));
+//            return;
+//        }
         mPresenter.securityCode(3, newPhone);
     }
 }

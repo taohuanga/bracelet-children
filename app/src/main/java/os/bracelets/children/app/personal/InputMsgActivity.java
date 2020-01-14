@@ -12,7 +12,6 @@ import android.widget.EditText;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import aio.health2world.utils.MatchUtil;
 import aio.health2world.utils.ToastUtil;
 import os.bracelets.children.R;
 import os.bracelets.children.common.BaseActivity;
@@ -102,10 +101,16 @@ public class InputMsgActivity extends BaseActivity {
             return;
         }
         if (type == PersonalMsgActivity.ITEM_PHONE) {
-            if (!MatchUtil.isChinaPhoneLegal(msg)) {
+
+            if(msg.length()!=11){
                 ToastUtil.showShort(getString(R.string.phone_incorrect));
                 return;
             }
+
+//            if (!MatchUtil.isChinaPhoneLegal(msg)) {
+//                ToastUtil.showShort(getString(R.string.phone_incorrect));
+//                return;
+//            }
         }
         Intent intent = new Intent();
         intent.putExtra("data", msg);

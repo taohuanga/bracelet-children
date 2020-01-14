@@ -10,7 +10,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import aio.health2world.utils.MD5Util;
-import aio.health2world.utils.MatchUtil;
 import aio.health2world.utils.ToastUtil;
 import os.bracelets.children.R;
 import os.bracelets.children.common.MVPBaseActivity;
@@ -31,9 +30,9 @@ public class ResetPwdActivity extends MVPBaseActivity<ResetPwdContract.Presenter
 
     private TextView tvCode,tvArea;
 
-    private String[] codeArray = new String[]{"+86", "+1", "+81"};
+    private String[] codeArray = new String[]{"86", "81"};
     private String[] areaArray;
-    private String areaCode = "+86";
+    private String areaCode = "86";
 
 
     @Override
@@ -118,10 +117,14 @@ public class ResetPwdActivity extends MVPBaseActivity<ResetPwdContract.Presenter
                     ToastUtil.showShort(getString(R.string.input_phone));
                     return;
                 }
-                if (!MatchUtil.isPhoneLegal(phone1)) {
+                if(phone1.length()!=11){
                     ToastUtil.showShort(getString(R.string.phone_incorrect));
                     return;
                 }
+//                if (!MatchUtil.isPhoneLegal(phone1)) {
+//                    ToastUtil.showShort(getString(R.string.phone_incorrect));
+//                    return;
+//                }
                 mPresenter.code(3, phone1,areaCode);
                 break;
             case R.id.btnSubmit:
@@ -133,10 +136,14 @@ public class ResetPwdActivity extends MVPBaseActivity<ResetPwdContract.Presenter
                     ToastUtil.showShort(getString(R.string.input_phone));
                     return;
                 }
-                if (!MatchUtil.isPhoneLegal(phone)) {
+                if(phone.length()!=11){
                     ToastUtil.showShort(getString(R.string.phone_incorrect));
                     return;
                 }
+//                if (!MatchUtil.isPhoneLegal(phone)) {
+//                    ToastUtil.showShort(getString(R.string.phone_incorrect));
+//                    return;
+//                }
                 if (TextUtils.isEmpty(code)) {
                     ToastUtil.showShort(getString(R.string.input_code));
                     return;

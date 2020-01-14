@@ -18,19 +18,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import aio.health2world.rx.rxpermissions.RxPermissions;
-import aio.health2world.utils.DeviceUtil;
 import aio.health2world.utils.MD5Util;
-import aio.health2world.utils.MatchUtil;
 import aio.health2world.utils.SPUtils;
 import aio.health2world.utils.ToastUtil;
-import cn.jpush.android.api.JPushInterface;
 import os.bracelets.children.AppConfig;
 import os.bracelets.children.R;
 import os.bracelets.children.app.main.MainActivity;
 import os.bracelets.children.bean.BaseInfo;
 import os.bracelets.children.common.MVPBaseActivity;
-import os.bracelets.children.jpush.JPushUtil;
-import os.bracelets.children.jpush.TagAliasOperatorHelper;
 import rx.functions.Action1;
 
 /**
@@ -52,9 +47,9 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.Presenter> impl
 
     private View layoutPhone, layoutAccount;
 
-    private String[] codeArray = new String[]{"+86", "+1", "+81"};
+    private String[] codeArray = new String[]{"86", "81"};
     private String[] areaArray;
-    private String areaCode = "+86";
+    private String areaCode = "86";
 
 
     @Override
@@ -268,10 +263,15 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.Presenter> impl
                 ToastUtil.showShort(getString(R.string.input_phone));
                 return;
             }
-            if (!MatchUtil.isPhoneLegal(phone)) {
+
+            if(phone.length()!=11){
                 ToastUtil.showShort(getString(R.string.phone_incorrect));
                 return;
             }
+//            if (!MatchUtil.isPhoneLegal(phone)) {
+//                ToastUtil.showShort(getString(R.string.phone_incorrect));
+//                return;
+//            }
             if (TextUtils.isEmpty(code)) {
                 ToastUtil.showShort(getString(R.string.input_code));
                 return;
@@ -289,10 +289,15 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.Presenter> impl
             ToastUtil.showShort(getString(R.string.input_phone));
             return;
         }
-        if (!MatchUtil.isPhoneLegal(phone)) {
+
+        if(phone.length()!=11){
             ToastUtil.showShort(getString(R.string.phone_incorrect));
             return;
         }
+//        if (!MatchUtil.isPhoneLegal(phone)) {
+//            ToastUtil.showShort(getString(R.string.phone_incorrect));
+//            return;
+//        }
         mPresenter.securityCode(2, phone,areaCode);
     }
 }

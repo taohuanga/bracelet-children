@@ -181,4 +181,9 @@ XXが身につけている衣帯保は【上海市静安区南京西路XXX号近
         <item>情報</item>
         <item>私の</item>
     </string-array>
+
+    <string-array name="area_code">
+        <item>中国 +86</item>
+        <item>日本 +81</item>
+    </string-array>
 </resources>
