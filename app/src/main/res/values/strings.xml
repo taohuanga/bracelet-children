@@ -162,13 +162,13 @@
     <string name="help_center">帮助中心</string>
 
     <string-array name="date_array">
+        <item>周日</item>
         <item>周一</item>
         <item>周二</item>
         <item>周三</item>
         <item>周四</item>
         <item>周五</item>
         <item>周六</item>
-        <item>周日</item>
     </string-array>
 
     <string-array name="home_tab_data">

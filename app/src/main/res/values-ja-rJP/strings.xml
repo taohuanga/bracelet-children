@@ -166,13 +166,13 @@ XXが身につけている衣帯保は【上海市静安区南京西路XXX号近
     <string name="help_center">ヘルプセンター</string>
 
     <string-array name="date_array">
+        <item>日曜日</item>
         <item>月曜日</item>
         <item>火曜日</item>
         <item>水曜日</item>
         <item>木曜日</item>
         <item>金曜日</item>
         <item>土曜日</item>
-        <item>日曜日</item>
     </string-array>
 
     <string-array name="home_tab_data">

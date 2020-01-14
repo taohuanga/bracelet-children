@@ -167,7 +167,7 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.Presenter> implem
 
     @Override
     protected void initData() {
-        tvTime.setText(DateUtil.getDate(new Date(System.currentTimeMillis())) + " " + DataString.getWeek());
+        tvTime.setText(DateUtil.getDate(new Date(System.currentTimeMillis())) + " " + DataString.getWeek(getActivity()));
 
         familyMemberList = new ArrayList<>();
         topAdapter = new HomeTopAdapter(getActivity(), this, familyMemberList);
