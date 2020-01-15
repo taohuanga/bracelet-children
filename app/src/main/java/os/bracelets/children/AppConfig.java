@@ -33,7 +33,8 @@ public class AppConfig {
     public static final String CURRENT_DEVICE = "current_device";
     //标记当前程序是否登录
     public static final String IS_LOGIN = "is_login";
-
+    //标记程序第一次安装
+    public static final String FIRST_IN = "first_in";
 
     //蓝牙连接成功
     public static final int MSG_DEVICE_CONNECT = 10;

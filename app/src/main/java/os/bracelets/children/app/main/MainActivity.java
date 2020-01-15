@@ -12,6 +12,7 @@ import aio.health2world.utils.SPUtils;
 import cn.jpush.android.api.JPushInterface;
 import os.bracelets.children.AppConfig;
 import os.bracelets.children.R;
+import os.bracelets.children.app.about.HelpActivityIn;
 import os.bracelets.children.app.family.FamilyListFragment;
 import os.bracelets.children.app.home.HomeFragment;
 import os.bracelets.children.app.news.HealthInfoFragment;
@@ -70,6 +71,15 @@ public class MainActivity extends MVPBaseActivity<MainContract.Presenter> implem
         if (info != null)
             loginHx();
         mPresenter.uploadLocation();
+
+        boolean firstIn = (boolean) SPUtils.get(this, AppConfig.FIRST_IN, true);
+
+        //程序第一次安装则弹出帮助页面
+        if (firstIn) {
+            startActivity(new Intent(this, HelpActivityIn.class));
+            SPUtils.put(this, AppConfig.FIRST_IN, false);
+        }
+
     }
 
     @Override

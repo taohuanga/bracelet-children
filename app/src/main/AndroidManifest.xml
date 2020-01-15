@@ -142,6 +142,9 @@
 
         <activity android:name=".app.about.HelpActivity"/>
 
+        <activity android:name=".app.about.HelpActivityIn"
+            android:theme="@style/dialogStyle"/>
+
         <service android:name="com.amap.api.location.APSService" />
 
         <meta-data
