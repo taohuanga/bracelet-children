@@ -61,18 +61,21 @@ public class HelpActivityIn extends BaseActivity {
         FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) webLayout.getLayoutParams();
 
         params.height = heightPixels * 4 / 5;
-        params.width = widthPixels * 3 / 4;
+        params.width = widthPixels * 9 / 10;
         webLayout.setLayoutParams(params);
 
         WebSettings settings = webView.getSettings();
-        settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-        settings.setDisplayZoomControls(true);
         settings.setJavaScriptEnabled(true);
         settings.setDomStorageEnabled(true);
         settings.setSupportZoom(true);
         settings.setUseWideViewPort(true);
         settings.setLoadWithOverviewMode(true);
         settings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+        settings.setBuiltInZoomControls(true);
+        //设定缩放控件隐藏
+        settings.setDisplayZoomControls(true);
+        //最小缩放等级
+        webView.setInitialScale(50);
     }
 
     @Override
@@ -90,7 +93,7 @@ public class HelpActivityIn extends BaseActivity {
                             public void run() {
                                 webView.loadUrl(helpUrl);
                             }
-                        },500);
+                        }, 500);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -108,7 +111,7 @@ public class HelpActivityIn extends BaseActivity {
 //            }
 //        });
 
-        webView.setWebChromeClient(new WebChromeClient(){
+        webView.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 super.onProgressChanged(view, newProgress);
