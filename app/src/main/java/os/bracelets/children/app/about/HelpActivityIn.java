@@ -11,6 +11,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.google.gson.Gson;
@@ -30,7 +31,7 @@ import os.bracelets.children.view.TitleBar;
 
 public class HelpActivityIn extends BaseActivity {
 
-//    private TitleBar titleBar;
+    private ImageView ivClose;
 
     private WebView webView;
 
@@ -40,17 +41,15 @@ public class HelpActivityIn extends BaseActivity {
 
     @Override
     protected int getLayoutId() {
+        setFinishOnTouchOutside(false);
         return R.layout.activity_help_in;
     }
 
     @Override
     protected void initView() {
-//        titleBar = findView(R.id.titleBar);
+        ivClose = findView(R.id.ivClose);
         webView = findView(R.id.webView);
         progress = findView(R.id.progress);
-//        TitleBarUtil.setAttr(this, "", getString(R.string.help_center), titleBar);
-
-
         webLayout = findView(R.id.webLayout);
 
         DisplayMetrics outMetrics = new DisplayMetrics();
@@ -60,22 +59,20 @@ public class HelpActivityIn extends BaseActivity {
 
         FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) webLayout.getLayoutParams();
 
-        params.height = heightPixels * 4 / 5;
-        params.width = widthPixels * 9 / 10;
+        params.height = heightPixels * 5 / 6;
+        params.width = widthPixels * 95 / 100;
         webLayout.setLayoutParams(params);
 
         WebSettings settings = webView.getSettings();
         settings.setJavaScriptEnabled(true);
         settings.setDomStorageEnabled(true);
-        settings.setSupportZoom(true);
-        settings.setUseWideViewPort(true);
-        settings.setLoadWithOverviewMode(true);
         settings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
-        settings.setBuiltInZoomControls(true);
-        //设定缩放控件隐藏
-        settings.setDisplayZoomControls(true);
-        //最小缩放等级
-        webView.setInitialScale(50);
+
+        settings.setUseWideViewPort(true);
+        settings.setLoadWithOverviewMode(true);// 缩放至屏幕的大小
+        settings.setSupportZoom(true);//支持缩放
+        settings.setBuiltInZoomControls(true);//设置内置的缩放控件
+        settings.setDisplayZoomControls(false);//隐藏原生的缩放控件
     }
 
     @Override
@@ -104,12 +101,13 @@ public class HelpActivityIn extends BaseActivity {
 
     @Override
     protected void initListener() {
-//        titleBar.setLeftClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                finish();
-//            }
-//        });
+
+        ivClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         webView.setWebChromeClient(new WebChromeClient() {
             @Override

@@ -1,9 +1,5 @@
 apply plugin: 'com.android.application'
 
-static def packageTime() {
-    return new Date().format("MM_dd_HHmm", TimeZone.getTimeZone("GMT+8"))
-}
-
 static String gitVersion() {
     def cmd = 'git rev-parse --short HEAD'
     def version = cmd.execute().text.trim()
